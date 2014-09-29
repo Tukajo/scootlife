@@ -3,15 +3,15 @@
  */
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 750;
+canvas.width = 1500;
 canvas.height = 750;
 document.body.appendChild(canvas);
 
 
 var canvas2 = document.createElement("canvas2");
 var ctx2 = canvas.getContext("2d");
-canvas2.width = 750;
-canvas2.height = 750;
+canvas2.width = 1000;
+canvas2.height = 500;
 document.body.appendChild(canvas2);
 
 // menu background
@@ -76,6 +76,26 @@ creditHImage.src = 'Art_Assets/main_menu/btn_helph.png';
 
 // PUT IN A NEW FILE HERE ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+//credits
+var creditsReady = false;
+var creditsImage = new Image();
+creditsImage.onload = function (){
+    creditsReady = true;
+}
+
+creditsImage.src = 'Art_Assets/credits.png';
+
+//gameScreen Image
+var gameScreenReady = false;
+var gameScreenImage = new Image();
+gameScreenImage.onload = function (){
+    gameScreenReady = true;
+}
+
+gameScreenImage.src = 'Art_Assets/game_screen/Colabrative Layout copy.png';
+
+
+
 var startBtn = {
     x:50,
     y:50,
@@ -93,6 +113,7 @@ var creditBtn={
 var posx;
 var posy;
 var viewCredits=false;
+var playGame=false;
 
 
 var updateRate=0;
@@ -104,7 +125,7 @@ var update = function(modifier){
     contact(startBtn);
     contact(creditBtn);
 
-    onClick(ctx.fillText("CLICK",100,100));
+
 
 
 };
@@ -147,7 +168,11 @@ var render = function(){
 
     if(viewCredits==true)
         if(creditHReady)
-            ctx.drawImage(creditImage,0,0);
+            ctx.drawImage(creditsImage,0,0);
+
+    if(playGame==true)
+        if(gameScreenReady)
+            ctx2.drawImage(gameScreenImage,0,0,1500,750);
 
    // if(posReady)
     //    ctx.drawImage(posImage,431,72);
@@ -174,10 +199,14 @@ function getMousePos(canvas,evt) {
 canvas.addEventListener('click', onClick, false);
 
 function onClick(evt){
-    var rect = canvas.getBoundingClientRect();
-    var x = evt.clientX - rect.left;
-    var y = evt.clientY - rect.top;
-    console.log('X:pos = ' + x + ' Y:pos = ' + y);
+    viewCredits=false;
+    if(creditBtn.hover)
+        viewCredits=true;
+
+    if(startBtn.hover)
+        playGame=true;
+
+
 
 }
 
