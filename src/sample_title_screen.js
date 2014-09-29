@@ -107,10 +107,19 @@ var update = function(modifier){
     contact(startBtn);
     contact(creditBtn);
 
+    detectLeftButton()
+
 
 
 
 };
+
+function detectLeftButton(evt) {
+    evt = evt || window.event;
+    var button = evt.which || evt.button;
+    return button == 1;
+}
+
 
 // checks if mouse is touching something
 var contact = function(button){
