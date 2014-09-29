@@ -7,6 +7,10 @@ canvas.width = 750;
 canvas.height = 750;
 document.body.appendChild(canvas);
 
+
+
+
+
 var canvas2 = document.createElement("canvas2");
 var ctx2 = canvas.getContext("2d");
 canvas2.width = 750;
@@ -19,7 +23,7 @@ var backImage = new Image();
 backImage.onload = function () {
     backReady = true;
 };
-backImage.src = "bkg_start2.png";
+backImage.src = "C:/Github/scootlife/Art_Assets/main_menu/bkg_start2.png";
 
 //temp mouse calibration tool, DO NOT KEEP v !!!!!!!!!!!!!!!!!!!!!!!
 var posReady = false;
@@ -27,7 +31,7 @@ var posImage = new Image();
 posImage.onload = function () {
     posReady = true;
 };
-posImage.src = "position test.png";
+//posImage.src = "C:/Github/scootlife/Art_Assets/main_menu/position test.png";
 //temp mouse calibration tool, DO NOT KEEP ^ !!!!!!!!!!!!!!!!!!!!!!!
 
 
@@ -37,7 +41,7 @@ var startImage = new Image();
 startImage.onload = function () {
     startReady = true;
 };
-startImage.src = 'btn_play.png';
+startImage.src = 'C:/Github/scootlife/Art_Assets/main_menu/btn_play.png';
 
 //start button hover
 var startHReady = false;
@@ -45,7 +49,7 @@ var startHImage = new Image();
 startHImage.onload = function () {
     startHReady = true;
 };
-startHImage.src = 'btn_playh.png';
+startHImage.src = 'C:/Github/scootlife/Art_Assets/main_menu/btn_playh.png';
 // PUT IN A NEW FILE HERE ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //credit button
@@ -54,7 +58,7 @@ var creditImage = new Image();
 creditImage.onload = function (){
     creditReady = true;
 }
-creditImage.src = 'btn_help.png';
+creditImage.src = 'C:/Github/scootlife/Art_Assets/main_menu/btn_help.png';
 
 //credit button hover
 var creditHReady = false;
@@ -62,7 +66,7 @@ var creditHImage = new Image();
 creditHImage.onload = function (){
     creditHReady = true;
 }
-creditHImage.src = 'btn_helph.png';
+creditHImage.src = 'C:/Github/scootlife/Art_Assets/main_menu/btn_helph.png';
 // PUT IN A NEW FILE HERE ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 var startBtn = {
@@ -157,6 +161,18 @@ function getMousePos(canvas,evt) {
         y: evt.clientY - rect.top
     };
 }
+
+canvas.addEventListener('click', onClick, false);
+
+function onClick(evt){
+    var rect = canvas.getBoundingClientRect();
+    var x = evt.clientX - rect.left;
+    var y = evt.clientY - rect.top;
+    console.log('X:pos = ' + x + ' Y:pos = ' + y);
+
+}
+
+
 
 
 var main = function () {
