@@ -104,19 +104,19 @@ var update = function(modifier){
     contact(startBtn);
     contact(creditBtn);
 
-    detectLeftButton()
+    //detectLeftButton()
 
 
 
 
 };
-
+/*
 function detectLeftButton(evt) {
     evt = evt || window.event;
     var button = evt.which || evt.button;
     return button == 1;
 }
-
+*/
 
 // checks if mouse is touching something
 var contact = function(button){
@@ -184,9 +184,14 @@ function onClick(evt){
     var rect = canvas.getBoundingClientRect();
     var x = evt.clientX - rect.left;
     var y = evt.clientY - rect.top;
-    console.log('X:pos = ' + x + ' Y:pos = ' + y);
-
+    //console.log('X:pos = ' + x + ' Y:pos = ' + y);
+    
+    if (x > 50 && x < 210 && y > 50 && y < 115) {
+        alert(x);
+    }
 }
+
+
 
 
 
