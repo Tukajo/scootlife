@@ -19,7 +19,7 @@ var backImage = new Image();
 backImage.onload = function () {
     backReady = true;
 };
-backImage.src = "\scootlife\Art_Assets\main_menu\bkg_start2.png";
+backImage.src = "Art_Assets/main_menu/bkg_start2.png";
 
 //temp mouse calibration tool, DO NOT KEEP v !!!!!!!!!!!!!!!!!!!!!!!
 var posReady = false;
@@ -37,7 +37,7 @@ var startImage = new Image();
 startImage.onload = function () {
     startReady = true;
 };
-startImage.src = 'btn_play.png';
+startImage.src = 'Art_Assets/main_menu/btn_play.png';
 
 //start button hover
 var startHReady = false;
@@ -45,7 +45,7 @@ var startHImage = new Image();
 startHImage.onload = function () {
     startHReady = true;
 };
-startHImage.src = 'btn_playh.png';
+startHImage.src = 'Art_Assets/main_menu/btn_playh.png';
 // PUT IN A NEW FILE HERE ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //credit button
@@ -54,7 +54,7 @@ var creditImage = new Image();
 creditImage.onload = function (){
     creditReady = true;
 }
-creditImage.src = 'btn_help.png';
+creditImage.src = 'Art_Assets/main_menu/btn_help.png';
 
 //credit button hover
 var creditHReady = false;
@@ -62,7 +62,7 @@ var creditHImage = new Image();
 creditHImage.onload = function (){
     creditHReady = true;
 }
-creditHImage.src = 'btn_helph.png';
+creditHImage.src = 'Art_Assets/main_menu/btn_helph.png';
 // PUT IN A NEW FILE HERE ^ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 var startBtn = {
