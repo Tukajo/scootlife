@@ -19,7 +19,7 @@ var backImage = new Image();
 backImage.onload = function () {
     backReady = true;
 };
-backImage.src = "bkg_start2.png";
+backImage.src = "\scootlife\Art_Assets\main_menu\bkg_start2.png";
 
 //temp mouse calibration tool, DO NOT KEEP v !!!!!!!!!!!!!!!!!!!!!!!
 var posReady = false;
