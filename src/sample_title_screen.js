@@ -8,9 +8,6 @@ canvas.height = 750;
 document.body.appendChild(canvas);
 
 
-
-
-
 var canvas2 = document.createElement("canvas2");
 var ctx2 = canvas.getContext("2d");
 canvas2.width = 750;
