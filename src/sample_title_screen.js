@@ -104,18 +104,11 @@ var update = function(modifier){
     contact(startBtn);
     contact(creditBtn);
 
-    detectLeftButton()
-
-
+    onClick(ctx.fillText("CLICK",100,100));
 
 
 };
 
-function detectLeftButton(evt) {
-    evt = evt || window.event;
-    var button = evt.which || evt.button;
-    return button == 1;
-}
 
 
 // checks if mouse is touching something
