@@ -28,8 +28,8 @@
       <file leaf-file-name="sample_title_screen.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample_title_screen.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.22454672" vertical-offset="2151" max-vertical-offset="5610">
-              <caret line="136" column="27" selection-start-line="136" selection-start-column="27" selection-end-line="136" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.57043236" vertical-offset="4028" max-vertical-offset="5678">
+              <caret line="261" column="47" selection-start-line="261" selection-start-column="47" selection-end-line="261" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -411,8 +411,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample_title_screen.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22454672" vertical-offset="2151" max-vertical-offset="5610">
-          <caret line="136" column="27" selection-start-line="136" selection-start-column="27" selection-end-line="136" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.57043236" vertical-offset="4028" max-vertical-offset="5678">
+          <caret line="261" column="47" selection-start-line="261" selection-start-column="47" selection-end-line="261" selection-end-column="47" />
           <folding />
         </state>
       </provider>

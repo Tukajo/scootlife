@@ -84,13 +84,13 @@ creditsImage.onload = function (){
 }
 
 creditsImage.src = 'Art_Assets/credits.png';
-
+/*
 //workstation: saw Image
 var sawReady = false;
 var sawImage = new Image();
 sawImage.onload = function (){
     sawReady = true;
-}
+}*/
 
 /*
 sawImage.src = 'Art_Assets/game_screen/workstation.png';
@@ -141,6 +141,9 @@ var clickable = function(x,y,h,w,src){
     this.image.src=src;
     //findSrc(tote,src);
 };
+var ready = function(object){
+    object.ready=true;
+}
 
 /*
 var findSrc =function(tote,src){
@@ -152,6 +155,7 @@ var findSrc =function(tote,src){
 
 
 var sawStation= new clickable(100,100,64,128,'Art_Assets/game_screen/workstation.png');
+sawStation.image.onload=ready(sawStation);
 //var drillStation =clickable(140,100,64,128);
 
 /*var sawStation ={
@@ -256,10 +260,10 @@ var render = function(){
             ctx2.drawImage(gameScreenImage,0,0,960,1080, 0, 0, 750, 750);
 
         if (sawStation.ready&&sawStation.hover)
-            ctx.drawImage(sawStation.Image, sawStation.x,sawStation.y,sawStation.w,sawStation.h);
+            ctx2.drawImage(sawStation.image, sawStation.x,sawStation.y,sawStation.w,sawStation.h);
 
         if (sawStation.ready&&!sawStation.hover)
-            ctx.drawImage(sawStation.image, sawStation.x,sawStation.y+6,sawStation.w,sawStation.h);
+            ctx2.drawImage(sawStation.image, sawStation.x,sawStation.y+6,sawStation.w,sawStation.h);
     }
 
    // if(posReady)
