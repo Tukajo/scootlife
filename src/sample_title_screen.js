@@ -85,6 +85,27 @@ creditsImage.onload = function (){
 
 creditsImage.src = 'Art_Assets/credits.png';
 
+//workstation: saw Image
+var sawReady = false;
+var sawImage = new Image();
+sawImage.onload = function (){
+    sawReady = true;
+}
+
+/*
+sawImage.src = 'Art_Assets/game_screen/workstation.png';
+
+//workstation: drill Image
+var drillReady = false;
+var drillImage = new Image();
+drillImage.onload = function (){
+    drillReady = true;
+}
+
+drillImage.src = 'Art_Assets/game_screen/workstation.png';
+*/
+
+
 //gameScreen Image
 var gameScreenReady = false;
 var gameScreenImage = new Image();
@@ -94,7 +115,60 @@ gameScreenImage.onload = function (){
 
 gameScreenImage.src = 'Art_Assets/game_screen/Colabrative Layout copy.png';
 
+/*
+var sawStation =function(){
+    x=100,
+    y=100,
+    h=64,
+    w=128,
+    hover=false
+};*/
 
+
+
+
+var clickable = function(x,y,h,w,src){
+    this.x=x;
+    this.y=y;
+    this.h=h;
+    this.w=w;
+    this.hover=false;
+    this.ready=false;
+    this.image=new Image();
+    this.image.onload= function(){
+        this.ready=true;
+    }
+    this.image.src=src;
+    //findSrc(tote,src);
+};
+
+/*
+var findSrc =function(tote,src){
+    tote.image.onload= function(){
+        toat.ready=true;
+    }
+    tote.image.src=src;
+}*/
+
+
+var sawStation= new clickable(100,100,64,128,'Art_Assets/game_screen/workstation.png');
+//var drillStation =clickable(140,100,64,128);
+
+/*var sawStation ={
+    x:100,
+    y:100,
+    h:64,
+    w:128,
+    hover:false
+};
+
+var drillStation ={
+    x:100,
+    y:100,
+    h:64,
+    w:128,
+    hover:false
+};*/
 
 var startBtn = {
     x:50,
@@ -112,8 +186,12 @@ var creditBtn={
 };
 var posx;
 var posy;
+
+var currentScreen= "mainMenu";
+
 var viewCredits=false;
 var playGame=false;
+var startScreen=true;
 
 
 var updateRate=0;
@@ -124,11 +202,11 @@ var update = function(modifier){
 
     contact(startBtn);
     contact(creditBtn);
-
-
+    contact(sawStation);
 
 
 };
+
 
 
 
@@ -138,41 +216,51 @@ var contact = function(button){
     if(posx>=button.x&&
         posx<=button.w+button.x&&
         posy>=button.y&&
-        posy<=button.h+button.y)
-    {
+        posy<=button.h+button.y) {
         button.hover=true;
     }
     else
         button.hover=false;
 }
 
+
+
 var render = function(){
 
-    if (backReady)
-        ctx.drawImage(backImage,0,0,750,750);
+    if(currentScreen=="mainMenu") {
+        if (backReady)
+            ctx.drawImage(backImage, 0, 0, 750, 750);
+        if (startBtn.hover == false)
+            if (startReady)
+                ctx.drawImage(startImage, startBtn.x, startBtn.y, startBtn.w, startBtn.h);
+        if (startBtn.hover == true)
+            if (startHReady)
+                ctx.drawImage(startHImage, startBtn.x, startBtn.y, startBtn.w, startBtn.h);
+
+        if (creditBtn.hover == false)
+            if (creditReady)
+                ctx.drawImage(creditImage, creditBtn.x, creditBtn.y, creditBtn.w, creditBtn.h);
+        if (creditBtn.hover == true)
+            if (creditHReady)
+                ctx.drawImage(creditHImage, creditBtn.x, creditBtn.y, creditBtn.w, creditBtn.h);
+
+        if (viewCredits == true)
+            if (creditHReady)
+                ctx.drawImage(creditsImage, 0, 0);
+    }
 
 
-    if(startBtn.hover==false)
-        if(startReady)
-            ctx.drawImage(startImage,startBtn.x,startBtn.y,startBtn.w,startBtn.h);
-    if(startBtn.hover==true)
-        if(startHReady)
-            ctx.drawImage(startHImage,startBtn.x,startBtn.y,startBtn.w,startBtn.h);
+    //factory background layer (Left window)
+    if(playGame==true) {
+        if (gameScreenReady)
+            ctx2.drawImage(gameScreenImage,0,0,960,1080, 0, 0, 750, 750);
 
-    if(creditBtn.hover==false)
-        if(creditReady)
-            ctx.drawImage(creditImage,creditBtn.x,creditBtn.y,creditBtn.w,creditBtn.h);
-    if(creditBtn.hover==true)
-        if(creditHReady)
-            ctx.drawImage(creditHImage,creditBtn.x,creditBtn.y,creditBtn.w,creditBtn.h);
+        if (sawStation.ready&&sawStation.hover)
+            ctx.drawImage(sawStation.Image, sawStation.x,sawStation.y,sawStation.w,sawStation.h);
 
-    if(viewCredits==true)
-        if(creditHReady)
-            ctx.drawImage(creditsImage,0,0);
-
-    if(playGame==true)
-        if(gameScreenReady)
-            ctx2.drawImage(gameScreenImage,0,0,1500,750);
+        if (sawStation.ready&&!sawStation.hover)
+            ctx.drawImage(sawStation.image, sawStation.x,sawStation.y+6,sawStation.w,sawStation.h);
+    }
 
    // if(posReady)
     //    ctx.drawImage(posImage,431,72);
@@ -199,14 +287,19 @@ function getMousePos(canvas,evt) {
 canvas.addEventListener('click', onClick, false);
 
 function onClick(evt){
-    viewCredits=false;
-    if(creditBtn.hover)
-        viewCredits=true;
+    if(viewCredits) {
+        viewCredits = false;
+        startScreen = true;
+    }
+    else if(creditBtn.hover&&startScreen) {
+        viewCredits = true;
+        startScreen = false;
+    }
+    else if(startBtn.hover&&startScreen) {
+        playGame = true;
+        startScreen = false;
 
-    if(startBtn.hover)
-        playGame=true;
-
-
+    }
 
 }
 
