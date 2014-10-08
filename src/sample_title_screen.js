@@ -15,7 +15,7 @@ canvas2.height = 500;
 document.body.appendChild(canvas2);
 
 var workStation= function(src,altSrc,subScreen){
-    this.subScreen
+    this.subScreen=subScreen;
     this.x=0;
     this.y=0;
     this.h=64;
@@ -231,12 +231,18 @@ var render = function(){
         //draw(ctx2,sawStation,3,-3);
         //draw(ctx2,drillStation,3,-3);
         draw(ctx2,desk,3,-3);
+        if(subScreen=="office")
+            draw(ctx2,office,0,0);
+
+        if(subScreen!="office"&&subScreen!="leanTools"&&subScreen!="monthlyReport"&&subScreen!="calendar"){
+            ctx.fillText(subScreen,850,400);
+
+        }
 
 
 
     }
-    if(subScreen=="office")
-        draw(ctx2,office,0,0);
+
 
     ctx.fillText("x: "+posx,100,400);
     ctx.fillText("y: "+posy,100,415);
