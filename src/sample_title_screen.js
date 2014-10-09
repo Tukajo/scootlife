@@ -85,8 +85,17 @@ var position = [new stationPos(95,170),new stationPos(310,170),new stationPos(52
 
  */
 
-var gameScreen= new gameObject(0,0,750,1500,'Art_Assets/game_screen/Colabrative Layout copy.png',0);
+var gameScreen= new gameObject(0,0,750,750,'Art_Assets/game_screen/workstation_view.png',0);
 loadImg(gameScreen);
+
+var stationView= new gameObject(750,0,750,750,"Art_Assets/game_screen/Right_Side_Background.png",0);
+loadImg(stationView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var leanToolsView= new gameObject(770,20,710,710,"Art_Assets/game_screen/lean_tools_view.png",0);
+loadImg(leanToolsView);
 
 var menu= new gameObject(0,0,750,750,'Art_Assets/main_menu/bkg_start2.png',0);
 loadImg(menu);
@@ -101,33 +110,55 @@ var credits= new gameObject(0,0,750,750,'Art_Assets/credits.png',0);
 loadImg(credits);
 
 
+///////////////////////////////////////////////// v   Replace image for each button
+//Office screen buttons
+var closeBtn=new gameObject(1420,0,80,80,'Art_Assets/game_screen/close.png','Art_Assets/game_screen/closeH.png');
+loadImg(closeBtn);
+
+var reportBtn=new gameObject(1000,550,80,80,'Art_Assets/game_screen/reportBtn_temp.png',0);
+loadImg(reportBtn);
+
+var leanToolsBtn=new gameObject(780,100,300,300,'Art_Assets/game_screen/lean_toolsBtn_temp.png',0)
+loadImg(leanToolsBtn);
+
+var calendarBtn=new gameObject(1300,550,80,80,'Art_Assets/game_screen/calendarBtn_temp.png',0)
+loadImg(calendarBtn);
+
+//Office screen views
+var reportView=new gameObject(760,10,730,730,'Art_Assets/game_screen/workstation.png',0);
+loadImg(reportView);
+
+
+
+
+///////////////////////////////////////   v   Replace image for each workstation
 
 // 9 work stations
-var sawStation= new workStation('Art_Assets/game_screen/workstation.png',0,"sawView");
+var sawStation= new workStation('Art_Assets/workshop_icons/icon_saw.png',0,"sawView");
 loadImg(sawStation);
 
-var drillStation= new workStation('Art_Assets/game_screen/workstation.png',0,"drillView");
+var drillStation= new workStation('Art_Assets/workshop_icons/icon_drill.png',0,"drillView");
 loadImg(drillStation);
 
-var bendStation= new workStation('Art_Assets/game_screen/workstation.png',0,"bendView");
+var bendStation= new workStation('Art_Assets/workshop_icons/icon_bender.png',0,"bendView");
 loadImg(bendStation);
 
-var weldStation= new workStation('Art_Assets/game_screen/workstation.png',0,"weldView");
+var weldStation= new workStation('Art_Assets/workshop_icons/icon_welder.png',0,"weldView");
 loadImg(weldStation);
 
-var grindStation= new workStation('Art_Assets/game_screen/workstation.png',0,"grindView");
+var grindStation= new workStation('Art_Assets/workshop_icons/icon_grinder.png',0,"grindView");
 loadImg(grindStation);
 
-var paintStation= new workStation('Art_Assets/game_screen/workstation.png',0,"paintView");
+var paintStation= new workStation('Art_Assets/workshop_icons/icon_paint.png',0,"paintView");
 loadImg(paintStation);
 
-var assemblyStation= new workStation('Art_Assets/game_screen/workstation.png',0,"assemblyView");
+var assemblyStation= new workStation('Art_Assets/workshop_icons/icon_assembly.png',0,"assemblyView");
 loadImg(assemblyStation);
 
-var fabricStation= new workStation('Art_Assets/game_screen/workstation.png',0,"fabricView");
+var fabricStation= new workStation('Art_Assets/workshop_icons/icon_cutting.png',0,"fabricView");
 loadImg(fabricStation);
 
-var sewingStation= new workStation('Art_Assets/game_screen/workstation.png',0,"sewingView");
+var sewingStation= new workStation('Art_Assets/workshop_icons/icon_sewing.png',0,"sewingView");
 loadImg(sewingStation);
 
 var station = [ sawStation,drillStation,bendStation,
@@ -168,6 +199,12 @@ var update = function(modifier) {
     contact(startBtn);
     contact(creditBtn);
     contact(desk);
+
+    //finish all of the following through onclick and draw
+    contact(reportBtn);
+    contact(closeBtn);
+    contact(leanToolsBtn);
+    contact(calendarBtn);
 
 
     for (var i = 0; i < 9; i++) {
@@ -223,21 +260,41 @@ var render = function(){
 
         for(var i=0;i<9;i++){
             draw(ctx2,station[i],3,-3);
-            //if(station[i].ready&&station[i].hover==false)
-             //   ctx2.drawImage(station[i].image,station[i].x,station[i].y,station[i].w,station[i].h);
-            //if(station[i].readyAlt&&station[i].hover)
-              //  ctx2.drawImage(station[i].imageAlt,station[i].x+3,station[i].y-3,station[i].w,station[i].h);
         }
-        //draw(ctx2,sawStation,3,-3);
-        //draw(ctx2,drillStation,3,-3);
         draw(ctx2,desk,3,-3);
-        if(subScreen=="office")
+        if(subScreen=="office"||subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
             draw(ctx2,office,0,0);
+        if(subScreen=="office"){
+            draw(ctx2,leanToolsBtn,0,0);
+            draw(ctx2,reportBtn,0,0);
+            draw(ctx2,calendarBtn,0,0);
+        }
+
+        //draw background of workstation
+        if(subScreen!="office"&&subScreen!="leanTools"&&subScreen!="monthlyReport"&&subScreen!="calendar"){
+            draw(ctx2,stationView,0,0);
+        }
+        if(subScreen==sawStation.subScreen)
+            draw(ctx2,sawView,0,0);
+
+
+
+
+        if(subScreen=="leanTools")
+            draw(ctx2,leanToolsView,0,0);
+        if(subScreen=="monthlyReport")
+            draw(ctx2,reportView,0,0);
+        if(subScreen=="leanTools"||subScreen=="monthlyReport"||subScreen=="calendar")
+            draw(ctx2,closeBtn,0,0);
+        //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
+          //  draw(ctx2,)
 
         if(subScreen!="office"&&subScreen!="leanTools"&&subScreen!="monthlyReport"&&subScreen!="calendar"){
-            ctx.fillText(subScreen,850,400);
-
+            ctx2.font="80px Georgia";
+            ctx2.fillText(subScreen,900,500);
+            ctx2.font="10px Georgia";
         }
+
 
 
 
@@ -282,7 +339,7 @@ function onClick(evt){
             currentScreen="credits";
         else if(startBtn.hover) {
             currentScreen = "factory";
-            subScreen="null";// Make this office in full game
+            subScreen="office";
         }
     }
     else if(currentScreen=="factory") {
@@ -294,6 +351,9 @@ function onClick(evt){
         if(desk.hover) {
             currentScreen = "factory";
             subScreen = "office";
+        }
+        if(leanToolsBtn.hover){
+            subScreen="leanTools";
         }
     }
 
