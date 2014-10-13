@@ -3,22 +3,36 @@
  */
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 1500;
+canvas.border=0;
+canvas.top=0;
+canvas.left=0;
+canvas.width = 1550;
 canvas.height = 750;
 document.body.appendChild(canvas);
-
-
-var canvas2 = document.createElement("canvas2");
 var ctx2 = canvas.getContext("2d");
-canvas2.width = 1000;
-canvas2.height = 500;
+
+/*
+var canvas2 = document.createElement("canvas");
+var ctx2 = canvas.getContext("2d");
+canvas2.top=0;
+canvas2.left=0;
+canvas2.width = 1550;
+canvas2.height = 750;
 document.body.appendChild(canvas2);
 
+var background = document.createElement("canvas");
+var ctx3 = background.getContext("2d");
+background.left=-3;
+background.top=-3;
+background.width = 1000;
+background.height = 500;
+document.body.appendChild(background);
+*/
 var workStation= function(src,altSrc,subScreen){
     this.subScreen=subScreen;
     this.x=0;
     this.y=0;
-    this.h=64;
+    this.h=128;
     this.w=128;
     this.hover=false;
     this.drag=false;
@@ -75,9 +89,9 @@ var loadImg = function (object){
     object.imageAlt.onload=readyAlt(object);
 }
 
-var position = [new stationPos(95,170),new stationPos(310,170),new stationPos(525,170),
-                new stationPos(95,290),new stationPos(310,290),new stationPos(525,290),
-                new stationPos(95,420),new stationPos(310,420),new stationPos(525,420)];
+var position = [new stationPos(95,60),new stationPos(310,60),new stationPos(525,60),
+                new stationPos(95,248),new stationPos(310,248),new stationPos(525,248),
+                new stationPos(95,436),new stationPos(310,436),new stationPos(525,436)];
 
 //declaring all game objects
 /*
@@ -94,8 +108,10 @@ loadImg(stationView);
 var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
 loadImg(sawView);
 
-var leanToolsView= new gameObject(770,20,710,710,"Art_Assets/game_screen/lean_tools_view.png",0);
-loadImg(leanToolsView);
+var border= new gameObject(-3,-3,780,1500,"Art_Assets/game_screen/background.png",0);
+loadImg(border)
+
+
 
 var menu= new gameObject(0,0,750,750,'Art_Assets/main_menu/bkg_start2.png',0);
 loadImg(menu);
@@ -112,7 +128,7 @@ loadImg(credits);
 
 ///////////////////////////////////////////////// v   Replace image for each button
 //Office screen buttons
-var closeBtn=new gameObject(1420,0,80,80,'Art_Assets/game_screen/close.png','Art_Assets/game_screen/closeH.png');
+var closeBtn=new gameObject(1400,20,80,80,'Art_Assets/game_screen/close.png','Art_Assets/game_screen/closeH.png');
 loadImg(closeBtn);
 
 var reportBtn=new gameObject(1000,550,80,80,'Art_Assets/game_screen/reportBtn_temp.png',0);
@@ -124,9 +140,17 @@ loadImg(leanToolsBtn);
 var calendarBtn=new gameObject(1300,550,80,80,'Art_Assets/game_screen/calendarBtn_temp.png',0)
 loadImg(calendarBtn);
 
+
 //Office screen views
-var reportView=new gameObject(760,10,730,730,'Art_Assets/game_screen/workstation.png',0);
+var leanToolsView= new gameObject(770,20,710,710,"Art_Assets/game_screen/lean_tools_view.png",0);
+loadImg(leanToolsView);
+
+var reportView= new gameObject(770,20,710,710,"Art_Assets/game_screen/report_view.png",0);
 loadImg(reportView);
+
+var calendarView= new gameObject(770,20,710,710,"Art_Assets/game_screen/calendar_view.png",0);
+loadImg(calendarView);
+
 
 
 
@@ -172,7 +196,7 @@ station[i].position=i;
 }
 
 
-var desk= new gameObject(250,550,128,256,'Art_Assets/game_screen/desk.png',0);
+var desk= new gameObject(250,600,128,256,'Art_Assets/game_screen/desk.png',0);
 loadImg(desk);
 
 var office=new gameObject(750,0,750,750,'Art_Assets/game_screen/office.png',0);
@@ -240,6 +264,7 @@ var contact = function(button){
 
 var render = function(){
 
+
     if(currentScreen=="mainMenu") {
         draw(ctx,menu,0,0);
         draw(ctx,startBtn,0,0);
@@ -265,9 +290,9 @@ var render = function(){
         if(subScreen=="office"||subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
             draw(ctx2,office,0,0);
         if(subScreen=="office"){
-            draw(ctx2,leanToolsBtn,0,0);
-            draw(ctx2,reportBtn,0,0);
-            draw(ctx2,calendarBtn,0,0);
+            //draw(ctx2,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
+            //draw(ctx2,reportBtn,0,0);/////////////////////////// temp invisible hitbox
+            //draw(ctx2,calendarBtn,0,0);///////////////////////// temp invisible hitbox
         }
 
         //draw background of workstation
@@ -280,16 +305,30 @@ var render = function(){
 
 
 
-        if(subScreen=="leanTools")
-            draw(ctx2,leanToolsView,0,0);
-        if(subScreen=="monthlyReport")
-            draw(ctx2,reportView,0,0);
+        if(subScreen=="leanTools") {
+            draw(ctx2, leanToolsView, 0, 0);
+            ctx2.font="80px Georgia";
+            ctx2.fillText("Lean Tools",900,100);
+            ctx2.font="10px Georgia";
+        }
+        if(subScreen=="monthlyReport") {
+            draw(ctx2, reportView, 0, 0);
+            ctx2.font="80px Georgia";
+            ctx2.fillText("Monthly Report",810,100);
+            ctx2.font="10px Georgia";
+        }
+        if(subScreen=="calendar") {
+            draw(ctx2, calendarView, 0, 0);
+            ctx2.font="80px Georgia";
+            ctx2.fillText("Calendar",900,100);
+            ctx2.font="10px Georgia";
+        }
         if(subScreen=="leanTools"||subScreen=="monthlyReport"||subScreen=="calendar")
             draw(ctx2,closeBtn,0,0);
         //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
           //  draw(ctx2,)
 
-        if(subScreen!="office"&&subScreen!="leanTools"&&subScreen!="monthlyReport"&&subScreen!="calendar"){
+        if(subScreen!="sawView"&&subScreen!="office"&&subScreen!="leanTools"&&subScreen!="monthlyReport"&&subScreen!="calendar"){
             ctx2.font="80px Georgia";
             ctx2.fillText(subScreen,900,500);
             ctx2.font="10px Georgia";
@@ -343,17 +382,38 @@ function onClick(evt){
         }
     }
     else if(currentScreen=="factory") {
-        for(var i=0; i<9;i++){
-            if(station[i].hover){
-                subScreen=station[i].subScreen;
+        for (var i = 0; i < 9; i++) {
+            if (station[i].hover) {
+                subScreen = station[i].subScreen;
             }
         }
-        if(desk.hover) {
+        if (desk.hover) {
             currentScreen = "factory";
             subScreen = "office";
         }
-        if(leanToolsBtn.hover){
-            subScreen="leanTools";
+        if (leanToolsBtn.hover) {
+            subScreen = "leanTools";
+        }
+        if (calendarBtn.hover) {
+            subScreen = "calendar";
+        }
+        if(subScreen=="office"){
+            if (leanToolsBtn.hover) {
+                subScreen = "leanTools";
+            }
+            if (calendarBtn.hover) {
+                subScreen = "calendar";
+            }
+            if(reportBtn.hover){
+                subScreen = "monthlyReport"
+            }
+        }
+
+        if (subScreen=="leanTools"||subScreen=="monthlyReport"||subScreen=="calendar") {
+            if (closeBtn.hover) {
+                subScreen = "office";
+            }
+
         }
     }
 
