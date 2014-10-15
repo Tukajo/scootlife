@@ -10,6 +10,8 @@ canvas.width = 1550;
 canvas.height = 750;
 document.body.appendChild(canvas);
 var ctx2 = canvas.getContext("2d");
+var monthsArray = {January: 0, February: 1, March: 2, April: 3, May: 4, June: 5, July: 6, August: 7, September: 8, October: 9, November: 10, December: 11};
+var currentMonth;
 
 /*
 var canvas2 = document.createElement("canvas");
@@ -139,6 +141,7 @@ loadImg(leanToolsBtn);
 
 var calendarBtn=new gameObject(1300,550,80,80,'Art_Assets/game_screen/calendarBtn_temp.png',0)
 loadImg(calendarBtn);
+var advMonthBtn = new gameObject(1300,)
 
 
 //Office screen views
@@ -229,6 +232,7 @@ var update = function(modifier) {
     contact(closeBtn);
     contact(leanToolsBtn);
     contact(calendarBtn);
+    contact(advMonthBtn);
 
 
     for (var i = 0; i < 9; i++) {
@@ -414,6 +418,11 @@ function onClick(evt){
                 subScreen = "office";
             }
 
+        }
+        if(subScreen=="calendar"){
+            if(advMonthBtn.hover){
+
+            }
         }
     }
 
