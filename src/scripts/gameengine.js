@@ -208,7 +208,9 @@ loadImg(leanToolsBtn);
 
 var calendarBtn=new gameObject(1300,550,80,80,'Art_Assets/game_screen/calendarBtn_temp.png',0)
 loadImg(calendarBtn);
-var advMonthBtn = new gameObject(1300,)
+
+var advMonthBtn = new gameObject(1300,550,80,80,'Art_Assets/game_screen/Calendar.png',0)
+loadImg(advMonthBtn);
 
 
 //Office screen views
@@ -218,7 +220,7 @@ loadImg(leanToolsView);
 var reportView= new gameObject(770,20,710,710,"Art_Assets/game_screen/report_view.png",0);
 loadImg(reportView);
 
-var calendarView= new gameObject(770,20,710,710,"Art_Assets/game_screen/calendar_view.png",0);
+var calendarView= new gameObject(770,20,710,710,"Art_Assets/game_screen/Calendar.png",0);
 loadImg(calendarView);
 
 
@@ -282,6 +284,52 @@ var subScreen="null";
 
 var updateRate=0;
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                            //
+// Factory income, Expenses, and background functions/variables are within this chunk of code //
+//                                                                                            //
+////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+//Static values
+var chairPrice=390;
+
+var monthFunc= function(name,num){
+    this.name=name;
+    this.num=num;
+}
+
+
+var monthData=[new monthFunc("January",1),new monthFunc("February",2),new monthFunc("March",3),
+                new monthFunc("April",4),new monthFunc("May",5),new monthFunc("June",6),
+                new monthFunc("July",7),new monthFunc("August",8),new monthFunc("September",9),
+                new monthFunc("October",10),new monthFunc("November",11),new monthFunc("December",12)];
+
+// (Marcus Tolbert): I intend on calling branching functions in a similar way to how the excel document
+//                  works, we would obviously cut out and simplify when possible. Hopefully a lot
+
+// updates sales by calling functions to update sub components
+var salesUpdate= function(month){
+    if(200<month.finalInventory_chairs) {
+        month.chairsSold = 200;
+    }
+    else
+        month.chairsSold=finalInventory_chairs
+    month.sales=month.chairsSold*chairPrice;
+}
+
+//month update will be called after the loading bar is first displayed
+var monthUpdate= function(month){
+    salesUpdate(month);
+    laborUpdate(month);
+}
+
+*/
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                            //
+//                          End of Factory background calculations                            //
+//                                                                                            //
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 var update = function(modifier) {
@@ -371,7 +419,7 @@ var render = function(){
         if(subScreen=="office"){
             //draw(ctx2,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
             //draw(ctx2,reportBtn,0,0);/////////////////////////// temp invisible hitbox
-            //draw(ctx2,calendarBtn,0,0);///////////////////////// temp invisible hitbox
+            //draw(ctx2,advMonthBtn,0,0);///////////////////////// temp invisible hitbox
         }
 
         //draw background of workstation
@@ -395,6 +443,8 @@ var render = function(){
             ctx2.font="80px Georgia";
             ctx2.fillText("Monthly Report",810,100);
             ctx2.font="10px Georgia";
+
+            //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
         }
         if(subScreen=="calendar") {
             draw(ctx2, calendarView, 0, 0);
