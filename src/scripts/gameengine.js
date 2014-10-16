@@ -30,7 +30,12 @@ background.width = 1000;
 background.height = 500;
 document.body.appendChild(background);
 */
-var workStation= function(src,altSrc,subScreen){
+
+var workStation= function(src,altSrc,subScreen,p, pTwo, pThree, pFour){
+    this.problem=p;
+    this.problemTwo=pTwo;
+    this.problemThree=pThree;
+    this.problemFour=pFour;
     this.subScreen=subScreen;
     this.x=0;
     this.y=0;
@@ -111,7 +116,69 @@ var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Ta
 loadImg(sawView);
 
 var border= new gameObject(-3,-3,780,1500,"Art_Assets/game_screen/background.png",0);
-loadImg(border)
+loadImg(border);
+var barX=400;
+var barY=600;
+
+var loadingPeg= function(x){
+    this.x=x;
+    this.y=600;
+    this.h=100;
+    this.w=50;
+    this.hover=false;
+    this.ready=false;
+    this.readyAlt=false;
+    this.image=new Image();
+    this.image.src="Art_Assets/game_screen/loading_peg.png";
+    this.imageAlt=this.image;
+
+}
+
+
+// Creating loading bar & length
+var startingX=400;
+var loadingBar=[];
+for(var i=0;i<9;i++){
+    var x=new loadingPeg(startingX+50*i);
+    loadImg(x);
+    loadingBar[i]=x;
+}
+
+//problem list function
+var problem= function(name,state){
+    this.y;
+    this.name=name;
+    this.state=state;
+    this.daysDown;
+};
+
+// problem list array
+
+
+ var problemList=[new problem("Saw down due to late tubes",false),
+    new problem("Saw down due to machine breakdown",false),
+    new problem("Drill press down due to late parts from Saw",false),//drill
+    new problem("Drill press down due to machine breakdown",false),
+    new problem("Drill press down due to quality problem",false),
+    new problem("Tube Bender down due to late parts from drill",false),//bender
+    new problem("Tube Bender down due to machine breakdown",false),
+    new problem("Tube Bender down due to quality problem",false),
+    new problem("Tube Bender down due to bad parts from Drill press",false),
+    new problem("Welding down due to late parts from Drill press",false),//welder
+    new problem("Welding down due to machine breakdown",false),
+    new problem("Welding down due to quality problem",false),
+    new problem("Grinder down due to late parts from Welding",false),//grinder
+    new problem("Grinder down due to bad parts from Welding",false),
+    new problem("Paint booth down due to late parts from Grinder",false),//paint
+    new problem("Paint booth down due to machine breakdown",false),
+    new problem("Paint booth down due to bad parts from Welding",false),
+    new problem("Fabric cutter down due to late nylon",false),//cutter
+    new problem("Sewing down due to late parts from Fabric cutter",false),//sewing
+    new problem("Sewing down due to machine breakdown",false),
+    new problem("Sewing down due to quality problem",false),
+    new problem("Assembly down due to late parts from Sewing",false),//assembly
+    new problem("Assembly down due to late parts from Paint booth",false),
+    new problem("Assembly down due to quality problem",false)];
 
 
 
@@ -161,32 +228,33 @@ loadImg(calendarView);
 ///////////////////////////////////////   v   Replace image for each workstation
 
 // 9 work stations
-var sawStation= new workStation('Art_Assets/workshop_icons/icon_saw.png',0,"sawView");
+var sawStation= new workStation('Art_Assets/workshop_icons/icon_saw.png',0,"sawView",problemList[0],problemList[1],0,0);
 loadImg(sawStation);
 
-var drillStation= new workStation('Art_Assets/workshop_icons/icon_drill.png',0,"drillView");
+var drillStation= new workStation('Art_Assets/workshop_icons/icon_drill.png',0,"drillView",problemList[2],problemList[3],problemList[4],0);
 loadImg(drillStation);
 
-var bendStation= new workStation('Art_Assets/workshop_icons/icon_bender.png',0,"bendView");
+var bendStation= new workStation('Art_Assets/workshop_icons/icon_bender.png',0,"bendView",problemList[5],problemList[6],problemList[7],problemList[8]);
 loadImg(bendStation);
 
-var weldStation= new workStation('Art_Assets/workshop_icons/icon_welder.png',0,"weldView");
+var weldStation= new workStation('Art_Assets/workshop_icons/icon_welder.png',0,"weldView",problemList[9],problemList[10],problemList[11],0);
 loadImg(weldStation);
 
-var grindStation= new workStation('Art_Assets/workshop_icons/icon_grinder.png',0,"grindView");
+var grindStation= new workStation('Art_Assets/workshop_icons/icon_grinder.png',0,"grindView",problemList[12],problemList[13],0,0);
 loadImg(grindStation);
 
-var paintStation= new workStation('Art_Assets/workshop_icons/icon_paint.png',0,"paintView");
+var paintStation= new workStation('Art_Assets/workshop_icons/icon_paint.png',0,"paintView",problemList[14],problemList[15],problemList[16],0);
 loadImg(paintStation);
 
-var assemblyStation= new workStation('Art_Assets/workshop_icons/icon_assembly.png',0,"assemblyView");
-loadImg(assemblyStation);
-
-var fabricStation= new workStation('Art_Assets/workshop_icons/icon_cutting.png',0,"fabricView");
+var fabricStation= new workStation('Art_Assets/workshop_icons/icon_cutting.png',0,"fabricView",problemList[17],0,0,0);
 loadImg(fabricStation);
 
-var sewingStation= new workStation('Art_Assets/workshop_icons/icon_sewing.png',0,"sewingView");
+var sewingStation= new workStation('Art_Assets/workshop_icons/icon_sewing.png',0,"sewingView",problemList[18],problemList[19],problemList[20],0);
 loadImg(sewingStation);
+
+var assemblyStation= new workStation('Art_Assets/workshop_icons/icon_assembly.png',0,"assemblyView",problemList[21],problemList[22],problemList[23],0);
+loadImg(assemblyStation);
+
 
 var station = [ sawStation,drillStation,bendStation,
                 weldStation,grindStation,paintStation,
@@ -273,6 +341,13 @@ var render = function(){
         draw(ctx,menu,0,0);
         draw(ctx,startBtn,0,0);
         draw(ctx,creditBtn,0,0);
+        draw(ctx,loadingBar[0],0,0);
+
+        for(var i=0;i<loadingBar.length;i++){
+            draw(ctx,loadingBar[i],0,0);
+            //check if problem[i].== true to display problem
+
+        }
     }
 
     if (currentScreen=="credits")
