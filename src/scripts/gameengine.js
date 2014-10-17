@@ -195,7 +195,7 @@ loadImg(credits);
 
 ///////////////////////////////////////////////// v   Replace image for each button
 //Office screen buttons
-var closeBtn=new gameObject(1375,75,80,80,'Art_Assets/game_screen/calendarBtn_temp.png',0);
+var closeBtn=new gameObject(1375,75,100,100,'Art_Assets/game_screen/calendarBtn_temp.png',0);
 loadImg(closeBtn);
 
 var reportBtn=new gameObject(1000,550,80,80,'Art_Assets/game_screen/reportBtn_temp.png',0);
@@ -569,6 +569,14 @@ function getMousePos(canvas,evt) {
 canvas.addEventListener('click', onClick, false);
 
 function onClick(evt){
+    if(subScreen=="calendar"){
+        if(nextMonthBtn.hover){
+            monthCounter++;
+            if(monthCounter == 12){
+                monthCounter = 0;
+            }
+        }
+    }
     if(currentScreen=="credits") {
         currentScreen="mainMenu";
         subScreen="null"
@@ -613,16 +621,8 @@ function onClick(evt){
             if (closeBtn.hover) {
                 subScreen = "office";
             }
+        }
 
-        }
-        if(subScreen=="calendar"){
-            if(nextMonthBtn.hover){
-                monthCounter++;
-                if(monthCounter == 12){
-                    monthCounter = 0;
-                }
-            }
-        }
     }
 
 }
