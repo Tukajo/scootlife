@@ -1,0 +1,31 @@
+Variable List- Costs
+
+Sales = (chairsSold * price)
+chairsSold = Math.min(Capacity(assembly_FindInventory, Capacity(chairs))
+price = 390
+totalIncome = sales
+laborReg = (RegWorkers * RegHours * RegRate)
+RegWorkers = if(cellsOverall){Capacity(total_TrainWorkers)} else{Capacity(total_NoCellWorkers)}
+RegHours = 160
+RegRate = 14
+laborOver = (OverWorkers * OverHours * OverRate)
+OverWorkers = Capacity(total_WorkersOver)
+OverHours = 40
+OverRate = RegRate * 1.5
+PurchMaterial = (Purchased + Scrap)
+Purchased = Inventory(total_MaterialCost)
+Scrap = 100 * (drillPress_BadQuality_One + tubeBender_BadQuality_One + welding_BadQuality_One + sewing_BadQuality_One + assemblyBench_BadQuality_One)
+DirectCost = (laborReg + laborOver + PurchMaterial)
+InventoryCost = Inventory * PercInventoryCost
+Inventory = Inventory(total_Value)
+PercInventoryCost = 3%
+OrderingCost = Inventory(total_OrderCost)
+Orders = Inventory(total_NumOrders)
+LeanImprov = Idea
+Idea = 0
+Overhead = Baseline + Inventory * PercInventoryOver
+Baseline = 19,000 - (if(cellsOverall){700}else{0}) - (if(selfDirectedTeams_Metal){500}else{0}) - (if(selfDirectedTeams_Weld){500}else{0}) - (if(selfDirectedTeams_Fabric){500}else{0}) + (if(newEquiptment_Saw){300}else{0}) + (if(){}else{0}) + (if(newEquiptment_Drill){300}else{0}) + (if(newEquiptment_Bender){300}else{0}) + (if(newEquiptment_Welding){300}else{0}) + (if(newEquiptment_Grind){300}else{0}) + (if(newEquiptment_Paint){300}else{0}) + (if(newEquiptment_FabricCut){300}else{0}) + (if(newEquiptment_Sewing){300}else{0}) + (if(newEquiptment_Assembly){300}else{0})
+PercInventoryOver = 4%
+IndirectCost = InventoryCost + OrderingCost + LeanImprov + Overhead
+TotalExpenses = DirectCost + IndirectCost
+TotalProfit = TotalIncome - TotalExpenses

@@ -1,0 +1,84 @@
+Lean Ideas: Variable List
+
+kanban:                                                                     
+	Metal = no   : F6                                                                     
+	Weld = no   : H6                                                                     
+                                                                     
+supermarket:                                                                     
+	Welding = no   : F7                                                                     
+	Assembly = no   : H7                                                                     
+                                                                     
+smallLotSizes:                                                                     
+	Metal = no   : F8                                                                     
+	Weld = no   : H8                                                                     
+	Fabric = no    : J8                                                                     
+                                                                     
+fiveS:                                                                     
+	Saw = no   : F9                                                                     
+	Drill = no   : H9                                                                     
+	Bender = no   : J9                                                                     
+	Welding = no   : F10                                                                     
+	Grind = no   : H10                                                                     
+	Paint = no   : J10                                                                     
+	FabricCut = no   : F11                                                                     
+	Sewing = no   : H11                                                                     
+	Assembly = no   : J11                                                                     
+                                                                     
+smed:                                                                     
+	Saw = no   : F12                                                                     
+	Drill = no   : H12                                                                     
+	Bender = no   : J12                                                                     
+	Welding = no   : F13                                                                     
+	Paint = no   : H13                                                                     
+	Sewing = no   : J13                                                                     
+
+sourceQuality:
+	Drill = no   : F14
+	Bender = no   : H14
+	Welding = no   : J14
+	Sewing = no   :F15
+	Assembly = no   : H15
+
+cells:
+	Overall = no   : F16
+
+crossTraining:
+	Metal = no   : F17
+	Weld = no   : H17
+	Fabric = no   : J17
+
+selfDirectedTeams:
+	Metal = no   : F18
+	Weld = no   :H18
+	Fabric = no   :J18
+
+preventitiveMaintnence:
+	Saw = no   : F19
+	Drill = no   : H19
+	Bender = no   : J19
+	Welding = no   : F20
+	Paint = no   : H20
+	Sewing = no   : J20
+
+vendorVerified:
+	Steel = no   : F21
+	Nylon = no   : H21
+	Bike = no   : J21
+	MetalCut = no   : L21
+
+smallPurchaseLotSizes:
+	Steel = no   : F22
+	Nylon = no   : H22
+	Bike = no   : J22
+	MetalCut = no   : L22
+
+newEquiptment:
+	Saw = no   : F23
+	Drill = no   : H23
+	Bender = no   : J23
+	Welding = no   : F24
+	Grind = no   : H24
+	Paint = no   : J24
+	FabricCut = no   : F25
+	Sewing = no   : H25
+	Assembly = no   : J25
