@@ -10,8 +10,9 @@ canvas.width = 1550;
 canvas.height = 750;
 document.body.appendChild(canvas);
 var ctx2 = canvas.getContext("2d");
-var monthsArray = {January: 0, February: 1, March: 2, April: 3, May: 4, June: 5, July: 6, August: 7, September: 8, October: 9, November: 10, December: 11};
-var currentMonth;
+var monthsArray = {January: "January", February: "February", March: "March", April: "April", May: "May", June: "June", July: "July", August: "August", September: "September", October: "October", November: "November", December: "December"};
+var currentMonth = monthsArray.January;
+var monthCounter = 0;
 
 /*
 var canvas2 = document.createElement("canvas");
@@ -194,7 +195,7 @@ loadImg(credits);
 
 ///////////////////////////////////////////////// v   Replace image for each button
 //Office screen buttons
-var closeBtn=new gameObject(1400,20,80,80,'Art_Assets/game_screen/close.png','Art_Assets/game_screen/closeH.png');
+var closeBtn=new gameObject(1375,75,80,80,'Art_Assets/game_screen/calendarBtn_temp.png',0);
 loadImg(closeBtn);
 
 var reportBtn=new gameObject(1000,550,80,80,'Art_Assets/game_screen/reportBtn_temp.png',0);
@@ -203,8 +204,11 @@ loadImg(reportBtn);
 var leanToolsBtn=new gameObject(780,100,300,300,'Art_Assets/game_screen/lean_toolsBtn_temp.png',0)
 loadImg(leanToolsBtn);
 
-var calendarBtn=new gameObject(1300,550,80,80,'Art_Assets/game_screen/calendarBtn_temp.png',0)
+var calendarBtn=new gameObject(1300,550,100,100,'Art_Assets/game_screen/calendarBtn_temp.png',0)
 loadImg(calendarBtn);
+
+var nextMonthBtn = new gameObject(1350, 600,100,100,'Art_Assets/game_screen/calendarBtn_temp.png',0);
+loadImg(nextMonthBtn);
 
 
 
@@ -377,7 +381,7 @@ var update = function(modifier) {
     contact(closeBtn);
     contact(leanToolsBtn);
     contact(calendarBtn);
-    contact(advMonthBtn);
+    contact(nextMonthBtn);
 
 
     for (var i = 0; i < 9; i++) {
@@ -478,11 +482,48 @@ var render = function(){
         if(subScreen=="calendar") {
             draw(ctx2, calendarView, 0, 0);
             ctx2.font="80px Georgia";
-            ctx2.fillText("Calendar",900,100);
+            switch (monthCounter) {
+                case 0:
+                    currentMonth = monthsArray.January;
+                    break;
+                case 1:
+                    currentMonth = monthsArray.February;
+                    break;
+                case 2:
+                    currentMonth = monthsArray.March;
+                    break;
+                case 3:
+                    currentMonth = monthsArray.April;
+                    break;
+                case 4:
+                    currentMonth = monthsArray.May;
+                    break;
+                case 5:
+                    currentMonth = monthsArray.June;
+                    break;
+                case 6:
+                    currentMonth = monthsArray.July;
+                    break;
+                case 7:
+                    currentMonth = monthsArray.August;
+                    break;
+                case 8:
+                    currentMonth = monthsArray.September;
+                    break;
+                case 9:
+                    currentMonth = monthsArray.October;
+                    break;
+                case 10:
+                    currentMonth = monthsArray.November;
+                    break;
+                case 11:
+                    currentMonth = monthsArray.December;
+            }
+            ctx2.fillText(currentMonth,900,100);
             ctx2.font="10px Georgia";
         }
         if(subScreen=="leanTools"||subScreen=="monthlyReport"||subScreen=="calendar")
-            draw(ctx2,closeBtn,0,0);
+            //draw(ctx2,closeBtn,0,0);
         //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
           //  draw(ctx2,)
 
@@ -575,8 +616,11 @@ function onClick(evt){
 
         }
         if(subScreen=="calendar"){
-            if(advMonthBtn.hover){
-
+            if(nextMonthBtn.hover){
+                monthCounter++;
+                if(monthCounter == 12){
+                    monthCounter = 0;
+                }
             }
         }
     }
