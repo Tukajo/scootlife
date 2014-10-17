@@ -109,12 +109,6 @@ var position = [new stationPos(95,60),new stationPos(310,60),new stationPos(525,
 var gameScreen= new gameObject(0,0,750,750,'Art_Assets/game_screen/workstation_view.png',0);
 loadImg(gameScreen);
 
-var stationView= new gameObject(750,0,750,750,"Art_Assets/game_screen/Right_Side_Background.png",0);
-loadImg(stationView);
-
-var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
-loadImg(sawView);
-
 var border= new gameObject(-3,-3,780,1500,"Art_Assets/game_screen/background.png",0);
 loadImg(border);
 var barX=400;
@@ -182,6 +176,9 @@ var problem= function(name,state){
 
 
 
+
+
+
 var menu= new gameObject(0,0,750,750,'Art_Assets/main_menu/bkg_start2.png',0);
 loadImg(menu);
 
@@ -225,9 +222,11 @@ loadImg(calendarView);
 
 
 
+
+
 ///////////////////////////////////////   v   Replace image for each workstation
 
-// 9 work stations
+// 9 work stations icons
 var sawStation= new workStation('Art_Assets/workshop_icons/icon_saw.png',0,"sawView",problemList[0],problemList[1],0,0);
 loadImg(sawStation);
 
@@ -255,16 +254,45 @@ loadImg(sewingStation);
 var assemblyStation= new workStation('Art_Assets/workshop_icons/icon_assembly.png',0,"assemblyView",problemList[21],problemList[22],problemList[23],0);
 loadImg(assemblyStation);
 
-
 var station = [ sawStation,drillStation,bendStation,
                 weldStation,grindStation,paintStation,
                 assemblyStation,fabricStation,sewingStation];
 
-
-
 for(var i=0; i<9; i++){
 station[i].position=i;
 }
+
+// Workstation views
+var stationView= new gameObject(750,0,750,750,"Art_Assets/game_screen/Right_Side_Background.png",0);
+loadImg(stationView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
+var sawView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(sawView);
+
 
 
 var desk= new gameObject(250,600,128,256,'Art_Assets/game_screen/desk.png',0);
