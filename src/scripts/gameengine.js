@@ -309,12 +309,14 @@ var monthData=[new monthFunc("January",1),new monthFunc("February",2),new monthF
 // (Marcus Tolbert): I intend on calling branching functions in a similar way to how the excel document
 //                  works, we would obviously cut out and simplify when possible. Hopefully a lot
 
+
+
 // updates sales by calling functions to update sub components
 var salesUpdate= function(month){
     if(200<month.finalInventory_chairs) {
         month.chairsSold = 200;
     }
-    else
+    else if()
         month.chairsSold=finalInventory_chairs
     month.sales=month.chairsSold*chairPrice;
 }
@@ -526,6 +528,7 @@ var tracker = function (e){
     posx = pos.x;
     posy = pos.y;
 }
+
 
 function getMousePos(canvas,evt) {
     var rect = canvas.getBoundingClientRect();
