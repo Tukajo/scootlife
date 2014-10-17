@@ -141,7 +141,6 @@ loadImg(leanToolsBtn);
 
 var calendarBtn=new gameObject(1300,550,80,80,'Art_Assets/game_screen/calendarBtn_temp.png',0)
 loadImg(calendarBtn);
-var advMonthBtn = new gameObject(1300,)
 
 
 //Office screen views
