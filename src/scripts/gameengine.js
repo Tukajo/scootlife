@@ -333,36 +333,46 @@ var baselineInventroyPercentFee=.04;
 var monthFunc= function(name,num){
     this.name=name;
     this.num=num;
-    this.sales;
-    this.chairsSold;
+    this.sales=0;
+    this.chairsSold=0;
 
-    this.laborRegular;
-    this.workers;
+    this.laborRegular=0;
+    this.workers=0;
 
-    this.laborOvertime;
-    this.workersOvertime;
+    this.laborOvertime=0;
+    this.workersOvertime=0;
 
-    this.totalMaterialsCost;
-    this.purchasedMaterialsCost;
-    this.scrapMaterialsCost;
+    this.totalMaterialsCost=0;
+    this.purchasedMaterialsCost=0;
+    this.scrapMaterialsCost=0;
 
-    this.directCost;// will equal labor regular+ labor overtime+ total materials cost
+    this.directCost=0;// will equal labor regular+ labor overtime+ total materials cost
 
-    this.inventoryCost;// inventory * inventoryPercentFee
-    this.inventroy;
+    this.inventoryCost=0;// inventory * inventoryPercentFee
+    this.inventroy=0;
 
-    this.orderingCost;
+    this.orderingCost=0;
 
-    this.leanIdeasCost;
+    this.leanIdeasCost=0;
 
-    this.overheadCost;// inventory+(baselineCost*baselineInventoryPercentFee)
-    this.baseline;
+    this.overheadCost=0;// inventory+(baselineCost*baselineInventoryPercentFee)
+    this.baseline=0;
 
-    this.indirectCost;// inventory cost+ ordering cost+ lean ideas cost+ overhead cost
+    this.indirectCost=0;// inventory cost+ ordering cost+ lean ideas cost+ overhead cost
 
-    this.totalExpenses;// indirect cost+ direct cost
+    this.totalExpenses=0;// indirect cost+ direct cost
 
-    this.totalProfit;// total cost- total expenses
+    this.totalProfit=0;// total cost- total expenses
+
+     function startMonth (){
+        var month= monthData[0];
+        month.chairsSold = 200;
+        month.sales=month.chairsSold*chairPrice;
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////// Add all of the this.workstation.stats
+
 }
 
 
@@ -370,6 +380,11 @@ var monthData=[new monthFunc("January",1),new monthFunc("February",2),new monthF
                 new monthFunc("April",4),new monthFunc("May",5),new monthFunc("June",6),
                 new monthFunc("July",7),new monthFunc("August",8),new monthFunc("September",9),
                 new monthFunc("October",10),new monthFunc("November",11),new monthFunc("December",12)];
+
+monthData[0].startMonth();
+//Starting Data
+
+
 /*
 // (Marcus Tolbert): I intend on calling branching functions in a similar way to how the excel document
 //                  works, we would obviously cut out and simplify when possible. Hopefully a lot
