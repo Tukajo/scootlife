@@ -319,14 +319,27 @@ var updateRate=0;
 // Factory income, Expenses, and background functions/variables are within this chunk of code //
 //                                                                                            //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-/*
+
 //Static values
 var chairPrice=390;
+var laborRate=14;
+var laborRateOvertime=laborRate*1.5;
+var workerHours=160;
+var workerHoursOvertime=40;
 
+// Values that monthData will have
 var monthFunc= function(name,num){
     this.name=name;
     this.num=num;
     this.chairsSold;
+    this.sales;
+    this.workers;
+    this.workersOvertime;
+    this.laborRegular;
+    this.laborOvertime;
+    this.purchasedMaterials;
+
+
 }
 
 
@@ -334,7 +347,7 @@ var monthData=[new monthFunc("January",1),new monthFunc("February",2),new monthF
                 new monthFunc("April",4),new monthFunc("May",5),new monthFunc("June",6),
                 new monthFunc("July",7),new monthFunc("August",8),new monthFunc("September",9),
                 new monthFunc("October",10),new monthFunc("November",11),new monthFunc("December",12)];
-
+/*
 // (Marcus Tolbert): I intend on calling branching functions in a similar way to how the excel document
 //                  works, we would obviously cut out and simplify when possible. Hopefully a lot
 
@@ -504,6 +517,7 @@ var render = function(){
             ctx2.font="80px Georgia";
             ctx2.fillText("Monthly Report",810,100);
             ctx2.font="10px Georgia";
+            ctx.fillText("Sales: ",reportView.x+10,reportView.y+150);
 
             //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
         }
@@ -635,7 +649,7 @@ function onClick(evt){
                 subScreen = "calendar";
             }
             if(reportBtn.hover){
-                subScreen = "monthlyReport"
+                subScreen = "monthlyReport";
             }
         }
 
