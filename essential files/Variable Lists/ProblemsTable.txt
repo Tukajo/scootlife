@@ -1,0 +1,338 @@
+Variable List- Problems Table
+
+mitreSaw_LateParts_One = if(vendorVerified_Steel = no){2} else{0}
+mitreSaw_LateParts_Two = 0
+mitreSaw_LateParts_Three = if(vendorVerifiedSteel = no && smallPurchaseLotSizes){2} else{0}
+mitreSaw_LateParts_Four = 0
+mitreSaw_LateParts_Five = 0
+mitreSaw_LateParts_Six = if(smallPurchaseLotSizes_Steel){2} else{0}
+mitreSaw_LateParts_Seven = 0
+mitreSaw_LateParts_Eight = 0
+mitreSaw_LateParts_Nine = 0
+mitreSaw_LateParts_Ten = if(vendorVerified_Steel){2} else{0}
+mitreSaw_LateParts_Eleven = 0
+mitreSaw_LateParts_Twelve = 0
+
+mitreSaw_Downtime_One = if(preventitiveMaintnence_Saw = no){3} else{0}
+mitreSaw_Downtime_Two = 0
+mitreSaw_Downtime_Three = 0
+mitreSaw_Downtime_Four = 0
+mitreSaw_Downtime_Five = if(preventitiveMaintnence_Saw = no){2} else{0}
+mitreSaw_Downtime_Six = 0
+mitreSaw_Downtime_Seven = if(preventitiveMaintnence_Saw = no){2} else{0}
+mitreSaw_Downtime_Eight = 0
+mitreSaw_Downtime_Nine = 0
+mitreSaw_Downtime_Ten = 0
+mitreSaw_Downtime_Eleven = if(preventitiveMaintnence_Saw = no){3} else{1}
+mitreSaw_Downtime_Twelve = 0
+-----------------------------------------
+
+drillPress_LateWIP_One = Capacity.mitreSaw_DaysLateOut
+drillPress_LateWIP_Two = drillPress_LateWIP_One
+drillPress_LateWIP_Three = drillPress_LateWIP_One
+drillPress_LateWIP_Four = drillPress_LateWIP_One
+drillPress_LateWIP_Five = drillPress_LateWIP_One
+drillPress_LateWIP_Six = drillPress_LateWIP_One
+drillPress_LateWIP_Seven = drillPress_LateWIP_One
+drillPress_LateWIP_Eight = drillPress_LateWIP_One
+drillPress_LateWIP_Nine = drillPress_LateWIP_One
+drillPress_LateWIP_Ten = drillPress_LateWIP_One
+drillPress_LateWIP_Eleven = drillPress_LateWIP_One
+drillPress_LateWIP_Twelve = drillPress_LateWIP_One
+
+drillPress_Downtime_One = 0
+drillPress_Downtime_Two = 0
+drillPress_Downtime_Three = if(preventitiveMaintnence_Drill = no){2} else{0}
+drillPress_Downtime_Four = 0
+drillPress_Downtime_Five = 0
+drillPress_Downtime_Six = if(preventitiveMaintnence_Drill = no){2} else{1}
+drillPress_Downtime_Seven = 0
+drillPress_Downtime_Eight = 0
+drillPress_Downtime_Nine = if(preventitiveMaintnence_Drill = no){3} else{0}
+drillPress_Downtime_Ten = 0
+drillPress_Downtime_Eleven = 0
+drillPress_Downtime_Twelve = if(preventitiveMaintnence_Drill = no){3} else{0}
+
+drillPress_BadQuality_One = if(smallLotSizes_Metal){0.25} else{0.5}
+drillPress_BadQuality_Two = if(sourceQuality_Drill = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+drillPress_BadQuality_Three = 0
+drillPress_BadQuality_Four = if(sourceQuality_Drill = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+drillPress_BadQuality_Five = 0
+drillPress_BadQuality_Six = if(sourceQuality_Drill = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+drillPress_BadQuality_Seven = if(sourceQuality_Drill = no){if(smallLotSizes_Metal){0.5} else{1}) else{0}
+drillPress_BadQuality_Eight = if(sourceQuality_Drill = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+drillPress_BadQuality_Nine = if(sourceQuality_Drill = no){if(smallLotSizes_Metal){0.5} else{1}) else{if(smallLotSizes_Metal){0.25} else{0.5}
+drillPress_BadQuality_Ten = 0
+drillPress_BadQuality_Eleven = if(sourceQuality_Drill = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+drillPress_BadQuality_Twelve = 0
+-----------------------------------------
+
+tubeBender_LateWIP_One = Capacity.drillPress_DaysLateOut
+tubeBender_LateWIP_Two = tubeBender_LateWIP_One
+tubeBender_LateWIP_Three = tubeBender_LateWIP_One
+tubeBender_LateWIP_Four = tubeBender_LateWIP_One
+tubeBender_LateWIP_Five = tubeBender_LateWIP_One
+tubeBender_LateWIP_Six = tubeBender_LateWIP_One
+tubeBender_LateWIP_Seven = tubeBender_LateWIP_One
+tubeBender_LateWIP_Eight = tubeBender_LateWIP_One
+tubeBender_LateWIP_Nine = tubeBender_LateWIP_One
+tubeBender_LateWIP_Ten = tubeBender_LateWIP_One
+tubeBender_LateWIP_Eleven = tubeBender_LateWIP_One
+tubeBender_LateWIP_Twelve = tubeBender_LateWIP_One
+
+tubeBender_Downtime_One = 0
+tubeBender_Downtime_Two = if(preventitiveMaintnence_Bender = no){2} else{0}
+tubeBender_Downtime_Three = 0
+tubeBender_Downtime_Four = 0
+tubeBender_Downtime_Five = 0
+tubeBender_Downtime_Six = 0
+tubeBender_Downtime_Seven = 0
+tubeBender_Downtime_Eight = if(preventitiveMaintnence_Bender = no){1} else{0}
+tubeBender_Downtime_Nine = 0
+tubeBender_Downtime_Ten = 0
+tubeBender_Downtime_Eleven = if(preventitiveMaintnence_Bender = no){1} else{0}
+tubeBender_Downtime_Twelve = 0
+
+tubeBender_BadQuality_One = if(sourceQuality_Bender = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+tubeBender_BadQuality_Two = if(smallLotSizes_Metal){0.25} else{0.5}
+tubeBender_BadQuality_Three = if(sourceQuality_Bender = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+tubeBender_BadQuality_Four = if(sourceQuality_Bender = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+tubeBender_BadQuality_Five = 0
+tubeBender_BadQuality_Six = if(sourceQuality_Bender = no){if(smallLotSizes_Metal){0.75} else{1.5}) else{0}
+tubeBender_BadQuality_Seven = 0
+tubeBender_BadQuality_Eight = if(sourceQuality_Bender = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+tubeBender_BadQuality_Nine = if(sourceQuality_Bender = no){if(smallLotSizes_Metal){0.5} else{1}} else{if(smallLotSizes_Metal){0.25} else{0.5}}
+tubeBender_BadQuality_Ten = if(sourceQuality_Bender = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+tubeBender_BadQuality_Eleven = if(sourceQuality_Bender = no){if(smallLotSizes_Metal){0.25} else{0.5}) else{0}
+tubeBender_BadQuality_Twelve = 0
+
+tubeBender_DelayQuality_One = if(kanban_Metal || sourceQuality_Drill = no){drillPress_BadQuality_One} else{0}
+tubeBender_DelayQuality_Two = if(kanban_Metal || sourceQuality_Drill = no){drillPress_BadQuality_Two} else{0}
+tubeBender_DelayQuality_Three = 0
+tubeBender_DelayQuality_Four = if(kanban_Metal || sourceQuality_Drill = no){drillPress_BadQuality_Four} else{0}
+tubeBender_DelayQuality_Five = 0
+tubeBender_DelayQuality_Six = if(kanban_Metal || sourceQuality_Drill = no){drillPress_BadQuality_Six} else{0}
+tubeBender_DelayQuality_Seven = if(kanban_Metal || sourceQuality_Drill = no){drillPress_BadQuality_Seven} else{0}
+tubeBender_DelayQuality_Eight = if(kanban_Metal || sourceQuality_Drill = no){drillPress_BadQuality_Eight} else{0}
+tubeBender_DelayQuality_Nine = if(kanban_Metal || sourceQuality_Drill = no){drillPress_BadQuality_Nine} else{0}
+tubeBender_DelayQuality_Ten = 0
+tubeBender_DelayQuality_Eleven = if(kanban_Metal || sourceQuality_Drill = no){drillPress_BadQuality_Eleven} else{0}
+tubeBender_DelayQuality_Twelve = 0
+-----------------------------------------
+
+welding_LateWIP_One = Capacity.tubeBender_DaysLateOut
+welding_LateWIP_Two = welding_LateWIP_One
+welding_LateWIP_Three = welding_LateWIP_One
+welding_LateWIP_Four = welding_LateWIP_One
+welding_LateWIP_Five = welding_LateWIP_One
+welding_LateWIP_Six = welding_LateWIP_One
+welding_LateWIP_Seven = welding_LateWIP_One
+welding_LateWIP_Eight = welding_LateWIP_One
+welding_LateWIP_Nine = welding_LateWIP_One
+welding_LateWIP_Ten = welding_LateWIP_One
+welding_LateWIP_Eleven = welding_LateWIP_One
+welding_LateWIP_Twelve = welding_LateWIP_One
+
+welding_Downtime_One = if(preventitiveMaintnence = no){2} else{0}
+welding_Downtime_Two = if(preventitiveMaintnence = no){3} else{1}
+welding_Downtime_Three = if(preventitiveMaintnence = no){2} else{0}
+welding_Downtime_Four = if(preventitiveMaintnence = no){3} else{1}
+welding_Downtime_Five = 0
+welding_Downtime_Six = if(preventitiveMaintnence = no){4} else{0}
+welding_Downtime_Seven = 0
+welding_Downtime_Eight = if(preventitiveMaintnence = no){3} else{1.5}
+welding_Downtime_Nine = 0
+welding_Downtime_Ten = if(preventitiveMaintnence = no){3} else{0}
+welding_Downtime_Eleven = if(preventitiveMaintnence = no){2} else{1}
+welding_Downtime_Twelve = 0
+
+welding_BadQuality_One = if(sourceQuality_Welding = no){if(smallLotSizes_Weld){1} else{2}} else{0}
+welding_BadQuality_Two = if(sourceQuality_Welding = no){if(smallLotSizes_Weld){1.5} else{3}} else{0}
+welding_BadQuality_Three = if(smallLotSizes_Weld){1} else{2}
+welding_BadQuality_Four = if(sourceQuality_Welding = no){if(smallLotSizes_Weld){1} else{2}} else{if(smallLotSizes_Weld){0.5} else{1}}
+welding_BadQuality_Five = if(sourceQuality_Welding = no){if(smallLotSizes_Weld){1.5} else{3}} else{0}
+welding_BadQuality_Six = if(sourceQuality_Welding = no){if(smallLotSizes_Weld){1} else{2}} else{0}
+welding_BadQuality_Seven = if(smallLotSizes_Weld){0.5} else{1}
+welding_BadQuality_Eight = if(sourceQuality_Welding = no){if(smallLotSizes_Weld){1} else{2}} else{0}
+welding_BadQuality_Nine = 0
+welding_BadQuality_Ten = 0
+welding_BadQuality_Eleven = if(sourceQuality_Welding = no){if(smallLotSizes_Weld){2} else{4}} else{0}
+welding_BadQuality_Twelve = if(sourceQuality_Welding = no){if(smallLotSizes_Weld){1} else{2}} else{0}
+-----------------------------------------
+
+grinder_LateWIP_One = Capacity.welding_DaysLateOut
+grinder_LateWIP_Two = grinder_LateWIP_One
+grinder_LateWIP_Three = grinder_LateWIP_One
+grinder_LateWIP_Four = grinder_LateWIP_One
+grinder_LateWIP_Five = grinder_LateWIP_One
+grinder_LateWIP_Six = grinder_LateWIP_One
+grinder_LateWIP_Seven = grinder_LateWIP_One
+grinder_LateWIP_Eight = grinder_LateWIP_One
+grinder_LateWIP_Nine = grinder_LateWIP_One
+grinder_LateWIP_Ten = grinder_LateWIP_One
+grinder_LateWIP_Eleven = grinder_LateWIP_One
+grinder_LateWIP_Twelve = grinder_LateWIP_One
+
+grinder_DelayQuality_One = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_One} else{0}
+grinder_DelayQuality_Two = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Two} else{0}
+grinder_DelayQuality_Three = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Three} else{0}
+grinder_DelayQuality_Four = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Four} else{0}
+grinder_DelayQuality_Five = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Five} else{0}
+grinder_DelayQuality_Six = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Six} else{0}
+grinder_DelayQuality_Seven = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Seven} else{0}
+grinder_DelayQuality_Eight = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Eight} else{0}
+grinder_DelayQuality_Nine = 0
+grinder_DelayQuality_Ten = 0
+grinder_DelayQuality_Eleven = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Eleven} else{0}
+grinder_DelayQuality_Twelve = if(kanban_Weld || sourceQuality_Welding = no){welding_BadQuality_Twelve} else{0}
+-----------------------------------------
+
+paintBooth_LateWIP_One = Capacity.grinder_DaysLateOut
+paintBooth_LateWIP_Two = paintBooth_LateWIP_One
+paintBooth_LateWIP_Three = paintBooth_LateWIP_One
+paintBooth_LateWIP_Four = paintBooth_LateWIP_One
+paintBooth_LateWIP_Five = paintBooth_LateWIP_One
+paintBooth_LateWIP_Six = paintBooth_LateWIP_One
+paintBooth_LateWIP_Seven = paintBooth_LateWIP_One
+paintBooth_LateWIP_Eight = paintBooth_LateWIP_One
+paintBooth_LateWIP_Nine = paintBooth_LateWIP_One
+paintBooth_LateWIP_Ten = paintBooth_LateWIP_One
+paintBooth_LateWIP_Eleven = paintBooth_LateWIP_One
+paintBooth_LateWIP_Twelve = paintBooth_LateWIP_One
+
+paintBooth_Downtime_One = 0
+paintBooth_Downtime_Two = 0
+paintBooth_Downtime_Three = 0
+paintBooth_Downtime_Four = 1
+paintBooth_Downtime_Five = 0
+paintBooth_Downtime_Six = 0
+paintBooth_Downtime_Seven = 0 
+paintBooth_Downtime_Eight = 0
+paintBooth_Downtime_Nine = if(preventitiveMaintnence_Paint = no){2} else{0}
+paintBooth_Downtime_Ten = 0
+paintBooth_Downtime_Eleven = 0
+paintBooth_Downtime_Twelve = if(preventitiveMaintnence_Paint = no){1} else{0}
+
+paintBooth_DelayQuality_One = grinder_DelayQuality_One
+paintBooth_DelayQuality_Two = grinder_DelayQuality_Two
+paintBooth_DelayQuality_Three = grinder_DelayQuality_Three
+paintBooth_DelayQuality_Four = grinder_DelayQuality_Four
+paintBooth_DelayQuality_Five = grinder_DelayQuality_Five
+paintBooth_DelayQuality_Six = grinder_DelayQuality_Six
+paintBooth_DelayQuality_Seven = grinder_DelayQuality_Seven
+paintBooth_DelayQuality_Eight = grinder_DelayQuality_Eight
+paintBooth_DelayQuality_Nine = grinder_DelayQuality_Nine
+paintBooth_DelayQuality_Ten = grinder_DelayQuality_Ten
+paintBooth_DelayQuality_Eleven = grinder_DelayQuality_Eleven
+paintBooth_DelayQuality_Twelve = grinder_DelayQuality_Twelve
+-----------------------------------------
+
+fabricCutter_LateParts_One = 0
+fabricCutter_LateParts_Two = 0
+fabricCutter_LateParts_Three = 0
+fabricCutter_LateParts_Four = 0
+fabricCutter_LateParts_Five = if(vendorVerified_Nylon = no && smallPurchaseLotSizes_Nylon){2} else{0}
+fabricCutter_LateParts_Six = 0
+fabricCutter_LateParts_Seven = 0
+fabricCutter_LateParts_Eight = 0
+fabricCutter_LateParts_Nine = 0
+fabricCutter_LateParts_Ten = 0
+fabricCutter_LateParts_Eleven = 0
+fabricCutter_LateParts_Twelve = 0
+-----------------------------------------
+
+sewing_LateWIP_One = Capacity.fabricCut_DaysLateOut
+sewing_LateWIP_Two = sewing_LateWIP_One
+sewing_LateWIP_Three = sewing_LateWIP_One
+sewing_LateWIP_Four = sewing_LateWIP_One
+sewing_LateWIP_Five = sewing_LateWIP_One
+sewing_LateWIP_Six = sewing_LateWIP_One
+sewing_LateWIP_Seven = sewing_LateWIP_One
+sewing_LateWIP_Eight = sewing_LateWIP_One
+sewing_LateWIP_Nine = sewing_LateWIP_One
+sewing_LateWIP_Ten = sewing_LateWIP_One
+sewing_LateWIP_Eleven = sewing_LateWIP_One
+sewing_LateWIP_Twelve = sewing_LateWIP_One
+
+sewing_Downtime_One = if(preventitiveMaintnence_Sewing = no){2} else{1}
+sewing_Downtime_Two = 0
+sewing_Downtime_Three = if(preventitiveMaintnence_Sewing = no){2} else{0}
+sewing_Downtime_Four = 0
+sewing_Downtime_Five = if(preventitiveMaintnence_Sewing = no){2} else{1}
+sewing_Downtime_Six = 0
+sewing_Downtime_Seven = 0
+sewing_Downtime_Eight = if(preventitiveMaintnence_Sewing = no){2} else{0}
+sewing_Downtime_Nine = if(preventitiveMaintnence_Sewing = no){1} else{0}
+sewing_Downtime_Ten = 0
+sewing_Downtime_Eleven = if(preventitiveMaintnence_Sewing = no){3} else{0}
+sewing_Downtime_Twelve = 0
+
+sewing_BadQuality_One = if(sourceQuality_Sewing = no){if(smallLotSizes_Fabric){0.5} else{1}} else{0}
+sewing_BadQuality_Two = 0
+sewing_BadQuality_Three = 0
+sewing_BadQuality_Four = if(sourceQuality_Sewing = no){if(smallLotSizes_Fabric){0.5} else{1}} else{0}
+sewing_BadQuality_Five = 0
+sewing_BadQuality_Six = if(sourceQuality_Sewing = no){if(smallLotSizes_Fabric){0.5} else{1}} else{0}
+sewing_BadQuality_Seven = 0
+sewing_BadQuality_Eight = if(smallLotSizes_Fabric){0.5} else{1}
+sewing_BadQuality_Nine = 0
+sewing_BadQuality_Ten = 0
+sewing_BadQuality_Eleven = if(sourceQuality_Sewing = no){if(smallLotSizes_Fabric){0.5} else{1}} else{0}
+sewing_BadQuality_Twelve = 0
+-----------------------------------------
+
+assemblyBench_LateParts_One = 0
+assemblyBench_LateParts_Two = 0
+assemblyBench_LateParts_Three = 0
+assemblyBench_LateParts_Four = if(vendorVerified_MetalCut = no && smallPurchaseLotSizes_MetalCut){2} else{0}
+assemblyBench_LateParts_Five = 0
+assemblyBench_LateParts_Six = 0
+assemblyBench_LateParts_Seven = if(vendorVerified_Bike = no){2} else{0}
+assemblyBench_LateParts_Eight = 0
+assemblyBench_LateParts_Nine = 0
+assemblyBench_LateParts_Ten = 0
+assemblyBench_LateParts_Eleven = if(vendorVerified_MetalCut = no && smallPurchaseLotSizes_MetalCut){2} else{0}
+assemblyBench_LateParts_Twelve = if(smallPurchaseLotSizes_Bike){2} else{0}
+
+assemblyBench_LateWIP_One = Capacity.paintBooth_DaysLateOut + Capacity.sewing_DaysLateOut
+assemblyBench_LateWIP_Two = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Three = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Four = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Five = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Six = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Seven = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Eight = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Nine = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Ten = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Eleven = assemblyBench_LateWIP_One
+assemblyBench_LateWIP_Twelve = assemblyBench_LateWIP_One
+
+assemblyBench_BadQuality_One = 0
+assemblyBench_BadQuality_Two = 0
+assemblyBench_BadQuality_Three = 0
+assemblyBench_BadQuality_Four = 0
+assemblyBench_BadQuality_Five = if(sourceQuality_Assembly = no){0.5} else{0}
+assemblyBench_BadQuality_Six = 0
+assemblyBench_BadQuality_Seven = 0
+assemblyBench_BadQuality_Eight = 0
+assemblyBench_BadQuality_Nine = 0
+assemblyBench_BadQuality_Ten = 0
+assemblyBench_BadQuality_Eleven = 0
+assemblyBench_BadQuality_Twelve = 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
