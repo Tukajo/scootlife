@@ -326,20 +326,43 @@ var laborRate=14;
 var laborRateOvertime=laborRate*1.5;
 var workerHours=160;
 var workerHoursOvertime=40;
+var inventoryPercentFee=.03;
+var baselineInventroyPercentFee=.04;
 
 // Values that monthData will have
 var monthFunc= function(name,num){
     this.name=name;
     this.num=num;
-    this.chairsSold;
     this.sales;
-    this.workers;
-    this.workersOvertime;
+    this.chairsSold;
+
     this.laborRegular;
+    this.workers;
+
     this.laborOvertime;
-    this.purchasedMaterials;
+    this.workersOvertime;
 
+    this.totalMaterialsCost;
+    this.purchasedMaterialsCost;
+    this.scrapMaterialsCost;
 
+    this.directCost;// will equal labor regular+ labor overtime+ total materials cost
+
+    this.inventoryCost;// inventory * inventoryPercentFee
+    this.inventroy;
+
+    this.orderingCost;
+
+    this.leanIdeasCost;
+
+    this.overheadCost;// inventory+(baselineCost*baselineInventoryPercentFee)
+    this.baseline;
+
+    this.indirectCost;// inventory cost+ ordering cost+ lean ideas cost+ overhead cost
+
+    this.totalExpenses;// indirect cost+ direct cost
+
+    this.totalProfit;// total cost- total expenses
 }
 
 
