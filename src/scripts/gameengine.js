@@ -599,12 +599,6 @@ function onClick(evt){
             currentScreen = "factory";
             subScreen = "office";
         }
-    /*    if (leanToolsBtn.hover) {
-            subScreen = "leanTools";
-        }
-        if (subScreen == "office" && calendarBtn.hover) {
-            subScreen = "calendar";
-        }*/
         if(subScreen=="office"){
             if (leanToolsBtn.hover) {
                 subScreen = "leanTools";
