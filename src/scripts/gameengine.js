@@ -274,28 +274,28 @@ var sawView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_T
 loadImg(sawView);
 
 var drillView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Drill_Right_Table.png",0);
-loadImg(sawView);
+loadImg(drillView);
 
 var bendView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Bend_Right_Table.png",0);
-loadImg(sawView);
+loadImg(bendView);
 
 var weldView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Weld_Right_Table.png",0);
-loadImg(sawView);
+loadImg(weldView);
 
-var grindView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Grind_Right_Table.png",0);
-loadImg(sawView);
+var grindView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(grindView);
 
 var paintView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Paint_Right_Table.png",0);
-loadImg(sawView);
+loadImg(paintView);
 
-var fabricView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Fabric_Right_Table.png",0);
-loadImg(sawView);
+var fabricView= new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(fabricView);
 
 var sewingView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Sewing_Right_Table.png",0);
-loadImg(sawView);
+loadImg(sewingView);
 
-var assemblyView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Assembly_Right_Table.png",0);
-loadImg(sawView);
+var assemblyView = new gameObject(800,250,480,700,"Art_Assets/game_screen/Saw_Right_Table.png",0);
+loadImg(assemblyView);
 
 
 
@@ -459,8 +459,36 @@ var render = function(){
         if(subScreen!="office"&&subScreen!="leanTools"&&subScreen!="monthlyReport"&&subScreen!="calendar"){
             draw(ctx2,stationView,0,0);
         }
-        if(subScreen==sawStation.subScreen)
-            draw(ctx2,sawView,0,0);
+        //Determine which station to draw using this switch.
+        switch(subScreen){
+            case sawStation.subScreen:
+                draw(ctx2,sawView,0,0);
+                break;
+            case drillStation.subScreen:
+                draw(ctx2,drillView,0,0);
+                break;
+            case bendStation.subScreen:
+                draw(ctx2,bendView,0,0);
+                break;
+            case weldStation.subScreen:
+                draw(ctx,weldView,0,0);
+                break;
+            case grindStation.subScreen:
+                draw(ctx2,grindView,0,0);
+                break;
+            case paintStation.subScreen:
+                draw(ctx2,paintView,0,0);
+                break;
+            case assemblyStation.subScreen:
+                draw(ctx2,assemblyView,0,0);
+                break;
+            case fabricStation.subScreen:
+                draw(ctx2,fabricView,0,0);
+                break;
+            case sewingStation.subScreen:
+                draw(ctx2,sewingView,0,0);
+                break;
+        }
 
 
 
