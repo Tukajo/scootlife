@@ -1,0 +1,277 @@
+Variable List - Routings & BOM
+
+
+completedWheelchair = {
+	level = 0,
+	operation = "Pack",
+	station = "Assembly",
+	min = 5,
+}
+
+wheelchairAssembly = {
+	level = 1,
+	quantity = 1,
+	operation = "Find Assembly/ Test",
+	station = "Assembly",
+	min = 44,
+	cost = 225
+}
+
+frameSideAssembly = {
+	level = 2,
+	quantity = 2,
+	operation = ["Weld/braze", "Grind", "Paint"],
+	station = ["Welding", "Grinder", "Painting"],
+	min = [30, 6, 8],
+	cost =30
+}
+
+outerTube = {
+	level = 3,
+	quantity = 1,
+	operation = ["Angle Cut", "Drill Three Holes", "Two Bends"],
+	station = ["Saw", "Drilling", "Bend"],
+	min = [0.5, 2, 3],
+	cost = 4.20
+}
+
+backTube = {
+	level = 3,
+	quantity = 1,
+	operation = ["Angle Cut", "Bend"],
+	station = ["Saw", "Bending"],
+	min = [0.5, 2],
+	cost = 3.10
+}
+
+lowerTube = {
+	level = 3,
+	quantity = 1,
+	operation = ["Cut", "Two Bends"],
+	station = ["Saw", "Bending"],
+	min = [0.2, 3],
+	cost = 3
+}
+
+handTube = {
+	level = 3,
+	quantity = 1,
+	operation = ["Angle Cut", "Bend"],
+	station = ["Saw", "Bending"],
+	min = [0.5, 2],
+	cost = 1.60
+}
+
+horizontalTube = {
+	level = 3,
+	quantity = 1,
+	operation = "Angle Cut",
+	station = "Saw",
+	min = 0.5,
+	cost = 1.10
+}
+
+casterTube = {
+	level = 3,
+	quantity = 1,
+	operation = "Cut",
+	station = "Saw",
+	min = 0.2,
+	cost = 0.60
+}
+
+foldingAssembly = {
+	level = 2,
+	quantity = 2,
+	operation = ["Weld/braze", "Grind", "Paint"],
+	station = ["Welding", "Grinder", "Painting"],
+	min = [8, 2, 6],
+	cost = 12.00
+}
+
+crossTube = {
+	level = 3,
+	quantity = 1,
+	operation = ["Cut and Notch two ends", "Drill Three Holes"],
+	station = ["Saw", "Drilling"],
+	min = [1.2, 2],
+	cost = 3.20
+}
+
+seatTube = {
+	level = 3,
+	quantity = 1,
+	operation = "Cut",
+	station = "Saw",
+	min = 0.2,
+	cost = 2.60
+}
+
+connectingTube = {
+	level = 3,
+	quantity = 1,
+	operation = "Cut",
+	station = "Saw",
+	min = 0.2,
+	cost = 1.30
+}
+
+frontWheelAssembly = {
+	level = 2,
+	quantity = 2,
+	operation = "Assembly Components",
+	station = "Assembly",
+	min = 4,
+	cost = 9.00
+}
+
+casterWheel = {
+	level = 3,
+	operation = 1,
+	cost = 3.00
+}
+
+casterForkAssembly = {
+	level = 3,
+	quantity = 1,
+	operation = ["Weld/braze", "Crimp Two Ends and Grind", "Paint"],
+	station = ["Welding", "Grinder", "Painting"],
+	min = [2, 4, 2],
+	cost = 4.60
+}
+
+casterTube = {
+	level = 4,
+	quantity = 1,
+	operation = ["Cut", "Drill Two Holes", "Bend"],
+	station = ["Saw", "Drilling", "Bending"],
+	min = [0.2, 2, 2],
+	cost = 2.20
+}
+
+rearWheelAssembly = {
+	level = 2,
+	quantity = 2,
+	operation = "Hand Drill Four Holes",
+	station = "Assembly",
+	min = 4,
+	cost = 25.00
+}
+
+rearBikeWheel = {
+	level = 3,
+	quantity = 1
+	cost = 20.00
+}
+
+handRimAssembly = {
+	level = 3,
+	quantity = 1,
+	operation = ["Weld/braze", "Grind"],
+	station = ["Welding", "Grinder"],
+	min = [3,2],
+	cost = 5.00
+}
+
+handRim = {
+	level = 4,
+	quantity = 1,
+	operation = ["Cut", "Bend into Rings", "Drill Holes"],
+	station = ["Saw", "Bending", "Drilling"],
+	min = [0.2, 2, 2],
+	cost = 4.00
+}
+
+footrestAssembly = {
+	level = 2,
+	quantity = 2,
+	operation = ["Weld/braze", "Crimp and Grind", "Paint"],
+	station = ["Welding", "Grinding", "Painting"],
+	min = [10, 3, 3],
+	cost = 9.00
+}
+
+footrestPlateTube = {
+	level = 3,
+	quantity = 1,
+	operation = ["Angle Cut", "Bend"],
+	station = ["Saw", "Bending"],
+	min = [0.5, 2],
+	cost = 3.20
+}
+
+footrestPlate = {
+	level = 3,
+	quantity = 1,
+	cost = .75
+}
+
+footrestMountTube = {
+	level = 3,
+	quantity = 1,
+	operation = "Cut",
+	station = "Saw",
+	min = 0.2,
+	cost = 2.00
+}
+
+brakeLever = {
+	level = 2,
+	quantity = 1,
+	cost = .37
+}
+
+lockBar = {
+	level = 2,
+	quantity = 1,
+	operation = ["Cut", "Bend"],
+	station = ["Saw", "Bending"],
+	min = [0.2, 1],
+	cost = 1.20
+}
+
+seat = {
+	level = 2,
+	quantity = 1,
+	operation = ["Cut", "Sew Seams"],
+	station = ["Fabric Cut", "Sewing"],
+	min = [4, 12],
+	cost = 11.50
+}
+
+back = {
+	level = 2,
+	quantity = 1,
+	operation = ["Cut", "Sew seams/add pocket"],
+	station = ["Fabric Cut", "Sewing"],
+	min = [8, 30],
+	cost = 19.00
+}
+
+handle = {
+	level = 2,
+	quantity = 2,
+	cost = 1.13
+}
+
+fender = {
+	level = 2,
+	quantity = 2,
+	cost = 1.20
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
