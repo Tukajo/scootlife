@@ -349,7 +349,7 @@ var monthFunc= function(name,num){
     this.directCost=0;// will equal labor regular+ labor overtime+ total materials cost
 
     this.inventoryCost=0;// inventory * inventoryPercentFee
-    this.inventroy=0;
+    this.inventory=0;
 
     this.orderingCost=0;
 
@@ -372,6 +372,41 @@ function startMonth (month){
     var month= monthData[0];
     month.chairsSold = 200;
     month.sales=month.chairsSold*chairPrice;
+
+    month.workers=12
+    month.laborRegular=month.workers*workerHours*laborRate;
+
+    month.workerOvertime=4;
+    month.laborOvertime=month.workerOvertime*workerHoursOvertime*laborRateOvertime;
+
+    month.purchasedMaterials=31850;
+    month.scrap=400;
+    month.totalMaterialsCost=month.scrap+month.pruchasedMaterials;
+
+    month.directCost=month.laborRegular+month.laborOvertime+month.totalMaterialsCost;
+
+    month.inventory=42690;
+    month.inventoryCost=month.inventory*month.inventoryPercentFee;
+
+    month.leanIdeaCost=0;
+    month.orderingCost=2000;
+
+    month.baselineCost=19000;
+    month.overheadCost=month.inventory+(month.baselineCost*baselineInventoryPercentFee);
+
+    month.indirectCost=month.inventoryCost+month.orderingCost+month.leanIdeaCost+month.overheadCost;
+/*
+
+
+    this.indirectCost=0;// inventory cost+ ordering cost+ lean ideas cost+ overhead cost
+
+    this.totalExpenses=0;// indirect cost+ direct cost
+
+    this.totalProfit=0;// total cost- total expenses
+    */
+
+
+
 
 }
 
@@ -557,6 +592,7 @@ var render = function(){
             ctx2.fillText(monthData[monthCounter].name+" Report",810,100);
             ctx2.font="10px Georgia";
             ctx.fillText("Sales: $"+monthData[monthCounter].sales,reportView.x+10,reportView.y+150);
+            ctx.fillText("Sales: $"+monthData[monthCounter].sales,reportView.x+10,reportView.y+160);
 
             //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
         }
