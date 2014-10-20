@@ -364,16 +364,17 @@ var monthFunc= function(name,num){
 
     this.totalProfit=0;// total cost- total expenses
 
-     function startMonth (){
-        var month= monthData[0];
-        month.chairsSold = 200;
-        month.sales=month.chairsSold*chairPrice;
-
-    }
 
     ///////////////////////////////////////////////////////////////////////////////////// Add all of the this.workstation.stats
 
 }
+function startMonth (month){
+    var month= monthData[0];
+    month.chairsSold = 200;
+    month.sales=month.chairsSold*chairPrice;
+
+}
+
 
 
 var monthData=[new monthFunc("January",1),new monthFunc("February",2),new monthFunc("March",3),
@@ -381,7 +382,7 @@ var monthData=[new monthFunc("January",1),new monthFunc("February",2),new monthF
                 new monthFunc("July",7),new monthFunc("August",8),new monthFunc("September",9),
                 new monthFunc("October",10),new monthFunc("November",11),new monthFunc("December",12)];
 
-monthData[0].startMonth();
+startMonth(monthData[0]);
 //Starting Data
 
 
