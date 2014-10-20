@@ -554,9 +554,9 @@ var render = function(){
         if(subScreen=="monthlyReport") {
             draw(ctx2, reportView, 0, 0);
             ctx2.font="80px Georgia";
-            ctx2.fillText("Monthly Report",810,100);
+            ctx2.fillText(monthData[monthCounter].name+" Report",810,100);
             ctx2.font="10px Georgia";
-            ctx.fillText("Sales: ",reportView.x+10,reportView.y+150);
+            ctx.fillText("Sales: $"+monthData[monthCounter].sales,reportView.x+10,reportView.y+150);
 
             //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
         }
