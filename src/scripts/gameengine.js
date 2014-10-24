@@ -201,22 +201,30 @@ loadImg(closeBtn);
 var reportBtn=new gameObject(1000,550,80,80,'Art_Assets/game_screen/reportBtn_temp.png',0);
 loadImg(reportBtn);
 
-var leanToolsBtn=new gameObject(780,100,300,300,'Art_Assets/game_screen/lean_toolsBtn_temp.png',0)
+var leanToolsBtn=new gameObject(780,100,300,300,'Art_Assets/game_screen/lean_toolsBtn_temp.png',0);
 loadImg(leanToolsBtn);
 
-var calendarBtn=new gameObject(1300,550,100,100,'Art_Assets/game_screen/calendarBtn_temp.png',0)
+var calendarBtn=new gameObject(1300,550,100,100,'Art_Assets/game_screen/calendarBtn_temp.png',0);
 loadImg(calendarBtn);
 
 var nextMonthBtn = new gameObject(1350, 600,100,100,'Art_Assets/game_screen/calendarBtn_temp.png',0);
 loadImg(nextMonthBtn);
 
 
+//lean tools buttons
+var leanToolsBtnCells = new gameObject(866,300,34,126,'Art_Assets/game_screen/lean_toolsBtn_temp.png',0)
+loadImg(leanToolsBtnCells);
+
+var leanToolsBtnSmedSaw = new gameObject(1012,300,34,126,'Art_Assets/game_screen/lean_toolsBtn_temp.png',0)
+loadImg(leanToolsBtnSmedSaw);
+
+
 
 //Office screen views
-var leanToolsView= new gameObject(770,20,710,710,"Art_Assets/game_screen/lean_tools_view.png",0);
+var leanToolsView= new gameObject(825,176,400,600,"Art_Assets/game_screen/LEANback.png",0);
 loadImg(leanToolsView);
 
-var reportView= new gameObject(770,20,710,710,"Art_Assets/game_screen/report_view.png",0);
+var reportView= new gameObject(850,20,710,550,"Art_Assets/game_screen/report_view.png",0);
 loadImg(reportView);
 
 var calendarView= new gameObject(770,20,710,710,"Art_Assets/game_screen/Calendar.png",0);
@@ -312,6 +320,12 @@ var posy;
 var currentScreen= "mainMenu";
 var subScreen="null";
 
+
+var leanToolAllowance=1000;
+// lean tool states
+var leanToolCells=false;
+var leanToolSmedSaw=false;
+
 var updateRate=0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -327,7 +341,7 @@ var laborRateOvertime=laborRate*1.5;
 var workerHours=160;
 var workerHoursOvertime=40;
 var inventoryPercentFee=.03;
-var baselineInventroyPercentFee=.04;
+var baselineInventoryPercentFee=.04;
 
 // Values that monthData will have
 var monthFunc= function(name,num){
@@ -368,44 +382,84 @@ var monthFunc= function(name,num){
     ///////////////////////////////////////////////////////////////////////////////////// Add all of the this.workstation.stats
 
 }
-function startMonth (month){
+function startMonth (){
     var month= monthData[0];
     month.chairsSold = 200;
-    month.sales=month.chairsSold*chairPrice;
+    month.sales=Math.round(month.chairsSold*chairPrice);
 
     month.workers=12
-    month.laborRegular=month.workers*workerHours*laborRate;
+    month.laborRegular=Math.round(month.workers*workerHours*laborRate);
 
     month.workerOvertime=4;
-    month.laborOvertime=month.workerOvertime*workerHoursOvertime*laborRateOvertime;
+    month.laborOvertime=Math.round(month.workerOvertime*workerHoursOvertime*laborRateOvertime);
 
     month.purchasedMaterials=31850;
     month.scrap=400;
-    month.totalMaterialsCost=month.scrap+month.pruchasedMaterials;
+    month.totalMaterialsCost=Math.round(month.scrap+month.purchasedMaterials);
 
-    month.directCost=month.laborRegular+month.laborOvertime+month.totalMaterialsCost;
+    month.directCost=Math.round(month.laborRegular+month.laborOvertime+month.totalMaterialsCost);
 
     month.inventory=42690;
-    month.inventoryCost=month.inventory*month.inventoryPercentFee;
+    month.inventoryCost=Math.round(month.inventory*inventoryPercentFee);
 
-    month.leanIdeaCost=0;
+    month.leanIdeasCost=0;
     month.orderingCost=2000;
 
     month.baselineCost=19000;
-    month.overheadCost=month.inventory+(month.baselineCost*baselineInventoryPercentFee);
+    month.overheadCost=Math.round(month.baselineCost+(month.inventory*baselineInventoryPercentFee));
 
-    month.indirectCost=month.inventoryCost+month.orderingCost+month.leanIdeaCost+month.overheadCost;
-/*
+    month.indirectCost=Math.round(month.inventoryCost+month.orderingCost+month.leanIdeasCost+month.overheadCost);
 
+    month.totalExpenses=Math.round(month.directCost+month.indirectCost);
 
-    this.indirectCost=0;// inventory cost+ ordering cost+ lean ideas cost+ overhead cost
+    month.totalProfit=Math.round(month.sales-month.totalExpenses);
 
-    this.totalExpenses=0;// indirect cost+ direct cost
+}
+// FOR DEMO 10/24/14 only!!! not a real update function!
+function updateMonth (month){
+    if(leanToolCells==false) {
+        // Real updateMonth function will call a function for each of these
+        month.chairsSold = 153;
+        month.workers = 12;
+        month.workerOvertime = 5;
+        month.purchasedMaterials = 18650;
+        month.scrap = 400;
+        month.inventory = 43811;
+        month.orderingCost = 1200;
+        month.baselineCost = 19000;
+    }
+    if(leanToolCells==true){
+        month.chairsSold = 156;
+        month.workers = 12;
+        month.workerOvertime = 5;
+        month.purchasedMaterials = 18650;
+        month.scrap = 400;
+        month.inventory = 43431;
+        month.orderingCost = 1200;
+        month.baselineCost = 18300;
+    }
+    if(leanToolSmedSaw==true){
+        month.chairsSold = 153;
+        month.workers = 12;
+        month.workerOvertime = 5;
+        month.purchasedMaterials = 18650;
+        month.scrap = 400;
+        month.inventory = 43811;
+        month.orderingCost = 1200;
+        month.baselineCost = 19000;
+    }
 
-    this.totalProfit=0;// total cost- total expenses
-    */
-
-
+    month.sales = Math.round(month.chairsSold * chairPrice);
+    month.laborRegular = Math.round(month.workers * workerHours * laborRate);
+    month.laborOvertime = Math.round(month.workerOvertime * workerHoursOvertime * laborRateOvertime);
+    month.totalMaterialsCost = Math.round(month.scrap + month.purchasedMaterials);
+    month.inventoryCost = Math.round(month.inventory * inventoryPercentFee);
+    month.directCost = Math.round(month.laborRegular + month.laborOvertime + month.totalMaterialsCost);
+    month.overheadCost = Math.round(month.baselineCost + (month.inventory * baselineInventoryPercentFee));
+    month.indirectCost = Math.round(month.inventoryCost + month.orderingCost + month.leanIdeasCost + month.overheadCost);
+    month.totalExpenses = Math.round(month.directCost + month.indirectCost);
+    month.totalProfit = Math.round(month.sales - month.totalExpenses);
+    month.leanIdeasCost=1000-leanToolAllowance;
 
 
 }
@@ -417,7 +471,7 @@ var monthData=[new monthFunc("January",1),new monthFunc("February",2),new monthF
                 new monthFunc("July",7),new monthFunc("August",8),new monthFunc("September",9),
                 new monthFunc("October",10),new monthFunc("November",11),new monthFunc("December",12)];
 
-startMonth(monthData[0]);
+startMonth();
 //Starting Data
 
 
@@ -469,6 +523,9 @@ var update = function(modifier) {
     contact(leanToolsBtn);
     contact(calendarBtn);
     contact(nextMonthBtn);
+    // lean tool buttons
+    contact(leanToolsBtnCells);
+    contact(leanToolsBtnSmedSaw);
 
 
     for (var i = 0; i < 9; i++) {
@@ -509,13 +566,13 @@ var render = function(){
         draw(ctx,menu,0,0);
         draw(ctx,startBtn,0,0);
         draw(ctx,creditBtn,0,0);
-        draw(ctx,loadingBar[0],0,0);
+       // draw(ctx,loadingBar[0],0,0);
 
-        for(var i=0;i<loadingBar.length;i++){
-            draw(ctx,loadingBar[i],0,0);
+        //for(var i=0;i<loadingBar.length;i++){
+          //  draw(ctx,loadingBar[i],0,0);
             //check if problem[i].== true to display problem
 
-        }
+        //}
     }
 
     if (currentScreen=="credits")
@@ -583,16 +640,115 @@ var render = function(){
         if(subScreen=="leanTools") {
             draw(ctx2, leanToolsView, 0, 0);
             ctx2.font="80px Georgia";
-            ctx2.fillText("Lean Tools",900,100);
+            //ctx2.fillText("Lean Tools",900,100);
+            ctx2.font="16px Georgia";
+            //draw(ctx,leanToolsBtnCells,0,0);
+            if(leanToolCells==true){
+                ctx.fillText("/////",910,314);
+            }
+            ctx.fillText("Cells",910,314);
+
+            // place in a different screen in the near future
+            if(leanToolSmedSaw==true){
+                ctx.fillText("///////////",1030,314);
+            }
+            ctx.fillText("SMED-Saw",1030,314);
+
+
+            ctx.textAlign="right";
+            ctx.fillText(leanToolAllowance,1020,550);
+            ctx.textAlign="left";
             ctx2.font="10px Georgia";
         }
+
+        //report screen is background of
         if(subScreen=="monthlyReport") {
             draw(ctx2, reportView, 0, 0);
-            ctx2.font="80px Georgia";
-            ctx2.fillText(monthData[monthCounter].name+" Report",810,100);
+            ctx2.font="60px Georgia";
+            ctx2.fillText(monthData[monthCounter].name,reportView.x+30,reportView.y+120);
             ctx2.font="10px Georgia";
-            ctx.fillText("Sales: $"+monthData[monthCounter].sales,reportView.x+10,reportView.y+150);
-            ctx.fillText("Sales: $"+monthData[monthCounter].sales,reportView.x+10,reportView.y+160);
+
+            var column=[];
+            column[0]=reportView.x+30;
+            for(var i=1;i<8;i++){
+
+                column[i]=column[i-1]+80;
+
+            }
+
+            column[1]=column[0]+150;
+            column[2]=column[1]+60;
+            column[3]=column[2]+100;
+            var row=[];
+            row[0]=reportView.y+150;
+            for(var i=1;i<20;i++){
+                row[i]=row[i-1]+15;
+            }
+            ctx2.font="14px Georgia";
+
+            //headings
+            ctx.fillText("Sales: ",column[0],row[2]);
+            ctx.fillText("Total Income: ",column[0],row[3]);
+
+            ctx.fillText("Labor-regular:",column[0],row[6]);
+            ctx.fillText("Labor-overtime:",column[0],row[7]);
+            ctx.fillText("Purchased materials:",column[0],row[8]);
+            ctx.fillText("Direct cost:",column[0],row[9]);
+
+            ctx.fillText("Inventory cost:",column[0],row[11]);
+            ctx.fillText("Ordering cost:",column[0],row[12]);
+            ctx.fillText("Lean improvements:",column[0],row[13]);
+            ctx.fillText("Overhead:",column[0],row[14]);
+            ctx.fillText("Indirect cost:",column[0],row[15]);
+
+            ctx.fillText("Total expenses:",column[0],row[17]);
+
+            //right alligned values
+            ctx2.textAlign="right";
+            ctx.fillText("$",column[1],row[2]),ctx.fillText(monthData[monthCounter].sales,column[2],row[2]);
+
+
+            ctx.fillText("$",column[1],row[6]),ctx.fillText(monthData[monthCounter].laborRegular,column[2],row[6]);
+            ctx.fillText("$",column[1],row[7]),ctx.fillText(monthData[monthCounter].laborOvertime,column[2],row[7]);
+            ctx.fillText("$",column[1],row[8]),ctx.fillText(monthData[monthCounter].totalMaterialsCost,column[2],row[8]);
+            ctx.fillText("$",column[1],row[9]),ctx.fillText(monthData[monthCounter].directCost,column[2],row[9]);
+
+            ctx.fillText("$",column[1],row[11]),ctx.fillText(monthData[monthCounter].inventoryCost,column[2],row[11]);
+            ctx.fillText("$",column[1],row[12]),ctx.fillText(monthData[monthCounter].orderingCost,column[2],row[12]);
+            ctx.fillText("$",column[1],row[13]),ctx.fillText(monthData[monthCounter].leanIdeasCost,column[2],row[13]);
+            ctx.fillText("$",column[1],row[14]),ctx.fillText(monthData[monthCounter].overheadCost,column[2],row[14]);
+            ctx.fillText("$",column[1],row[15]),ctx.fillText(monthData[monthCounter].indirectCost,column[2],row[15]);
+
+            ctx.fillText("$",column[1],row[17]),ctx.fillText(monthData[monthCounter].totalExpenses,column[2],row[17]);
+
+
+            ctx2.font="bold 14px Georgia";
+            ctx.fillText("$",column[1],row[3]),ctx.fillText(monthData[monthCounter].sales,column[2],row[3]);
+            ctx.fillText("$",column[1],row[19]),ctx.fillText(monthData[monthCounter].totalProfit,column[2],row[19]);
+            ctx2.font="normal 14px Georgia"
+
+            ctx2.textAlign="left";
+
+
+
+            //ctx.fillText("Chairs Sold: ",column[2],row[0]), ctx.fillText(monthData[monthCounter].chairsSold,column[3],row[0]);
+            //ctx.fillText("Price: ",column[4],row[0]);
+            //ctx.fillText("$    "+chairPrice,column[5],row[0]);
+
+            //Bold headings
+            ctx2.font="bold 14px Georgia";
+            ctx.fillText("Income",column[0],row[1]);
+            ctx.fillText("Expenses",column[0],row[5]);
+            ctx.fillText("Total profit:",column[0],row[19]);
+            ctx2.font="normal 14px Georgia";
+            ctx2.font="10px Georgia";
+            /*month.chairsSold = 200;
+
+
+             month.totalExpenses=month.directCost+month.indirectCost;
+
+             month.totalProfit=month.sales-month.totalExpenses;
+             */
 
             //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
         }
@@ -656,8 +812,8 @@ var render = function(){
     }
 
 
-    ctx.fillText("x: "+posx,100,400);
-    ctx.fillText("y: "+posy,100,415);
+    //ctx.fillText("x: "+posx,100,400);
+    //ctx.fillText("y: "+posy,100,415);
 
 }
 
@@ -687,14 +843,21 @@ canvas.addEventListener('click', onClick, false);
 
 function onClick(evt){
     if(subScreen=="calendar"){
-        if(nextMonthBtn.hover){
+        if(nextMonthBtn.hover){//click of next month button will change month, update month stats, and show the new report
             monthCounter++;
             if(monthCounter == 12){
                 monthCounter = 0;
             }
+            updateMonth(monthData[monthCounter]);
+            leanToolAllowance=1000;
+            draw(ctx,office,0,0);
+            subScreen="monthlyReport";
+        }
+        if (closeBtn.hover) {
+            subScreen = "office";
         }
     }
-    if(currentScreen=="credits") {
+    else if(currentScreen=="credits") {
         currentScreen="mainMenu";
         subScreen="null"
     }
@@ -716,7 +879,17 @@ function onClick(evt){
             currentScreen = "factory";
             subScreen = "office";
         }
-        if(subScreen=="office"){
+        else if(subScreen=="leanTools"){
+            if(leanToolsBtnCells.hover&&leanToolAllowance==1000){//This must be modified to keep cost under 1000
+                leanToolAllowance=0;
+                leanToolCells=true;
+            }
+            if(leanToolsBtnSmedSaw.hover&&leanToolAllowance>=300&&leanToolSmedSaw==false){//This must be modified to keep cost under 1000
+                leanToolAllowance-=300;
+                leanToolSmedSaw=true;
+            }
+        }
+        else if(subScreen=="office"){
             if (leanToolsBtn.hover) {
                 subScreen = "leanTools";
             }
@@ -727,14 +900,15 @@ function onClick(evt){
                 subScreen = "monthlyReport";
             }
         }
-
-        if (subScreen=="leanTools"||subScreen=="monthlyReport"||subScreen=="calendar") {
+         if (subScreen=="leanTools"||subScreen=="monthlyReport"||subScreen=="calendar") {
             if (closeBtn.hover) {
                 subScreen = "office";
             }
         }
 
+
     }
+
 
 }
 
