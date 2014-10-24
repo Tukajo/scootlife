@@ -1,0 +1,118 @@
+Variable List - Processes
+
+mitreSaw_CurrentQuantity = if(newEquiptment_Saw){2} else{1}
+mitreSaw_SetupTime = if(smed_Drill){0.4} else{2}
+mitreSaw_NumParts = 14
+mitreSaw_ProcessTime = "0.2 - 1.2 min"
+mitreSaw_TotalTime = 10.4
+mitreSaw_Efficiency = 90% + (if(fiveS_Saw){6%} else{0}) - (if(selfDirectedTeams_Metal){3%} else{0})
+mitreSaw_Reliability = if(preventitiveMaintnence_Saw){99.5%} else{97%}
+mitreSaw_Quality = 100%
+mitreSaw_BatchSizes = if(smallLotSizes_Metal){20} else{40}
+mitreSaw_Handling = if(cellsOverall){0} else{2}
+mitreSaw_NeededMachines = mitreSaw_NeededMin/(24 * MinPerDay * mitreSaw_Efficiency * mitreSaw_Reliability * mitreSaw_Quality)
+
+
+drillPress_CurrentQuantity = if(newEquiptment_Drill){2} else{1}
+drillPress_SetupTime = if(smed_Welding){0.4} else{2}
+drillPress_NumParts = 4
+drillPress_ProcessTime = "2 min"
+drillPress_TotalTime = 16
+drillPress_Efficiency = 90% + (if(fiveS_Drill){6%} else{0}) - (if(selfDirectedTeams_Metal){3%} else{0})
+drillPress_Reliability = if(preventitiveMaintnence_Drill){99.5%} else{97%}
+drillPress_Quality = if(sourceQuality_Drill){99.6%} else{98%}
+drillPress_BatchSizes = if(smallLotSizes_Metal){20} else{40}
+drillPress_Handling = if(cellsOverall){0} else{2}
+drillPress_NeededMachines = drillPress_NeededMin/(24 * MinPerDay * drillPress_Efficiency * drillPress_Reliability * drillPress_Quality)
+
+
+tubeBender_CurrentQuantity = if(newEquiptment_Bender){2} else{1}
+tubeBender_SetupTime = if(smed_Bender){1} else{5}
+tubeBender_NumParts = 8
+tubeBender_ProcessTime = "1 - 3 min"
+tubeBender_TotalTime = 33
+tubeBender_Efficiency = 90% + (if(fiveS_Bender){6%} else{0}) - (if(selfDirectedTeams_Metal){3%} else{0})
+tubeBender_Reliability = if(preventitiveMaintnence_Bender){99.8%} else{99%}
+tubeBender_Quality = if(sourceQuality_Bender){99.6%} else{98%}
+tubeBender_BatchSizes = if(smallLotSizes_Metal){20} else{40}
+tubeBender_Handling = 2
+tubeBender_NeededMachines = tubeBender_NeededMin/(24 * MinPerDay * tubeBender_Efficiency * tubeBender_Reliability * tubeBender_Quality)
+
+
+welding_CurrentQuantity = if(newEquiptment_Saw){3} else{2}
+welding_SetupTime = if(smed_Welding){2} else{10}
+welding_NumParts = 5
+welding_ProcessTime = "2 - 30 min"
+welding_TotalTime = 106
+welding_Efficiency = 90% + (if(fiveS_Welding){6%} else{0}) - (if(selfDirectedTeams_Metal){3%} else{0})
+welding_Reliability = if(preventitiveMaintnence_Welding){99%} else{95%}
+welding_Quality = if(sourceQuality_Welding){99%} else{95%}
+welding_BatchSizes = if(smallLotSizes_Weld){20} else{40}
+welding_Handling = if(cellsOverall){0} else{2}
+welding_NeededMachines = welding_NeededMin/(24 * MinPerDay * welding_Efficiency * welding_Reliability * welding_Quality)
+
+
+grinder_CurrentQuantity = if(newEquiptment_Grind){2} else{1}
+grinder_SetupTime = 0
+grinder_NumParts = 5
+grinder_ProcessTime = "1 - 4 min"
+grinder_TotalTime = 34
+grinder_Efficiency = 90% + (if(fiveS_Grind){6%} else{0}) - (if(selfDirectedTeams_Weld){3%} else{0})
+grinder_Reliability = 100%
+grinder_Quality = 100%
+grinder_BatchSizes = if(smallLotSizes_Weld){20} else{40}
+grinder_Handling = if(cellsOverall){0} else{2}
+grinder_NeededMachines = grinder_NeededMin/(24 * MinPerDay * grinder_Efficiency * grinder_Reliability * grinder_Quality)
+
+
+paintBooth_CurrentQuantity = if(newEquiptment_Paint){2} else{1}
+paintBooth_SetupTime = if(smed_Paint){3} else{15}
+paintBooth_NumParts = 4
+paintBooth_ProcessTime = "2 - 8 min"
+paintBooth_TotalTime = 38
+paintBooth_Efficiency = 90% + (if(fiveS_Paint){6%} else{0}) - (if(selfDirectedTeams_Weld){3%} else{0})
+paintBooth_Reliability = if(preventitiveMaintnence_Paint){99.5%} else{98%}
+paintBooth_Quality = 100%
+paintBooth_BatchSizes = if(smallLotSizes_Weld){20} else{40}
+paintBooth_Handling = 2
+paintBooth_NeededMachines = paintBooth_NeededMin/(24 * MinPerDay * paintBooth_Efficiency * paintBooth_Reliability * paintBooth_Quality)
+
+
+fabricCutter_CurrentQuantity = if(newEquiptment_FabricCut){2} else{1}
+fabricCutter_SetupTime = 0
+fabricCutter_NumParts = 2
+fabricCutter_ProcessTime = "4 - 8 min"
+fabricCutter_TotalTime = 12
+fabricCutter_Efficiency = 90% + (if(fiveS_FabricCut){6%} else{0}) - (if(selfDirectedTeams_Fabric){3%} else{0})
+fabricCutter_Reliability = 100%
+fabricCutter_Quality = 100%
+fabricCutter_BatchSizes = if(smallLotSizes_Fabric){10} else{20}
+fabricCutter_Handling = if(cellsOverall){0} else{2}
+fabricCutter_NeededMachines = fabricCutter_NeededMin/(24 * MinPerDay * fabricCutter_Efficiency * fabricCutter_Reliability * fabricCutter_Quality)
+
+
+sewing_CurrentQuantity = if(newEquiptment_Sewing){3} else{2}
+sewing_SetupTime = if(smed_Sewing){1} else{5}
+sewing_NumParts = 2
+sewing_ProcessTime = "12 - 30 min"
+sewing_TotalTime = 42
+sewing_Efficiency = 90% + (if(fiveS_Sewing){6%} else{0}) - (if(selfDirectedTeams_Fabric){3%} else{0})
+sewing_Reliability = if(preventitiveMaintnence_Sewing){99%} else{95%}
+sewing_Quality = if(sourceQuality_Sewing){99.6%} else{98%}
+sewing_BatchSizes = if(smallLotSizes_Fabric){10} else{20}
+sewing_Handling = 2
+sewing_NeededMachines = sewing_NeededMin/(24 * MinPerDay * sewing_Efficiency * sewing_Reliability * sewing_Quality)
+
+
+assembly_CurrentQuantity = if(newEquiptment_Assembly){3} else{2}
+assembly_SetupTime = 0
+assembly_NumParts = 3
+assembly_ProcessTime = "8 - 49 min"
+assembly_TotalTime = 65
+assembly_Efficiency = 90% + if(fiveS_Assembly){6%} else{0}
+assembly_Reliability = 100%
+assembly_Quality = if(sourceQuality_Assembly){99.8%} else{99%}
+assembly_BatchSizes = 1
+assembly_Handling = 0
+assembly_NeededMachines = assembly_NeededMin/(24 * MinPerDay * assembly_Efficiency * assembly_Reliability * assembly_Quality)
+
