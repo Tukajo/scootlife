@@ -1,0 +1,182 @@
+Variable List - Inventory
+
+ninteenbyoneTube_ChairQuantity = ninteenbyoneTube_PrevChairQuantity + (ninteenbyoneTube_ChairOrderQuantity * ninteenbyoneTube_NumOrders) - mitreSaw_ActualProd
+ninteenbyoneTube_ChairPrice = ninteenbyoneTube_PricePerChair
+ninteenbyoneTube_Value = ninteenbyoneTube_ChairQuantity * ninteenbyoneTube_ChairPrice
+ninteenbyoneTube_PrevChairQuantity = 200
+ninteenbyoneTube_ChairOrderQuantity = ninteenbyoneTube_ChairsPerUnit * ninteenbyoneTube_OrderQuantity
+ninteenbyoneTube_NumOrders = if(ninteenbyoneTube_PrevChairQuantity - mitreSaw_ActualProd<= ninteenbyoneTube_ROP){Math.ceil(ninteenbyoneTube_ROP - ninteenbyoneTube_PrevChairQuantiy + mitreSaw_ActualProd) / ninteenbyoneTube_ChairOrderQuantity} else{0}
+ninteenbyoneTube_OrderPrice = ninteenbyoneTube_PricePerChair * ninteenbyoneTube_ChairOrderQuantity
+ninteenbyoneTube_OrderCost = ninteenbyoneTube_NumOrders * ninteenbyoneTube_OrderCost  
+ninteenbyoneTube_MaterialCost = ninteenbyoneTube_OrderPrice * ninteenbyoneTube_NumOrders
+ninteenbyoneTube_? = 200
+
+
+twentyfivebyoneTube_ChairQuantity = twentyfivebyoneTube_PrevChairQuantity + (twentyfivebyoneTube_ChairOrderQuantity * twentyfivebyoneTube_NumOrders) - mitreSaw_ActualProd
+twentyfivebyoneTube_ChairPrice = twentyfivebyoneTube_PricePerChair
+twentyfivebyoneTube_Value = twentyfivebyoneTube_ChairQuantity * twentyfivebyoneTube_ChairPrice
+twentyfivebyoneTube_PrevChairQuantity = 200
+twentyfivebyoneTube_ChairOrderQuantity = twentyfivebyoneTube_ChairsPerUnit * twentyfivebyoneTube_OrderQuantity
+twentyfivebyoneTube_NumOrders = if(twentyfivebyoneTube_PrevChairQuantity - mitreSaw_ActualProd <= twentyfivebyoneTube_ROP){Math.ceil(twentyfivebyoneTube_ROP - twentyfivebyoneTube_PrevChairQuantiy + mitreSaw_ActualProd) / twentyfivebyoneTube_ChairOrderQuantity} else{0}
+twentyfivebyoneTube_OrderPrice = twentyfivebyoneTube_PricePerChair * twentyfivebyoneTube_ChairOrderQuantity
+twentyfivebyoneTube_OrderCost = twentyfivebyoneTube_NumOrders * twentyfivebyoneTube_OrderCost  
+twentyfivebyoneTube_MaterialCost = twentyfivebyoneTube_OrderPrice * twentyfivebyoneTube_NumOrders
+twentyfivebyoneTube_? = 200
+
+
+thirtyfivebytwoTube_ChairQuantity = thirtyfivebytwoTube_PrevChairQuantity + (thirtyfivebytwoTube_ChairOrderQuantity * thirtyfivebytwoTube_NumOrders) - mitreSaw_ActualProd
+thirtyfivebytwoTube_ChairPrice = thirtyfivebytwoTube_PricePerChair
+thirtyfivebytwoTube_Value = thirtyfivebytwoTube_ChairQuantity * thirtyfivebytwoTube_ChairPrice
+thirtyfivebytwoTube_PrevChairQuantity = 1400
+thirtyfivebytwoTube_ChairOrderQuantity = thirtyfivebytwoTube_ChairsPerUnit * thirtyfivebytwoTube_OrderQuantity
+thirtyfivebytwoTube_NumOrders = if(thirtyfivebytwoTube_PrevChairQuantity - mitreSaw_ActualProd <= thirtyfivebytwoTube_ROP){Math.ceil(thirtyfivebytwoTube_ROP - thirtyfivebytwoTube_PrevChairQuantiy + mitreSaw_ActualProd) / thirtyfivebytwoTube_ChairOrderQuantity} else{0}
+thirtyfivebytwoTube_OrderPrice = thirtyfivebytwoTube_PricePerChair * thirtyfivebytwoTube_ChairOrderQuantity
+thirtyfivebytwoTube_OrderCost = thirtyfivebytwoTube_NumOrders * thirtyfivebytwoTube_OrderCost  
+thirtyfivebytwoTube_MaterialCost = thirtyfivebytwoTube_OrderPrice * thirtyfivebytwoTube_NumOrders
+thirtyfivebytwoTube_? = 1400
+
+
+nylonFabric_ChairQuantity = nylonFabric_PrevChairQuantity + (nylonFabric_ChairOrderQuantity * nylonFabric_NumOrders) - fabricCut_ActualProd
+nylonFabric_ChairPrice = nylonFabric_PricePerChair
+nylonFabric_Value = nylonFabric_ChairQuantity * nylonFabric_ChairPrice
+nylonFabric_PrevChairQuantity = 320
+nylonFabric_ChairOrderQuantity = nylonFabric_ChairsPerUnit * nylonFabric_OrderQuantity
+nylonFabric_NumOrders = if(nylonFabric_PrevChairQuantity - fabricCut_ActualProd <= nylonFabric_ROP){Math.ceil(nylonFabric_ROP - nylonFabric_PrevChairQuantiy + fabricCut_ActualProd) / nylonFabric_ChairOrderQuantity} else{0}
+nylonFabric_OrderPrice = nylonFabric_PricePerChair * nylonFabric_ChairOrderQuantity
+nylonFabric_OrderCost = nylonFabric_NumOrders * nylonFabric_OrderCost  
+nylonFabric_MaterialCost = nylonFabric_OrderPrice * nylonFabric_NumOrders
+nylonFabric_? = 320
+
+
+casterWheel_ChairQuantity = casterWheel_PrevChairQuantity + (casterWheel_ChairOrderQuantity * casterWheel_NumOrders) - assembly_ActualProd
+casterWheel_ChairPrice = casterWheel_PricePerChair
+casterWheel_Value = casterWheel_ChairQuantity * casterWheel_ChairPrice
+casterWheel_PrevChairQuantity = 200
+casterWheel_ChairOrderQuantity = casterWheel_ChairsPerUnit * casterWheel_OrderQuantity
+casterWheel_NumOrders = if(casterWheel_PrevChairQuantity - assembly_ActualProd <= casterWheel_ROP){Math.ceil(casterWheel_ROP - casterWheel_PrevChairQuantiy + assembly_ActualProd) / casterWheel_ChairOrderQuantity} else{0}
+casterWheel_OrderPrice = casterWheel_PricePerChair * casterWheel_ChairOrderQuantity
+casterWheel_OrderCost = casterWheel_NumOrders * casterWheel_OrderCost  
+casterWheel_MaterialCost = casterWheel_OrderPrice * casterWheel_NumOrders
+casterWheel_? = 200
+
+
+rearBikeWheel_ChairQuantity = rearBikeWheel_PrevChairQuantity + (rearBikeWheel_ChairOrderQuantity * rearBikeWheel_NumOrders) - assembly_ActualProd
+rearBikeWheel_ChairPrice = rearBikeWheel_PricePerChair
+rearBikeWheel_Value = rearBikeWheel_ChairQuantity * rearBikeWheel_ChairPrice
+rearBikeWheel_PrevChairQuantity = 180
+rearBikeWheel_ChairOrderQuantity = rearBikeWheel_ChairsPerUnit * rearBikeWheel_OrderQuantity
+rearBikeWheel_NumOrders = if(rearBikeWheel_PrevChairQuantity - assembly_ActualProd <= rearBikeWheel_ROP){Math.ceil(rearBikeWheel_ROP - rearBikeWheel_PrevChairQuantiy + assembly_ActualProd) / rearBikeWheel_ChairOrderQuantity} else{0}
+rearBikeWheel_OrderPrice = rearBikeWheel_PricePerChair * rearBikeWheel_ChairOrderQuantity
+rearBikeWheel_OrderCost = rearBikeWheel_NumOrders * rearBikeWheel_OrderCost  
+rearBikeWheel_MaterialCost = rearBikeWheel_OrderPrice * rearBikeWheel_NumOrders
+rearBikeWheel_? = 180
+
+
+handle_ChairQuantity = handle_PrevChairQuantity + (handle_ChairOrderQuantity * handle_NumOrders) - assembly_ActualProd
+handle_ChairPrice = handle_PricePerChair
+handle_Value = handle_ChairQuantity * handle_ChairPrice
+handle_PrevChairQuantity = 400
+handle_ChairOrderQuantity = handle_ChairsPerUnit * handle_OrderQuantity
+handle_NumOrders = if(handle_PrevChairQuantity - assembly_ActualProd <= handle_ROP){Math.ceil(handle_ROP - handle_PrevChairQuantiy + assembly_ActualProd) / handle_ChairOrderQuantity} else{0}
+handle_OrderPrice = handle_PricePerChair * handle_ChairOrderQuantity
+handle_OrderCost = handle_NumOrders * handle_OrderCost  
+handle_MaterialCost = handle_OrderPrice * handle_NumOrders
+handle_? = 400
+
+
+fender_ChairQuantity = fender_PrevChairQuantity + (fender_ChairOrderQuantity * fender_NumOrders) - assembly_ActualProd
+fender_ChairPrice = fender_PricePerChair
+fender_Value = fender_ChairQuantity * fender_ChairPrice
+fender_PrevChairQuantity = 500
+fender_ChairOrderQuantity = fender_ChairsPerUnit * fender_OrderQuantity
+fender_NumOrders = if(fender_PrevChairQuantity - assembly_ActualProd <= fender_ROP){Math.ceil(fender_ROP - fender_PrevChairQuantiy + assembly_ActualProd) / fender_ChairOrderQuantity} else{0}
+fender_OrderPrice = fender_PricePerChair * fender_ChairOrderQuantity
+fender_OrderCost = fender_NumOrders * fender_OrderCost  
+fender_MaterialCost = fender_OrderPrice * fender_NumOrders
+fender_? = 500
+
+
+footrestPlate_ChairQuantity = footrestPlate_PrevChairQuantity + (footrestPlate_ChairOrderQuantity * footrestPlate_NumOrders) - assembly_ActualProd
+footrestPlate_ChairPrice = footrestPlate_PricePerChair
+footrestPlate_Value = footrestPlate_ChairQuantity * footrestPlate_ChairPrice
+footrestPlate_PrevChairQuantity = 200
+footrestPlate_ChairOrderQuantity = footrestPlate_ChairsPerUnit * footrestPlate_OrderQuantity
+footrestPlate_NumOrders = if(footrestPlate_PrevChairQuantity - assembly_ActualProd <= footrestPlate_ROP){Math.ceil(footrestPlate_ROP - footrestPlate_PrevChairQuantiy + assembly_ActualProd) / footrestPlate_ChairOrderQuantity} else{0}
+footrestPlate_OrderPrice = footrestPlate_PricePerChair * footrestPlate_ChairOrderQuantity
+footrestPlate_OrderCost = footrestPlate_NumOrders * footrestPlate_OrderCost  
+footrestPlate_MaterialCost = footrestPlate_OrderPrice * footrestPlate_NumOrders
+footrestPlate_? = 200
+
+
+brakeLever_ChairQuantity = brakeLever_PrevChairQuantity + (brakeLever_ChairOrderQuantity * brakeLever_NumOrders) - assembly_ActualProd
+brakeLever_ChairPrice = brakeLever_PricePerChair
+brakeLever_Value = brakeLever_ChairQuantity * brakeLever_ChairPrice
+brakeLever_PrevChairQuantity = 250
+brakeLever_ChairOrderQuantity = brakeLever_ChairsPerUnit * brakeLever_OrderQuantity
+brakeLever_NumOrders = if(brakeLever_PrevChairQuantity - assembly_ActualProd <= brakeLever_ROP){Math.ceil(brakeLever_ROP - brakeLever_PrevChairQuantiy + assembly_ActualProd) / brakeLever_ChairOrderQuantity} else{0}
+brakeLever_OrderPrice = brakeLever_PricePerChair * brakeLever_ChairOrderQuantity
+brakeLever_OrderCost = brakeLever_NumOrders * brakeLever_OrderCost  
+brakeLever_MaterialCost = brakeLever_OrderPrice * brakeLever_NumOrders
+brakeLever_? = 250
+
+
+tubeSaw_Batches = 14
+tubeSaw_ChairQuantity = mitreSaw_FinalInventory
+tubeSaw_ChairPrice = 1.95
+tubeSaw_Value = tubeSaw_Batches * tubeSaw_ChairQuantity * tubeSaw_ChairPrice
+
+
+tubeDrill_Batches = 14
+tubeDrill_ChairQuantity = drillPress_FinalInventory
+tubeDrill_ChairPrice = 2.10
+tubeDrill_Value = tubeDrill_Batches * tubeDrill_ChairQuantity * tubeDrill_ChairPrice
+
+
+tubeBender_Batches = 14
+tubeBender_ChairQuantity = tubeBender_FinalInventory
+tubeBender_ChairPrice = 2.40
+tubeBender_Value = tubeBender_Batches * tubeBender_ChairQuantity * tubeBender_ChairPrice
+
+
+weldWelder_Batches = 5
+weldWelder_ChairQuantity = welding_FinalInventory
+weldWelder_ChairPrice = 9.75
+weldWelder_Value = weldWelder_Batches * weldWelder_ChairQuantity * weldWelder_ChairPrice
+
+
+weldGrinder_Batches = 5
+weldGrinder_ChairQuantity = grinder_FinalInventory
+weldGrinder_ChairPrice = 10.75
+weldGrinder_Value = weldGrinder_Batches * weldGrinder_ChairQuantity * weldGrinder_ChairPrice
+
+
+weldPaint_Batches = 5
+weldPaint_ChairQuantity = paintBooth_FinalInventory
+weldPaint_ChairPrice = 12.00
+weldPaint_Value = weldPaint_Batches * weldPaint_ChairQuantity * weldPaint_ChairPrice
+
+
+fabricFabCut_Batches = 2
+fabricFabCut_ChairQuantity = fabricCut_FinalInventory
+fabricFabCut_ChairPrice = 8.75
+fabricFabCut_Value = fabricFabCut_Batches * fabricFabCut_ChairQuantity * fabricFabCut_ChairPrice
+
+
+fabricSewing_Batches = 2
+fabricSewing_ChairQuantity = sewing_FinalInventory
+fabricSewing_ChairPrice = 15.75
+fabricSewing_Value = fabricSewing_Batches * fabricSewing_ChairQuantity * fabricSewing_ChairPrice
+
+
+finalAssembly_ChairQuantity = 5
+finalAssembly_ChairPrice = 225.00
+finalAssembly_Value = finalAssembly_ChairQuantity * finalAssembly_ChairPrice
+
+
+total_Value = (ninteenbyoneTube_Value + twentyfivebyoneTube_Value + thirtyfivebytwoTube_Value + nylonFabric_Value + casterWheel_Value + rearBikeWheel_Value + handle_Value + fender_Value + footrestPlate_Value + brakeLever_Value + tubeSaw_Value + tubeDrill_Value + tubeBender_Value + weldWelder_Value + weldGrinder_Value + weldPaint_Value + fabricFabCut_Value + fabricSewing_Value + finalAssembly_Value)
+total_NumOrders = (ninteenbyoneTube_NumOrders + twentyfivebyoneTube_NumOrders + thirtyfivebytwoTube_NumOrders + nylonFabric_NumOrders + casterWheel_NumOrders + handle_NumOrders + fender_NumOrders + footrestPlate_NumOrders + brakeLever_NumOrders)
+total_OrderCost = (nineteenbyoneTube_OrderCost + twentyfivebyoneTube_OrderCost + thirtyfivebytwoTube_OrderCost + nylonFabric_OrderCost + casterWheel_OrderCost + handle_OrderCost + fender_OrderCost + footrestPlate_OrderCost + brakeLever_OrderCost)
+total_MaterialCost = (nineteenbyoneTube_MaterialCost + twentyfivebyoneTube_MaterialCost + thirtyfivebytwoTube_MaterialCost + nylonFabric_MaterialCost + casterWheel_MaterialCost + handle_MaterialCost + fender_MaterialCost + footrestPlate_MaterialCost + brakeLever_MaterialCost)
+
+
+
