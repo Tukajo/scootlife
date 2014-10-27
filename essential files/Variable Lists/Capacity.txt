@@ -1,0 +1,157 @@
+Variable List - Capacity (hidden)
+
+chairs = 200
+MinPerDay = 450
+
+
+mitreSaw_NeededMin = (chairs * mitreSaw_TotalTime) + (mitreSaw_NumParts * chairs * (2 / mitreSaw_BatchSizes) * (mitreSaw_SetupTime + mitreSaw_Handling))
+mitreSaw_DaysDownQuality = mitreSaw_Downtime_One
+mitreSaw_DaysStarved = if(smallPurchaseLotSizes_Steel){mitreSaw_LateParts_One} else{0}
+mitreSaw_AvailableMin = (20 - (mitreSaw_DaysDownQuality / mitreSaw_CurrentQua) - mitreSaw_DaysStarved) * MinPerDay * mitreSaw_Efficiency * mitreSaw_Reliability)
+mitreSaw_NeededMachines = mitreSaw_NeededMin / mitreSaw_AvailableMin
+mitreSaw_NoCellsWorkers = Math.min(mitreSaw_CurrentQua, Math.ceil(mitreSaw_NeededMachines))
+mitreSaw_TrainWorkers = if(crossTraining_Metal){Math.min(mitreSaw_CurrentQua + drillPress_currentQua + tubeBender_CurrentQua, Math.ceil(mitreSaw_NeededMachines + drillPress_NeededMachines + tubeBender_ NeededMachines), 0} else{mitreSaw_NoCellWorkers + drillPress_NoCellWorkers + tubeBender_NoCellWorkers}
+mitreSaw_WorkersOver = if(mitreSaw_NoCellsWorkers - mitreSaw_NeededMachines) < 0){mitreSaw_NoCellsWorkers} else{if(((mitreSaw_NoCellsWorkers - mitreSaw_NeededMachines) / mitreSaw_NoCellsWorkers) < 0.05){mitreSaw_NoCellsWorkers / 2} else{0}}
+mitreSaw_MaxCapacity = Math.floor(chairs * (_NoCellsWorkers + (0.25 * _WorkersOver) * (_AvailableMin / _NeededMin)))
+mitreSaw_PrevInventory = 40
+mitreSaw_MaxOutInventory = if(kanban_Metal){0} else{3 * drillPress_BatchSizes}
+mitreSaw_ActualProd = Math.min(mitreSaw_MaxCapacity, (chairs + mitreSaw_MaxOutInventory - mitreSaw_PrevInventory))
+mitreSaw_FinalInventory = mitreSaw_PrevInventory + mitreSaw_ActualProd - drillPress_ActualProd	
+mitreSaw_DaysLateOut = Math.max(mitreSaw_DaysDownQual - if(kanban_Metal){0} else{if(smallLotSizes_Metal){2} else{4}}, 0) + if(mitreSaw_MaxCapacity < chairs), {(chairs - mitreSaw_MaxCapacity) / 10} else{0}
+mitreSaw_? = 40
+
+
+drillPress_NeededMin = (chairs * drillPress_TotalTime) + (drillPress_NumParts * chairs * (2 / drillPress_BatchSizes) * (drillPress_SetupTime + drillPress_Handling))
+drillPress_DaysDownQuality = drillPress_Downtime_One + drillPress_BadQuality_One
+drillPress_DaysStarved = mitreSaw_DaysLateOut
+drillPress_AvailableMin = (20 - (drillPress_DaysDownQuality / drillPress_CurrentQua) - drillPress_DaysStarved) * MinPerDay * drillPress_Efficiency * drillPress_Reliability)
+drillPress_NeededMachines = drillPress_NeededMin / drillPress_AvailableMin
+drillPress_NoCellsWorkers = Math.min(drillPress_CurrentQua, Math.ceil(drillPress_NeededMachines))
+drillPress_WorkersOver = if(drillPress_NoCellsWorkers - drillPress_NeededMachines) < 0){drillPress_NoCellsWorkers} else{if(((drillPress_NoCellsWorkers - drillPress_NeededMachines) / drillPress_NoCellsWorkers) < 0.05){drillPress_NoCellsWorkers / 2} else{0}}
+drillPress_MaxCapacity = Math.floor(chairs * (drillPress_NoCellsWorkers + (0.25 * drillPress_WorkersOver) * (drillPress_AvailableMin / drillPress_NeededMin)))
+drillPress_PrevInventory = 40
+drillPress_MaxOutInventory = if(kanban_Metal){0} else{3 * tubeBender_BatchSizes}
+drillPress_ActualProd = Math.min(drillPress_MaxCapacity, chairs + drillPress_MaxOutInventory - drillPress_PrevInventory, mitreSaw_ActualProd + mitreSaw_PrevInventory)
+drillPress_FinalInventory = drillPress_PrevInventory + drillPress_ActualProd - tubeBender_ActualProd	
+drillPress_DaysLateOut = Math.max(drillPress_DaysDownQual - if(kanban_Metal){0} else{if(smallLotSizes_Metal){2} else{4}}, 0) + if(drillPress_MaxCapacity < chairs){(chairs - drillPress_MaxCapacity) / 10} else{0}
+drillPress_? = 40
+
+
+tubeBender_NeededMin = (chairs * tubeBender_TotalTime) + (tubeBender_NumParts * chairs * (2 / tubeBender_BatchSizes) * (tubeBender_SetupTime + tubeBender_Handling))
+tubeBender_DaysDownQuality = tubeBender_Downtime_One + tubeBender_BadQuality_One + tubeBender_DelayQuality_One
+tubeBender_DaysStarved = drillPress_DaysLateOut
+tubeBender_AvailableMin = (20 - (tubeBender_DaysDownQuality / tubeBender_CurrentQua) - tubeBender_DaysStarved) * MinPerDay * tubeBender_Efficiency * tubeBender_Reliability)
+tubeBender_NeededMachines = tubeBender_NeededMin / tubeBender_AvailableMin
+tubeBender_NoCellsWorkers = Math.min(tubeBender_CurrentQua, Math.ceil(tubeBender_NeededMachines))
+tubeBender_WorkersOver = if(tubeBender_NoCellsWorkers - tubeBender_NeededMachines) < 0){tubeBender_NoCellsWorkers} else{if(((tubeBender_NoCellsWorkers - tubeBender_NeededMachines) / tubeBender_NoCellsWorkers) < 0.05){tubeBender_NoCellsWorkers / 2} else{0}}
+tubeBender_MaxCapacity = Math.floor(chairs * (tubeBender_NoCellsWorkers + (0.25 * tubeBender_WorkersOver) * (tubeBender_AvailableMin / tubeBender_NeededMin)))
+tubeBender_PrevInventory = 35
+tubeBender_MaxOutInventory = if(supermarket_Welding){tubeBender_BatchSizes} else{3 * tubeBender_BatchSizes}
+tubeBender_ActualProd = Math.min(tubeBender_MaxCapacity, chairs + tubeBender_MaxOutInventory - tubeBender_PrevInventory, drillPress_ActualProd + drillPress_PrevInventory)
+tubeBender_FinalInventory = tubeBender_PrevInventory + tubeBender_ActualProd - welding_ActualProd	
+tubeBender_DaysLateOut = Math.max(tubeBender_DaysDownQual - if(smallLotSizes_Metal){2} else{4}, 0) + if(tubeBender_MaxCapacity < chairs){(chairs - tubeBender_MaxCapacity) / 10} else{0} + if(tubeBender_PrevInventory < tubeBender_BatchSizes){(tubeBender_BatchSizes - tubeBender_PrevInventory) / 10} else{0}
+tubeBender_? = 35
+
+
+welding_NeededMin = (chairs * welding_TotalTime) + (welding_NumParts * chairs * (2 / welding_BatchSizes) * (welding_SetupTime + welding_Handling))
+welding_DaysDownQuality = welding_Downtime_One + welding_BadQuality_One
+welding_DaysStarved = tubeBender_DaysLateOut 
+welding_AvailableMin = (20 - (welding_DaysDownQuality / welding_CurrentQua) - welding_DaysStarved) * MinPerDay * welding_Efficiency * welding_Reliability)
+welding_NeededMachines = welding_NeededMin / welding_AvailableMin
+welding_NoCellsWorkers = Math.min(welding_CurrentQua, Math.ceil(welding_NeededMachines))
+welding_TrainWorkers = if(crossTraining_Weld){Math.min(welding_CurrentQua + grinder_CurrentQua + paintBooth_CurrentQua), Math.ceil(welding_NeededMachines + grinder_NeededMachines + paintBooth_NeededMachines)} else{(welding_NoCellsWorkers + grinder_NoCellsWorkers + paintBooth_NoCellsWorkers)}
+welding_WorkersOver = if(welding_NoCellsWorkers - welding_NeededMachines) < 0){welding_NoCellsWorkers} else{if(((welding_NoCellsWorkers - welding_NeededMachines) / welding_NoCellsWorkers) < 0.05){welding_NoCellsWorkers / 2} else{0}}
+welding_MaxCapacity = Math.floor(chairs * (welding_NoCellsWorkers + (0.25 * welding_WorkersOver) * (welding_AvailableMin / welding_NeededMin)))
+welding_PrevInventory = 20
+welding_MaxOutInventory = if(kanban_Weld){0} else{3 * grinder_BatchSizes}
+welding_ActualProd = Math.min(welding_MaxCapacity, chairs + welding_MaxOutInventory - welding_PrevInventory , tubeBender_ActualProd + tubeBender_PrevInventory)
+welding_FinalInventory = welding_PrevInventory + welding_ActualProd - grinder_ActualProd	
+welding_DaysLateOut = Math.max(welding_DaysDownQual - (if(kanban_Weld){0} else{if(smallLotSizes_Weld){2} else{4}}), 0) + if(welding_MaxCapacity < chairs){((chairs - welding_MaxCapacity) / 10)} else{0}
+welding_? = 20
+
+
+grinder_NeededMin = (chairs * grinder_TotalTime) + (grinder_NumParts * chairs * (2 / grinder_BatchSizes) * (grinder_SetupTime + grinder_Handling))
+grinder_DaysDownQuality = grinder_DelayQuality_One
+grinder_DaysStarved = welding_DaysLateOut
+grinder_AvailableMin = (20 - (grinder_DaysDownQuality / grinder_CurrentQua) - grinder_DaysStarved) * MinPerDay * grinder_Efficiency * grinder_Reliability)
+grinder_NeededMachines = grinder_NeededMin / grinder_AvailableMin
+grinder_NoCellsWorkers = Math.min(grinder_CurrentQua, Math.ceil(grinder_NeededMachines))
+grinder_WorkersOver = if(grinder_NoCellsWorkers - grinder_NeededMachines) < 0){grinder_NoCellsWorkers} else{if(((grinder_NoCellsWorkers - grinder_NeededMachines) / grinder_NoCellsWorkers) < 0.05){grinder_NoCellsWorkers / 2} else{0}}
+grinder_MaxCapacity = Math.floor(chairs * (grinder_NoCellsWorkers + (0.25 * grinder_WorkersOver) * (grinder_AvailableMin / grinder_NeededMin)))
+grinder_PrevInventory = 15
+grinder_MaxOutInventory = if(kanban_Weld){0} else{3 * paintBooth_BatchSizes}
+grinder_ActualProd = Math.min(grinder_MaxCapacity, chairs + grinder_MaxOutInventory - grinder_PrevInventory, welding_ActualProd + welding_PrevInventory)
+grinder_FinalInventory = grinder_PrevInventory + grinder_ActualProd - paintBooth_ActualProd	
+grinder_DaysLateOut = Math.max(grinder_DaysDownQual - (if(kanban_Weld){0} else{if(smallLotSizes_Weld){2} else{4}}, 0) + if(grinder_MaxCapacity < chairs){((chairs - grinder_MaxCapacity) / 10)} else{0}
+grinder_? = 15
+
+
+paintBooth_NeededMin = (chairs * paintBooth_TotalTime) + (paintBooth_NumParts * chairs * (2 / paintBooth_BatchSizes) * (paintBooth_SetupTime + paintBooth_Handling))
+paintBooth_DaysDownQuality = paintBooth_Downtime_One + paintBooth_DelayQuality_One
+paintBooth_DaysStarved = grinder_DaysLateOut 
+paintBooth_AvailableMin = (20 - (paintBooth_DaysDownQuality / paintBooth_CurrentQua) - paintBooth_DaysStarved) * MinPerDay * paintBooth_Efficiency * paintBooth_Reliability)
+paintBooth_NeededMachines = paintBooth_NeededMin / paintBooth_AvailableMin
+paintBooth_NoCellsWorkers = Math.min(paintBooth_CurrentQua, Math.ceil(paintBooth_NeededMachines))
+paintBooth_WorkersOver = if(paintBooth_NoCellsWorkers - paintBooth_NeededMachines) < 0){paintBooth_NoCellsWorkers} else{if(((paintBooth_NoCellsWorkers - paintBooth_NeededMachines) / paintBooth_NoCellsWorkers) < 0.05){paintBooth_NoCellsWorkers / 2} else{0}}
+paintBooth_MaxCapacity = Math.floor(chairs * (paintBooth_NoCellsWorkers + (0.25 * paintBooth_WorkersOver) * (paintBooth_AvailableMin / paintBooth_NeededMin)))
+paintBooth_PrevInventory = 15
+paintBooth_MaxOutInventory = if(supermarket_Assembly){paintBooth_BatchSizes} else{3 * paintBooth_BatchSizes}
+paintBooth_ActualProd = Math.min(paintBooth_MaxCapacity, chairs + paintBooth_MaxOutInventory - paintBooth_PrevInventory, grinder_ActualProd + grinder_PrevInventory)
+paintBooth_FinalInventory = paintBooth_PrevInventory + paintBooth_ActualProd - assembly_ActualProd
+paintBooth_DaysLateOut = Math.max(paintBooth_DaysDownQual - (if(smallLotSizes){2} else{4}), 0) + (if(sewing_MaxCapacity < chairs) {((chairs - sewing_MaxCapacity) / 10)} else{0}) + if(paintBooth_PrevInventory < paintBooth_BatchSizes){((paintBooth_BatchSizes - paintBooth_PrevInventory) / 10} else{0}
+paintBooth_? = 15
+
+
+fabricCut_NeededMin = (chairs * fabricCut_TotalTime) + (fabricCut_NumParts * chairs * (2 / fabricCut_BatchSizes) * (fabricCut_SetupTime + fabricCut_Handling))
+fabricCut_DaysDownQuality = 0
+fabricCut_DaysStarved = if(smallPurchaseLotSizes_Nylon){fabricCutter_LateParts_One} else{0}
+fabricCut_AvailableMin = (20 - (fabricCut_DaysDownQuality / fabricCut_CurrentQua) - fabricCut_DaysStarved) * MinPerDay * fabricCut_Efficiency * fabricCut_Reliability)
+fabricCut_NeededMachines = fabricCut_NeededMin / fabricCut_AvailableMin
+fabricCut_NoCellsWorkers = Math.min(fabricCut_CurrentQua, Math.ceil(fabricCut_NeededMachines))
+fabricCut_TrainWorkers = if(crossTraining_Fabric){Math.min(fabricCut_CurrentQua + sewing_CurrentQua, Math.ceil(fabricCut_NeededMachines + sewing_NeededMachines))} else{fabricCut_NoCellsWorkers + sewing_NoCellsWorkers}
+fabricCut_WorkersOver = if(fabricCut_NoCellsWorkers - fabricCut_NeededMachines) < 0){fabricCut_NoCellsWorkers} else{if(((fabricCut_NoCellsWorkers - fabricCut_NeededMachines) / fabricCut_NoCellsWorkers) < 0.05){fabricCut_NoCellsWorkers / 2} else{0}}
+fabricCut_MaxCapacity = Math.floor(chairs * (fabricCut_NoCellsWorkers + (0.25 * fabricCut_WorkersOver) * (fabricCut_AvailableMin / fabricCut_NeededMin)))
+fabricCut_PrevInventory = 20
+fabricCut_MaxOutInventory = 3 * fabricCut_BatchSizes
+fabricCut_ActualProd = Math.min(fabricCut_MaxCapacity, chairs + fabricCut_MaxOutInventory - fabricCut_PrevInventory)
+fabricCut_FinalInventory = fabricCut_PrevInventory + fabricCut_ActualProd - sewing_ActualProd
+fabricCut_DaysLateOut = Math.max(fabricCut_DaysDownQual - (if(smallLotSizes_Fabric){2} else{4}), 0) + if(fabricCut_MaxCapacity < chairs){((chairs - fabricCut_MaxCapacity) / 10)} else{0}
+fabricCut_? = 20
+
+
+sewing_NeededMin = (chairs * sewing_TotalTime) + (sewing_NumParts * chairs * (2 / sewing_BatchSizes) * (sewing_SetupTime + sewing_Handling))
+sewing_DaysDownQuality = sewing_Downtime_One + sewing_BadQuality_One
+sewing_DaysStarved = fabricCut_DaysLateOut 
+sewing_AvailableMin = (20 - (sewing_DaysDownQuality / sewing_CurrentQua) - sewing_DaysStarved) * MinPerDay * sewing_Efficiency * sewing_Reliability)
+sewing_NeededMachines = sewing_NeededMin / sewing_AvailableMin
+sewing_NoCellsWorkers = Math.min(sewing_CurrentQua, Math.ceil(sewing_NeededMachines))
+sewing_WorkersOver = if(sewing_NoCellsWorkers - sewing_NeededMachines) < 0){sewing_NoCellsWorkers} else{if(((sewing_NoCellsWorkers - sewing_NeededMachines) / sewing_NoCellsWorkers) < 0.05){sewing_NoCellsWorkers / 2} else{0}}
+sewing_MaxCapacity = Math.floor(chairs * (sewing_NoCellsWorkers + (0.25 * sewing_WorkersOver) * (sewing_AvailableMin / sewing_NeededMin)))
+sewing_PrevInventory = 20
+sewing_MaxOutInventory = if(supermarket_Assembly){sewing_BatchSizes} else{3 * sewing_BatchSizes}
+sewing_ActualProd = Math.min(sewing_MaxCapacity, chairs + sewing_MaxOutInventory - sewing_PrevInventory, fabricCut_ActualProd + fabricCut_PrevInventory)
+sewing_FinalInventory = sewing_PrevInventory + sewing_ActualProd - assembly_ActualProd
+sewing_DaysLateOut = Math.max(sewing_DaysDownQual - (if(smallLotSizes_Fabric){2} else{4}), 0) + if(sewing_MaxCapacity < chairs){((chairs - sewing_MaxCapacity) / 10)} else{0} + if(sewing_PrevInventory < sewing_BatchSizes){((sewing_BatchSizes - sewing_PrevInventory) / 10} else{0}
+sewing_? = 20
+
+
+assembly_NeededMin = (chairs * assembly_TotalTime) + (assembly_NumParts * chairs * (2 / assembly_BatchSizes) * (assembly_SetupTime + assembly_Handling))
+assembly_DaysDownQuality = assembly_BadQuality_One
+assembly_DaysStarved = if(smallPurchaseLotSizes_Bike || smallPurchaseLotSizes_MetalCut){assembly_LateParts_One} else{0} + (paintBooth_DaysLateOut + sewing_DaysLateOut)
+assembly_AvailableMin = (20 - (assembly_DaysDownQuality / assembly_CurrentQua) - assembly_DaysStarved) * MinPerDay * assembly_Efficiency * assembly_Reliability)
+assembly_NeededMachines = assembly_NeededMin / assembly_AvailableMin
+assembly_NoCellsWorkers = Math.min(assembly_CurrentQua, Math.ceil(assembly_NeededMachines))
+assembly_TrainWorkers = assembly_NoCellsWorkers
+assembly_WorkersOver = if(assembly_NoCellsWorkers - assembly_NeededMachines) < 0){assembly_NoCellsWorkers} else{if(((assembly_NoCellsWorkers - assembly_NeededMachines) / assembly_NoCellsWorkers) < 0.05){assembly_NoCellsWorkers / 2} else{0}}
+assembly_MaxCapacity = Math.floor(chairs * (assembly_NoCellsWorkers + (0.25 * assembly_WorkersOver) * (assembly_AvailableMin / assembly_NeededMin)))
+assembly_PrevInventory = 10
+assembly_MaxOutInventory = 0
+assembly_ActualProd = Math.min(assembly_MaxCapacity, chairs + assembly_MaxOutInventory - assembly_PrevInventory, paintBooth_ActualProd + paintBooth_PrevInvento, sewing_ActualProd + sewingPrevInventory)
+assembly_FinalInventory = assembly_PrevInventory + assembly_ActualProd
+assembly_? = 10
+
+
+total_NoCellsWorkers = (mitreSaw_NoCellsWorkers + drillPress_NoCellsWorkers + tubeBender_NoCellsWorkers + welding_NoCellsWorkers + grinder_NoCellsWorkers + paintBooth_NoCellsWorkers + fabricCut_NoCellsWorkers + sewing_NoCellsWorkers + assembly_NoCellsWorkers)
+total_TrainWorkers = (mitreSaw_TrainWorkers + welding_TrainWorkers + fabricCut_TrainWorkers + assembly_TrainWorkers)
+total_WorkersOver = (mitreSaw_WorkersOver + drillPress_WorkersOver + tubeBender_WorkersOver + welding_WorkersOver + grinder_WorkersOver + paintBooth_WorkersOver + fabricCut_WorkersOver + sewing_WorkersOver + assembly_WorkersOver)
+ 
