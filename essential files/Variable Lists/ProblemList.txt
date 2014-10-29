@@ -1,0 +1,81 @@
+Variable List - Problem List
+
+if(mitreSaw_LateParts_One > 0){"Saw down " + mitreSaw_LateParts_One + "days due to late tubes"} else{""}
+if(mitreSaw_WorkersOver > 0){"Saw works overtime to try and meet production"} else{""}
+
+if(mitreSaw_Downtime_One > 0){"Saw down" + mitreSaw_Downtime_One + "days due to machine breakdown"} else{""}
+if(mitreSaw_MaxCapacity < 200){"Saw cannot meet production due to capacity constraint"} else{""}
+
+if(drillPress_LateWIP_One > 0){"Drill press down " + drillPress_LateWIP_One + "days due to late parts from saw} else{""}
+
+if(drillPress_Downtime_One > 0){"Drill press down " + drillPress_Downtime_One + "days due to machine breakdown"} else{""}
+if(drillPress_WorkersOver > 0){"Drill press works overtime to try and meet production"} else{""}
+
+if(drillPress_BadQuality_One > 0){"Drill press down " + drillPress_BadQuality_One + " days due to quality problem"} else{""}
+if(drillPress_MaxCapacity < 200){"Drill press cannot meet production due to capacity constraint"} else{""}
+
+if(tubeBender_LateWIP_One > 0){"Tube bender down " + tubeBender_LateWIP_One + " days due to late parts from drill"} else{""}
+
+if(tubeBender_Downtime_One > 0){"Tube bender down " + tubeBender_Downtime_One + " days due to machine breakdown"} else{""}
+if(tubeBender_WorkersOver > 0){"Tube bender works overtime to try and meet production"} else{""}
+
+if(tubeBender_BadQuality_One > 0){"Tube bender down " + tubeBender_BadQuality_One + " days due to quality problem"} else{""}
+if(tubeBender_MaxCapacity < 200){"Tube bender cannot meet production due to capacity constraint"} else{""}
+
+if(tubeBender_DelayQuality_One > 0){"Tube bender down " + tubeBender_DelayQuality_One + " days due to bad parts from drill"} else{""}
+
+if(welding_LateWIP_One > 0){"Welding down " + welding_LateWIP_One + " days due to late parts from metal cell"} else{""}
+if(welding_WorkersOver > 0){"Welding works overtime to try and meet production"} else{""}
+
+if(welding_Downtime_One > 0){"Welding down " + welding_Downtime_One + " days due to machine breakdown"} else{""}
+if(welding_MaxCapacity < 200){"Welding cannot meet production due to capacity constraint"} else{""}
+
+if(welding_BadQuality_One > 0){"Welding down " + welding_BadQuality_One + " days due to quality problem"} else{""}
+
+if(grinder_LateWIP_One > 0){"Grinder down " + grinder_LateWIP_One + " days due to late parts from welding"} else{""}
+if(grinder_WorkersOver > 0){"Grinder works overtime to try and meet production"} else{""}
+
+if(grinder_DelayQuality_One > 0){"Grinder down " + grinder_DelayQuality_One + " days due to bad parts from welding"} else{""}
+if(grinder_MaxCapacity < 200){"Grinder cannot meet production due to capacity constraint"} else{""}
+
+if(paintBooth_LateWIP_One > 0){"Paint booth down " + paintBooth_LateWIP_One + " days due to late parts from grinder"} else{""}
+
+if(paintBooth_Downtime_One > 0){"Paint booth down " + paintBooth_Downtime_One + " days due to machine breakdown"} else{""}
+if(paintBooth_WorkersOver > 0){"Paint booth works overtime to try and meet production"} else{""}
+
+if(paintBooth_DelayQuality_One > 0){"Paint booth down " + paintBooth_DelayQuality_One + " days due to bad partsfrom welding"} else{""}
+if(paintBooth_MaxCapacity < 200){"Paint booth cannot meet production due to capacity constraint"} else{""}
+
+if(fabricCutter_LateParts_One > 0){"Fabric cutter down " + fabricCutter_LateParts_One + " days due to late nylon"} else{""}
+if(fabricCut_WorkersOver > 0){"Fabric cut works overtime to try and meet production"} else{""}
+
+if(sewing_LateWIP_One > 0){"Sewing down " + sewing_LateWIP_One + " days due to late parts from fabric cutter"} else{""}
+if(fabricCut_MaxCapacity < 200){"Fabric cutter cannot meet production due to capacity constraint"} else{""}
+
+if(sewing_Downtime_One > 0){"Sewing down " + sewing_Downtime_One + " days due to machine breakdown"} else{""}
+if(sewing_WorkersOver > 0){"Sewing works overtime to try and meet production"} else{""}
+
+if(sewing_BadQuality_One > 0){"Sewing down " + sewing_BadQuality_One + " days due to quality problem"} else{""}
+if(sewing_MaxCapacity < 200){"Sewing cannot meet production due to capacity constraint"} else{""}
+
+if(assemblyBench_LateParts_One > 0){"Assembly down " + assemblyBench_LateParts_One + " days due to late " + assembly_LateParts_Month} else{""}
+if(assemblyBench_WorkersOver > 0){"Assembly works overtime to try and meet production"} else{""}
+
+if(assemblyBench_LateWIP_One > 0){"Assembly down " + assemblyBench_LateWIP_One + " days due to late parts from paint booth"} else{""}
+if(assemblyBench_MaxCapacity < 200){"Assembly cannot meet production due to capacity constraint"} else{""}
+
+if(assemblyBench_BadQuality_One > 0){"Assembly down " + assemblyBench_BadQuality_One + " days due to quality problem"} else{""}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
