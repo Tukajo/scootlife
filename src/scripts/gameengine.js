@@ -353,6 +353,8 @@ var leanToolAllowance=1000;
 
 // lean tool states
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 //kaban
 var leanTool_Kaban_Metal=false;
 var leanTool_Kaban_Weld=false;
@@ -365,7 +367,7 @@ var leanTool_Market_Assembly=false;
 //Small lot sizes
 var leanTool_SmallLot_Metal=false;
 var leanTool_SmallLot_Weld=false;
-var leanTool_SmallLot_weld=false;
+var leanTool_SmallLot_Fabric=false;
 
 //fiveS
 var leanTool_fiveS_Saw=false;
@@ -411,11 +413,32 @@ var leanTool_PM_Saw=false;
 var leanTool_PM_Drill=false;
 var leanTool_PM_Bender=false;
 var leanTool_PM_Welding=false;
-var leanTool_PM_Grind=false;
 var leanTool_PM_Paint=false;
-var leanTool_PM_Fabric=false;
 var leanTool_PM_Sewing=false;
-var leanTool_PM_Assembly=false;
+
+
+//Vendor verified
+var leanTool_Vendor_Steel=false;
+var leanTool_Vendor_Nylon=false;
+var leanTool_Vendor_Bike=false;
+var leanTool_Vendor_Metal=false;
+
+//Small Purchase lot sizes
+var leanTool_SmallPurchase_Steel=false;
+var leanTool_SmallPurchase_Nylon=false;
+var leanTool_SmallPurchase_Bike=false;
+var leanTool_SmallPurchase_Metal=false;
+
+//new equiptment
+var leanTool_New_Saw=false;
+var leanTool_New_Drill=false;
+var leanTool_New_Bender=false;
+var leanTool_New_Welding=false;
+var leanTool_New_Grind=false;
+var leanTool_New_Paint=false;
+var leanTool_New_Fabric=false;
+var leanTool_New_Sewing=false;
+var leanTool_New_Assembly=false;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -582,7 +605,23 @@ function updateMonth (month){
 function monthScrap(month){
 
     //Scrap = 100 * (drillPress_BadQuality_One + tubeBender_BadQuality_One + welding_BadQuality_One + sewing_BadQuality_One + assemblyBench_BadQuality_One)
-    monthData[month].scrap=100 * (drillPress_BadQuality_One + tubeBender_BadQuality_One + welding_BadQuality_One + sewing_BadQuality_One + assemblyBench_BadQuality_One);
+    monthData[month].scrap=100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assemblyBench_BadQuality(month));
+}
+
+//Problems table Functions
+function mitreSaw_LateParts(month){
+    if(month==0||month==9){
+        if(leanTool_)
+    }
+}
+
+function drillPress_BadQuality(month){//NOT COMPLETE
+    if(month==0){
+        if(smallLotSizes_Metal)
+            return 0.25;
+        else
+            return 0.5;
+    }
 }
 
 
