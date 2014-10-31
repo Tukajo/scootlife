@@ -3,6 +3,7 @@
  */
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
+
 canvas.border=0;
 canvas.top=0;
 canvas.left=0;
@@ -14,6 +15,21 @@ var monthsArray = {January: "January", February: "February", March: "March", Apr
 var currentMonth = monthsArray.January;
 var monthCounter = 0;
 
+
+var spriteFrameCount = 0;
+var spriteX;
+var spriteY;
+
+var spriteSheetImg = new Image();
+spriteSheetImg.src = "Art_Assets/workshop_icons/sprtsht01.png";
+spriteSheetImg.onload = drawSprtSht();
+
+//Spritesheet drawer.
+function drawSprtSht(){
+    requestAnimationFrame(drawSprtSht);
+
+
+}
 /*
 var canvas2 = document.createElement("canvas");
 var ctx2 = canvas.getContext("2d");
@@ -439,7 +455,8 @@ function updateMonth (month){
         month.baselineCost = 18300;
     }
     if(leanToolSmedSaw==true){
-        month.chairsSold = 153;
+        month.chairs
+        Sold = 153;
         month.workers = 12;
         month.workerOvertime = 5;
         month.purchasedMaterials = 18650;
