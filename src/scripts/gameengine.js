@@ -196,6 +196,9 @@ var problem= function(name,state){
 
 
 
+
+
+
 var menu= new gameObject(0,0,750,750,'Art_Assets/main_menu/bkg_start2.png',0);
 loadImg(menu);
 
@@ -338,9 +341,82 @@ var subScreen="null";
 
 
 var leanToolAllowance=1000;
+
+
 // lean tool states
-var leanToolCells=false;
-var leanToolSmedSaw=false;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//kaban
+var leanTool_Kaban_Metal=false;
+var leanTool_Kaban_Weld=false;
+
+
+//supermarket
+var leanTool_Market_Welding=false;
+var leanTool_Market_Assembly=false;
+
+//Small lot sizes
+var leanTool_SmallLot_Metal=false;
+var leanTool_SmallLot_Weld=false;
+var leanTool_SmallLot_weld=false;
+
+//fiveS
+var leanTool_fiveS_Saw=false;
+var leanTool_fiveS_Drill=false;
+var leanTool_fiveS_Bender=false;
+var leanTool_fiveS_Welding=false;
+var leanTool_fiveS_Grind=false;
+var leanTool_fiveS_Paint=false;
+var leanTool_fiveS_Fabric=false;
+var leanTool_fiveS_Sewing=false;
+var leanTool_fiveS_Assembly=false;
+
+//smed
+var leanTool_Smed_Saw=false;
+var leanTool_Smed_Drill=false;
+var leanTool_Smed_Bender=false;
+var leanTool_Smed_Welding=false;
+var leanTool_Smed_Paint=false;
+var leanTool_Smed_Sewing=false;
+
+//SourceQuality
+var leanTool_Quality_Drill=false;
+var leanTool_Quality_Bender=false;
+var leanTool_Quality_Welding=false;
+var leanTool_Quality_Sewing=false;
+var leanTool_Quality_Assembly=false;
+
+//cells
+var leanTool_Cells=false;
+
+//crossTraining
+var leanTool_CrossTrain_Metal=false;
+var leanTool_CrossTrain_Weld=false;
+var leanTool_CrossTrain_Fabric=false;
+
+//self Directed Teams
+var leanTool_SelfDirected_Metal=false;
+var leanTool_SelfDirected_Weld=false;
+var leanTool_SelfDirected_Fabric=false;
+
+//Preventive Maintenence
+var leanTool_PM_Saw=false;
+var leanTool_PM_Drill=false;
+var leanTool_PM_Bender=false;
+var leanTool_PM_Welding=false;
+var leanTool_PM_Grind=false;
+var leanTool_PM_Paint=false;
+var leanTool_PM_Fabric=false;
+var leanTool_PM_Sewing=false;
+var leanTool_PM_Assembly=false;
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+//var leanTool
 
 var updateRate=0;
 
@@ -403,7 +479,7 @@ function startMonth (){
     month.chairsSold = 200;
     month.sales=Math.round(month.chairsSold*chairPrice);
 
-    month.workers=12
+    month.workers=12;
     month.laborRegular=Math.round(month.workers*workerHours*laborRate);
 
     month.workerOvertime=4;
@@ -433,6 +509,7 @@ function startMonth (){
 }
 // FOR DEMO 10/24/14 only!!! not a real update function!
 function updateMonth (month){
+    /*
     if(leanToolCells==false) {
         // Real updateMonth function will call a function for each of these
         month.chairsSold = 153;
@@ -465,6 +542,20 @@ function updateMonth (month){
         month.orderingCost = 1200;
         month.baselineCost = 19000;
     }
+    */
+    //create functions for each of these
+
+    month.chairsSold = 153;
+    month.workers = 12;
+    month.workerOvertime = 5;
+    month.purchasedMaterials = 18650;
+    month.scrap = 400;
+    //month.scrap=monthscrap(monthCounter);
+
+    month.inventory = 43811;
+    month.orderingCost = 1200;
+    month.baselineCost = 19000;
+
 
     month.sales = Math.round(month.chairsSold * chairPrice);
     month.laborRegular = Math.round(month.workers * workerHours * laborRate);
@@ -479,6 +570,11 @@ function updateMonth (month){
     month.leanIdeasCost=1000-leanToolAllowance;
 
 
+}
+function monthScrap(month){
+
+    //Scrap = 100 * (drillPress_BadQuality_One + tubeBender_BadQuality_One + welding_BadQuality_One + sewing_BadQuality_One + assemblyBench_BadQuality_One)
+    monthData[month].scrap=100 * (drillPress_BadQuality_One + tubeBender_BadQuality_One + welding_BadQuality_One + sewing_BadQuality_One + assemblyBench_BadQuality_One);
 }
 
 
@@ -660,13 +756,13 @@ var render = function(){
             //ctx2.fillText("Lean Tools",900,100);
             ctx2.font="16px Georgia";
             //draw(ctx,leanToolsBtnCells,0,0);
-            if(leanToolCells==true){
+            if(leanTool_Cells==true){
                 ctx.fillText("/////",910,314);
             }
             ctx.fillText("Cells",910,314);
 
             // place in a different screen in the near future
-            if(leanToolSmedSaw==true){
+            if(leanTool_Smed_Saw==true){
                 ctx.fillText("///////////",1030,314);
             }
             ctx.fillText("SMED-Saw",1030,314);
