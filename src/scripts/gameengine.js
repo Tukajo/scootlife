@@ -21,14 +21,22 @@ var spriteX;
 var spriteY;
 
 var spriteSheetImg = new Image();
-spriteSheetImg.src = "Art_Assets/workshop_icons/sprtsht01.png";
-spriteSheetImg.onload = drawSprtSht();
+spriteSheetImg.src = "Art_Assets/workshop_icons/floor_icon_sprsht_150.png";
+
 
 //Spritesheet drawer.
 function drawSprtSht(){
     requestAnimationFrame(drawSprtSht);
-
-
+    spriteX = (spriteFrameCount%8)*150;
+    spriteY = Math.floor(spriteFrameCount/8)*150;
+    ctx.drawImage(spriteSheetImg,spriteX,spriteY,150,150,0,0,128,128);
+    console.log("TEST1234");
+    if(spriteFrameCount==63){
+        spriteFrameCount=0;
+    }
+    else{
+        spriteFrameCount++
+    }
 }
 /*
 var canvas2 = document.createElement("canvas");
@@ -684,7 +692,7 @@ var render = function(){
         //for(var i=0;i<loadingBar.length;i++){
           //  draw(ctx,loadingBar[i],0,0);
             //check if problem[i].== true to display problem
-
+        spriteSheetImg.onload = drawSprtSht();
         //}
     }
 
