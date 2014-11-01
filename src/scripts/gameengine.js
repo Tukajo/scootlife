@@ -936,21 +936,17 @@ function paintBooth_Downtime(month){
     if (month==3) {
         return 1;
     }
-    if (8) {
+    else if (month==8) {
         if (!leanTool_PM_Paint) {
             return 2;
         }
-        else{
-            return 0;
+    }
+    else if (month==11) {
+        if (!leanTool_PM_Paint) {
+            return 1;
         }
     }
-    if (!leanTool_PM_Paint) {
-        return 1;
-    }
     else{
-        return 0;
-    }
-    if (month==0 || month==1 || month==2 || month==4 || month==5 || month==6 || month==7 || month==9 || month==10) {
         return 0;
     }
 }
@@ -963,9 +959,6 @@ function fabricCutter_LateParts(month){
     if (month==4) {
         if (!leanTool_Vendor_Nylon && leanTool_SmallPurchase_Nylon) {
             return 2;
-        }
-        else{
-            return 0;
         }
     }
     else{
@@ -990,9 +983,6 @@ function sewing_Downtime(month){
         if (!leanTool_PM_Sewing) {
             return 2;
         }
-        else{
-            return 0;
-        }
     }
     else if (month==4) {
         if (!leanTool_PM_Sewing) {
@@ -1006,24 +996,15 @@ function sewing_Downtime(month){
         if (!leanTool_PM_Sewing) {
             return 2;
         }
-        else{
-            return 0;
-        }
     }
     else if (month==8) {
         if (!leanTool_PM_Sewing) {
             return 1;
         }
-        else{
-            return 0;
-        }
     }
     else if (month==10) {
         if (!leanTool_PM_Sewing) {
             return 3;
-        }
-        else{
-            return 0;
         }
     }
     else{
