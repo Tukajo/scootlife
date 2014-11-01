@@ -739,7 +739,7 @@ function drawSprtSht() {
 
     }
 
-// FOR DEMO 10/24/14 only!!! not a real update function!
+    // FOR DEMO 10/24/14 only!!! not a real update function!
     function updateMonth(month) {
         /*
          if(leanToolCells==false) {
@@ -777,12 +777,11 @@ function drawSprtSht() {
          */
         //create functions for each of these
 
-        month.chairsSold = 153;
-        month.workers = 12;
+        monthChairsSold(monthCounter);
+        monthWorkers(monthCounter);
         month.workerOvertime = 5;
         month.purchasedMaterials = 18650;
-        month.scrap = 400;
-        //month.scrap=monthscrap(monthCounter);
+        monthScrap(monthCounter);
 
         month.inventory = 43811;
         month.orderingCost = 1200;
@@ -808,6 +807,15 @@ function drawSprtSht() {
 
         //Scrap = 100 * (drillPress_BadQuality_One + tubeBender_BadQuality_One + welding_BadQuality_One + sewing_BadQuality_One + assemblyBench_BadQuality_One)
         monthData[month].scrap = 100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assemblyBench_BadQuality(month));
+    }
+    function monthChairsSold(month){
+        monthData[month].chairsSold= Math.min(assembly_FinalInventory(month), chairs);
+    }
+    function monthWorkers(month){
+        if(leanTool_Cells)
+            monthData[month].workers= total_TrainWorkers(month);
+        else
+            monthData[month].workers= total_NoCellWorkers(month);
     }
 
 //Problems table Functions
