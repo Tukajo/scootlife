@@ -935,16 +935,347 @@ function drillPress_BadQuality(month){
         return 0;
 }
 
+function tubeBender_LateWIP(month){
+    return drillPress_DaysLateOut;
+}
 
-
-function drillPress_BadQuality(month) {//NOT COMPLETE
-        if (month == 0) {
-            if (smallLotSizes_Metal)
-                return 0.25;
-            else
-                return 0.5;
+function tubeBender_Downtime(month){
+    if (month==1) {
+        if (!leanTool_PM_Bender) {
+            return 2;
         }
     }
+    else if (month==7) {
+        if (!leanTool_PM_Bender) {
+            return 1;
+        }
+    }
+    else if (month==10) {
+        if (!leanTool_PM_Bender) {
+            return 1;
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+function tubeBender_BadQuality(month){
+    if (month==0) {
+        if (!leanTool_Quality_Bender) {
+            if (leanTool_SmallLot_Metal) {
+                return 0.25;
+            }
+            else{
+                return 0.5
+            }
+        }
+    }
+    else if(month==1){
+        if (leanTool_SmallLot_Metal) {
+            return 0.25;
+        }
+        else{
+            return 0.5;
+        }
+    }
+    else if (month==2) {
+        if (!leanTool_Quality_Bender) {
+            if (leanTool_SmallLot_Metal) {
+                return 0.25;
+            }
+            else{
+                return 0.5;
+            }
+        }
+    }
+    else if (month==3) {
+        if (!leanTool_Quality_Bender) {
+            if (leanTool_SmallLot_Metal) {
+                return 0.25;
+            }
+            else{
+                return 0.5;
+            }
+        }
+    }
+    else if (month==5) {
+        if (!leanTool_Quality_Bender) {
+            if (leanTool_SmallLot_Metal) {
+                return 0.75;
+            }
+            else{
+                return 1.5;
+            }
+        }
+    }
+    else if (month==7) {
+        if (!leanTool_Quality_Bender) {
+            if (leanTool_SmallLot_Metal) {
+                return 0.25;
+            }
+            else{
+                return 0.5;
+            }
+        }
+    }
+    else if (month==8) {
+        if (!leanTool_Quality_Bender) {
+            if (leanTool_SmallLot_Metal) {
+                return 0.5;
+            }
+            else{
+                return 1;
+            }
+        }
+        else{
+            if (leanTool_SmallLot_Metal) {
+                return 0.25;
+            }
+            else{
+                return 0.5;
+            }
+        }
+    }
+    else if (month==9) {
+        if (!leanTool_Quality_Bender) {
+            if (leanTool_SmallLot_Metal) {
+                return 0.25;
+            }
+            else{
+                return 0.5;
+            }
+        }
+    }
+    else if (month==10) {
+        if (!leanTool_Quality_Bender) {
+            if (leanTool_SmallLot_Metal) {
+                return 0.25;
+            }
+            else{
+                return 0.5;
+            }
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+function tubeBender_DelayQuality(month){
+    if (month==0) {
+        if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
+            return drillPress_BadQuality(month)
+        }
+    }
+    else if (month==1) {
+        if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
+            return drillPress_BadQuality(month)
+        }
+    }
+    else if (month==3) {
+        if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
+            return drillPress_BadQuality(month)
+        }
+    }
+    else if (month==5) {
+        if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
+            return drillPress_BadQuality(month)
+        }
+    }
+    else if (month==6) {
+        if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
+            return drillPress_BadQuality(month)
+        }
+    }
+    else if (month==7) {
+        if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
+            return drillPress_BadQuality(month)
+        }
+    }
+    else if (month==8) {
+        if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
+            return drillPress_BadQuality(month)
+        }
+    }
+    else if (month==10) {
+        if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
+            return drillPress_BadQuality(month)
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+function welding_LateWIP(month){
+    return tubeBender_DaysLateOut;
+}
+
+function welding_Downtime(month){
+    if (month==0) {
+        if (!leanTool_PM_Welding) {
+            return 2;
+        }
+    }
+    else if (month==1) {
+        if (!leanTool_PM_Welding) {
+            return 3;
+        }
+        else{
+            return 1;
+        }
+    }
+    else if (month==2) {
+        if (!leanTool_PM_Welding) {
+            return 2;
+        }
+    }
+    else if (month==3) {
+        if (!leanTool_PM_Welding) {
+            return 3;
+        }
+        else{
+            return 1;
+        }
+    }
+    else if (month==5) {
+        if (!leanTool_PM_Welding) {
+            return 4;
+        }
+    }
+    else if (month==7) {
+        if (!leanTool_PM_Welding) {
+            return 3;
+        }
+        else{
+            return 1.5;
+        }
+    }
+    else if (month==9) {
+        if (!leanTool_PM_Welding) {
+            return 3;
+        }
+    }
+    else if (month==10) {
+        if (!leanTool_PM_Welding) {
+            return 2;
+        }
+        else{
+            return 1;
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+function welding_BadQuality(month){
+    if (month==0) {
+        if (!leanTool_Quality_Welding) {
+            if (leanTool_SmallLot_Weld) {
+                return 1;
+            }
+            else{
+                return 2;
+            }
+        }
+    }
+    else if (month==1) {
+        if (!leanTool_Quality_Welding) {
+            if (leanTool_SmallLot_Weld) {
+                return 1.5;
+            }
+            else{
+                return 3;
+            }
+        }
+    }
+    else if (month==2) {
+        if (leanTool_SmallLot_Weld) {
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }
+    else if (month==3) {
+        if (!leanTool_Quality_Welding) {
+            if (leanTool_SmallLot_Weld) {
+                return 1;
+            }
+            else{
+                return 2;
+            }
+        }
+        else{
+            if (leanTool_SmallLot_Weld) {
+                return 0.5;
+            }
+            else{
+                return 1;
+            }
+        }
+    }
+    else if (month==4) {
+        if (!leanTool_Quality_Welding) {
+            if (leanTool_SmallLot_Weld) {
+                return 1.5;
+            }
+            else{
+                return 3;
+            }
+        }
+    }
+    else if (month==5) {
+        if (!leanTool_Quality_Welding) {
+            if (leanTool_SmallLot_Weld) {
+                return 1;
+            }
+            else{
+                return 2;
+            }
+        }
+    }
+    else if(month==6){
+        if (leanTool_SmallLot_Weld) {
+            return 0.5;
+        }
+        else{
+            return 1;
+        }
+    }
+    else if (month==7) {
+        if (!leanTool_Quality_Welding) {
+            if (leanTool_SmallLot_Weld) {
+                return 1;
+            }
+            else{
+                return 2;
+            }
+        }
+    }
+    else if (month==10) {
+        if (!leanTool_Quality_Welding) {
+            if (leanTool_SmallLot_Weld) {
+                return 2;
+            }
+            else{
+                return 4;
+            }
+        }
+    }
+    else if (month==11) {
+        if (!leanTool_Quality_Welding) {
+            if (leanTool_SmallLot_Weld) {
+                return 1;
+            }
+            else{
+                return 2;
+            }
+        }
+    }
+}
     
     
 function grinder_LateWIP(month){
