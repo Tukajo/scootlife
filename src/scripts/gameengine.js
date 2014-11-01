@@ -932,7 +932,6 @@ function drawSprtSht() {
 
             //}
         }
-        spriteSheetImg.onload = drawSprtSht();
         if (currentScreen == "credits")
             ctx.drawImage(credits.image, 0, 0);
         //    draw(ctx,credits,0,0);
