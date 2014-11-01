@@ -811,13 +811,104 @@ function drawSprtSht() {
     }
 
 //Problems table Functions
-    function mitreSaw_LateParts(month) {
-        if (month == 0 || month == 9) {
+// Saw late parts update
+function mitreSaw_LateParts(month){
+    if(month==0||month==9){
+        if(leanTool_Vendor_Steel==false)
+            return 2;
+        else
+            return 0;
+    }
+    else if(month==2){
+        if(leanTool_Vendor_Steel==false&&leanTool_SmallPurchase_Steel)
+            return 2;
+        else
+            return 0;
 
-        }
+    }
+    else if(month==5){
+        if(leanTool_SmallPurchase_Steel)
+            return 2;
+        else
+            return 0;
+    }
+    else
+        return 0;
+}
+
+// Saw down time
+function mitreSaw_Downtime(month){
+    if(month==0){
+        if(leanTool_PM_Saw)
+            return 3;
+        else
+            return 0;
+    }
+    else if(month==4||month==6){
+        if(leanTool_PM_Saw)
+            return 2;
+        else
+            return 0;
+    }
+    else if(month==10){
+        if(leanTool_PM_Saw)
+            return 3;
+        else
+            return 1;
+    }
+    else
+        return 0;
+}
+
+// drill late WIP
+function drillPress_LateWIP(month){
+    return mitreSaw_DaysLateOut;
+}
+
+
+//drill down time
+function drillPress_Downtime(month){
+    if(month==2){
+        if(leanTool_PM_Drill==false)
+            return 2;
+        else
+            return 0;
+    }
+    else if(month==5){
+        if(leanTool_PM_Drill==false)
+            return 2;
+        else
+            return 0;
+    }
+    else if(month==8||month==11){
+        if(leanTool_PM_Drill==false)
+            return 3;
+        else
+            return 0;
+    }
+    else
+        return 0;
+
+}
+
+// drill press quality
+function drillPress_BadQuality(month){
+    if(month==0){
+        if(leanTool_SmallLot_Drill)
+            return .25;
+        else
+            return .5;
+    }
+    else if(month==1||month==3||month==5||month==7||month==10){
+
+
     }
 
-    function drillPress_BadQuality(month) {//NOT COMPLETE
+}
+
+
+
+function drillPress_BadQuality(month) {//NOT COMPLETE
         if (month == 0) {
             if (smallLotSizes_Metal)
                 return 0.25;
