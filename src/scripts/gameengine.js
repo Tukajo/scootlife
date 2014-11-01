@@ -900,10 +900,39 @@ function drillPress_BadQuality(month){
             return .5;
     }
     else if(month==1||month==3||month==5||month==7||month==10){
-
-
+        if(leanTool_Quality_Drill==false){
+            if(leanTool_SmallLot_Metal)
+                return .25;
+            else
+                return .5;
+        }
+        else
+            return 0;
     }
-
+    else if (month==6){
+        if(leanTool_Quality_Drill==false){
+            if(leanTool_SmallLot_Metal)
+                return .5;
+            else
+                return 1;
+        }
+        else
+            return 0;
+    }
+    else if (month==8){
+        if(leanTool_Quality_Drill==false){
+            if(leanTool_SmallLot_Metal)
+                return .5;
+            else
+                return 1;
+        }
+        else if(leanTool_SmallLot_Metal)
+            return .25;
+        else
+            return .5;
+    }
+    else
+        return 0;
 }
 
 
