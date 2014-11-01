@@ -916,6 +916,216 @@ function drillPress_BadQuality(month) {//NOT COMPLETE
                 return 0.5;
         }
     }
+    
+    
+function grinder_LateWIP(month){
+    return welding_DaysLateOut;
+}
+
+function grinder_DelayQuality(month){
+    if (leanTool_Kaban_Weld || !leanTool_Quality_Welding){
+        return welding_BadQuality(month);
+    }
+}
+
+function paintBooth_LateWIP(month){
+    return grinder_DaysLateOut;
+}
+
+function paintBooth_Downtime(month){
+    if (month==3) {
+        return 1;
+    }
+    if (8) {
+        if (!leanTool_PM_Paint) {
+            return 2;
+        }
+        else{
+            return 0;
+        }
+    }
+    if (!leanTool_PM_Paint) {
+        return 1;
+    }
+    else{
+        return 0;
+    }
+    if (month==0 || month==1 || month==2 || month==4 || month==5 || month==6 || month==7 || month==9 || month==10) {
+        return 0;
+    }
+}
+
+function paintBooth_DelayQuality(month){
+    return grinder_DelayQuality(month);
+}
+
+function fabricCutter_LateParts(month){
+    if (month==4) {
+        if (!leanTool_Vendor_Nylon && leanTool_SmallPurchase_Nylon) {
+            return 2;
+        }
+        else{
+            return 0;
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+function sewing_LateWIP(month){
+    return fabricCut_DaysLateOut;
+}
+
+function sewing_Downtime(month){
+    if (month==0) {
+        if (!leanTool_PM_Sewing) {
+            return 2;
+        }
+        else{
+            return 1;
+        }
+    }
+    else if (month==2) {
+        if (!leanTool_PM_Sewing) {
+            return 2;
+        }
+        else{
+            return 0;
+        }
+    }
+    else if (month==4) {
+        if (!leanTool_PM_Sewing) {
+            return 2;
+        }
+        else{
+            return 1;
+        }
+    }
+    else if (month==7) {
+        if (!leanTool_PM_Sewing) {
+            return 2;
+        }
+        else{
+            return 0;
+        }
+    }
+    else if (month==8) {
+        if (!leanTool_PM_Sewing) {
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    else if (month==10) {
+        if (!leanTool_PM_Sewing) {
+            return 3;
+        }
+        else{
+            return 0;
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+function sewing_BadQuality(month){
+    if (month==0) {
+        if (!leanTool_Quality_Sewing) {
+            if (leanTool_SmallLot_Fabric) {
+                return 0.5;
+            }
+            else{
+                return 1
+            }
+        }
+    }
+    else if (month==3) {
+        if (!leanTool_Quality_Sewing) {
+            if (leanTool_SmallLot_Fabric) {
+                return 0.5;
+            }
+            else{
+                return 1;
+            }
+        }
+    }
+    else if (month==5) {
+        if (!leanTool_Quality_Sewing) {
+            if (leanTool_SmallLot_Fabric) {
+                return 0.5;
+            }
+            else{
+                return 1;
+            }
+        }
+    }
+    else if (month==7) {
+        if (leanTool_SmallLot_Fabric) {
+            return 0.5;
+        }
+        else{
+            return 1;
+        }
+    }
+    else if (month==10) {
+        if (!leanTool_Quality_Sewing) {
+            if (leanTool_SmallLot_Fabric) {
+                return 0.5;
+            }
+            else{
+                return 1;
+            }
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+function assemblyBench_LateParts(month){
+    if (month==3) {
+        if (!leanTool_Vendor_Metal && leanTool_SmallPurchase_Metal) {
+            return 2;
+        }
+    }
+    else if (month==6) {
+        if (!leanTool_Vendor_Bike) {
+            return 2;
+        }
+    }
+    else if (month==10) {
+        if (!leanTool_Vendor_Metal && leanTool_SmallPurchase_Metal) {
+            return 2
+        }
+    }
+    else if (month==11) {
+        if (leanTool_SmallPurchase_Bike) {
+            return 2;
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
+function assemblyBench_LateWIP(month){
+    return paintBooth_DaysLateOut + sewing_DaysLateOut;
+}
+
+function assemblyBench_BadQuality(month){
+    if (month==4) {
+        if (!leanTool_Quality_Assembly) {
+            return 0.5;
+        }
+    }
+    else{
+        return 0;
+    }
+}
+
 
 
     var monthData = [new monthFunc("January", 1), new monthFunc("February", 2), new monthFunc("March", 3),
