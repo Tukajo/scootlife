@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Main Menu</title>
+</head>
+<style>
+body{
+    background-color: #aaa;
+}
+</style>
+
+<body>
+    <canvas id='myCanvas' style='border:1px solid #000' width='1000' height='500'></canvas>
+
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        
+        //Background
+        var background = new Image();
+        background.src = 'images/bkg_start.png';
+        
+        //Buttons
+        var startBtn = new Image();
+        startBtn.src = 'images/btn_play.png';
+        var creditBtn = new Image();
+        creditBtn.src = 'images/btn_help.png';
+        
+        loadHandler();
+        
+        var mouseX = 0;
+        var mouseY = 0;
+        
+        canvas.addEventListener('mousemove',function(event){
+            mouseX = event.pageX - canvas.offsetLeft;
+            mouseY = event.pageY - canvas.offsetTop;
+        })
+        
+
+        function loadHandler() {
+            update();
+        }
+        function update(){
+            requestAnimationFrame(update,canvas);
+            
+
+            
+            render();
+        }
+        function render(){
+            ctx.drawImage(background,-150,0,1300,550);
+            ctx.drawImage(startBtn,50,50,160,65);
+            ctx.drawImage(creditBtn,50,150,160,65);
+            
+        }
+        
+
+        
+        
+        
+        
+        
+        
+        
+    </script>    
+</body>
+</html>
