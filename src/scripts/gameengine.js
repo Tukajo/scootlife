@@ -777,15 +777,15 @@ function drawSprtSht() {
          */
         //create functions for each of these
 
-        monthChairsSold(monthCounter);
-        monthWorkers(monthCounter);
-        month.workerOvertime = 5;
-        month.purchasedMaterials = 18650;
-        monthScrap(monthCounter);
+        month.chairsSold = monthChairsSold(monthCounter);
+        month.workers = monthWorkers(monthCounter);
+        month.workerOvertime = total_WorkersOver(monthCounter);// from capacity
+        month.purchasedMaterials = total_MaterialCost;//from capacity
+        month.scrap = monthScrap(monthCounter);
 
-        month.inventory = 43811;
-        month.orderingCost = 1200;
-        month.baselineCost = 19000;
+        month.inventory = total_Value;//from inventory
+        month.orderingCost = total_OrderCost;//from inventory
+        month.baselineCost = monthBaseline(monthCounter);
 
 
         month.sales = Math.round(month.chairsSold * chairPrice);
@@ -806,16 +806,47 @@ function drawSprtSht() {
     function monthScrap(month) {
 
         //Scrap = 100 * (drillPress_BadQuality_One + tubeBender_BadQuality_One + welding_BadQuality_One + sewing_BadQuality_One + assemblyBench_BadQuality_One)
-        monthData[month].scrap = 100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assemblyBench_BadQuality(month));
+        return (100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assemblyBench_BadQuality(month)));
     }
     function monthChairsSold(month){
-        monthData[month].chairsSold= Math.min(assembly_FinalInventory(month), chairs);
+        return Math.min(assembly_FinalInventory(month), chairs);
     }
     function monthWorkers(month){
         if(leanTool_Cells)
-            monthData[month].workers= total_TrainWorkers(month);
+            return total_TrainWorkers(month);//from capacity
         else
-            monthData[month].workers= total_NoCellWorkers(month);
+            return total_NoCellWorkers(month);//from capacity
+    }
+    function monthBaseline(month){
+        var baselineTemp = 19000;
+        if(leanTool_Cells)
+            baselineTemp-=700;
+        if(leanTool_SelfDirected_Metal)
+            baselineTemp-=500;
+        if(leanTool_SelfDirected_Weld)
+            baselineTemp-=500;
+        if(leanTool_SelfDirected_Fabric)
+            baselineTemp-=500;
+        if(leanTool_New_Saw)
+            baselineTemp+=300;
+        if(leanTool_New_Drill)
+            baselineTemp+=300;
+        if(leanTool_New_Bender)
+            baselineTemp+=300;
+        if(leanTool_New_Welding)
+            baselineTemp+=300;
+        if(leanTool_New_Grind)
+            baselineTemp+=300;
+        if(leanTool_New_Paint)
+            baselineTemp+=300;
+        if(leanTool_New_Fabric)
+            baselineTemp+=300;
+        if(leanTool_New_Sewing)
+            baselineTemp+=300;
+        if(leanTool_New_Assembly)
+            baselineTemp+=300;
+
+        return baselineTemp;
     }
 
 //Problems table Functions
