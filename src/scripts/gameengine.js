@@ -27,6 +27,29 @@ var monthsArray = {
 };
 var currentMonth = monthsArray.January;
 
+
+
+var bossSpriteFrameCount = 0;
+var BossSpriteX;
+var BossSpriteY;
+var bossCoffeeSipAnm = new Image();
+bossCoffeeSipAnm.src = "Art_Assets/characters/boss/coffee_sip.png";
+//Animation method for the sipping of coffee.
+function drawBossCoffeeAnm(){
+
+
+    BossSpriteX = (bossSpriteFrameCount%38)*259;
+    BossSpriteY = Math.floor(bossSpriteFrameCount/38)*642;
+    ctx.drawImage(bossCoffeeSipAnm,BossSpriteX,BossSpriteY,259,642,0,0,259,642);
+    console.log("BOSSDRAW");
+    if(bossSpriteFrameCount==152){
+        bossSpriteFrameCount=0;
+    }
+    else{
+        bossSpriteFrameCount++
+    }
+}
+
 //---------------------------------------------------------------------------------------------------
 //To change the color of the icons or the emotions of the workers change in concordance to this order:
 //0 - Green Icon/Smiling Worker
@@ -2262,6 +2285,7 @@ function assembly_NeededMachines(){
             //check if problem[i].== true to display problem
 
             //}
+
         }
         if (currentScreen == "credits")
             ctx.drawImage(credits.image, 0, 0);
@@ -2276,6 +2300,7 @@ function assembly_NeededMachines(){
             draw(ctx2, gameScreen, 0, 0); //entire screen
             //ctx2.drawImage(station[0].image,station[0].x,station[0].y,100,200);
             drawSprtSht();
+            drawBossCoffeeAnm();
             /*for (var i = 0; i < 9; i++) {
                 draw(ctx2, station[i], 3, -3);
             }*/
