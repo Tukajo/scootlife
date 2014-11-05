@@ -1021,9 +1021,9 @@ function drawSprtSht() {
         return baselineTemp;
     }
 
-//Problems table Functions
-// Saw late parts update
-function mitreSaw_LateParts(month){
+    //Problems table Functions
+    // Saw late parts update
+    function mitreSaw_LateParts(month){
     if(month==0||month==9){
         if(leanTool_Vendor_Steel==false)
             return 2;
@@ -1045,10 +1045,10 @@ function mitreSaw_LateParts(month){
     }
     else
         return 0;
-}
+    }
 
-// Saw down time
-function mitreSaw_Downtime(month){
+    // Saw down time
+    function mitreSaw_Downtime(month){
     if(month==0){
         if(leanTool_PM_Saw)
             return 3;
@@ -1677,6 +1677,484 @@ function assemblyBench_BadQuality(month){
         return 0;
     }
 }
+
+///////////////////////////////////////////////////////////////////////
+//processes
+
+//Saw functions
+function mitreSaw_CurrentQuantity(){
+    if (leanTool_New_Saw)
+        return 2;
+    else
+        return 1;
+}
+function mitreSaw_SetupTime() {
+    if(leanTool_Smed_Drill)
+        return (.4);
+    else
+        return 2;
+}
+function mitreSaw_NumParts(){
+    return 14;
+}
+function mitreSaw_ProcessTime() {
+    return "0.2 - 1.2 min";
+}
+function mitreSaw_TotalTime(){
+    return 10.4;
+} 
+function mitreSaw_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Saw)
+        tempEff+=.06;
+    if(leanTool_SelfDirected_Metal)
+        tempEff-=.03;
+    return tempEff;
+}
+function mitreSaw_Reliability(){
+    if(leanTool_PM_Saw)
+        return .995;
+    else
+        return .97;
+}
+function mitreSaw_Quality(){
+    return 1;
+}
+function mitreSaw_BatchSizes(){
+    if(leanTool_SmallLot_Metal)
+        return 20;
+    else
+        return 40;
+}
+function mitreSaw_Handling(){
+    if(leanTool_Cells)
+        return 0;
+    else
+        return 2;
+}
+function mitreSaw_NeededMachines(){
+    return (mitreSaw_NeededMin()/(24 * MinPerDay() * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
+}
+
+
+//Drill functions
+function drillPress_CurrentQuantity(){
+    if (leanTool_New_Drill)
+        return 2;
+    else
+        return 1;
+}
+function drillPress_SetupTime() {
+    if(leanTool_Smed_Welding)
+        return (.4);
+    else
+        return 2;
+}
+function drillPress_NumParts(){
+    return 4;
+}
+function drillPress_ProcessTime() {
+    return "2 min";
+}
+function drillPress_TotalTime(){
+    return 16;
+}
+function drillPress_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Drill)
+        tempEff+=.06;
+    if(leanTool_SelfDirected_Metal)
+        tempEff-=.03;
+    return tempEff;
+}
+function drillPress_Reliability(){
+    if(leanTool_PM_Drill)
+        return .995;
+    else
+        return .97;
+}function drillPress_Quality(){
+    if(leanTool_Quality_Drill)
+        return .996;
+    else
+        return .98;
+}
+function drillPress_BatchSizes(){
+    if(leanTool_SmallLot_Metal)
+        return 20;
+    else
+        return 40;
+}
+function drillPress_Handling(){
+    if(leanTool_Cells)
+        return 0;
+    else
+        return 2;
+}
+function drillPress_NeededMachines(){
+    return (drillPress_NeededMin()/(24 * MinPerDay() * drillPress_Efficiency() * drillPress_Reliability() * drillPress_Quality()));
+}
+
+//Bender functions
+function tubeBender_CurrentQuantity(){
+    if (leanTool_New_Bender)
+        return 2;
+    else
+        return 1;
+ }
+ function tubeBender_SetupTime(){
+     if(leanTool_Smed_Bender)
+         return 1;
+     else
+         return 5;
+ }
+ function tubeBender_NumParts(){
+    return 8;
+ }
+ function tubeBender_ProcessTime() {
+    return "1-3 min";
+ }
+ function tubeBender_TotalTime(){
+    return 33;
+ }
+ function tubeBender_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Bender)
+        tempEff+=.06;
+    if(leanTool_SelfDirected_Metal)
+        tempEff-=.03;
+        return tempEff;
+ }
+ function tubeBender_Reliability(){
+    if(leanTool_PM_Bender)
+        return .998;
+    else
+        return .99;
+ }function tubeBender_Quality(){
+    if(leanTool_Quality_Bender)
+        return .996;
+    else
+        return .98;
+ }
+ function tubeBender_BatchSizes(){
+     if(leanTool_SmallLot_Metal)
+         return 20;
+     else
+         return 40;
+ }
+ function tubeBender_Handling(){
+    return 2;
+ }
+ function tubeBender_NeededMachines(){
+    return (tubeBender_NeededMin()/(24 * MinPerDay() * tubeBender_Efficiency() * tubeBender_Reliability() * tubeBender_Quality()));
+ }
+
+//welding functions
+function welding_CurrentQuantity(){
+    if (leanTool_New_Saw)
+        return 3;
+    else
+        return 2;
+}
+function welding_SetupTime(){
+    if(leanTool_Smed_Welding)
+        return 2;
+    else
+        return 10;
+}
+function welding_NumParts(){
+    return 5;
+}
+function welding_ProcessTime() {
+    return "2-30 min";
+}
+function welding_TotalTime(){
+    return 106;
+}
+function welding_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Welding)
+        tempEff+=.06;
+    if(leanTool_SelfDirected_Metal)
+        tempEff-=.03;
+    return tempEff;
+}
+function welding_Reliability(){
+    if(leanTool_PM_Welding)
+        return .99;
+    else
+        return .95;
+}
+function welding_Quality(){
+    if(leanTool_Quality_Welding)
+        return .99;
+    else
+        return .95;
+}
+function welding_BatchSizes(){
+    if(leanTool_SmallLot_Weld)
+        return 20;
+    else
+        return 40;
+}
+function welding_Handling(){
+    if(leanTool_Cells)
+        return 0;
+    else
+        return 2;
+}
+function welding_NeededMachines(){
+    return (welding_NeededMin()/(24 * MinPerDay() * welding_Efficiency() * welding_Reliability() * welding_Quality()));
+}
+
+//Grinder functions
+function grinder_CurrentQuantity(){
+    if (leanTool_New_Grind)
+        return 2;
+    else
+        return 1;
+}
+function grinder_SetupTime(){
+    return 0;
+}
+function grinder_NumParts(){
+    return 5;
+}
+function grinder_ProcessTime() {
+    return "1-4 min";
+}
+function grinder_TotalTime(){
+    return 34;
+}
+function grinder_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Grind)
+        tempEff+=.06;
+    if(leanTool_SelfDirected_Weld)
+        tempEff-=.03;
+    return tempEff;
+}
+function grinder_Reliability(){
+    return 1;
+}
+function grinder_Quality(){
+    return 1;
+}
+function grinder_BatchSizes(){
+    if(leanTool_SmallLot_Weld)
+        return 20;
+    else
+        return 40;
+}
+function grinder_Handling(){
+    if(leanTool_Cells)
+        return 0;
+    else
+        return 2;
+}
+function grinder_NeededMachines(){
+    return (grinder_NeededMin()/(24 * MinPerDay() * grinder_Efficiency() * grinder_Reliability() * grinder_Quality()));
+}
+
+//Paint functions
+function paintBooth_CurrentQuantity(){
+    if (leanTool_New_Paint)
+        return 2;
+    else
+        return 1;
+}
+function paintBooth_SetupTime(){
+    if(leanTool_Smed_Paint)
+        return 3;
+    else
+        return 15;
+}
+function paintBooth_NumParts(){
+    return 4;
+}
+function paintBooth_ProcessTime() {
+    return "2-8 min";
+}
+function paintBooth_TotalTime(){
+    return 38;
+}
+function paintBooth_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Paint)
+        tempEff+=.06;
+    if(leanTool_SelfDirected_Weld)
+        tempEff-=.03;
+    return tempEff;
+}
+function paintBooth_Reliability(){
+    if(leanTool_PM_Paint)
+        return .995;
+    else
+        return .98;
+}
+function paintBooth_Quality(){
+    return 1;
+}
+function paintBooth_BatchSizes(){
+    if(leanTool_SmallLot_Weld)
+        return 20;
+    else
+        return 40;
+}
+function paintBooth_Handling(){
+    return 2;
+}
+function paintBooth_NeededMachines(){
+    return (paintBooth_NeededMin()/(24 * MinPerDay() * paintBooth_Efficiency() * paintBooth_Reliability() * paintBooth_Quality()));
+}
+
+// fabric functions
+function fabricCutter_CurrentQuantity(){
+    if (leanTool_New_Fabric)
+        return 2;
+    else
+        return 1;
+}
+function fabricCutter_SetupTime(){
+    return 0;
+}
+function fabricCutter_NumParts(){
+    return 2;
+}
+function fabricCutter_ProcessTime() {
+    return "4-8 min";
+}
+function fabricCutter_TotalTime(){
+    return 12;
+}
+function fabricCutter_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Fabric)
+        tempEff+=.06;
+    if(leanTool_SelfDirected_Fabric)
+        tempEff-=.03;
+    return tempEff;
+}
+function fabricCutter_Reliability(){
+    return 1;
+}
+function fabricCutter_Quality(){
+    return 1;
+}
+function fabricCutter_BatchSizes(){
+    if(leanTool_SmallLot_Fabric)
+        return 10;
+    else
+        return 20;
+}
+function fabricCutter_Handling(){
+    if(leanTool_Cells)
+        return 0;
+    else
+        return 2;
+}
+function fabricCutter_NeededMachines(){
+    return (fabricCutter_NeededMin()/(24 * MinPerDay() * fabricCutter_Efficiency() * fabricCutter_Reliability() * fabricCutter_Quality()));
+}
+
+// Sewing functions
+function sewing_CurrentQuantity(){
+    if (leanTool_New_Sewing)
+        return 3;
+    else
+        return 2;
+}
+function sewing_SetupTime(){
+    if(leanTool_Smed_Sewing)
+        return 1;
+    else
+        return 5;
+}
+function sewing_NumParts(){
+    return 2;
+}
+function sewing_ProcessTime() {
+    return "12-30 min";
+}
+function sewing_TotalTime(){
+    return 42;
+}
+function sewing_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Sewing)
+        tempEff+=.06;
+    if(leanTool_SelfDirected_Fabric)
+        tempEff-=.03;
+    return tempEff;
+}
+function sewing_Reliability(){
+    if(leanTool_PM_Sewing)
+        return .99;
+    else
+        return .95;
+}
+function sewing_Quality(){
+    if(leanTool_Quality_sewing)
+        return .996;
+    else
+        return .98;
+}
+function sewing_BatchSizes(){
+    if(leanTool_SmallLot_Weld)
+        return 10;
+    else
+        return 20;
+}
+function sewing_Handling(){
+    return 2;
+}
+function sewing_NeededMachines(){
+    return (sewing_NeededMin()/(24 * MinPerDay() * sewing_Efficiency() * sewing_Reliability() * sewing_Quality()));
+}
+
+//Assembly functions
+function assembly_CurrentQuantity(){
+    if (leanTool_New_Assembly)
+        return 3;
+    else
+        return 2;
+}
+function assembly_SetupTime(){
+    return 0;
+}
+function assembly_NumParts(){
+    return 3;
+}
+function assembly_ProcessTime() {
+    return "8-49 min";
+}
+function assembly_TotalTime(){
+    return 65;
+}
+function assembly_Efficiency(){
+    var tempEff=.9;
+    if(leanTool_fiveS_Assembly)
+        tempEff+=.06;
+    return tempEff;
+}
+function assembly_Reliability(){
+    return 1;
+}
+function assembly_Quality(){
+    if(leanTool_Quality_Assembly)
+        return .998;
+    else
+        return .99;
+}
+function assembly_BatchSizes(){
+    return 1;
+}
+function assembly_Handling(){
+    return 0;
+}
+function assembly_NeededMachines(){
+    return (assembly_NeededMin()/(24 * MinPerDay() * assembly_Efficiency() * assembly_Reliability() * assembly_Quality()));
+}
+////////////////
 
 
 
