@@ -225,7 +225,7 @@ function drawSprtSht() {
     }
     switch (factoryFloorIconsArray.Desk){
         case 0:
-            ctx.drawImage(spriteSheetImg, spriteX*4, spriteY*4, 300, 300,300,600, 110, 110);
+            ctx.drawImage(spriteSheetImg, spriteX*4, spriteY*4, 300, 300,300,600, 140, 140);
 
             break;
     }
@@ -588,7 +588,7 @@ function drawSprtSht() {
         new problem("Assembly down due to quality problem", false)];
 
 
-    var menu = new gameObject(0, 0, 750, 750, 'Art_Assets/main_menu/bkg_start2.png', 0);
+    var menu = new gameObject(0, 0, 750, 1500, 'Art_Assets/main_menu/finalbackground.png', 0);
     loadImg(menu);
 
     var startBtn = new gameObject(50, 50, 65, 160, 'Art_Assets/main_menu/btn_play.png', 'Art_Assets/main_menu/btn_playh.png');
