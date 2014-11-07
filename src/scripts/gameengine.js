@@ -41,7 +41,7 @@ function drawBossCoffeeAnm(){
     BossSpriteX = (bossSpriteFrameCount%38)*259;
     BossSpriteY = Math.floor(bossSpriteFrameCount/38)*642;
     ctx.drawImage(bossCoffeeSipAnm,BossSpriteX,BossSpriteY,259,642,0,0,259,642);
-    console.log("BOSSDRAW");
+    //console.log("BOSSDRAW");
     if(bossSpriteFrameCount==152){
         bossSpriteFrameCount=0;
     }
@@ -434,7 +434,7 @@ function drawSprtSht() {
             break;
     }
 
-        console.log("TEST1234");
+        //console.log("TEST1234");
         if(bossworker.currentY <= station[0].y){
             walkDirectionBool = false;
         }else if(bossworker.currentY >= station[8].y){
@@ -819,7 +819,7 @@ function problemListUpdate() {
             factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
-    if(assemblyBench_WorkersOver() > 0){
+    if(assembly_WorkersOver() > 0){
         problemList[numProbs] = "Assembly works overtime to try and meet production";
         numProbs++;
     }
@@ -829,7 +829,7 @@ function problemListUpdate() {
             factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
-    if(assemblyBench_MaxCapacity() < 200){
+    if(assembly_MaxCapacity() < 200){
         problemList[numProbs] = "Assembly cannot meet production due to capacity constraint";
         numProbs++;
     }
@@ -1243,7 +1243,7 @@ function problemListUpdate() {
         if(leanTool_Cells)
             return total_TrainWorkers(month);//from capacity
         else
-            return total_NoCellWorkers(month);//from capacity
+            return total_NoCellsWorkers(month);//from capacity
     }
     function monthBaseline(month){
         var baselineTemp = 19000;
@@ -1361,7 +1361,7 @@ function drillPress_Downtime(month){
 // drill press quality
 function drillPress_BadQuality(month){
     if(month==0){
-        if(leanTool_SmallLot_Drill)
+        if(leanTool_SmallLot_Metal)
             return .25;
         else
             return .5;
@@ -2413,6 +2413,664 @@ function assembly_NeededMachines(){
 
 
 
+//CAPACITY
+var chairs = 200;
+var MinPerDay = 450;
+
+// Mitre Saw Capacity
+function mitreSaw_NeededMin(){
+    return(chairs * mitreSaw_TotalTime()) + (mitreSaw_NumParts() * chairs *(2 / mitreSaw_BatchSizes()) * (mitreSaw_SetupTime() + mitreSaw_Handling()))
+}
+function mitreSaw_DaysDownQuality(){
+    return mitreSaw_Downtime(monthCounter);
+}
+function mitreSaw_DaysStarved(){
+    if (leanTool_SmallPurchase_Steel) {
+        return mitreSaw_LateParts(monthCounter);
+    }
+    else{
+        return 0;
+    }
+}
+function mitreSaw_AvailableMin(){
+    return ((20 - (mitreSaw_DaysDownQuality() / mitreSaw_CurrentQuantity()) - mitreSaw_DaysStarved()) * MinPerDay * mitreSaw_Efficiency() * mitreSaw_Reliability());
+}
+function mitreSaw_NeededMachines(){
+    return mitreSaw_NeededMin() / mitreSaw_AvailableMin();
+}
+function mitreSaw_NoCellsWorkers(){
+    return Math.min(mitreSaw_CurrentQuantity(), Math.ceil(mitreSaw_NeededMachines()));
+}
+function mitreSaw_TrainWorkers(){
+    if (leanTool_CrossTrain_Metal ) {
+        return Math.min(mitreSaw_CurrentQuantity() + drillPress_CurrentQuantity() + tubeBender_CurrentQuantity(), Math.ceil(mitreSaw_NeededMachines() + drillPress_NeededMachines() + tubeBender_NeededMachines()), 0 );
+    }
+    else{
+        return mitreSaw_NoCellsWorkers() + drillPress_NoCellsWorkers() + tubeBender_NoCellsWorkers();
+    }
+}
+function mitreSaw_WorkersOver(){
+    if ((mitreSaw_NoCellsWorkers() - mitreSaw_NeededMachines()) < 0) {
+        return mitreSaw_NoCellsWorkers();
+    }
+    else if (((mitreSaw_NoCellsWorkers() - mitreSaw_NeededMachines()) / mitreSaw_NoCellsWorkers()) < 0.05) {
+        return mitreSaw_NoCellsWorkers() / 2;
+    }
+    else{
+        return 0;
+    }
+}
+function mitreSaw_MaxCapacity(){
+    return Math.floor(chairs * (mitreSaw_NoCellsWorkers() + (0.25 * mitreSaw_WorkersOver()) * (mitreSaw_AvailableMin() / mitreSaw_NeededMin())));
+}
+function mitreSaw_PrevInventory(){
+    return 40;
+}
+function mitreSaw_MaxOutInventory(){
+    if (leanTool_Kaban_Metal) {
+        return 0;
+    }
+    else{
+        return 3 * drillPress_BatchSizes();
+    }
+}
+function mitreSaw_ActualProd(){
+    return Math.min(mitreSaw_MaxCapacity(), (chairs + mitreSaw_MaxOutInventory() - mitreSaw_PrevInventory()));
+}
+function mitreSaw_FinalInventory(){
+    return mitreSaw_PrevInventory() + mitreSaw_ActualProd() - drillPress_ActualProd();
+}
+function mitreSaw_DaysLateOut(){
+    var temp;
+    if (leanTool_Kaban_Metal) {
+        temp = 0;
+    }
+    else if (leanTool_SmallLot_Metal) {
+        temp = 2;
+    }
+    else{
+        temp = 4;
+    }
+    
+    var temp2;
+    if (mitreSaw_MaxCapacity() < chairs) {
+        temp2 = (chairs - mitreSaw_MaxCapacity()) / 10;
+    }
+    else{
+        temp2 = 0;
+    }
+    return Math.max(mitreSaw_DaysDownQuality() - temp, 0) + temp2;
+}
+
+// Drill Press Capacity
+function drillPress_NeededMin(){
+    return (chairs * drillPress_TotalTime()) + (drillPress_NumParts() * chairs *(2 / drillPress_BatchSizes()) * (drillPress_SetupTime() + drillPress_Handling()));
+}
+function drillPress_DaysDownQuality(){
+    return drillPress_Downtime(monthCounter) + drillPress_BadQuality(monthCounter);
+}
+function drillPress_DaysStarved(){
+    return mitreSaw_DaysLateOut();
+}
+function drillPress_AvailableMin(){
+    return (20 - (drillPress_DaysDownQuality() / drillPress_CurrentQuantity()) - drillPress_DaysStarved()) * MinPerDay * drillPress_Efficiency() * drillPress_Reliability();
+}
+function drillPress_NeededMachines(){
+    return drillPress_NeededMin() / drillPress_AvailableMin();
+}
+function drillPress_NoCellsWorkers() {
+    return Math.min(drillPress_CurrentQuantity(), Math.ceil(drillPress_NeededMachines()));
+}
+function drillPress_WorkersOver() {
+    if ((drillPress_NoCellsWorkers() - drillPress_NeededMachines()) < 0) {
+        return drillPress_NoCellsWorkers();
+    }
+    else if (((drillPress_NoCellsWorkers() - drillPress_NeededMachines()) / drillPress_NoCellsWorkers()) < 0.05) {
+        return (drillPress_NoCellsWorkers() / 2)
+    }
+    else{
+        return 0;
+    }
+}
+function drillPress_MaxCapacity() {
+    return Math.floor(chairs * (drillPress_NoCellsWorkers() + (0.25 * drillPress_WorkersOver()) *(drillPress_AvailableMin() / drillPress_NeededMin())));    
+}
+function drillPress_PrevInventory(){
+    return 40;
+}
+function drillPress_MaxOutInventory(){
+    if (leanTool_Kaban_Metal) {
+        return 0;
+    }
+    else{
+        return 3 * tubeBender_BatchSizes();
+    }
+}
+function drillPress_ActualProd(){
+    return Math.min(drillPress_MaxCapacity(), chairs + drillPress_MaxOutInventory() - drillPress_PrevInventory(), mitreSaw_ActualProd() + mitreSaw_PrevInventory);
+}
+function drillPress_FinalInventory(){
+    return drillPress_PrevInventory() + drillPress_ActualProd() - tubeBender_ActualProd();
+}
+function drillPress_DaysLateOut() {
+    var temp1;
+    var temp2;
+    
+    if (leanTool_Kaban_Metal) {
+        temp1 = 0;
+    }
+    else if (leanTool_SmallLot_Metal) {
+        temp1 = 2;
+    }
+    else{ temp1 = 4;}
+    
+    if (drillPress_MaxCapacity() < chairs) {
+        temp2 = (chairs - drillPress_MaxCapacity()) / 10;
+    }
+    else{ temp2 = 0;}
+    
+    return Math.max(drillPress_DaysDownQuality - temp1, 0) + temp2;
+    
+}
+
+//Tube Bender Capacity
+function tubeBender_NeededMin(){
+    return (chairs * tubeBender_TotalTime()) + (tubeBender_NumParts() * chairs * (2 / tubeBender_BatchSizes()) * tubeBender_SetupTime() + tubeBender_Handling());
+}
+function tubeBender_DaysDownQuality(){
+    return tubeBender_Downtime(monthCounter) + tubeBender_BadQuality(monthCounter) + tubeBender_DelayQuality(monthCounter);
+}
+function tubeBender_DaysStarved(){
+    return drillPress_DaysLateOut();
+}
+function tubeBender_AvailableMin(){
+    return (20 - (tubeBender_DaysDownQuality() / tubeBender_CurrentQuantity()) - tubeBender_DaysStarved()) * MinPerDay * tubeBender_Efficiency() * tubeBender_Reliability();
+}
+function tubeBender_NeededMachines(){
+    return tubeBender_NeededMin() / tubeBender_AvailableMin();
+}
+function tubeBender_NoCellsWorkers() {
+    return Math.min(tubeBender_CurrentQuantity(), Math.ceil(tubeBender_NeededMachines()));
+}
+function tubeBender_WorkersOver(){
+    if ((tubeBender_NoCellsWorkers() - tubeBender_NeededMachines()) < 0) {
+        return tubeBender_NoCellsWorkers();
+    }
+    else if (((tubeBender_NoCellsWorkers() - tubeBender_NeededMachines()) / tubeBender_NoCellsWorkers()) < 0.05) {
+        return (tubeBender_NoCellsWorkers() / 2);
+    }
+    else{
+        return 0;
+    }
+}
+function tubeBender_MaxCapacity() {
+    return Math.floor(chairs * (tubeBender_NoCellsWorkers() + (0.25 * tubeBender_WorkersOver()) * (tubeBender_AvailableMin() / tubeBender_NeededMin())));
+}
+function tubeBender_PrevInventory(){
+    return 35;
+}
+function tubeBender_MaxOutInventory() {
+    if (leanTool_Market_Welding) {
+        return tubeBender_BatchSizes();
+    }
+    else{
+        return 3 * tubeBender_BatchSizes();
+    }
+}
+function tubeBender_ActualProd() {
+    return Math.min(tubeBender_MaxCapacity(), chairs + tubeBender_MaxOutInventory() - tubeBender_PrevInventory(), drillPress_ActualProd() + drillPress_PrevInventory());
+}
+function tubeBender_FinalInventory(){
+    return tubeBender_PrevInventory() + tubeBender_ActualProd() - welding_ActualProd();
+}
+function tubeBender_DaysLateOut(){
+    var temp1;
+    var temp2;
+    var temp3;
+    
+    if (leanTool_SmallLot_Metal) {
+        temp1 = 2;
+    }else{temp1 = 4;}
+    
+    if (tubeBender_MaxCapacity()<chairs) {
+        temp2 = (chairs - tubeBender_MaxCapacity()) / 10;
+    }
+    else{temp2 = 0;}
+    
+    if (tubeBender_PrevInventory()<tubeBender_BatchSizes()) {
+        temp3 = (tubeBender_BatchSizes() - tubeBender_PrevInventory()) / 10;
+    }else{temp3 = 0;}
+    
+    return Math.max(tubeBender_DaysDownQuality() - temp1 + temp2 + temp3);
+}
+
+//Welding Capacity
+function welding_NeededMin(){
+    return (chairs * welding_TotalTime()) + (welding_NumParts() * chairs * (2 / welding_BatchSizes()) * (welding_SetupTime() + welding_Handling()));
+}
+function welding_DaysDownQuality(){
+    return welding_Downtime(monthCounter) + welding_BadQuality(monthCounter);
+}
+function welding_DaysStarved(){
+    return tubeBender_DaysLateOut();
+}
+function welding_AvailableMin(){
+    return (20 - (welding_DaysDownQuality() / welding_CurrentQuantity()) - welding_DaysStarved()) * MinPerDay * welding_Efficiency() * welding_Reliability();
+}
+function welding_NeededMachines(){
+    return welding_NeededMin() / welding_AvailableMin();
+}
+function welding_NoCellsWorkers() {
+    return Math.min(welding_CurrentQuantity(), Math.ceil(welding_NeededMachines()));
+}
+function welding_TrainWorkers(){
+    if (leanTool_CrossTrain_Weld) {
+        return Math.min(welding_CurrentQuantity() + grinder_CurrentQuantity() + paintBooth_CurrentQuantity(), Math.ceil(welding_NeededMachines() + grinder_NeededMachines() + paintBooth_NeededMachines));
+    }
+    else{
+        return (welding_NoCellsWorkers() + grinder_NoCellsWorkers() + paintBooth_NoCellsWorkers());
+    }
+}
+function welding_WorkersOver(){
+    if ((welding_NoCellsWorkers() - welding_NeededMachines()) < 0) {
+        return welding_NoCellsWorkers();
+    }
+    else if (((welding_NoCellsWorkers() - welding_NeededMachines()) / welding_NoCellsWorkers()) < 0.05) {
+        return welding_NoCellsWorkers() / 2;
+    }
+    else{ return 0;}
+}
+function welding_MaxCapacity() {
+    return Math.floor(chairs * (welding_NoCellsWorkers() + (0.25 * welding_WorkersOver()) * welding_AvailableMin() / welding_NeededMin()));
+}
+function welding_PrevInventory(){
+    return 20;
+}
+function welding_MaxOutInventory() {
+    if (leanTool_Kaban_Weld) {
+        return 0;
+    }
+    else{
+        return 3 * grinder_BatchSizes();
+    }
+}
+function welding_ActualProd() {
+    return Math.min(welding_MaxCapacity(), chairs + welding_MaxOutInventory() - welding_PrevInventory(), tubeBender_ActualProd() + tubeBender_PrevInventory());
+}
+function welding_FinalInventory(){
+    return welding_PrevInventory() + welding_ActualProd() - grinder_ActualProd();
+}
+function welding_DaysLateOut(){
+    var temp1;
+    var temp2;
+    
+    if (leanTool_Kaban_Weld) {
+        temp1 = 0;
+    }
+    else if (leanTool_SmallLot_Weld) {
+        temp1 = 2;
+    }
+    else{temp1 = 4;}
+    
+    if (welding_MaxCapacity() < chairs) {
+        temp2 = (chairs - welding_MaxCapacity()) / 10;
+    }
+    else{temp2 = 0;}
+    
+    return Math.max(welding_DaysDownQuality() - temp1, 0) + temp2;
+} 
+
+//Grinder Capacity
+function grinder_NeededMin(){
+    return (chairs * grinder_TotalTime()) + (grinder_NumParts() * chairs * (2/ grinder_BatchSizes()) * (grinder_SetupTime() + grinder_Handling()));
+}
+function grinder_DaysDownQuality(){
+    return grinder_DelayQuality(monthCounter);
+}
+function grinder_DaysStarved(){
+    return welding_DaysLateOut();
+}
+function grinder_AvailableMin(){
+    return (20- (grinder_DaysDownQuality() / grinder_CurrentQuantity()) - grinder_DaysStarved()) * MinPerDay * grinder_Efficiency() * grinder_Reliability();
+}
+function grinder_NeededMachines(){
+    return grinder_NeededMin() / grinder_AvailableMin();
+}
+function grinder_NoCellsWorkers() {
+    return Math.min(grinder_CurrentQuantity, Math.ceil(grinder_NeededMachines()));
+}
+function grinder_WorkersOver(){
+    if ((grinder_NoCellsWorkers() - grinder_NeededMachines()) < 0) {
+        return grinder_NoCellsWorkers();
+    }
+    else if (((grinder_NoCellsWorkers() - grinder_NeededMachines()) / grinder_NoCellsWorkers) < 0.05) {
+        return grinder_NoCellsWorkers() / 2;
+    }
+    else{
+        return 0;
+    }
+}
+function grinder_MaxCapacity() {
+    return Math.floor(chairs * (grinder_NoCellsWorkers() + (0.25 * grinder_WorkersOver()) * (grinder_AvailableMin() / grinder_NeededMin())));
+}
+function grinder_PrevInventory(){
+    return 15;
+}
+function grinder_MaxOutInventory() {
+    if (leanTool_Kaban_Weld) {
+        return 0;
+    }
+    else{
+        return 3 * paintBooth_BatchSizes();
+    }
+}
+function grinder_ActualProd() {
+    return Math.min(grinder_MaxCapacity(), chairs + grinder_MaxOutInventory() - grinder_PrevInventory(), welding_ActualProd() + welding_PrevInventory());
+}
+function grinder_FinalInventory(){
+    return grinder_PrevInventory() + grinder_ActualProd() - paintBooth_ActualProd();
+}
+function grinder_DaysLateOut(){
+    var temp;
+    var temp2;
+    
+    if (leanTool_Kaban_Weld) {
+        temp = 0;
+    }
+    else if (leanTool_SmallLot_Weld) {
+        temp = 2;
+    }
+    else {temp =4;}
+    
+    if (grinder_MaxCapacity < chairs) {
+        temp2 = (chairs - grinder_MaxCapacity) / 10;
+    }
+    else{temp2 = 0;}
+    
+    return Math.max(grinder_DaysDownQuality() - temp, 0) + temp2;
+}   
+
+// Paint Booth Capacity
+function paintBooth_NeededMin(){
+    return (chairs * paintBooth_TotalTime()) + (paintBooth_NumParts() * chairs * (2 / paintBooth_BatchSizes()) * (paintBooth_SetupTime() + paintBooth_Handling()));
+}
+function paintBooth_DaysDownQuality(){
+    return paintBooth_Downtime(monthCounter) + paintBooth_DelayQuality(monthCounter);
+}
+function paintBooth_DaysStarved(){
+    return grinder_DaysLateOut();
+}
+function paintBooth_AvailableMin(){
+    return (20 - (paintBooth_DaysDownQuality() / paintBooth_CurrentQuantity) - paintBooth_DaysStarved()) * MinPerDay * paintBooth_Efficiency() * paintBooth_Reliability();
+}
+function paintBooth_NeededMachines(){
+    return paintBooth_NeededMin() / paintBooth_AvailableMin();
+}
+function paintBooth_NoCellsWorkers() {
+    return Math.min(paintBooth_CurrentQuantity(), Math.ceil(paintBooth_NeededMachines()));
+}
+function paintBooth_WorkersOver(){
+    if ((paintBooth_NoCellsWorkers() - paintBooth_NeededMachines()) < 0 ) {
+        return paintBooth_NoCellsWorkers();
+    }
+    else if (((paintBooth_NoCellsWorkers() - paintBooth_NeededMachines()) / paintBooth_NoCellsWorkers()) < 0.05) {
+        return (paintBooth_NoCellsWorkers() / 2);
+    }
+    else {return 0;}
+}
+function paintBooth_MaxCapacity() {
+    return Math.floor(chairs * (paintBooth_NoCellsWorkers() + (0.25 * paintBooth_WorkersOver()) * (paintBooth_AvailableMin() / paintBooth_NeededMin())));
+}
+function paintBooth_PrevInventory(){
+    return 15;
+}
+function paintBooth_MaxOutInventory() {
+    if (leanTool_Market_Assembly) {
+        return paintBooth_BatchSizes();
+    }
+    else{
+        return 3 * paintBooth_BatchSizes();
+    }
+}
+function paintBooth_ActualProd() {
+    return Math.min(paintBooth_MaxCapacity(), chairs + paintBooth_MaxCapacity() - paintBooth_PrevInventory(), grinder_ActualProd() + grinder_PrevInventory());
+}
+function paintBooth_FinalInventory(){
+    return paintBooth_PrevInventory() + paintBooth_ActualProd() - assembly_ActualProd();
+}
+function paintBooth_DaysLateOut(){
+    var temp;
+    var temp2;
+    var temp3;
+    
+    if (leanTool_SmallLot_Weld) {
+        temp = 2;
+    }
+    else{temp = 4;}
+    
+    if (sewing_MaxCapacity() < chairs) {
+        temp2 = (chairs - sewing_MaxCapacity()) / 10
+    }
+    else{temp2 = 0;}
+    
+    if (paintBooth_PrevInventory() < paintBooth_BatchSizes()) {
+        temp3 = (paintBooth_BatchSizes() - paintBooth_PrevInventory()) / 10;
+    }
+    else{temp3 = 0;}
+    
+    return Math.max(paintBooth_DaysDownQuality() - temp, 0) + temp2 + temp3;
+}    
+
+//Fabric Cut Capacity
+function fabricCut_NeededMin(){
+    return (chairs * fabricCutter_TotalTime) + (fabricCutter_NumParts() * chairs * (2 / fabricCutter_BatchSizes()) * ( fabricCutter_SetupTime() + fabricCutter_Handling()));
+}
+function fabricCut_DaysDownQuality(){
+    return 0;
+}
+function fabricCut_DaysStarved(){
+    if (leanTool_SmallPurchase_Nylon) {
+        return fabricCutter_LateParts(monthCounter);
+    }
+    else{return 0;}
+}
+function fabricCut_AvailableMin(){
+    return (20 - (fabricCut_DaysDownQuality() / fabricCutter_CurrentQuantity()) - fabricCut_DaysStarved()) * MinPerDay * fabricCutter_Efficiency() * fabricCutter_Reliability();
+}
+function fabricCut_NeededMachines(){
+    return fabricCut_NeededMin() / fabricCut_AvailableMin();
+}
+function fabricCut_NoCellsWorkers() {
+    return Math.min(fabricCutter_CurrentQuantity(), Math.ceil(fabricCut_NeededMachines()));
+}
+function fabricCut_TrainWorkers(){
+    if (leanTool_CrossTrain_Fabric) {
+        return Math.min(fabricCut_CurrentQuantity() + sewing_CurrentQuantity(), Math.ceil(fabricCut_NeededMachines() + seweing_NeededMachines()));
+    }
+    else{
+        return fabricCut_NoCellsWorkers() + sewing_NoCellsWorkers();
+    }
+}
+function fabricCut_WorkersOver(){
+    if ((fabricCut_NoCellsWorkers() - fabricCut_NeededMachines()) < 0) {
+        return fabricCut_NoCellsWorkers();
+    }
+    else if(((fabricCut_NoCellsWorkers() - fabricCut_NeededMachines()) / fabricCut_NoCellsWorkers) < 0.05){
+        return (fabricCut_NoCellsWorkers() / 2);
+    }
+    else{return 0;}
+}
+function fabricCut_MaxCapacity() {
+    return Math.floor(chairs * (fabricCut_NoCellsWorkers() + (0.25 * fabricCut_WorkersOver()) *(fabricCut_AvailableMin() / fabricCut_NeededMin())));
+}
+function fabricCut_PrevInventory(){
+    return 20;
+}
+function fabricCut_MaxOutInventory() {
+    return 3 * fabricCutter_BatchSizes();
+}
+function fabricCut_ActualProd() {
+    return Math.min(fabricCut_MaxCapacity(), chairs + fabricCut_MaxOutInventory() - fabricCut_PrevInventory());
+}
+function fabricCut_FinalInventory(){
+    return fabricCut_PrevInventory() + fabricCut_ActualProd() - sewing_ActualProd();
+}
+function fabricCut_DaysLateOut(){
+    var temp;
+    var temp2;
+    
+    if (leanTool_SmallLot_Fabric) {
+        temp = 2
+    }
+    else{temp = 4;}
+    
+    if (fabricCut_MaxCapacity() < chairs) {
+        temp2 = (chairs - fabricCut_MaxCapacity()) / 10;
+    }
+    else{temp2 = 0;}
+    
+    return Math.max(fabricCut_DaysDownQuality() - temp,0) + temp2;
+}    
+
+//Sewing Capacity
+function sewing_NeededMin(){
+    return (chairs * sewing_TotalTime() + (sewing_NumParts() * chairs *(2 / sewing_BatchSizes()) * (sewing_SetupTime() + sewing_Handling())));
+}
+function sewing_DaysDownQuality(){
+    return sewing_Downtime(monthCounter) + sewing_BadQuality(monthCounter);
+}
+function sewing_DaysStarved(){
+    return fabricCut_DaysLateOut();
+}
+function sewing_AvailableMin(){
+    return (20 - (sewing_DaysDownQuality() / sewing_CurrentQuantity()) - sewing_DaysStarved()) * MinPerDay * sewing_Efficiency() * sewing_Reliability();
+}
+function sewing_NeededMachines(){
+    return sewing_NeededMin() / sewing_AvailableMin();
+}
+function sewing_NoCellsWorkers() {
+    return Math.min(sewing_CurrentQuantity(), Math.ceil(sewing_NeededMachines()));
+}
+function sewing_WorkersOver(){
+    if ((sewing_NoCellsWorkers() - sewing_NeededMachines()) < 0) {
+        return sewing_NoCellsWorkers();
+    }
+    else if (((sewing_NoCellsWorkers() - sewing_NeededMachines()) / sewing_NoCellsWorkers()) < 0.05) {
+        return sewing_NoCellsWorkers() / 2;
+    }
+    else{
+        return 0;
+    }
+}
+function sewing_MaxCapacity() {
+    return Math.floor(chairs * (sewing_NoCellsWorkers() + (0.25 * sewing_WorkersOver()) * (sewing_AvailableMin() / sewing_NeededMin())));
+}
+function sewing_PrevInventory(){
+    return 20;
+}
+function sewing_MaxOutInventory() {
+    if (leanTool_Market_Assembly) {
+        return sewing_BatchSizes();
+    }
+    else{
+        return 3 * sewing_BatchSizes();
+    }
+}
+function sewing_ActualProd() {
+    return Math.min(sewing_MaxCapacity(), chairs + sewing_MaxOutInventory() - sewing_PrevInventory(), fabricCut_ActualProd() + fabricCut_PrevInventory());
+}
+function sewing_FinalInventory(){
+    return sewing_PrevInventory() + sewing_ActualProd() - assembly_ActualProd();
+}
+function sewing_DaysLateOut(){
+    var temp;
+    var temp2;
+    var temp3;
+    
+    if (leanTool_SmallLot_Fabric) {
+        temp = 2;
+    }
+    else{temp = 4;}
+    
+    if (sewing_MaxCapacity() < chairs) {
+        temp2 = (chairs - sewing_MaxCapacity()) / 10;
+    }
+    else{temp2 = 0;}
+    
+    if (sewing_PrevInventory() < sewing_BatchSizes()) {
+        temp3 = (sewing_BatchSizes() - sewing_PrevInventory()) / 10;
+    }
+    else{temp3 = 0;}
+    
+    return Math.max(sewing_DaysDownQuality() - temp, 0) + temp2 + temp3;
+} 
+
+//Assembly Capacity
+function assembly_NeededMin(){
+    return (chairs * assembly_TotalTime()) + (assembly_NumParts() * chairs *(2 / assembly_BatchSizes()) * (assembly_SetupTime() + assembly_Handling()));
+}
+function assembly_DaysDownQuality(){
+    return assemblyBench_BadQuality(monthCounter);
+}
+function assembly_DaysStarved(){
+    var temp;
+    if (leanTool_SmallPurchase_Bike || leanTool_SmallPurchase_Metal) {
+        temp =  assemblyBench_LateParts(monthCounter);
+    }
+    else{temp = 0;}
+    
+    return temp + (paintBooth_DaysLateOut() + sewing_DaysLateOut());
+}
+function assembly_AvailableMin(){
+    return (20 - (assembly_DaysDownQuality() / assembly_CurrentQuantity()) - assembly_DaysStarved()) * MinPerDay * assembly_Efficiency() * assembly_Reliability();
+}
+function assembly_NeededMachines(){
+    return assembly_NeededMin() / assembly_AvailableMin();
+}
+function assembly_NoCellsWorkers() {
+    return Math.min(assembly_CurrentQuantity(), Math.ceil(assembly_NeededMachines()));
+}
+function assembly_TrainWorkers(){
+    return assembly_NoCellsWorkers();
+}
+function assembly_WorkersOver(){
+    if ((assembly_NoCellsWorkers() - assembly_NeededMachines()) < 0) {
+        return assembly_NoCellsWorkers();
+    }
+    else if (((assembly_NoCellsWorkers() - assembly_NeededMachines()) / assembly_NoCellsWorkers()) < 0.05) {
+        return assembly_NoCellsWorkers() / 2;
+    }
+    else{return 0;}
+}
+function assembly_MaxCapacity() {
+    return Math.floor(chairs * (assembly_NoCellsWorkers() + (0.25 * assembly_WorkersOver()) *(assembly_AvailableMin() / assembly_NeededMin())));
+}
+function assembly_PrevInventory(){
+    return 10;
+}
+function assembly_MaxOutInventory() {
+    return 0;
+}
+function assembly_ActualProd() {
+    return Math.min(assembly_MaxCapacity(), chairs + assembly_MaxOutInventory() - assembly_PrevInventory(), paintBooth_ActualProd() + paintBooth_PrevInventory(), sewing_ActualProd() + sewing_PrevInventory());
+}
+function assembly_FinalInventory(){
+    return assembly_PrevInventory() + assembly_ActualProd();
+}
+
+
+//Capacity Totals
+function total_NoCellsWorkers(){
+    return (mitreSaw_NoCellsWorkers() + drillPress_NoCellsWorkers() + tubeBender_NoCellsWorkers() + welding_NoCellsWorkers() + grinder_NoCellsWorkers() + paintBooth_NoCellsWorkers() + fabricCut_NoCellsWorkers() + sewing_NoCellsWorkers() + assembly_NoCellsWorkers());
+}
+function total_TrainWorkers(){
+    return (mitreSaw_TrainWorkers() + welding_TrainWorkers() + fabricCut_TrainWorkers() + assembly_TrainWorkers());
+}
+function total_WorkersOver(){
+    return (mitreSaw_WorkersOver() + drillPress_WorkersOver() + tubeBender_WorkersOver() + welding_WorkersOver() + grinder_WorkersOver() + paintBooth_WorkersOver() + fabricCut_WorkersOver() + sewing_WorkersOver() + assembly_WorkersOver());
+}
+
+
 ////////////////
 
 
@@ -2477,6 +3135,8 @@ function assembly_NeededMachines(){
         // lean tool buttons
         contact(leanToolsBtnCells);
         contact(leanToolsBtnSmedSaw);
+        
+        problemListUpdate();
 
 
         for (var i = 0; i < 9; i++) {
