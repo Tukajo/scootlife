@@ -3071,6 +3071,348 @@ function total_WorkersOver(){
 }
 
 
+//INVENTORY
+
+// Nineteen by one Tube Inventory
+function nineteenbyoneTube_ChairQuantity(){
+    return nineteenbyoneTube_PrevChairQuantity() + (nineteenbyoneTube_ChairOrderQuantity() * nineteenbyoneTube_NumOrders()) - mitreSaw_ActualProd();
+}
+function nineteenbyoneTube_ChairPrice() {
+    return nineteenbyoneTube_PricePerChair();
+}
+function nineteenbyoneTube_Value(){
+    return nineteenbyoneTube_ChairQuantity() * nineteenbyoneTube_ChairPrice();
+}
+function nineteenbyoneTube_PrevChairQuantity(){
+    return 200;
+}
+function nineteenbyoneTube_ChairOrderQuantity(){
+    return nineteenbyoneTube_ChairsPerUnit() * nineteenbyoneTube_OrderQuantity();
+}
+function nineteenbyoneTube_NumOrders(){
+    if (nineteenbyoneTube_PrevChairQuantity() - mitreSaw_ActualProd() <= nineteenbyoneTube_ROP()) {
+        return (Math.ceil(nineteenbyoneTube_ROP() - nineteenbyoneTube_PrevChairQuantity + mitreSaw_ActualProd()) / nineteenbyoneTube_ChairOrderQuantity())
+    }
+    else{
+        return 0;
+    }
+}
+function nineteenbyoneTube_OrderPrice(){
+    return nineteenbyoneTube_PricePerChair() * nineteenbyoneTube_ChairOrderQuantity();
+}
+function nineteenbyoneTube_InventoryOrderCost(){
+    return nineteenbyoneTube_NumOrders() * nineteenbyoneTube_RawOrderCost();
+}
+function nineteenbyoneTube_MaterialCost(){
+    return nineteenbyoneTube_OrderPrice() * nineteenbyoneTube_NumOrders();
+}
+
+
+//Twenty five by oneTube Inventory
+function twentyfivebyoneTube_ChairQuantity(){
+    return twentyfivebyoneTube_PrevChairQuantity() + (twentyfivebyoneTube_ChairOrderQuantity() * twentyfivebyoneTube_NumOrders) - mitreSaw_ActualProd();
+}
+function twentyfivebyoneTube_ChairPrice() {
+    return twentyfivebyoneTube_PricePerChair();
+}
+function twentyfivebyoneTube_Value(){
+    return twentyfivebyoneTube_ChairQuantity() * twentyfivebyoneTube_ChairPrice();
+}
+function twentyfivebyoneTube_PrevChairQuantity(){
+    return 200;
+}
+function twentyfivebyoneTube_ChairOrderQuantity(){
+    return twentyfivebyoneTube_ChairsPerUnit() * twentyfivebyoneTube_OrderQuantity();
+}
+function twentyfivebyoneTube_NumOrders(){
+    if (twentyfivebyoneTube_PrevChairQuantity() - mitreSaw_ActualProd() <= twentyfivebyoneTube_ROP()) {
+        return Math.ceil(twentyfivebyoneTube_ROP() - twentyfivebyoneTube_PrevChairQuantity() + mitreSaw_ActualProd()) / twentyfivebyoneTube_ChairOrderQuantity();
+    }
+    else{
+        return 0;
+    }
+}
+function twentyfivebyoneTube_OrderPrice(){
+    return twentyfivebyoneTube_PricePerChair() * twentyfivebyoneTube_ChairOrderQuantity();
+}
+function twentyfivebyoneTube_InventoryOrderCost(){
+    return twentyfivebyoneTube_NumOrders() * twentyfivebyoneTube_RawOrderCost();
+}
+function twentyfivebyoneTube_MaterialCost(){
+    return twentyfivebyoneTube_OrderPrice * twentyfivebyoneTube_NumOrders();
+}
+
+
+//Thirty five by two Tube Inventory
+function thirtyfivebytwoTube_ChairQuantity(){
+    return thirtyfivebytwoTube_PrevChairQuantity() + (thirtyfivebytwoTube_ChairOrderQuantity() * thirtyfivebytwoTube_NumOrders()) - mitreSaw_ActualProd();
+}
+function thirtyfivebytwoTube_ChairPrice() {
+    return thirtyfivebytwoTube_PricePerChair();
+}
+function thirtyfivebytwoTube_Value(){
+    return thirtyfivebytwoTube_ChairQuantity() * thirtyfivebytwoTube_ChairPrice();
+}
+function thirtyfivebytwoTube_PrevChairQuantity(){
+    return 1400;
+}
+function thirtyfivebytwoTube_ChairOrderQuantity(){
+    return thirtyfivebytwoTube_ChairsPerUnit() * thirtyfivebytwoTube_OrderQuantity();
+}
+function thirtyfivebytwoTube_NumOrders(){
+    if (thirtyfivebytwoTube_PrevChairQuantity() - mitreSaw_ActualProd() <= thirtyfivebytwoTube_ROP()) {
+        return Math.ceil(thirtyfivebytwoTube_ROP() - thirtyfivebytwoTube_PrevChairQuantity() + mitreSaw_ActualProd()) / thirtyfivebytwoTube_ChairOrderQuantity();
+    }
+    else{
+        return 0;
+    }
+}
+function thirtyfivebytwoTube_OrderPrice(){
+    return thirtyfivebytwoTube_PricePerChair() * thirtyfivebytwoTube_ChairOrderQuantity();
+}
+function thirtyfivebytwoTube_InventoryOrderCost(){
+    return thirtyfivebytwoTube_NumOrders() * thirtyfivebytwoTube_RawOrderCost();
+}
+function thirtyfivebytwoTube_MaterialCost(){
+    return thirtyfivebytwoTube_OrderPrice() * thirtyfivebytwoTube_NumOrders();
+}
+
+
+//Nylon Fabric Inventory
+function nylonFabric_ChairQuantity(){
+    return nylonFabric_PrevChairQuantity() + (nylonFabric_ChairOrderQuantity() * nylonFabric_NumOrders()) - fabricCut_ActualProd();
+}
+function nylonFabric_ChairPrice() {
+    return nylonFabric_PricePerChair();
+}
+function nylonFabric_Value(){
+    return nylonFabric_ChairQuantity() * nylonFabric_ChairPrice();
+}
+function nylonFabric_PrevChairQuantity(){
+    return 320;
+}
+function nylonFabric_ChairOrderQuantity(){
+    return nylonFabric_ChairsPerUnit() * nylonFabric_OrderQuantity();
+}
+function nylonFabric_NumOrders(){
+    if (nylonFabric_PrevChairQuantity() - fabricCut_ActualProd() <= nylonFabric_ROP()) {
+        return Math.ceil(nylonFabric_ROP() - nylonFabric_PrevChairQuantity() + fabricCut_ActualProd()) / nylonFabric_ChairOrderQuantity();
+    }
+    else{
+        return 0;
+    }
+}
+function nylonFabric_OrderPrice(){
+    return nylonFabric_PricePerChair() * nylonFabric_ChairOrderQuantity();
+}
+function nylonFabric_InventoryOrderCost(){
+    return nylonFabric_NumOrders() * nylonFabric_RawOrderCost();
+}
+function nylonFabric_MaterialCost(){
+    return nylonFabric_OrderPrice() * nylonFabric_NumOrders();
+}
+
+//Caster Wheel Inventory
+function casterWheel_ChairQuantity(){
+    return casterWheel_PrevChairQuantity() + (casterWheel_ChairOrderQuantity() * casterWheel_NumOrders()) - assembly_ActualProd();
+}
+function casterWheel_ChairPrice() {
+    return casterWheel_PricePerChair();
+}
+function casterWheel_Value(){
+    return casterWheel_ChairQuantity() * casterWheel_ChairPrice();
+}
+function casterWheel_PrevChairQuantity(){
+    return 200;
+}
+function casterWheel_ChairOrderQuantity(){
+    return casterWheel_ChairPerUnit() * casterWheel_OrderQuantity();
+}
+function casterWheel_NumOrders(){
+    if (casterWheel_PrevChairQuantity() - assembly_ActualProd() <= casterWheel_ROP()) {
+        return Math.ceil(casterWheel_ROP() - casterWheel_PrevChairQuantity() + assembly_ActualProd()) / casterWheel_ChairOrderQuantity();
+    }
+    else{return 0;}
+}
+function casterWheel_OrderPrice(){
+    return casterWheel_PricePerChair() * casterWheel_ChairOrderQuantity();
+}
+function casterWheel_InventoryOrderCost(){
+    return casterWheel_NumOrders() * casterWheel_RawOrderCost();
+}
+function casterWheel_MaterialCost(){
+    return casterWheel_OrderPrice() * casterWheel_NumOrders();
+}
+
+
+//Rear Bike Wheel Inventory
+function rearBikeWheel_ChairQuantity(){
+    return rearBikeWheel_PrevChairQuantity() + (rearBikeWheel_ChairOrderQuantity() * rearBikeWheel_NumOrders()) - assembly_ActualProd();
+}
+function rearBikeWheel_ChairPrice() {
+    return rearBikeWheel_PricePerChair();
+}
+function rearBikeWheel_Value(){
+    return rearBikeWheel_ChairQuantity() * rearBikeWheel_ChairPrice();
+}
+function rearBikeWheel_PrevChairQuantity(){
+    return 180;
+}
+function rearBikeWheel_ChairOrderQuantity(){
+    return rearBikeWheel_ChairsPerUnit() * rearBikeWheel_OrderQuantity();
+}
+function rearBikeWheel_NumOrders(){
+    if (rearBikeWheel_ChairOrderQuantity() - assembly_ActualProd() <= rearBikeWheel_ROP()) {
+        return Math.ceil(rearBikeWheel_ROP() - rearBikeWheel_PrevChairQuantity + assembly_ActualProd()) / rearBikeWheel_ChairOrderQuantity();
+    }
+    else{
+        return 0;
+    }
+}
+function rearBikeWheel_OrderPrice(){
+    return rearBikeWheel_PricePerChair() * rearBikeWheel_ChairOrderQuantity();
+}
+function rearBikeWheel_InventoryOrderCost(){
+    return rearBikeWheel_NumOrders() * rearBikeWheel_RawOrderCost();
+}
+function rearBikeWheel_MaterialCost(){
+    return rearBikeWheel_OrderPrice() * rearBikeWheel_NumOrders();
+}
+
+//Handle Inventory
+function handle_ChairQuantity(){
+    return handle_PrevChairQuantity() + (handle_ChairOrderQuantity() * handle_NumOrders()) - assembly_ActualProd();
+}
+function handle_ChairPrice() {
+    return handle_PricePerChair();
+}
+function handle_Value(){
+    return handle_ChairQuantity() * handle_ChairPrice();
+}
+function handle_PrevChairQuantity(){
+    return 400;
+}
+function handle_ChairOrderQuantity(){
+    return handle_ChairsPerUnit() * handle_OrderQuantity();
+}
+function handle_NumOrders(){
+    if (handle_PrevChairQuantity() - assembly_ActualProd() <= handle_ROP()) {
+        return Math.ceil(handle_ROP() - handle_PrevChairQuantity() + assembly_ActualProd()) / handle_ChairOrderQuantity();
+    }
+    else{
+        return 0;
+    }
+}
+function handle_OrderPrice(){
+    return handle_PricePerChair() * handle_ChairOrderQuantity();
+}
+function handle_InventoryOrderCost(){
+    return handle_NumOrders() * handle_RawOrderCost();
+}
+function handle_MaterialCost(){
+    return handle_OrderPrice() * handle_NumOrders();
+}
+
+//Fender Inventory
+function fender_ChairQuantity(){
+    return fender_PrevChairQuantity() + (fender_ChairOrderQuantity() * fender_NumOrders()) - assembly_ActualProd();
+}
+function fender_ChairPrice() {
+    return fender_PricePerChair();
+}
+function fender_Value(){
+    return fender_ChairQuantity() * fender_ChairPrice();
+}
+function fender_PrevChairQuantity(){
+    return 500;
+}
+function fender_ChairOrderQuantity(){
+    return fender_ChairsPerUnit() * fender_OrderQuantity();
+}
+function fender_NumOrders(){
+    if (fender_PrevChairQuantity() - assembly_ActualProd() <= fender_ROP()) {
+        return Math.ceil(fender_ROP() - fender_PrevChairQuantity() + assembly_ActualProd()) / fender_ChairOrderQuantity();
+    }
+    else{
+        return 0;
+    }
+}
+function fender_OrderPrice(){
+    return fender_PricePerChair() * fender_ChairOrderQuantity();
+}
+function fender_InventoryOrderCost(){
+    return fender_NumOrders() * fender_RawOrderCost();
+}
+function fender_MaterialCost(){
+    return fender_OrderPrice() * fender_NumOrders();
+}
+
+//Footrest Plate Inventory
+function footrestPlate_ChairQuantity(){
+    return footrestPlate_PrevChairQuantity() + (footrest_ChairOrderQuantity() * footrestPlate_NumOrders()) - assembly_ActualProd();
+}
+function footrestPlate_ChairPrice() {
+    return footrestPlate_PricePerChair();
+}
+function footrestPlate_Value(){
+    return footrestPlate_ChairQuantity() * footrestPlate_ChairPrice();
+}
+function footrestPlate_PrevChairQuantity(){
+    return 200;
+}
+function footrestPlate_ChairOrderQuantity(){
+    return footrestPlate_ChairsPerUnit() * footrestPlate_OrderQuantity();
+}
+function footrestPlate_NumOrders(){
+    if (footrestPlate_PrevChairQuantity() - assembly_ActualProd() <= footrestPlate_ROP()) {
+        return Math.ceil(footrestPlate_ROP() - footrestPlate_PrevChairQuantity() + assembly_ActualProd()) / footrestPlate_ChairOrderQuantity();
+    }
+    else{
+        return 0;
+    }
+}
+function footrestPlate_OrderPrice(){
+    return footrestPlate_PricePerChair() * footrestPlate_ChairOrderQuantity();
+}
+function footrestPlate_InventoryOrderCost(){
+    return footrestPlate_NumOrders() * footrestPlate_RawOrderCost();
+}
+function footrestPlate_MaterialCost(){
+    return footrestPlate_OrderPrice() * footrestPlate_NumOrders();
+}
+
+//Brake Lever Inventory
+function brakeLever_ChairQuantity(){
+    return brakeLever_PrevChairQuantity() + (brakeLever_ChairOrderQuantity() * brakeLever_NumOrders()) - assembly_ActualProd();
+}
+function brakeLever_ChairPrice() {
+    return brakeLever_PricePerChair();
+}
+function brakeLever_Value(){
+    return brakeLever_ChairQuantity() * brakeLever_ChairPrice();
+}
+function brakeLever_PrevChairQuantity(){
+    return 250;
+}
+function brakeLever_ChairOrderQuantity(){
+    return brakeLever_ChairsPerUnit() * brakeLever_OrderQuantity();
+}
+function brakeLever_NumOrders(){
+    if (brakeLever_PrevChairQuantity() - assembly_ActualProd() <= brakeLever_ROP()) {
+        return Math.ceil(brakeLever_ROP() - brakeLever_PrevChairQuantity() + assembly_ActualProd()) / brakeLever_ChairOrderQuantity();
+    }
+    else{return 0;}
+}
+function brakeLever_OrderPrice(){
+    return brakeLever_PricePerChair() * brakeLever_ChairOrderQuantity();
+}
+function brakeLever_InventoryOrderCost(){
+    return brakeLever_NumOrders() * brakeLever_RawOrderCost();
+}
+function brakeLever_MaterialCost(){
+    return brakeLever_OrderPrice() * brakeLever_NumOrders();
+}
+
 ////////////////
 //Lower section of inventory
 function tubeSaw_Batches(){
