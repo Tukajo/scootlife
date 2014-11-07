@@ -1,0 +1,114 @@
+Variable List - Raw Materials 			200 Per Month
+
+nineteenbyoneTube_Vendor = "Steel"
+nineteenbyoneTube_PerChair = 750cm
+nineteenbyoneTube_UnitLoad = "bundle-10 6m tubes"
+nineteenbyoneTube_OrderQuantity = if(smallPurchaseLotSizes_Steel){5} else{10}
+nineteenbyoneTube_ROP = if(smallPurchaseLotSizes_Steel){0} else{100}
+nineteenbyoneTube_ChairsPerUnit = 8
+nineteenbyoneTube_PricePerUnit = 225
+nineteenbyoneTube_PricePerChair = (nineteenbyoneTube_PricePerUnit / nineteenbyoneTube_ChairsPerUnit)
+nineteenbyoneTube_Reliability = if(VendorVerified_Steel){99%} else{95%}
+nineteenbyoneTube_OrderCost = if(VendorVerified_Steel){50} else{200}
+
+twentyfivebyoneTube_Vendor = "Steel"
+twentyfivebyoneTube_PerChair = 354cm
+twentyfivebyoneTube_UnitLoad = "bundle-10 6m tubes"
+twentyfivebyoneTube_OrderQuantity = if(smallPurchaseLotSizes_Steel){3} else{10}
+twentyfivebyoneTube_ROP = if(smallPurchaseLotSizes_Steel){0} else{100}
+twentyfivebyoneTube_ChairsPerUnit = 17
+twentyfivebyoneTube_PricePerUnit = 300
+twentyfivebyoneTube_PricePerChair = (twentyfivebyoneTube_PricePerUnit / twentyfivebyoneTube_ChairsPerUnit)
+twentyfivebyoneTube_Reliability = if(VendorVerified_Steel){99%} else{95%}
+twentyfivebyoneTube_OrderCost = if(VendorVerified_Steel){50} else{200}
+
+thirtyfivebytwoTube_Vendor = "Steel"
+thirtyfivebytwoTube_PerChair = 10cm
+thirtyfivebytwoTube_UnitLoad = "bundle-10 6m tubes"
+thirtyfivebytwoTube_OrderQuantity = if(smallPurchaseLotSizes_Steel){3} else{10}
+thirtyfivebytwoTube_ROP = if(smallPurchaseLotSizes_Steel){0} else{100}
+thirtyfivebytwoTube_ChairsPerUnit = 600
+thirtyfivebytwoTube_PricePerUnit = 500
+thirtyfivebytwoTube_PricePerChair = (thirtyfivebytwoTube_PricePerUnit / thirtyfivebytwoTube_ChairsPerUnit)
+thirtyfivebytwoTube_Reliability = if(VendorVerified_Steel){99%} else{95%}
+thirtyfivebytwoTube_OrderCost = if(VendorVerified_Steel){50} else{200}
+
+nylonFabric_Vendor = "Nylon"
+nylonFabric_PerChair = "1m x 150cm
+nylonFabric_UnitLoad = "50m x 150cm roll"
+nylonFabric_OrderQuantity = if(smallPurchaseLotSizes_Nylon){3} else{12}
+nylonFabric_ROP = if(smallPurchaseLotSizes_Nylon){0} else{100}
+nylonFabric_ChairsPerUnit = 50
+nylonFabric_PricePerUnit = 450
+nylonFabric_PricePerChair = (nylonFabric_PricePerUnit / nylonFabric_ChairsPerUnit)
+nylonFabric_Reliability = if(VendorVerified_Nylon){98%} else{90%}
+nylonFabric_OrderCost = if(VendorVerified_Nylon){50} else{200}
+
+casterWheel_Vendor = "Bike"
+casterWheel_PerChair = 2
+casterWheel_UnitLoad = "box of 200"
+casterWheel_OrderQuantity = if(smallPurchaseLotSizes_Bike){2} else{8}
+casterWheel_ROP = if(smallPurchaseLotSizes_Bike){0} else{100}
+casterWheel_ChairsPerUnit = 100
+casterWheel_PricePerUnit = 600
+casterWheel_PricePerChair = (casterWheel_PricePerUnit / casterWheel_ChairsPerUnit)
+casterWheel_Reliability = if(VendorVerified_Bike){98%} else{90%}
+casterWheel_OrderCost = if(VendorVerified_Bike){50} else{200}
+
+rearBikeWheel_Vendor = "Bike"
+rearBikeWheel_PerChair = 2
+rearBikeWheel_UnitLoad = "box of 20"
+rearBikeWheel_OrderQuantity = if(smallPurchaseLotSizes_Bike){5} else{20}
+rearBikeWheel_ROP = if(smallPurchaseLotSizes_Bike){0} else{100}
+rearBikeWheel_ChairsPerUnit = 10
+rearBikeWheel_PricePerUnit = 400
+rearBikeWheel_PricePerChair = (rearBikeWheel_PricePerUnit / rearBikeWheel_ChairsPerUnit)
+rearBikeWheel_Reliability = if(VendorVerified_Bike){98%} else{90%}
+rearBikeWheel_OrderCost = if(VendorVerified_Bike){50} else{200}
+
+handle_Vendor = "Bike"
+handle_PerChair = 2
+handle_UnitLoad = "box of 200"
+handle_OrderQuantity = if(smallPurchaseLotSizes_Bike){1} else{4}
+handle_ROP = if(smallPurchaseLotSizes_Bike){0} else{100}
+handle_ChairsPerUnit = 100
+handle_PricePerUnit = 225
+handle_PricePerChair = (handle_PricePerUnit / handle_ChairsPerUnit)
+handle_Reliability = if(VendorVerified_Bike){98%} else{90%}
+handle_OrderCost = if(VendorVerified_Bike){50} else{200}
+
+fender_Vendor = "Bike"
+fender_PerChair = 2
+fender_UnitLoad = "box of 100"
+fender_OrderQuantity = if(smallPurchaseLotSizes_Bike){2} else{8}
+fender_ROP = if(smallPurchaseLotSizes_Bike){0} else{100}
+fender_ChairsPerUnit = 50
+fender_PricePerUnit = 120
+fender_PricePerChair = (fender_PricePerUnit / fender_ChairsPerUnit)
+fender_Reliability = if(VendorVerified_Bike){98%} else{90%}
+fender_OrderCost = if(VendorVerified_Bike){50} else{200}
+
+footrestPlate_Vendor = "Metal Cut"
+footrestPlate_PerChair = 2
+footrestPlate_UnitLoad = "box of 200"
+footrestPlate_OrderQuantity = if(smallPurchaseLotSizes_MetalCut){1} else{4}
+footrestPlate_ROP = if(smallPurchaseLotSizes_MetalCut){0} else{100}
+footrestPlate_ChairsPerUnit = 100
+footrestPlate_PricePerUnit = 150
+footrestPlate_PricePerChair = (footrestPlate_PricePerUnit / footrestPlate_ChairsPerUnit)
+footrestPlate_Reliability = if(VendorVerified_MetalCut){98%} else{90%}
+footrestPlate_OrderCost = if(VendorVerified_MetalCut){50} else{200}
+
+brakeLever_Vendor = "Metal Cut"
+brakeLever_PerChair = 1
+brakeLever_UnitLoad = "box of 200"
+brakeLever_OrderQuantity = if(smallPurchaseLotSizes_MetalCut){1} else{2}
+brakeLever_ROP = if(smallPurchaseLotSizes_MetalCut){0} else{100}
+brakeLever_ChairsPerUnit = 200
+brakeLever_PricePerUnit = 150
+brakeLever_PricePerChair = (brakeLever_PricePerUnit / brakeLever_ChairsPerUnit)
+brakeLever_Reliability = if(VendorVerified_MetalCut){98%} else{90%}
+brakeLever_OrderCost = if(VendorVerified_MetalCut){50} else{200}
+
+totalPricePerChair = (nineteenbyoneTube_PricePerChair + twentyfivebyoneTube_PricePerChair + thirtyfivebytwoTube_PricePerChair + nylonFabric_PricePerChair + casterWheel_PricePerChair + rearBikeWheel_PricePerChair + handle_PricePerChair + fender_PricePerChair + footrestPlate_PricePerChair + brakeLever_PricePerChair)
+
