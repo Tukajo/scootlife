@@ -630,7 +630,7 @@ function problemListUpdate() {
 
     //Drill problems
     if (drillPress_LateWIP(monthCounter) > 0) {
-        problemList[numProbs] = "Drill press down " + drillPress_LateWIP_One + "days due to late parts from saw";
+        problemList[numProbs] = "Drill press down " + drillPress_LateWIP(monthCounter) + "days due to late parts from saw";
         if(factoryFloorIconsArray.Drill<2)
             factoryFloorIconsArray.Drill+=1;
         numProbs++;
@@ -813,8 +813,8 @@ function problemListUpdate() {
     }
 
     //Assembly problems
-    if(assemblyBench_LateParts(monthCounter) > 0){
-        problemList[numProbs] = "Assembly down " + assemblyBench_LateParts(monthCounter) + " days due to late " + assembly_LateParts_Month;
+    if(assembly_LateParts(monthCounter) > 0){
+        problemList[numProbs] = "Assembly down " + assembly_LateParts(monthCounter) + " days due to late " + assembly_LateParts(monthCounter);
         if(factoryFloorIconsArray.Assembly<2)
             factoryFloorIconsArray.Assembly+=1;
         numProbs++;
@@ -823,8 +823,8 @@ function problemListUpdate() {
         problemList[numProbs] = "Assembly works overtime to try and meet production";
         numProbs++;
     }
-    if(assemblyBench_LateWIP(monthCounter) > 0){
-        problemList[numProbs] = "Assembly down " + assemblyBench_LateWIP(monthCounter) + " days due to late parts from paint booth";
+    if(assembly_LateWIP(monthCounter) > 0){
+        problemList[numProbs] = "Assembly down " + assembly_LateWIP(monthCounter) + " days due to late parts from paint booth";
         if(factoryFloorIconsArray.Assembly<2)
             factoryFloorIconsArray.Assembly+=1;
         numProbs++;
@@ -833,8 +833,8 @@ function problemListUpdate() {
         problemList[numProbs] = "Assembly cannot meet production due to capacity constraint";
         numProbs++;
     }
-    if(assemblyBench_BadQuality(monthCounter) > 0){
-        problemList[numProbs] = "Assembly down " + assemblyBench_BadQuality(monthCounter) + " days due to quality problem";
+    if(assembly_BadQuality(monthCounter) > 0){
+        problemList[numProbs] = "Assembly down " + assembly_BadQuality(monthCounter) + " days due to quality problem";
         if(factoryFloorIconsArray.Assembly<2)
             factoryFloorIconsArray.Assembly+=1;
         numProbs++;
@@ -876,10 +876,10 @@ function problemListUpdate() {
 
 
 //lean tools buttons
-    var leanToolsBtnCells = new gameObject(866, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+    var leanToolsBtnCells = new gameObject(866, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0);
     loadImg(leanToolsBtnCells);
 
-    var leanToolsBtnSmedSaw = new gameObject(1012, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+    var leanToolsBtnSmedSaw = new gameObject(1012, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0);
     loadImg(leanToolsBtnSmedSaw);
 
 
@@ -1094,9 +1094,80 @@ function problemListUpdate() {
     var baselineInventoryPercentFee = .04;
 
 // Values that monthData will have
-    var monthFunc = function (name, num) {
-        this.name = name;
-        this.num = num;
+    var monthFunc = function () {
+        //var month = monthData[monthCounter];
+        switch (monthCounter) {
+            case 0:
+                this.name = "January";
+                break;
+            case 1:
+                this.name = "February";
+                break;
+            case 2:
+                this.name = "March";
+                break;
+            case 3:
+                this.name = "April";
+                break;
+            case 4:
+                this.name = "May";
+                break;
+            case 5:
+                this.name = "June";
+                break;
+            case 6:
+                this.name = "July";
+                break;
+            case 7:
+                this.name = "August";
+                break;
+            case 8:
+                this.name = "September";
+                break;
+            case 9:
+                this.name = "October";
+                break;
+            case 10:
+                this.name = "November";
+                break;
+            case 11:
+                this.name = "December";
+        }
+        this.num = monthCounter+1;
+
+
+        this.chairsSold = monthChairsSold(monthCounter);
+        this.workers = monthWorkers(monthCounter);
+        this.workerOvertime = total_WorkersOver(monthCounter);// from capacity
+        this.purchasedMaterials = total_MaterialCost();//from capacity
+        this.scrap = monthScrap(monthCounter);
+        console.log("monthScrap called:"+monthScrap(monthCounter));
+        console.log("this.scrap:"+this.scrap);
+        console.log("monthCounter:"+monthCounter);
+        //console.log("monthData[counter].scrap:"+monthData[monthCounter].scrap);
+
+        this.inventory = total_Value();//from inventory
+        this.orderingCost = total_OrderCost();//from inventory
+        this.baselineCost = monthBaseline(monthCounter);
+
+
+        this.sales = (this.chairsSold * chairPrice);
+        this.laborRegular = Math.round(this.workers * workerHours * laborRate);
+        this.laborOvertime = Math.round(this.workerOvertime * workerHoursOvertime * laborRateOvertime);
+        //this.totalMaterialsCost = Math.round(this.scrap + this.purchasedMaterials);
+        function totalMaterialsCost(){
+            return Math.round(this.scrap + this.purchasedMaterials);
+        }
+        this.inventoryCost = Math.round(this.inventory * inventoryPercentFee);
+        this.directCost = Math.round(this.laborRegular + this.laborOvertime + this.totalMaterialsCost);
+        this.overheadCost = Math.round(this.baselineCost + (this.inventory * baselineInventoryPercentFee));
+        this.indirectCost = Math.round(this.inventoryCost + this.orderingCost + this.leanIdeasCost + this.overheadCost);
+        this.totalExpenses = Math.round(this.directCost + this.indirectCost);
+        this.totalProfit = Math.round(this.sales - this.totalExpenses);
+        this.leanIdeasCost = 1000 - leanToolAllowance;
+
+
+        /*
         this.sales = 0;
         this.chairsSold = 0;
 
@@ -1127,13 +1198,19 @@ function problemListUpdate() {
         this.totalExpenses = 0;// indirect cost+ direct cost
 
         this.totalProfit = 0;// total cost- total expenses
+        */
 
 
         ///////////////////////////////////////////////////////////////////////////////////// Add all of the this.workstation.stats
 
     }
+    //monthDataFunctions
 
+
+
+    var monthData=[];
     function startMonth() {
+        monthData[0]=new monthFunc();
         var month = monthData[0];
         month.chairsSold = 200;
         month.sales = Math.round(month.chairsSold * chairPrice);
@@ -1146,7 +1223,9 @@ function problemListUpdate() {
 
         month.purchasedMaterials = 31850;
         month.scrap = 400;
-        month.totalMaterialsCost = Math.round(month.scrap + month.purchasedMaterials);
+        function totalMaterialsCost(){
+            return Math.round(month.scrap + month.purchasedMaterials);
+        }
 
         month.directCost = Math.round(month.laborRegular + month.laborOvertime + month.totalMaterialsCost);
 
@@ -1167,9 +1246,12 @@ function problemListUpdate() {
 
     }
 
+
+    /*
     // FOR DEMO 10/24/14 only!!! not a real update function!
     function updateMonth(month) {
-        /*
+        problemListUpdate();
+
          if(leanToolCells==false) {
          // Real updateMonth function will call a function for each of these
          month.chairsSold = 153;
@@ -1202,39 +1284,41 @@ function problemListUpdate() {
          month.orderingCost = 1200;
          month.baselineCost = 19000;
          }
-         */
+
         //create functions for each of these
 
-        month.chairsSold = monthChairsSold(monthCounter);
-        month.workers = monthWorkers(monthCounter);
-        month.workerOvertime = total_WorkersOver(monthCounter);// from capacity
-        month.purchasedMaterials = total_MaterialCost;//from capacity
-        month.scrap = monthScrap(monthCounter);
+        monthdata[monthCounter].chairsSold = monthChairsSold(monthCounter);
+        monthdata[monthCounter].workers = monthWorkers(monthCounter);
+        monthdata[monthCounter].workerOvertime = total_WorkersOver(monthCounter);// from capacity
+        monthdata[monthCounter].purchasedMaterials = total_MaterialCost();//from capacity
+        monthdata[monthCounter].scrap = monthScrap(monthCounter);
 
-        month.inventory = total_Value;//from inventory
-        month.orderingCost = total_OrderCost;//from inventory
-        month.baselineCost = monthBaseline(monthCounter);
-
-
-        month.sales = Math.round(month.chairsSold * chairPrice);
-        month.laborRegular = Math.round(month.workers * workerHours * laborRate);
-        month.laborOvertime = Math.round(month.workerOvertime * workerHoursOvertime * laborRateOvertime);
-        month.totalMaterialsCost = Math.round(month.scrap + month.purchasedMaterials);
-        month.inventoryCost = Math.round(month.inventory * inventoryPercentFee);
-        month.directCost = Math.round(month.laborRegular + month.laborOvertime + month.totalMaterialsCost);
-        month.overheadCost = Math.round(month.baselineCost + (month.inventory * baselineInventoryPercentFee));
-        month.indirectCost = Math.round(month.inventoryCost + month.orderingCost + month.leanIdeasCost + month.overheadCost);
-        month.totalExpenses = Math.round(month.directCost + month.indirectCost);
-        month.totalProfit = Math.round(month.sales - month.totalExpenses);
-        month.leanIdeasCost = 1000 - leanToolAllowance;
+        monthdata[monthCounter].inventory = total_Value();//from inventory
+        monthdata[monthCounter].orderingCost = total_OrderCost();//from inventory
+        monthdata[monthCounter].baselineCost = monthBaseline(monthCounter);
 
 
-    }
+        monthdata[monthCounter].sales = Math.round(monthdata[monthCounter].chairsSold * chairPrice);
+        monthdata[monthCounter].laborRegular = Math.round(monthdata[monthCounter].workers * workerHours * laborRate);
+        monthdata[monthCounter].laborOvertime = Math.round(monthdata[monthCounter].workerOvertime * workerHoursOvertime * laborRateOvertime);
+        monthdata[monthCounter].totalMaterialsCost = Math.round(monthdata[monthCounter].scrap + monthdata[monthCounter].purchasedMaterials);
+        monthdata[monthCounter].inventoryCost = Math.round(monthdata[monthCounter].inventory * inventoryPercentFee);
+        monthdata[monthCounter].directCost = Math.round(monthdata[monthCounter].laborRegular + monthdata[monthCounter].laborOvertime + monthdata[monthCounter].totalMaterialsCost);
+        monthdata[monthCounter].overheadCost = Math.round(monthdata[monthCounter].baselineCost + (monthdata[monthCounter].inventory * baselineInventoryPercentFee));
+        monthdata[monthCounter].indirectCost = Math.round(monthdata[monthCounter].inventoryCost + monthdata[monthCounter].orderingCost + monthdata[monthCounter].leanIdeasCost + monthdata[monthCounter].overheadCost);
+        monthdata[monthCounter].totalExpenses = Math.round(monthdata[monthCounter].directCost + monthdata[monthCounter].indirectCost);
+        monthdata[monthCounter].totalProfit = Math.round(monthdata[monthCounter].sales - monthdata[monthCounter].totalExpenses);
+        monthdata[monthCounter].leanIdeasCost = 1000 - leanToolAllowance;
+
+
+    }*/
 
     function monthScrap(month) {
 
         //Scrap = 100 * (drillPress_BadQuality_One + tubeBender_BadQuality_One + welding_BadQuality_One + sewing_BadQuality_One + assemblyBench_BadQuality_One)
-        return (100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assemblyBench_BadQuality(month)));
+        console.log("month scrap: "+((100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assembly_BadQuality(month)))));
+        return (100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assembly_BadQuality(month)));
+
     }
     function monthChairsSold(month){
         return Math.min(assembly_FinalInventory(month), chairs);
@@ -1329,7 +1413,7 @@ function problemListUpdate() {
 
 // drill late WIP
 function drillPress_LateWIP(month){
-    return mitreSaw_DaysLateOut;
+    return mitreSaw_DaysLateOut();
 }
 
 
@@ -1403,7 +1487,7 @@ function drillPress_BadQuality(month){
 }
 
 function tubeBender_LateWIP(month){
-    return drillPress_DaysLateOut;
+    return drillPress_DaysLateOut();
 }
 
 function tubeBender_Downtime(month){
@@ -1576,7 +1660,7 @@ function tubeBender_DelayQuality(month){
 }
 
 function welding_LateWIP(month){
-    return tubeBender_DaysLateOut;
+    return tubeBender_DaysLateOut();
 }
 
 function welding_Downtime(month){
@@ -1746,7 +1830,7 @@ function welding_BadQuality(month){
 }
 
 function grinder_LateWIP(month){
-    return welding_DaysLateOut;
+    return welding_DaysLateOut();
 }
 
 function grinder_DelayQuality(month){
@@ -1756,7 +1840,7 @@ function grinder_DelayQuality(month){
 }
 
 function paintBooth_LateWIP(month){
-    return grinder_DaysLateOut;
+    return grinder_DaysLateOut();
 }
 
 function paintBooth_Downtime(month){
@@ -1794,7 +1878,7 @@ function fabricCutter_LateParts(month){
 }
 
 function sewing_LateWIP(month){
-    return fabricCut_DaysLateOut;
+    return fabricCut_DaysLateOut();
 }
 
 function sewing_Downtime(month){
@@ -1893,7 +1977,7 @@ function sewing_BadQuality(month){
     }
 }
 
-function assemblyBench_LateParts(month){
+function assembly_LateParts(month){
     if (month==3) {
         if (!leanTool_Vendor_Metal && leanTool_SmallPurchase_Metal) {
             return 2;
@@ -1919,11 +2003,11 @@ function assemblyBench_LateParts(month){
     }
 }
 
-function assemblyBench_LateWIP(month){
-    return paintBooth_DaysLateOut + sewing_DaysLateOut;
+function assembly_LateWIP(month){
+    return paintBooth_DaysLateOut() + sewing_DaysLateOut();
 }
 
-function assemblyBench_BadQuality(month){
+function assembly_BadQuality(month){
     if (month==4) {
         if (!leanTool_Quality_Assembly) {
             return 0.5;
@@ -1988,9 +2072,10 @@ function mitreSaw_Handling(){
     else
         return 2;
 }
-function mitreSaw_NeededMachines(){
-    return (mitreSaw_NeededMin()/(24 * MinPerDay() * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
-}
+//Duplicate Declaration
+//function mitreSaw_NeededMachines(){
+  //  return (mitreSaw_NeededMin()/(24 * MinPerDay * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
+//}
 
 
 //Drill functions
@@ -2047,7 +2132,8 @@ function drillPress_Handling(){
         return 2;
 }
 function drillPress_NeededMachines(){
-    return (drillPress_NeededMin()/(24 * MinPerDay() * drillPress_Efficiency() * drillPress_Reliability() * drillPress_Quality()));
+    //console.log("drillPressProcesses"+(drillPress_NeededMin()/(24 * MinPerDay * drillPress_Efficiency() * drillPress_Reliability() * drillPress_Quality())));
+    return (drillPress_NeededMin()/(24 * MinPerDay * drillPress_Efficiency() * drillPress_Reliability() * drillPress_Quality()));
 }
 
 //Bender functions
@@ -2100,9 +2186,10 @@ function tubeBender_CurrentQuantity(){
  function tubeBender_Handling(){
     return 2;
  }
- function tubeBender_NeededMachines(){
-    return (tubeBender_NeededMin()/(24 * MinPerDay() * tubeBender_Efficiency() * tubeBender_Reliability() * tubeBender_Quality()));
- }
+//Duplicate function
+ //function tubeBender_NeededMachines(){
+   // return (tubeBender_NeededMin()/(24 * MinPerDay * tubeBender_Efficiency() * tubeBender_Reliability() * tubeBender_Quality()));
+ //}
 
 //welding functions
 function welding_CurrentQuantity(){
@@ -2158,9 +2245,10 @@ function welding_Handling(){
     else
         return 2;
 }
-function welding_NeededMachines(){
-    return (welding_NeededMin()/(24 * MinPerDay() * welding_Efficiency() * welding_Reliability() * welding_Quality()));
-}
+//Duplicate function
+//function welding_NeededMachines(){
+  //  return (welding_NeededMin()/(24 * MinPerDay * welding_Efficiency() * welding_Reliability() * welding_Quality()));
+//}
 
 //Grinder functions
 function grinder_CurrentQuantity(){
@@ -2207,9 +2295,11 @@ function grinder_Handling(){
     else
         return 2;
 }
-function grinder_NeededMachines(){
-    return (grinder_NeededMin()/(24 * MinPerDay() * grinder_Efficiency() * grinder_Reliability() * grinder_Quality()));
-}
+
+//Duplicate function
+//function grinder_NeededMachines(){
+  //  return (grinder_NeededMin()/(24 * MinPerDay * grinder_Efficiency() * grinder_Reliability() * grinder_Quality()));
+//}
 
 //Paint functions
 function paintBooth_CurrentQuantity(){
@@ -2259,9 +2349,10 @@ function paintBooth_BatchSizes(){
 function paintBooth_Handling(){
     return 2;
 }
-function paintBooth_NeededMachines(){
-    return (paintBooth_NeededMin()/(24 * MinPerDay() * paintBooth_Efficiency() * paintBooth_Reliability() * paintBooth_Quality()));
-}
+//Duplicate function
+//function paintBooth_NeededMachines(){
+  //  return (paintBooth_NeededMin()/(24 * MinPerDay * paintBooth_Efficiency() * paintBooth_Reliability() * paintBooth_Quality()));
+//}
 
 // fabric functions
 function fabricCutter_CurrentQuantity(){
@@ -2309,7 +2400,7 @@ function fabricCutter_Handling(){
         return 2;
 }
 function fabricCutter_NeededMachines(){
-    return (fabricCutter_NeededMin()/(24 * MinPerDay() * fabricCutter_Efficiency() * fabricCutter_Reliability() * fabricCutter_Quality()));
+    return (fabricCut_NeededMin()/(24 * MinPerDay * fabricCutter_Efficiency() * fabricCutter_Reliability() * fabricCutter_Quality()));
 }
 
 // Sewing functions
@@ -2349,7 +2440,7 @@ function sewing_Reliability(){
         return .95;
 }
 function sewing_Quality(){
-    if(leanTool_Quality_sewing)
+    if(leanTool_Quality_Sewing)
         return .996;
     else
         return .98;
@@ -2363,9 +2454,10 @@ function sewing_BatchSizes(){
 function sewing_Handling(){
     return 2;
 }
-function sewing_NeededMachines(){
-    return (sewing_NeededMin()/(24 * MinPerDay() * sewing_Efficiency() * sewing_Reliability() * sewing_Quality()));
-}
+//Duplicate function
+//function sewing_NeededMachines(){
+  //  return (sewing_NeededMin()/(24 * MinPerDay * sewing_Efficiency() * sewing_Reliability() * sewing_Quality()));
+//}
 
 //Assembly functions
 function assembly_CurrentQuantity(){
@@ -2407,9 +2499,10 @@ function assembly_BatchSizes(){
 function assembly_Handling(){
     return 0;
 }
-function assembly_NeededMachines(){
-    return (assembly_NeededMin()/(24 * MinPerDay() * assembly_Efficiency() * assembly_Reliability() * assembly_Quality()));
-}
+//Duplicate function
+//function assembly_NeededMachines(){
+  //  return (assembly_NeededMin()/(24 * MinPerDay * assembly_Efficiency() * assembly_Reliability() * assembly_Quality()));
+//}
 
 
 
@@ -2446,7 +2539,7 @@ function mitreSaw_TrainWorkers(){
         return Math.min(mitreSaw_CurrentQuantity() + drillPress_CurrentQuantity() + tubeBender_CurrentQuantity(), Math.ceil(mitreSaw_NeededMachines() + drillPress_NeededMachines() + tubeBender_NeededMachines()), 0 );
     }
     else{
-        return mitreSaw_NoCellsWorkers() + drillPress_NoCellsWorkers() + tubeBender_NoCellsWorkers();
+        return (mitreSaw_NoCellsWorkers() + drillPress_NoCellsWorkers() + tubeBender_NoCellsWorkers());
     }
 }
 function mitreSaw_WorkersOver(){
@@ -2504,7 +2597,7 @@ function mitreSaw_DaysLateOut(){
 
 // Drill Press Capacity
 function drillPress_NeededMin(){
-    return (chairs * drillPress_TotalTime()) + (drillPress_NumParts() * chairs *(2 / drillPress_BatchSizes()) * (drillPress_SetupTime() + drillPress_Handling()));
+    return ((chairs * drillPress_TotalTime()) + (drillPress_NumParts() * chairs *(2 / drillPress_BatchSizes()) * (drillPress_SetupTime() + drillPress_Handling())));
 }
 function drillPress_DaysDownQuality(){
     return drillPress_Downtime(monthCounter) + drillPress_BadQuality(monthCounter);
@@ -2515,9 +2608,11 @@ function drillPress_DaysStarved(){
 function drillPress_AvailableMin(){
     return (20 - (drillPress_DaysDownQuality() / drillPress_CurrentQuantity()) - drillPress_DaysStarved()) * MinPerDay * drillPress_Efficiency() * drillPress_Reliability();
 }
-function drillPress_NeededMachines(){
-    return drillPress_NeededMin() / drillPress_AvailableMin();
-}
+//function drillPress_NeededMachines(){
+  //  console.log("drillPressCapacity"+drillPress_NeededMin() / drillPress_AvailableMin());
+    //return drillPress_NeededMin() / drillPress_AvailableMin();
+
+//}
 function drillPress_NoCellsWorkers() {
     return Math.min(drillPress_CurrentQuantity(), Math.ceil(drillPress_NeededMachines()));
 }
@@ -2646,26 +2741,26 @@ function tubeBender_DaysLateOut(){
 
 //Welding Capacity
 function welding_NeededMin(){
-    return (chairs * welding_TotalTime()) + (welding_NumParts() * chairs * (2 / welding_BatchSizes()) * (welding_SetupTime() + welding_Handling()));
+    return ((chairs * welding_TotalTime()) + (welding_NumParts() * chairs * (2 / welding_BatchSizes()) * (welding_SetupTime() + welding_Handling())));
 }
 function welding_DaysDownQuality(){
-    return welding_Downtime(monthCounter) + welding_BadQuality(monthCounter);
+    return (welding_Downtime(monthCounter) + welding_BadQuality(monthCounter));
 }
 function welding_DaysStarved(){
     return tubeBender_DaysLateOut();
 }
 function welding_AvailableMin(){
-    return (20 - (welding_DaysDownQuality() / welding_CurrentQuantity()) - welding_DaysStarved()) * MinPerDay * welding_Efficiency() * welding_Reliability();
+    return ((20 - (welding_DaysDownQuality() / welding_CurrentQuantity()) - welding_DaysStarved()) * MinPerDay * welding_Efficiency() * welding_Reliability());
 }
 function welding_NeededMachines(){
-    return welding_NeededMin() / welding_AvailableMin();
+    return (welding_NeededMin() / welding_AvailableMin());
 }
 function welding_NoCellsWorkers() {
     return Math.min(welding_CurrentQuantity(), Math.ceil(welding_NeededMachines()));
 }
 function welding_TrainWorkers(){
     if (leanTool_CrossTrain_Weld) {
-        return Math.min(welding_CurrentQuantity() + grinder_CurrentQuantity() + paintBooth_CurrentQuantity(), Math.ceil(welding_NeededMachines() + grinder_NeededMachines() + paintBooth_NeededMachines));
+        return Math.min(welding_CurrentQuantity() + grinder_CurrentQuantity() + paintBooth_CurrentQuantity(), Math.ceil(welding_NeededMachines() + grinder_NeededMachines() + paintBooth_NeededMachines()));
     }
     else{
         return (welding_NoCellsWorkers() + grinder_NoCellsWorkers() + paintBooth_NoCellsWorkers());
@@ -2691,7 +2786,7 @@ function welding_MaxOutInventory() {
         return 0;
     }
     else{
-        return 3 * grinder_BatchSizes();
+        return (3 * grinder_BatchSizes());
     }
 }
 function welding_ActualProd() {
@@ -2885,7 +2980,7 @@ function fabricCut_NoCellsWorkers() {
 }
 function fabricCut_TrainWorkers(){
     if (leanTool_CrossTrain_Fabric) {
-        return Math.min(fabricCut_CurrentQuantity() + sewing_CurrentQuantity(), Math.ceil(fabricCut_NeededMachines() + seweing_NeededMachines()));
+        return Math.min(fabricCutter_CurrentQuantity() + sewing_CurrentQuantity(), Math.ceil(fabricCut_NeededMachines() + sewing_NeededMachines()));
     }
     else{
         return fabricCut_NoCellsWorkers() + sewing_NoCellsWorkers();
@@ -3010,22 +3105,22 @@ function assembly_NeededMin(){
     return (chairs * assembly_TotalTime()) + (assembly_NumParts() * chairs *(2 / assembly_BatchSizes()) * (assembly_SetupTime() + assembly_Handling()));
 }
 function assembly_DaysDownQuality(){
-    return assemblyBench_BadQuality(monthCounter);
+    return assembly_BadQuality(monthCounter);
 }
 function assembly_DaysStarved(){
     var temp;
     if (leanTool_SmallPurchase_Bike || leanTool_SmallPurchase_Metal) {
-        temp =  assemblyBench_LateParts(monthCounter);
+        temp =  assembly_LateParts(monthCounter);
     }
     else{temp = 0;}
     
     return temp + (paintBooth_DaysLateOut() + sewing_DaysLateOut());
 }
 function assembly_AvailableMin(){
-    return (20 - (assembly_DaysDownQuality() / assembly_CurrentQuantity()) - assembly_DaysStarved()) * MinPerDay * assembly_Efficiency() * assembly_Reliability();
+    return ((20 - (assembly_DaysDownQuality() / assembly_CurrentQuantity()) - assembly_DaysStarved()) * MinPerDay * assembly_Efficiency() * assembly_Reliability());
 }
 function assembly_NeededMachines(){
-    return assembly_NeededMin() / assembly_AvailableMin();
+    return (assembly_NeededMin() / assembly_AvailableMin());
 }
 function assembly_NoCellsWorkers() {
     return Math.min(assembly_CurrentQuantity(), Math.ceil(assembly_NeededMachines()));
@@ -3038,9 +3133,10 @@ function assembly_WorkersOver(){
         return assembly_NoCellsWorkers();
     }
     else if (((assembly_NoCellsWorkers() - assembly_NeededMachines()) / assembly_NoCellsWorkers()) < 0.05) {
-        return assembly_NoCellsWorkers() / 2;
+        return (assembly_NoCellsWorkers() / 2);
     }
-    else{return 0;}
+    else
+        return 0;
 }
 function assembly_MaxCapacity() {
     return Math.floor(chairs * (assembly_NoCellsWorkers() + (0.25 * assembly_WorkersOver()) *(assembly_AvailableMin() / assembly_NeededMin())));
@@ -3055,7 +3151,7 @@ function assembly_ActualProd() {
     return Math.min(assembly_MaxCapacity(), chairs + assembly_MaxOutInventory() - assembly_PrevInventory(), paintBooth_ActualProd() + paintBooth_PrevInventory(), sewing_ActualProd() + sewing_PrevInventory());
 }
 function assembly_FinalInventory(){
-    return assembly_PrevInventory() + assembly_ActualProd();
+    return (assembly_PrevInventory() + assembly_ActualProd());
 }
 
 
@@ -3075,7 +3171,7 @@ function total_WorkersOver(){
 
 // Nineteen by one Tube Inventory
 function nineteenbyoneTube_ChairQuantity(){
-    return nineteenbyoneTube_PrevChairQuantity() + (nineteenbyoneTube_ChairOrderQuantity() * nineteenbyoneTube_NumOrders()) - mitreSaw_ActualProd();
+    return (nineteenbyoneTube_PrevChairQuantity() + (nineteenbyoneTube_ChairOrderQuantity() * nineteenbyoneTube_NumOrders()) - mitreSaw_ActualProd());
 }
 function nineteenbyoneTube_ChairPrice() {
     return nineteenbyoneTube_PricePerChair();
@@ -3101,7 +3197,7 @@ function nineteenbyoneTube_OrderPrice(){
     return nineteenbyoneTube_PricePerChair() * nineteenbyoneTube_ChairOrderQuantity();
 }
 function nineteenbyoneTube_InventoryOrderCost(){
-    return nineteenbyoneTube_NumOrders() * nineteenbyoneTube_RawOrderCost();
+    return nineteenbyoneTube_NumOrders() * nineteenbyoneTube_OrderCost();
 }
 function nineteenbyoneTube_MaterialCost(){
     return nineteenbyoneTube_OrderPrice() * nineteenbyoneTube_NumOrders();
@@ -3136,7 +3232,7 @@ function twentyfivebyoneTube_OrderPrice(){
     return twentyfivebyoneTube_PricePerChair() * twentyfivebyoneTube_ChairOrderQuantity();
 }
 function twentyfivebyoneTube_InventoryOrderCost(){
-    return twentyfivebyoneTube_NumOrders() * twentyfivebyoneTube_RawOrderCost();
+    return twentyfivebyoneTube_NumOrders() * twentyfivebyoneTube_OrderCost();
 }
 function twentyfivebyoneTube_MaterialCost(){
     return twentyfivebyoneTube_OrderPrice * twentyfivebyoneTube_NumOrders();
@@ -3171,7 +3267,7 @@ function thirtyfivebytwoTube_OrderPrice(){
     return thirtyfivebytwoTube_PricePerChair() * thirtyfivebytwoTube_ChairOrderQuantity();
 }
 function thirtyfivebytwoTube_InventoryOrderCost(){
-    return thirtyfivebytwoTube_NumOrders() * thirtyfivebytwoTube_RawOrderCost();
+    return thirtyfivebytwoTube_NumOrders() * thirtyfivebytwoTube_OrderCost();
 }
 function thirtyfivebytwoTube_MaterialCost(){
     return thirtyfivebytwoTube_OrderPrice() * thirtyfivebytwoTube_NumOrders();
@@ -3206,7 +3302,7 @@ function nylonFabric_OrderPrice(){
     return nylonFabric_PricePerChair() * nylonFabric_ChairOrderQuantity();
 }
 function nylonFabric_InventoryOrderCost(){
-    return nylonFabric_NumOrders() * nylonFabric_RawOrderCost();
+    return nylonFabric_NumOrders() * nylonFabric_OrderCost();
 }
 function nylonFabric_MaterialCost(){
     return nylonFabric_OrderPrice() * nylonFabric_NumOrders();
@@ -3226,7 +3322,7 @@ function casterWheel_PrevChairQuantity(){
     return 200;
 }
 function casterWheel_ChairOrderQuantity(){
-    return casterWheel_ChairPerUnit() * casterWheel_OrderQuantity();
+    return casterWheel_ChairsPerUnit() * casterWheel_OrderQuantity();
 }
 function casterWheel_NumOrders(){
     if (casterWheel_PrevChairQuantity() - assembly_ActualProd() <= casterWheel_ROP()) {
@@ -3238,7 +3334,7 @@ function casterWheel_OrderPrice(){
     return casterWheel_PricePerChair() * casterWheel_ChairOrderQuantity();
 }
 function casterWheel_InventoryOrderCost(){
-    return casterWheel_NumOrders() * casterWheel_RawOrderCost();
+    return casterWheel_NumOrders() * casterWheel_OrderCost();
 }
 function casterWheel_MaterialCost(){
     return casterWheel_OrderPrice() * casterWheel_NumOrders();
@@ -3273,7 +3369,7 @@ function rearBikeWheel_OrderPrice(){
     return rearBikeWheel_PricePerChair() * rearBikeWheel_ChairOrderQuantity();
 }
 function rearBikeWheel_InventoryOrderCost(){
-    return rearBikeWheel_NumOrders() * rearBikeWheel_RawOrderCost();
+    return rearBikeWheel_NumOrders() * rearBikeWheel_OrderCost();
 }
 function rearBikeWheel_MaterialCost(){
     return rearBikeWheel_OrderPrice() * rearBikeWheel_NumOrders();
@@ -3307,7 +3403,7 @@ function handle_OrderPrice(){
     return handle_PricePerChair() * handle_ChairOrderQuantity();
 }
 function handle_InventoryOrderCost(){
-    return handle_NumOrders() * handle_RawOrderCost();
+    return handle_NumOrders() * handle_OrderCost();
 }
 function handle_MaterialCost(){
     return handle_OrderPrice() * handle_NumOrders();
@@ -3341,7 +3437,7 @@ function fender_OrderPrice(){
     return fender_PricePerChair() * fender_ChairOrderQuantity();
 }
 function fender_InventoryOrderCost(){
-    return fender_NumOrders() * fender_RawOrderCost();
+    return fender_NumOrders() * fender_OrderCost();
 }
 function fender_MaterialCost(){
     return fender_OrderPrice() * fender_NumOrders();
@@ -3349,7 +3445,7 @@ function fender_MaterialCost(){
 
 //Footrest Plate Inventory
 function footrestPlate_ChairQuantity(){
-    return footrestPlate_PrevChairQuantity() + (footrest_ChairOrderQuantity() * footrestPlate_NumOrders()) - assembly_ActualProd();
+    return footrestPlate_PrevChairQuantity() + (footrestPlate_ChairOrderQuantity() * footrestPlate_NumOrders()) - assembly_ActualProd();
 }
 function footrestPlate_ChairPrice() {
     return footrestPlate_PricePerChair();
@@ -3375,7 +3471,7 @@ function footrestPlate_OrderPrice(){
     return footrestPlate_PricePerChair() * footrestPlate_ChairOrderQuantity();
 }
 function footrestPlate_InventoryOrderCost(){
-    return footrestPlate_NumOrders() * footrestPlate_RawOrderCost();
+    return footrestPlate_NumOrders() * footrestPlate_OrderCost();
 }
 function footrestPlate_MaterialCost(){
     return footrestPlate_OrderPrice() * footrestPlate_NumOrders();
@@ -3407,7 +3503,7 @@ function brakeLever_OrderPrice(){
     return brakeLever_PricePerChair() * brakeLever_ChairOrderQuantity();
 }
 function brakeLever_InventoryOrderCost(){
-    return brakeLever_NumOrders() * brakeLever_RawOrderCost();
+    return brakeLever_NumOrders() * brakeLever_OrderCost();
 }
 function brakeLever_MaterialCost(){
     return brakeLever_OrderPrice() * brakeLever_NumOrders();
@@ -3530,14 +3626,14 @@ function finalAssembly_ChairPrice(){
     return 225.00;
 }
 function finalAssembly_Value(){
-    return finalAssembly_ChairQuantity() * finalAssembly_ChairPrice();
+    return (finalAssembly_ChairQuantity() * finalAssembly_ChairPrice());
 }
 
 function total_Value(){
-    return (ninteenbyoneTube_Value() + twentyfivebyoneTube_Value() + thirtyfivebytwoTube_Value() + nylonFabric_Value() + casterWheel_Value() + rearBikeWheel_Value() + handle_Value() + fender_Value() + footrestPlate_Value() + brakeLever_Value() + tubeSaw_Value() + tubeDrill_Value() + tubeBender_Value() + weldWelder_Value() + weldGrinder_Value() + weldPaint_Value() + fabricFabCut_Value() + fabricSewing_Value() + finalAssembly_Value());
+    return (nineteenbyoneTube_Value() + twentyfivebyoneTube_Value() + thirtyfivebytwoTube_Value() + nylonFabric_Value() + casterWheel_Value() + rearBikeWheel_Value() + handle_Value() + fender_Value() + footrestPlate_Value() + brakeLever_Value() + tubeSaw_Value() + tubeDrill_Value() + tubeBender_Value() + weldWelder_Value() + weldGrinder_Value() + weldPaint_Value() + fabricFabCut_Value() + fabricSewing_Value() + finalAssembly_Value());
 }
 function total_NumOrders(){
-    return (ninteenbyoneTube_NumOrders() + twentyfivebyoneTube_NumOrders() + thirtyfivebytwoTube_NumOrders() + nylonFabric_NumOrders() + casterWheel_NumOrders() + handle_NumOrders() + fender_NumOrders() + footrestPlate_NumOrders() + brakeLever_NumOrders());
+    return (nineteenbyoneTube_NumOrders() + twentyfivebyoneTube_NumOrders() + thirtyfivebytwoTube_NumOrders() + nylonFabric_NumOrders() + casterWheel_NumOrders() + handle_NumOrders() + fender_NumOrders() + footrestPlate_NumOrders() + brakeLever_NumOrders());
 }
 function total_OrderCost(){
     return (nineteenbyoneTube_OrderCost() + twentyfivebyoneTube_OrderCost() + thirtyfivebytwoTube_OrderCost() + nylonFabric_OrderCost() + casterWheel_OrderCost() + handle_OrderCost() + fender_OrderCost() + footrestPlate_OrderCost() + brakeLever_OrderCost());
@@ -3905,12 +4001,12 @@ function totalPricePerChair(){
     return (nineteenbyoneTube_PricePerChair + twentyfivebyoneTube_PricePerChair + thirtyfivebytwoTube_PricePerChair + nylonFabric_PricePerChair + casterWheel_PricePerChair + rearBikeWheel_PricePerChair + handle_PricePerChair + fender_PricePerChair + footrestPlate_PricePerChair + brakeLever_PricePerChair);
 }
 
-
+/*
     var monthData = [new monthFunc("January", 1), new monthFunc("February", 2), new monthFunc("March", 3),
         new monthFunc("April", 4), new monthFunc("May", 5), new monthFunc("June", 6),
         new monthFunc("July", 7), new monthFunc("August", 8), new monthFunc("September", 9),
         new monthFunc("October", 10), new monthFunc("November", 11), new monthFunc("December", 12)];
-
+*/
     startMonth();
 //Starting Data
 
@@ -3945,6 +4041,7 @@ function totalPricePerChair(){
 //                                                                                            //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
+problemListUpdate();
 
     var update = function (modifier) {
 
@@ -3967,7 +4064,7 @@ function totalPricePerChair(){
         contact(leanToolsBtnCells);
         contact(leanToolsBtnSmedSaw);
         
-        problemListUpdate();
+
 
 
         for (var i = 0; i < 9; i++) {
@@ -4144,11 +4241,15 @@ function totalPricePerChair(){
                 //right alligned values
                 ctx2.textAlign = "right";
                 ctx.fillText("$", column[1], row[2]), ctx.fillText(monthData[monthCounter].sales, column[2], row[2]);
+                if(monthCounter==1) {
+                    ctx.fillText("chairs sold", column[3], row[2]), ctx.fillText(monthData[1].chairsSold, column[6], row[2]);
+                }
+
 
 
                 ctx.fillText("$", column[1], row[6]), ctx.fillText(monthData[monthCounter].laborRegular, column[2], row[6]);
                 ctx.fillText("$", column[1], row[7]), ctx.fillText(monthData[monthCounter].laborOvertime, column[2], row[7]);
-                ctx.fillText("$", column[1], row[8]), ctx.fillText(monthData[monthCounter].totalMaterialsCost, column[2], row[8]);
+                //ctx.fillText("$", column[1], row[8]), ctx.fillText(totalMaterialsCost(), column[2], row[8]);
                 ctx.fillText("$", column[1], row[9]), ctx.fillText(monthData[monthCounter].directCost, column[2], row[9]);
 
                 ctx.fillText("$", column[1], row[11]), ctx.fillText(monthData[monthCounter].inventoryCost, column[2], row[11]);
@@ -4284,7 +4385,9 @@ function totalPricePerChair(){
                 if (monthCounter == 12) {
                     monthCounter = 0;
                 }
-                updateMonth(monthData[monthCounter]);
+                //helpme
+                monthData[monthCounter]=new monthFunc();
+                //updateMonth(monthData[monthCounter]);
                 leanToolAllowance = 1000;
                 draw(ctx, office, 0, 0);
                 subScreen = "monthlyReport";
