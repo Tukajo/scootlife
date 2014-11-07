@@ -574,6 +574,7 @@ function drawSprtSht() {
         loadingBar[i] = x;
     }
 
+/*
 //problem list function
     var problem = function (name, state) {
         this.y;
@@ -581,34 +582,208 @@ function drawSprtSht() {
         this.state = state;
         this.daysDown;
     };
-
+*/
 // problem list array
 
+var numProbs=0;
+var problemList = [];
 
-    var problemList = [new problem("Saw down due to late tubes", false),
-        new problem("Saw down due to machine breakdown", false),
-        new problem("Drill press down due to late parts from Saw", false),//drill
-        new problem("Drill press down due to machine breakdown", false),
-        new problem("Drill press down due to quality problem", false),
-        new problem("Tube Bender down due to late parts from drill", false),//bender
-        new problem("Tube Bender down due to machine breakdown", false),
-        new problem("Tube Bender down due to quality problem", false),
-        new problem("Tube Bender down due to bad parts from Drill press", false),
-        new problem("Welding down due to late parts from Drill press", false),//welder
-        new problem("Welding down due to machine breakdown", false),
-        new problem("Welding down due to quality problem", false),
-        new problem("Grinder down due to late parts from Welding", false),//grinder
-        new problem("Grinder down due to bad parts from Welding", false),
-        new problem("Paint booth down due to late parts from Grinder", false),//paint
-        new problem("Paint booth down due to machine breakdown", false),
-        new problem("Paint booth down due to bad parts from Welding", false),
-        new problem("Fabric cutter down due to late nylon", false),//cutter
-        new problem("Sewing down due to late parts from Fabric cutter", false),//sewing
-        new problem("Sewing down due to machine breakdown", false),
-        new problem("Sewing down due to quality problem", false),
-        new problem("Assembly down due to late parts from Sewing", false),//assembly
-        new problem("Assembly down due to late parts from Paint booth", false),
-        new problem("Assembly down due to quality problem", false)];
+// updates problem List array to the current month
+function problemListUpdate() {
+    for (numProbs >= 0; numProbs--;) {
+        problemList[numProbs] = null;
+    }
+
+    numProbs = 0;
+
+    //Saw problems
+    if (mitreSaw_LateParts(monthCounter) > 0) {
+        problemList[numProbs] = ("Saw down " + mitreSaw_LateParts(monthCounter) + "days due to late tubes");
+        numProbs++;
+    }
+    if (mitreSaw_WorkersOver() > 0) {
+        problemList[numProbs] = ("Saw works overtime to try and meet production");
+        numProbs++;
+    }
+    if (mitreSaw_Downtime(monthCounter) > 0) {
+        problemList[numProbs] = "Saw down" + mitreSaw_Downtime(monthCounter) + "days due to machine breakdown";
+        numProbs++;
+    }
+    if (mitreSaw_MaxCapacity() < 200) {
+        problemList[numProbs] = "Saw cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+
+    //Drill problems
+    if (drillPress_LateWIP(monthCounter) > 0) {
+        problemList[numProbs] = "Drill press down " + drillPress_LateWIP_One + "days due to late parts from saw";
+        numProbs++;
+    }
+    if (drillPress_Downtime(monthCounter) > 0) {
+        problemList[numProbs] = "Drill press down " + drillPress_Downtime(monthCounter) + "days due to machine breakdown";
+        numProbs++;
+    }
+    if (drillPress_WorkersOver() > 0) {
+        problemList[numProbs] = "Drill press works overtime to try and meet production";
+        numProbs++;
+    }
+    if(drillPress_BadQuality(monthCounter) > 0){
+       problemList[numProbs] = "Drill press down " + drillPress_BadQuality(monthCounter) + " days due to quality problem";
+        numProbs++;
+    }
+    if(drillPress_MaxCapacity() < 200){
+        problemList[numProbs] = "Drill press cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+
+    //Bender problems
+    if(tubeBender_LateWIP(monthCounter) > 0){
+        problemList[numProbs] = "Tube bender down " + tubeBender_LateWIP(monthCounter) + " days due to late parts from drill";
+        numProbs++;
+    }
+    if(tubeBender_Downtime(monthCounter) > 0){
+        problemList[numProbs] = "Tube bender down " + tubeBender_Downtime(monthCounter) + " days due to machine breakdown";
+        numProbs++;
+    }
+    if(tubeBender_WorkersOver() > 0){
+        problemList[numProbs] = "Tube bender works overtime to try and meet production";
+        numProbs++;
+    }
+    if(tubeBender_BadQuality(monthCounter) > 0){
+        problemList[numProbs] = "Tube bender down " + tubeBender_BadQuality(monthCounter) + " days due to quality problem";
+        numProbs++;
+    }
+    if(tubeBender_MaxCapacity() < 200){
+        problemList[numProbs] = "Tube bender cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+    if(tubeBender_DelayQuality(monthCounter) > 0){
+        problemList[numProbs] = "Tube bender down " + tubeBender_DelayQuality(monthCounter) + " days due to bad parts from drill";
+        numProbs++;
+    }
+
+    //Welding problems
+    if(welding_LateWIP(monthCounter) > 0){
+        problemList[numProbs] = "Welding down " + welding_LateWIP(monthCounter) + " days due to late parts from metal cell";
+        numProbs++;
+    }
+    if(welding_WorkersOver() > 0){
+        problemList[numProbs] = "Welding works overtime to try and meet production";
+        numProbs++;
+    }
+    if(welding_Downtime(monthCounter) > 0){
+        problemList[numProbs] = "Welding down " + welding_Downtime(monthCounter) + " days due to machine breakdown";
+        numProbs++;
+    }
+    if(welding_MaxCapacity() < 200){
+        problemList[numProbs] = "Welding cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+    if(welding_BadQuality(monthCounter) > 0){
+        problemList[numProbs] = "Welding down " + welding_BadQuality(monthCounter) + " days due to quality problem";
+        numProbs++;
+    }
+
+    //Grinder problems
+    if(grinder_LateWIP(monthCounter) > 0){
+        problemList[numProbs] = "Grinder down " + grinder_LateWIP(monthCounter) + " days due to late parts from welding";
+        numProbs++;
+    }
+    if(grinder_WorkersOver() > 0){
+        problemList[numProbs] = "Grinder works overtime to try and meet production";
+        numProbs++;
+    }
+    if(grinder_DelayQuality(monthCounter) > 0){
+        problemList[numProbs] = "Grinder down " + grinder_DelayQuality(monthCounter) + " days due to bad parts from welding";
+        numProbs++;
+    }
+    if(grinder_MaxCapacity() < 200){
+        problemList[numProbs] = "Grinder cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+
+    //Paint problems
+    if(paintBooth_LateWIP(monthCounter) > 0){
+        problemList[numProbs] = "Paint booth down " + paintBooth_LateWIP(monthCounter) + " days due to late parts from grinder";
+        numProbs++;
+    }
+    if(paintBooth_Downtime(monthCounter) > 0){
+        problemList[numProbs] = "Paint booth down " + paintBooth_Downtime(monthCounter) + " days due to machine breakdown";
+        numProbs++;
+    }
+    if(paintBooth_WorkersOver() > 0){
+        problemList[numProbs] = "Paint booth works overtime to try and meet production";
+        numProbs++;
+    }
+    if(paintBooth_DelayQuality(monthCounter) > 0){
+        problemList[numProbs] = "Paint booth down " + paintBooth_DelayQuality(monthCounter) + " days due to bad partsfrom welding";
+        numProbs++;
+    }
+    if(paintBooth_MaxCapacity() < 200){
+        problemList[numProbs] = "Paint booth cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+
+    //Fabric problems
+    if(fabricCutter_LateParts(monthCounter) > 0){
+        problemList[numProbs] = "Fabric cutter down " + fabricCutter_LateParts(monthCounter) + " days due to late nylon";
+        numProbs++;
+    }
+    if(fabricCut_WorkersOver() > 0){
+        problemList[numProbs] = "Fabric cut works overtime to try and meet production";
+        numProbs++;
+    }
+    if(fabricCut_MaxCapacity() < 200){
+        problemList[numProbs] = "Fabric cutter cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+
+    //Sewing problems
+    if(sewing_LateWIP(monthCounter) > 0){
+        problemList[numProbs] = "Sewing down " + sewing_LateWIP(monthCounter) + " days due to late parts from fabric cutter";
+        numProbs++;
+    }
+    if(sewing_Downtime(monthCounter) > 0){
+        problemList[numProbs] =  "Sewing down " + sewing_Downtime(monthCounter) + " days due to machine breakdown";
+        numProbs++;
+    }
+    if(sewing_WorkersOver() > 0){
+        problemList[numProbs] =  "Sewing works overtime to try and meet production";
+        numProbs++;
+    }
+    if(sewing_BadQuality(monthCounter) > 0){
+        problemList[numProbs] = "Sewing down " + sewing_BadQuality(monthCounter) + " days due to quality problem";
+        numProbs++;
+    }
+    if(sewing_MaxCapacity() < 200){
+        problemList[numProbs] = "Sewing cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+
+    //Assembly problems
+    if(assemblyBench_LateParts(monthCounter) > 0){
+        problemList[numProbs] = "Assembly down " + assemblyBench_LateParts(monthCounter) + " days due to late " + assembly_LateParts_Month;
+        numProbs++;
+    }
+    if(assemblyBench_WorkersOver() > 0){
+        problemList[numProbs] = "Assembly works overtime to try and meet production";
+        numProbs++;
+    }
+    if(assemblyBench_LateWIP(monthCounter) > 0){
+        problemList[numProbs] = "Assembly down " + assemblyBench_LateWIP(monthCounter) + " days due to late parts from paint booth";
+        numProbs++;
+    }
+    if(assemblyBench_MaxCapacity() < 200){
+        problemList[numProbs] = "Assembly cannot meet production due to capacity constraint";
+        numProbs++;
+    }
+    if(assemblyBench_BadQuality(monthCounter) > 0){
+        problemList[numProbs] = "Assembly down " + assemblyBench_BadQuality(monthCounter) + " days due to quality problem";
+        numProbs++;
+    }
+}
+
+
 
 
     var menu = new gameObject(0, 0, 750, 1500, 'Art_Assets/main_menu/finalbackground.png', 0);
@@ -2177,6 +2352,9 @@ function assembly_Handling(){
 function assembly_NeededMachines(){
     return (assembly_NeededMin()/(24 * MinPerDay() * assembly_Efficiency() * assembly_Reliability() * assembly_Quality()));
 }
+
+
+
 ////////////////
 
 
