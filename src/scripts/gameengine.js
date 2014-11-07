@@ -594,11 +594,23 @@ function problemListUpdate() {
         problemList[numProbs] = null;
     }
 
+    factoryFloorIconsArray.Saw=0;
+    factoryFloorIconsArray.Assembly=0;
+    factoryFloorIconsArray.Drill=0;
+    factoryFloorIconsArray.Weld=0;
+    factoryFloorIconsArray.Bend=0;
+    factoryFloorIconsArray.Grind=0;
+    factoryFloorIconsArray.Paint=0;
+    factoryFloorIconsArray.Sew=0;
+    factoryFloorIconsArray.Cut=0;
+
     numProbs = 0;
 
     //Saw problems
     if (mitreSaw_LateParts(monthCounter) > 0) {
         problemList[numProbs] = ("Saw down " + mitreSaw_LateParts(monthCounter) + "days due to late tubes");
+        if(factoryFloorIconsArray.Saw<2)
+            factoryFloorIconsArray.Saw+=1;
         numProbs++;
     }
     if (mitreSaw_WorkersOver() > 0) {
@@ -607,6 +619,8 @@ function problemListUpdate() {
     }
     if (mitreSaw_Downtime(monthCounter) > 0) {
         problemList[numProbs] = "Saw down" + mitreSaw_Downtime(monthCounter) + "days due to machine breakdown";
+        if(factoryFloorIconsArray.Saw<2)
+            factoryFloorIconsArray.Saw+=1;
         numProbs++;
     }
     if (mitreSaw_MaxCapacity() < 200) {
@@ -617,10 +631,14 @@ function problemListUpdate() {
     //Drill problems
     if (drillPress_LateWIP(monthCounter) > 0) {
         problemList[numProbs] = "Drill press down " + drillPress_LateWIP_One + "days due to late parts from saw";
+        if(factoryFloorIconsArray.Drill<2)
+            factoryFloorIconsArray.Drill+=1;
         numProbs++;
     }
     if (drillPress_Downtime(monthCounter) > 0) {
         problemList[numProbs] = "Drill press down " + drillPress_Downtime(monthCounter) + "days due to machine breakdown";
+        if(factoryFloorIconsArray.Drill<2)
+            factoryFloorIconsArray.Drill+=1;
         numProbs++;
     }
     if (drillPress_WorkersOver() > 0) {
@@ -629,6 +647,8 @@ function problemListUpdate() {
     }
     if(drillPress_BadQuality(monthCounter) > 0){
        problemList[numProbs] = "Drill press down " + drillPress_BadQuality(monthCounter) + " days due to quality problem";
+        if(factoryFloorIconsArray.Drill<2)
+            factoryFloorIconsArray.Drill+=1;
         numProbs++;
     }
     if(drillPress_MaxCapacity() < 200){
@@ -639,10 +659,14 @@ function problemListUpdate() {
     //Bender problems
     if(tubeBender_LateWIP(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_LateWIP(monthCounter) + " days due to late parts from drill";
+        if(factoryFloorIconsArray.Bend<2)
+            factoryFloorIconsArray.Bend+=1;
         numProbs++;
     }
     if(tubeBender_Downtime(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_Downtime(monthCounter) + " days due to machine breakdown";
+        if(factoryFloorIconsArray.Bend<2)
+            factoryFloorIconsArray.Bend+=1;
         numProbs++;
     }
     if(tubeBender_WorkersOver() > 0){
@@ -651,6 +675,8 @@ function problemListUpdate() {
     }
     if(tubeBender_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_BadQuality(monthCounter) + " days due to quality problem";
+        if(factoryFloorIconsArray.Bend<2)
+            factoryFloorIconsArray.Bend+=1;
         numProbs++;
     }
     if(tubeBender_MaxCapacity() < 200){
@@ -659,12 +685,16 @@ function problemListUpdate() {
     }
     if(tubeBender_DelayQuality(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_DelayQuality(monthCounter) + " days due to bad parts from drill";
+        if(factoryFloorIconsArray.Bend<2)
+            factoryFloorIconsArray.Bend+=1;
         numProbs++;
     }
 
     //Welding problems
     if(welding_LateWIP(monthCounter) > 0){
         problemList[numProbs] = "Welding down " + welding_LateWIP(monthCounter) + " days due to late parts from metal cell";
+        if(factoryFloorIconsArray.Weld<2)
+            factoryFloorIconsArray.Weld+=1;
         numProbs++;
     }
     if(welding_WorkersOver() > 0){
@@ -673,6 +703,8 @@ function problemListUpdate() {
     }
     if(welding_Downtime(monthCounter) > 0){
         problemList[numProbs] = "Welding down " + welding_Downtime(monthCounter) + " days due to machine breakdown";
+        if(factoryFloorIconsArray.Weld<2)
+            factoryFloorIconsArray.Weld+=1;
         numProbs++;
     }
     if(welding_MaxCapacity() < 200){
@@ -681,12 +713,16 @@ function problemListUpdate() {
     }
     if(welding_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Welding down " + welding_BadQuality(monthCounter) + " days due to quality problem";
+        if(factoryFloorIconsArray.Weld<2)
+            factoryFloorIconsArray.Weld+=1;
         numProbs++;
     }
 
     //Grinder problems
     if(grinder_LateWIP(monthCounter) > 0){
         problemList[numProbs] = "Grinder down " + grinder_LateWIP(monthCounter) + " days due to late parts from welding";
+        if(factoryFloorIconsArray.Grind<2)
+            factoryFloorIconsArray.Grind+=1;
         numProbs++;
     }
     if(grinder_WorkersOver() > 0){
@@ -695,6 +731,8 @@ function problemListUpdate() {
     }
     if(grinder_DelayQuality(monthCounter) > 0){
         problemList[numProbs] = "Grinder down " + grinder_DelayQuality(monthCounter) + " days due to bad parts from welding";
+        if(factoryFloorIconsArray.Grind<2)
+            factoryFloorIconsArray.Grind+=1;
         numProbs++;
     }
     if(grinder_MaxCapacity() < 200){
@@ -705,10 +743,14 @@ function problemListUpdate() {
     //Paint problems
     if(paintBooth_LateWIP(monthCounter) > 0){
         problemList[numProbs] = "Paint booth down " + paintBooth_LateWIP(monthCounter) + " days due to late parts from grinder";
+        if(factoryFloorIconsArray.Paint<2)
+            factoryFloorIconsArray.Paint+=1;
         numProbs++;
     }
     if(paintBooth_Downtime(monthCounter) > 0){
         problemList[numProbs] = "Paint booth down " + paintBooth_Downtime(monthCounter) + " days due to machine breakdown";
+        if(factoryFloorIconsArray.Paint<2)
+            factoryFloorIconsArray.Paint+=1;
         numProbs++;
     }
     if(paintBooth_WorkersOver() > 0){
@@ -717,6 +759,8 @@ function problemListUpdate() {
     }
     if(paintBooth_DelayQuality(monthCounter) > 0){
         problemList[numProbs] = "Paint booth down " + paintBooth_DelayQuality(monthCounter) + " days due to bad partsfrom welding";
+        if(factoryFloorIconsArray.Paint<2)
+            factoryFloorIconsArray.Paint+=1;
         numProbs++;
     }
     if(paintBooth_MaxCapacity() < 200){
@@ -727,6 +771,8 @@ function problemListUpdate() {
     //Fabric problems
     if(fabricCutter_LateParts(monthCounter) > 0){
         problemList[numProbs] = "Fabric cutter down " + fabricCutter_LateParts(monthCounter) + " days due to late nylon";
+        if(factoryFloorIconsArray.Cut<2)
+            factoryFloorIconsArray.Cut+=1;
         numProbs++;
     }
     if(fabricCut_WorkersOver() > 0){
@@ -741,10 +787,14 @@ function problemListUpdate() {
     //Sewing problems
     if(sewing_LateWIP(monthCounter) > 0){
         problemList[numProbs] = "Sewing down " + sewing_LateWIP(monthCounter) + " days due to late parts from fabric cutter";
+        if(factoryFloorIconsArray.Sew<2)
+            factoryFloorIconsArray.Sew+=1;
         numProbs++;
     }
     if(sewing_Downtime(monthCounter) > 0){
         problemList[numProbs] =  "Sewing down " + sewing_Downtime(monthCounter) + " days due to machine breakdown";
+        if(factoryFloorIconsArray.Sew<2)
+            factoryFloorIconsArray.Sew+=1;
         numProbs++;
     }
     if(sewing_WorkersOver() > 0){
@@ -753,6 +803,8 @@ function problemListUpdate() {
     }
     if(sewing_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Sewing down " + sewing_BadQuality(monthCounter) + " days due to quality problem";
+        if(factoryFloorIconsArray.Sew<2)
+            factoryFloorIconsArray.Sew+=1;
         numProbs++;
     }
     if(sewing_MaxCapacity() < 200){
@@ -763,6 +815,8 @@ function problemListUpdate() {
     //Assembly problems
     if(assemblyBench_LateParts(monthCounter) > 0){
         problemList[numProbs] = "Assembly down " + assemblyBench_LateParts(monthCounter) + " days due to late " + assembly_LateParts_Month;
+        if(factoryFloorIconsArray.Assembly<2)
+            factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
     if(assemblyBench_WorkersOver() > 0){
@@ -771,6 +825,8 @@ function problemListUpdate() {
     }
     if(assemblyBench_LateWIP(monthCounter) > 0){
         problemList[numProbs] = "Assembly down " + assemblyBench_LateWIP(monthCounter) + " days due to late parts from paint booth";
+        if(factoryFloorIconsArray.Assembly<2)
+            factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
     if(assemblyBench_MaxCapacity() < 200){
@@ -779,6 +835,8 @@ function problemListUpdate() {
     }
     if(assemblyBench_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Assembly down " + assemblyBench_BadQuality(monthCounter) + " days due to quality problem";
+        if(factoryFloorIconsArray.Assembly<2)
+            factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
 }
