@@ -869,7 +869,7 @@ function problemListUpdate() {
 
 
 
-    var menu = new gameObject(0, 0, 750, 1500, 'Art_Assets/main_menu/finalbackground.png', 0);
+    var menu = new gameObject(0, 0, 750, 1500, 'Art_Assets/main_menu/title2.png', 0);
     loadImg(menu);
 
     var startBtn = new gameObject(50, 50, 65, 160, 'Art_Assets/main_menu/btn_play.png', 'Art_Assets/main_menu/btn_playh.png');
@@ -1233,16 +1233,32 @@ function problemListUpdate() {
         month.chairsSold = monthChairsSold(monthCounter);
         month.workers = monthWorkers(monthCounter);
         month.workerOvertime = total_WorkersOver(monthCounter);// from capacity
-        month.purchasedMaterials = total_MaterialCost;//from capacity
+        month.purchasedMaterials = total_MaterialCost();//from capacity
         month.scrap = monthScrap(monthCounter);
 
-        month.inventory = total_Value;//from inventory
+        month.inventory = total_Value();//from inventory
         month.orderingCost = total_OrderCost;//from inventory
         month.baselineCost = monthBaseline(monthCounter);
 
+        var mCSTemp=monthChairsSold(monthCounter);
+        console.log(mCSTemp);
+        console.log("sales for "+monthCounter+" is "+(monthChairsSold(monthCounter)* chairPrice));
+        console.log("laborRegular for "+monthCounter+" is "+(Math.round(monthWorkers(monthCounter)) * workerHours * laborRate));
+        console.log("laborOvertime for "+monthCounter+" is "+(total_WorkersOver(monthCounter) * workerHoursOvertime * laborRateOvertime));
+        console.log("total material cost for "+monthCounter+" is "+(monthScrap(monthCounter) + total_MaterialCost()));
+        console.log("inventory cost for "+monthCounter+" is "+(total_Value() * inventoryPercentFee));
+        console.log("direct cost for "+monthCounter+" is "+((Math.round(monthWorkers(monthCounter)) * workerHours * laborRate) + (total_WorkersOver(monthCounter) * workerHoursOvertime * laborRateOvertime) + (monthScrap(monthCounter) + total_MaterialCost())));
+        console.log("overhead cost for "+monthCounter+" is "+(monthBaseline(monthCounter) + (total_Value() * baselineInventoryPercentFee)));
+        console.log("indirect cost for "+monthCounter+" is "+((total_Value() * inventoryPercentFee) + total_OrderCost() + total_OrderCost() + (monthBaseline(monthCounter) + (total_Value() * baselineInventoryPercentFee))));
+        console.log("total expenses for "+monthCounter+" is "+(((Math.round(monthWorkers(monthCounter)) * workerHours * laborRate) + (total_WorkersOver(monthCounter) * workerHoursOvertime * laborRateOvertime) + (monthScrap(monthCounter) + total_MaterialCost())) + ((total_Value() * inventoryPercentFee) + total_OrderCost() + total_OrderCost() + (monthBaseline(monthCounter) + (total_Value() * baselineInventoryPercentFee)))));
+        console.log("total profit for "+monthCounter+" is "+((monthChairsSold(monthCounter) * chairPrice)-(monthChairsSold(monthCounter) * chairPrice) - (((Math.round(monthWorkers(monthCounter)) * workerHours * laborRate) + (total_WorkersOver(monthCounter) * workerHoursOvertime * laborRateOvertime) + (monthScrap(monthCounter) + total_MaterialCost())))));
+        console.log("lean tool cost for "+monthCounter+" is "+( 1000 - leanToolAllowance));
 
         month.sales = Math.round(month.chairsSold * chairPrice);
+
+
         month.laborRegular = Math.round(month.workers * workerHours * laborRate);
+
         month.laborOvertime = Math.round(month.workerOvertime * workerHoursOvertime * laborRateOvertime);
         month.totalMaterialsCost = Math.round(month.scrap + month.purchasedMaterials);
         month.inventoryCost = Math.round(month.inventory * inventoryPercentFee);
@@ -1251,8 +1267,7 @@ function problemListUpdate() {
         month.indirectCost = Math.round(month.inventoryCost + month.orderingCost + month.leanIdeasCost + month.overheadCost);
         month.totalExpenses = Math.round(month.directCost + month.indirectCost);
         month.totalProfit = Math.round(month.sales - month.totalExpenses);
-        month.leanIdeasCost = 1000 - leanToolAllowance;
-
+         month.leanIdeasCost = 1000 - leanToolAllowance;
 
     }
 
@@ -1262,6 +1277,9 @@ function problemListUpdate() {
         return (100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assemblyBench_BadQuality(month)));
     }
     function monthChairsSold(month){
+        console.log("month chairs sold return value= MIN((final inventory),(chairs)):"+ Math.min(assembly_FinalInventory(month), chairs));
+        console.log("month chairs sold assembly final inventory value:"+ assembly_FinalInventory(month));
+        console.log("month chairs  value:"+ chairs);
         return Math.min(assembly_FinalInventory(month), chairs);
     }
     function monthWorkers(month){
@@ -2013,9 +2031,10 @@ function mitreSaw_Handling(){
     else
         return 2;
 }
-function mitreSaw_NeededMachines(){
-    return (mitreSaw_NeededMin()/(24 * MinPerDay() * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
-}
+//Duplicate Function
+//function mitreSaw_NeededMachines(){
+  //  return (mitreSaw_NeededMin()/(24 * MinPerDay() * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
+//}
 
 
 //Drill functions
@@ -3068,7 +3087,7 @@ function assembly_WorkersOver(){
     else{return 0;}
 }
 function assembly_MaxCapacity() {
-    return Math.floor(chairs * (assembly_NoCellsWorkers() + (0.25 * assembly_WorkersOver()) *(assembly_AvailableMin() / assembly_NeededMin())));
+    return Math.floor(chairs * (assembly_NoCellsWorkers() + (0.25 * assembly_WorkersOver()) *((assembly_AvailableMin() / assembly_NeededMin()))));
 }
 function assembly_PrevInventory(){
     return 10;
@@ -3077,10 +3096,14 @@ function assembly_MaxOutInventory() {
     return 0;
 }
 function assembly_ActualProd() {
+    console.log("assembly")
     return Math.min(assembly_MaxCapacity(), chairs + assembly_MaxOutInventory() - assembly_PrevInventory(), paintBooth_ActualProd() + paintBooth_PrevInventory(), sewing_ActualProd() + sewing_PrevInventory());
 }
 function assembly_FinalInventory(){
-    return assembly_PrevInventory() + assembly_ActualProd();
+    console.log("assembly prev inventory(10): "+assembly_PrevInventory() );
+    console.log("assembly actual production: "+assembly_ActualProd() );
+    return (assembly_PrevInventory() + assembly_ActualProd());
+
 }
 
 
@@ -3251,7 +3274,7 @@ function casterWheel_PrevChairQuantity(){
     return 200;
 }
 function casterWheel_ChairOrderQuantity(){
-    return casterWheel_ChairPerUnit() * casterWheel_OrderQuantity();
+    return casterWheel_ChairsPerUnit() * casterWheel_OrderQuantity();
 }
 function casterWheel_NumOrders(){
     if (casterWheel_PrevChairQuantity() - assembly_ActualProd() <= casterWheel_ROP()) {
@@ -3263,7 +3286,7 @@ function casterWheel_OrderPrice(){
     return casterWheel_PricePerChair() * casterWheel_ChairOrderQuantity();
 }
 function casterWheel_InventoryOrderCost(){
-    return casterWheel_NumOrders() * casterWheel_RawOrderCost();
+    return casterWheel_NumOrders() * casterWheel_OrderCost();
 }
 function casterWheel_MaterialCost(){
     return casterWheel_OrderPrice() * casterWheel_NumOrders();
@@ -3298,7 +3321,7 @@ function rearBikeWheel_OrderPrice(){
     return rearBikeWheel_PricePerChair() * rearBikeWheel_ChairOrderQuantity();
 }
 function rearBikeWheel_InventoryOrderCost(){
-    return rearBikeWheel_NumOrders() * rearBikeWheel_RawOrderCost();
+    return rearBikeWheel_NumOrders() * rearBikeWheel_OrderCost();
 }
 function rearBikeWheel_MaterialCost(){
     return rearBikeWheel_OrderPrice() * rearBikeWheel_NumOrders();
@@ -3332,7 +3355,7 @@ function handle_OrderPrice(){
     return handle_PricePerChair() * handle_ChairOrderQuantity();
 }
 function handle_InventoryOrderCost(){
-    return handle_NumOrders() * handle_RawOrderCost();
+    return handle_NumOrders() * handle_OrderCost();
 }
 function handle_MaterialCost(){
     return handle_OrderPrice() * handle_NumOrders();
@@ -3366,7 +3389,7 @@ function fender_OrderPrice(){
     return fender_PricePerChair() * fender_ChairOrderQuantity();
 }
 function fender_InventoryOrderCost(){
-    return fender_NumOrders() * fender_RawOrderCost();
+    return fender_NumOrders() * fender_OrderCost();
 }
 function fender_MaterialCost(){
     return fender_OrderPrice() * fender_NumOrders();
@@ -3374,7 +3397,7 @@ function fender_MaterialCost(){
 
 //Footrest Plate Inventory
 function footrestPlate_ChairQuantity(){
-    return footrestPlate_PrevChairQuantity() + (footrest_ChairOrderQuantity() * footrestPlate_NumOrders()) - assembly_ActualProd();
+    return footrestPlate_PrevChairQuantity() + (footrestPlate_ChairOrderQuantity() * footrestPlate_NumOrders()) - assembly_ActualProd();
 }
 function footrestPlate_ChairPrice() {
     return footrestPlate_PricePerChair();
@@ -3400,7 +3423,7 @@ function footrestPlate_OrderPrice(){
     return footrestPlate_PricePerChair() * footrestPlate_ChairOrderQuantity();
 }
 function footrestPlate_InventoryOrderCost(){
-    return footrestPlate_NumOrders() * footrestPlate_RawOrderCost();
+    return footrestPlate_NumOrders() * footrestPlate_OrderCost();
 }
 function footrestPlate_MaterialCost(){
     return footrestPlate_OrderPrice() * footrestPlate_NumOrders();
@@ -3432,7 +3455,7 @@ function brakeLever_OrderPrice(){
     return brakeLever_PricePerChair() * brakeLever_ChairOrderQuantity();
 }
 function brakeLever_InventoryOrderCost(){
-    return brakeLever_NumOrders() * brakeLever_RawOrderCost();
+    return brakeLever_NumOrders() * brakeLever_OrderCost();
 }
 function brakeLever_MaterialCost(){
     return brakeLever_OrderPrice() * brakeLever_NumOrders();
@@ -3559,10 +3582,10 @@ function finalAssembly_Value(){
 }
 
 function total_Value(){
-    return (ninteenbyoneTube_Value() + twentyfivebyoneTube_Value() + thirtyfivebytwoTube_Value() + nylonFabric_Value() + casterWheel_Value() + rearBikeWheel_Value() + handle_Value() + fender_Value() + footrestPlate_Value() + brakeLever_Value() + tubeSaw_Value() + tubeDrill_Value() + tubeBender_Value() + weldWelder_Value() + weldGrinder_Value() + weldPaint_Value() + fabricFabCut_Value() + fabricSewing_Value() + finalAssembly_Value());
+    return (nineteenbyoneTube_Value() + twentyfivebyoneTube_Value() + thirtyfivebytwoTube_Value() + nylonFabric_Value() + casterWheel_Value() + rearBikeWheel_Value() + handle_Value() + fender_Value() + footrestPlate_Value() + brakeLever_Value() + tubeSaw_Value() + tubeDrill_Value() + tubeBender_Value() + weldWelder_Value() + weldGrinder_Value() + weldPaint_Value() + fabricFabCut_Value() + fabricSewing_Value() + finalAssembly_Value());
 }
 function total_NumOrders(){
-    return (ninteenbyoneTube_NumOrders() + twentyfivebyoneTube_NumOrders() + thirtyfivebytwoTube_NumOrders() + nylonFabric_NumOrders() + casterWheel_NumOrders() + handle_NumOrders() + fender_NumOrders() + footrestPlate_NumOrders() + brakeLever_NumOrders());
+    return (nineteenbyoneTube_NumOrders() + twentyfivebyoneTube_NumOrders() + thirtyfivebytwoTube_NumOrders() + nylonFabric_NumOrders() + casterWheel_NumOrders() + handle_NumOrders() + fender_NumOrders() + footrestPlate_NumOrders() + brakeLever_NumOrders());
 }
 function total_OrderCost(){
     return (nineteenbyoneTube_OrderCost() + twentyfivebyoneTube_OrderCost() + thirtyfivebytwoTube_OrderCost() + nylonFabric_OrderCost() + casterWheel_OrderCost() + handle_OrderCost() + fender_OrderCost() + footrestPlate_OrderCost() + brakeLever_OrderCost());
