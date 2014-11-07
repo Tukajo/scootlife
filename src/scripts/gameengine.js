@@ -3546,7 +3546,364 @@ function total_MaterialCost(){
     return (nineteenbyoneTube_MaterialCost() + twentyfivebyoneTube_MaterialCost() + thirtyfivebytwoTube_MaterialCost() + nylonFabric_MaterialCost() + casterWheel_MaterialCost() + handle_MaterialCost() + fender_MaterialCost() + footrestPlate_MaterialCost() + brakeLever_MaterialCost());
 }
 
+/////////////////////////////////////
+//Raw materials
+// 19x1 tube info
 
+function nineteenbyoneTube_OrderQuantity(){
+    if(leanTool_SmallPurchase_Steel)
+        return 5;
+    else
+        return 10;
+}
+function nineteenbyoneTube_ROP(){
+    if(leanTool_SmallPurchase_Steel)
+        return 0;
+    else
+        return 100;
+}
+function nineteenbyoneTube_ChairsPerUnit(){
+    return 8;
+}
+function nineteenbyoneTube_PricePerUnit(){
+    return 225;
+}
+function nineteenbyoneTube_PricePerChair(){
+    return (nineteenbyoneTube_PricePerUnit() / nineteenbyoneTube_ChairsPerUnit());
+}
+function nineteenbyoneTube_Reliability(){
+    if(leanTool_Vendor_Steel)
+        return .99;
+    else
+        return .95;
+}
+function nineteenbyoneTube_OrderCost(){
+    if(leanTool_Vendor_Steel)
+        return 50;
+    else
+        return 200;
+}
+
+//25x1 tube info
+function twentyfivebyoneTube_OrderQuantity(){
+    if(leanTool_SmallPurchase_Steel)
+        return 3;
+    else
+        return 10;
+}
+function twentyfivebyoneTube_ROP(){
+    if(leanTool_SmallPurchase_Steel)
+        return 0;
+    else
+        return 100;
+}
+function twentyfivebyoneTube_ChairsPerUnit(){
+    return 17;
+}
+function twentyfivebyoneTube_PricePerUnit(){
+    return 300;
+}
+function twentyfivebyoneTube_PricePerChair(){
+    return (twentyfivebyoneTube_PricePerUnit() / twentyfivebyoneTube_ChairsPerUnit());
+}
+function twentyfivebyoneTube_Reliability(){
+    if(leanTool_Vendor_Steel)
+        return .99;
+    else
+        return .95;
+}
+function twentyfivebyoneTube_OrderCost(){
+    if(leanTool_Vendor_Steel)
+        return 50;
+    else
+        return 200;
+}
+
+//35x2 tube info
+function thirtyfivebytwoTube_OrderQuantity(){
+    if(leanTool_SmallPurchase_Steel)
+        return 3;
+    else
+        return 10;
+}
+function thirtyfivebytwoTube_ROP(){
+    if(leanTool_SmallPurchase_Steel)
+        return 0;
+    else
+        return 100;
+}
+function thirtyfivebytwoTube_ChairsPerUnit(){
+    return 600;
+}
+function thirtyfivebytwoTube_PricePerUnit(){
+    return 500;
+}
+function thirtyfivebytwoTube_PricePerChair(){
+    return (thirtyfivebytwoTube_PricePerUnit() / thirtyfivebytwoTube_ChairsPerUnit());
+}
+function thirtyfivebytwoTube_Reliability(){
+    if(leanTool_Vendor_Steel)
+        return .99;
+    else
+        return .95;
+}
+function thirtyfivebytwoTube_OrderCost(){
+    if(leanTool_Vendor_Steel)
+        return 50;
+    else
+        return 200;
+}
+
+//nylon fabric info
+function nylonFabric_OrderQuantity(){
+    if(leanTool_SmallPurchase_Nylon)
+        return 3;
+    else
+        return 12;
+}
+function nylonFabric_ROP(){
+    if(leanTool_SmallPurchase_Nylon)
+        return 0;
+    else
+        return 100;
+}
+function nylonFabric_ChairsPerUnit(){
+    return 50;
+}
+function nylonFabric_PricePerUnit(){
+    return 450;
+}
+function nylonFabric_PricePerChair(){
+    return (nylonFabric_PricePerUnit() / nylonFabric_ChairsPerUnit());
+}
+function nylonFabric_Reliability(){
+    if(leanTool_Vendor_Nylon)
+        return .98;
+    else
+        return .90;
+}
+function nylonFabric_OrderCost(){
+    if(leanTool_Vendor_Nylon)
+        return 50;
+    else
+        return 200;
+}
+
+//Caster Wheel info
+function casterWheel_OrderQuantity(){
+    if(leanTool_SmallPurchase_Bike)
+        return 2;
+    else
+        return 8;
+}
+function casterWheel_ROP(){
+    if(leanTool_SmallPurchase_Bike)
+        return 0;
+    else
+        return 100;
+}
+function casterWheel_ChairsPerUnit(){
+    return 100;
+}
+function casterWheel_PricePerUnit(){
+    return 600;
+}
+function casterWheel_PricePerChair(){
+    return (casterWheel_PricePerUnit() / casterWheel_ChairsPerUnit());
+}
+function casterWheel_Reliability(){
+    if(leanTool_Vendor_Bike)
+        return .98;
+    else
+        return .90;
+}
+function casterWheel_OrderCost(){
+    if(leanTool_Vendor_Bike)
+        return 50;
+    else
+        return 200;
+}
+
+//Rear Bike Wheel info
+function rearBikeWheel_OrderQuantity(){
+    if(leanTool_SmallPurchase_Bike)
+        return 5;
+    else
+        return 20;
+}
+function rearBikeWheel_ROP(){
+    if(leanTool_SmallPurchase_Bike)
+        return 0;
+    else
+        return 100;
+}
+function rearBikeWheel_ChairsPerUnit(){
+    return 10;
+}
+function rearBikeWheel_PricePerUnit(){
+    return 400;
+}
+function rearBikeWheel_PricePerChair(){
+    return (rearBikeWheel_PricePerUnit() / rearBikeWheel_ChairsPerUnit());
+}
+function rearBikeWheel_Reliability(){
+    if(leanTool_Vendor_Bike)
+        return .98;
+    else
+        return .90;
+}
+function rearBikeWheel_OrderCost(){
+    if(leanTool_Vendor_Bike)
+        return 50;
+    else
+        return 200;
+}
+
+//Handle info
+function handle_OrderQuantity(){
+    if(leanTool_SmallPurchase_Bike)
+        return 1;
+    else
+        return 4;
+}
+function handle_ROP(){
+    if(leanTool_SmallPurchase_Bike)
+        return 0;
+    else
+        return 100;
+}
+function handle_ChairsPerUnit(){
+    return 100;
+}
+function handle_PricePerUnit(){
+    return 225;
+}
+function handle_PricePerChair(){
+    return (handle_PricePerUnit() / handle_ChairsPerUnit());
+}
+function handle_Reliability(){
+    if(leanTool_Vendor_Bike)
+        return .98;
+    else
+        return .90;
+}
+function handle_OrderCost(){
+    if(leanTool_Vendor_Bike)
+        return 50;
+    else
+        return 200;
+}
+
+//Fender info
+function fender_OrderQuantity(){
+    if(leanTool_SmallPurchase_Bike)
+        return 2;
+    else
+        return 8;
+}
+function fender_ROP(){
+    if(leanTool_SmallPurchase_Bike)
+        return 0;
+    else
+        return 100;
+}
+function fender_ChairsPerUnit(){
+    return 50;
+}
+function fender_PricePerUnit(){
+    return 120;
+}
+function fender_PricePerChair(){
+    return (fender_PricePerUnit() / fender_ChairsPerUnit());
+}
+function fender_Reliability(){
+    if(leanTool_Vendor_Bike)
+        return .98;
+    else
+        return .90;
+}
+function fender_OrderCost(){
+    if(leanTool_Vendor_Bike)
+        return 50;
+    else
+        return 200;
+}
+
+//Footrest info
+function footrestPlate_OrderQuantity(){
+    if(leanTool_SmallPurchase_Metal)
+        return 1;
+    else
+        return 4;
+}
+function footrestPlate_ROP(){
+    if(leanTool_SmallPurchase_Metal)
+        return 0;
+    else
+        return 100;
+}
+function footrestPlate_ChairsPerUnit(){
+    return 100;
+}
+function footrestPlate_PricePerUnit(){
+    return 150;
+}
+function footrestPlate_PricePerChair(){
+    return (footrestPlate_PricePerUnit() / footrestPlate_ChairsPerUnit());
+}
+function footrestPlate_Reliability(){
+    if(leanTool_Vendor_Metal)
+        return .98;
+    else
+        return .90;
+}
+function footrestPlate_OrderCost() {
+    if (leanTool_Vendor_Metal)
+        return 50;
+    else
+        return 200;
+}
+
+//Brake Lever info
+
+function brakeLever_OrderQuantity(){
+    if(leanTool_SmallPurchase_Metal)
+        return 1;
+    else
+        return 2;
+}
+function brakeLever_ROP(){
+    if(leanTool_SmallPurchase_Metal)
+        return 0;
+    else
+        return 100;
+}
+function brakeLever_ChairsPerUnit(){
+    return 200;
+}
+function brakeLever_PricePerUnit(){
+    return 150;
+}
+function brakeLever_PricePerChair(){
+    return (brakeLever_PricePerUnit() / brakeLever_ChairsPerUnit());
+}
+function brakeLever_Reliability(){
+    if(leanTool_Vendor_Metal)
+        return .98;
+    else
+        return .90;
+}
+function brakeLever_OrderCost(){
+    if(leanTool_Vendor_Metal)
+        return 50;
+    else
+        return 200;
+}
+
+//total price per chair
+function totalPricePerChair(){
+    return (nineteenbyoneTube_PricePerChair + twentyfivebyoneTube_PricePerChair + thirtyfivebytwoTube_PricePerChair + nylonFabric_PricePerChair + casterWheel_PricePerChair + rearBikeWheel_PricePerChair + handle_PricePerChair + fender_PricePerChair + footrestPlate_PricePerChair + brakeLever_PricePerChair);
+}
 
 
     var monthData = [new monthFunc("January", 1), new monthFunc("February", 2), new monthFunc("March", 3),
