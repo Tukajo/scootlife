@@ -3072,6 +3072,138 @@ function total_WorkersOver(){
 
 
 ////////////////
+//Lower section of inventory
+function tubeSaw_Batches(){
+    return 14;
+}
+function tubeSaw_ChairQuantity(){
+    return mitreSaw_FinalInventory();
+}
+function tubeSaw_ChairPrice(){
+    return 1.95;
+}
+function tubeSaw_Value(){
+    return tubeSaw_Batches() * tubeSaw_ChairQuantity() * tubeSaw_ChairPrice();
+}
+
+
+function tubeDrill_Batches(){
+    return 14;
+}
+function tubeDrill_ChairQuantity(){
+    return drillPress_FinalInventory();
+}
+function tubeDrill_ChairPrice(){
+    return 2.10;
+}
+function tubeDrill_Value(){
+    return tubeDrill_Batches() * tubeDrill_ChairQuantity() * tubeDrill_ChairPrice();
+}
+
+function tubeBender_Batches(){
+    return 14;
+}
+function tubeBender_ChairQuantity(){
+    return tubeBender_FinalInventory();
+}
+function tubeBender_ChairPrice(){
+    return 2.40;
+}
+function tubeBender_Value(){
+    return tubeBender_Batches() * tubeBender_ChairQuantity() * tubeBender_ChairPrice();
+}
+
+
+function weldWelder_Batches(){
+    return 5;
+}
+function weldWelder_ChairQuantity(){
+    return welding_FinalInventory();
+}
+function weldWelder_ChairPrice(){
+    return 9.75;
+}
+function weldWelder_Value(){
+    return weldWelder_Batches() * weldWelder_ChairQuantity() * weldWelder_ChairPrice();
+}
+
+function weldGrinder_Batches(){
+    return 5;
+}
+function weldGrinder_ChairQuantity() {
+    return grinder_FinalInventory();
+}
+function weldGrinder_ChairPrice(){
+    return 10.75;
+}
+function weldGrinder_Value(){
+    return weldGrinder_Batches() * weldGrinder_ChairQuantity() * weldGrinder_ChairPrice();
+}
+
+function weldPaint_Batches(){
+    return 5;
+}
+function weldPaint_ChairQuantity(){
+    return paintBooth_FinalInventory();
+}
+function weldPaint_ChairPrice(){
+    return 12.00;
+}
+
+function weldPaint_Value(){
+    return weldPaint_Batches() * weldPaint_ChairQuantity() * weldPaint_ChairPrice();
+}
+
+function fabricFabCut_Batches(){
+    return  2;
+}
+function fabricFabCut_ChairQuantity(){
+    return fabricCut_FinalInventory();
+}
+function fabricFabCut_ChairPrice(){
+    return  8.75;
+}
+function fabricFabCut_Value(){
+    return fabricFabCut_Batches() * fabricFabCut_ChairQuantity() * fabricFabCut_ChairPrice();
+}
+
+function fabricSewing_Batches(){
+    return 2;
+}
+function fabricSewing_ChairQuantity(){
+    return  sewing_FinalInventory();
+}
+function fabricSewing_ChairPrice(){
+    return 15.75;
+}
+function fabricSewing_Value(){
+    return fabricSewing_Batches() * fabricSewing_ChairQuantity() * fabricSewing_ChairPrice();
+}
+
+
+function finalAssembly_ChairQuantity(){
+    return 5;
+}
+function finalAssembly_ChairPrice(){
+    return 225.00;
+}
+function finalAssembly_Value(){
+    return finalAssembly_ChairQuantity() * finalAssembly_ChairPrice();
+}
+
+function total_Value(){
+    return (ninteenbyoneTube_Value() + twentyfivebyoneTube_Value() + thirtyfivebytwoTube_Value() + nylonFabric_Value() + casterWheel_Value() + rearBikeWheel_Value() + handle_Value() + fender_Value() + footrestPlate_Value() + brakeLever_Value() + tubeSaw_Value() + tubeDrill_Value() + tubeBender_Value() + weldWelder_Value() + weldGrinder_Value() + weldPaint_Value() + fabricFabCut_Value() + fabricSewing_Value() + finalAssembly_Value());
+}
+function total_NumOrders(){
+    return (ninteenbyoneTube_NumOrders() + twentyfivebyoneTube_NumOrders() + thirtyfivebytwoTube_NumOrders() + nylonFabric_NumOrders() + casterWheel_NumOrders() + handle_NumOrders() + fender_NumOrders() + footrestPlate_NumOrders() + brakeLever_NumOrders());
+}
+function total_OrderCost(){
+    return (nineteenbyoneTube_OrderCost() + twentyfivebyoneTube_OrderCost() + thirtyfivebytwoTube_OrderCost() + nylonFabric_OrderCost() + casterWheel_OrderCost() + handle_OrderCost() + fender_OrderCost() + footrestPlate_OrderCost() + brakeLever_OrderCost());
+}
+function total_MaterialCost(){
+    return (nineteenbyoneTube_MaterialCost() + twentyfivebyoneTube_MaterialCost() + thirtyfivebytwoTube_MaterialCost() + nylonFabric_MaterialCost() + casterWheel_MaterialCost() + handle_MaterialCost() + fender_MaterialCost() + footrestPlate_MaterialCost() + brakeLever_MaterialCost());
+}
+
 
 
 
