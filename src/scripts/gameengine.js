@@ -1462,16 +1462,19 @@ function tubeBender_Downtime(month){
         if (!leanTool_PM_Bender) {
             return 2;
         }
+        else{return 0;}
     }
     else if (month==7) {
         if (!leanTool_PM_Bender) {
             return 1;
         }
+        else{return 0;}
     }
     else if (month==10) {
         if (!leanTool_PM_Bender) {
             return 1;
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -1488,6 +1491,7 @@ function tubeBender_BadQuality(month){
                 return 0.5
             }
         }
+        else{return 0;}
     }
     else if(month==1){
         if (leanTool_SmallLot_Metal) {
@@ -1506,6 +1510,7 @@ function tubeBender_BadQuality(month){
                 return 0.5;
             }
         }
+        else{return 0;}
     }
     else if (month==3) {
         if (!leanTool_Quality_Bender) {
@@ -1516,6 +1521,7 @@ function tubeBender_BadQuality(month){
                 return 0.5;
             }
         }
+        else{return 0;}
     }
     else if (month==5) {
         if (!leanTool_Quality_Bender) {
@@ -1526,6 +1532,7 @@ function tubeBender_BadQuality(month){
                 return 1.5;
             }
         }
+        else{return 0;}
     }
     else if (month==7) {
         if (!leanTool_Quality_Bender) {
@@ -1536,6 +1543,7 @@ function tubeBender_BadQuality(month){
                 return 0.5;
             }
         }
+        else{return 0;}
     }
     else if (month==8) {
         if (!leanTool_Quality_Bender) {
@@ -1564,6 +1572,7 @@ function tubeBender_BadQuality(month){
                 return 0.5;
             }
         }
+        else{return 0;}
     }
     else if (month==10) {
         if (!leanTool_Quality_Bender) {
@@ -1574,6 +1583,7 @@ function tubeBender_BadQuality(month){
                 return 0.5;
             }
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -1585,41 +1595,49 @@ function tubeBender_DelayQuality(month){
         if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
             return drillPress_BadQuality(month)
         }
+        else{return 0;}
     }
     else if (month==1) {
         if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
             return drillPress_BadQuality(month)
         }
+        else{return 0;}
     }
     else if (month==3) {
         if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
             return drillPress_BadQuality(month)
         }
+        else{return 0;}
     }
     else if (month==5) {
         if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
             return drillPress_BadQuality(month)
         }
+        else{return 0;}
     }
     else if (month==6) {
         if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
             return drillPress_BadQuality(month)
         }
+        else{return 0;}
     }
     else if (month==7) {
         if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
             return drillPress_BadQuality(month)
         }
+        else{return 0;}
     }
     else if (month==8) {
         if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
             return drillPress_BadQuality(month)
         }
+        else{return 0;}
     }
     else if (month==10) {
         if (leanTool_Kaban_Metal || !leanTool_Quality_Drill) {
             return drillPress_BadQuality(month)
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -1635,6 +1653,7 @@ function welding_Downtime(month){
         if (!leanTool_PM_Welding) {
             return 2;
         }
+        else{return 0;}
     }
     else if (month==1) {
         if (!leanTool_PM_Welding) {
@@ -1648,6 +1667,7 @@ function welding_Downtime(month){
         if (!leanTool_PM_Welding) {
             return 2;
         }
+        else{return 0;}
     }
     else if (month==3) {
         if (!leanTool_PM_Welding) {
@@ -1661,6 +1681,7 @@ function welding_Downtime(month){
         if (!leanTool_PM_Welding) {
             return 4;
         }
+        else{return 0;}
     }
     else if (month==7) {
         if (!leanTool_PM_Welding) {
@@ -1674,6 +1695,7 @@ function welding_Downtime(month){
         if (!leanTool_PM_Welding) {
             return 3;
         }
+        else{return 0;}
     }
     else if (month==10) {
         if (!leanTool_PM_Welding) {
@@ -1698,6 +1720,7 @@ function welding_BadQuality(month){
                 return 2;
             }
         }
+        else{return 0;}
     }
     else if (month==1) {
         if (!leanTool_Quality_Welding) {
@@ -1708,6 +1731,7 @@ function welding_BadQuality(month){
                 return 3;
             }
         }
+        else{return 0;}
     }
     else if (month==2) {
         if (leanTool_SmallLot_Weld) {
@@ -1745,6 +1769,7 @@ function welding_BadQuality(month){
                 return 3;
             }
         }
+        else{return 0;}
     }
     else if (month==5) {
         if (!leanTool_Quality_Welding) {
@@ -1755,6 +1780,7 @@ function welding_BadQuality(month){
                 return 2;
             }
         }
+        else{return 0;}
     }
     else if(month==6){
         if (leanTool_SmallLot_Weld) {
@@ -1773,6 +1799,7 @@ function welding_BadQuality(month){
                 return 2;
             }
         }
+        else{return 0;}
     }
     else if (month==10) {
         if (!leanTool_Quality_Welding) {
@@ -1783,6 +1810,7 @@ function welding_BadQuality(month){
                 return 4;
             }
         }
+        else{return 0;}
     }
     else if (month==11) {
         if (!leanTool_Quality_Welding) {
@@ -1793,7 +1821,9 @@ function welding_BadQuality(month){
                 return 2;
             }
         }
+        else{return 0;}
     }
+    else{return 0;}
 }
 
 function grinder_LateWIP(){
@@ -1804,6 +1834,7 @@ function grinder_DelayQuality(month){
     if (leanTool_Kaban_Weld || !leanTool_Quality_Welding){
         return welding_BadQuality(month);
     }
+    else{return 0;}
 }
 
 function paintBooth_LateWIP(){
@@ -1818,11 +1849,13 @@ function paintBooth_Downtime(month){
         if (!leanTool_PM_Paint) {
             return 2;
         }
+        else{return 0;}
     }
     else if (month==11) {
         if (!leanTool_PM_Paint) {
             return 1;
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -1838,6 +1871,7 @@ function fabricCutter_LateParts(month){
         if (!leanTool_Vendor_Nylon && leanTool_SmallPurchase_Nylon) {
             return 2;
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -1861,6 +1895,7 @@ function sewing_Downtime(month){
         if (!leanTool_PM_Sewing) {
             return 2;
         }
+        else{return 0;}
     }
     else if (month==4) {
         if (!leanTool_PM_Sewing) {
@@ -1874,16 +1909,19 @@ function sewing_Downtime(month){
         if (!leanTool_PM_Sewing) {
             return 2;
         }
+        else{return 0;}
     }
     else if (month==8) {
         if (!leanTool_PM_Sewing) {
             return 1;
         }
+        else{return 0;}
     }
     else if (month==10) {
         if (!leanTool_PM_Sewing) {
             return 3;
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -1900,6 +1938,7 @@ function sewing_BadQuality(month){
                 return 1
             }
         }
+        else{return 0;}
     }
     else if (month==3) {
         if (!leanTool_Quality_Sewing) {
@@ -1910,6 +1949,7 @@ function sewing_BadQuality(month){
                 return 1;
             }
         }
+        else{return 0;}
     }
     else if (month==5) {
         if (!leanTool_Quality_Sewing) {
@@ -1920,6 +1960,7 @@ function sewing_BadQuality(month){
                 return 1;
             }
         }
+        else{return 0;}
     }
     else if (month==7) {
         if (leanTool_SmallLot_Fabric) {
@@ -1938,6 +1979,7 @@ function sewing_BadQuality(month){
                 return 1;
             }
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -1949,21 +1991,25 @@ function assemblyBench_LateParts(month){
         if (!leanTool_Vendor_Metal && leanTool_SmallPurchase_Metal) {
             return 2;
         }
+        else{return 0;}
     }
     else if (month==6) {
         if (!leanTool_Vendor_Bike) {
             return 2;
         }
+        else{return 0;}
     }
     else if (month==10) {
         if (!leanTool_Vendor_Metal && leanTool_SmallPurchase_Metal) {
             return 2
         }
+        else{return 0;}
     }
     else if (month==11) {
         if (leanTool_SmallPurchase_Bike) {
             return 2;
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -1979,6 +2025,7 @@ function assemblyBench_BadQuality(month){
         if (!leanTool_Quality_Assembly) {
             return 0.5;
         }
+        else{return 0;}
     }
     else{
         return 0;
@@ -4390,11 +4437,11 @@ function totalPricePerChair(){
             else if (subScreen == "leanTools") {
                 if (leanToolsBtnCells.hover && leanToolAllowance == 1000) {//This must be modified to keep cost under 1000
                     leanToolAllowance = 0;
-                    leanToolCells = true;
+                    leanTool_Cells = true;
                 }
-                if (leanToolsBtnSmedSaw.hover && leanToolAllowance >= 300 && leanToolSmedSaw == false) {//This must be modified to keep cost under 1000
+                if (leanToolsBtnSmedSaw.hover && leanToolAllowance >= 300 && leanTool_Smed_Saw == false) {//This must be modified to keep cost under 1000
                     leanToolAllowance -= 300;
-                    leanToolSmedSaw = true;
+                    leanTool_Smed_Saw = true;
                 }
             }
             else if (subScreen == "office") {
