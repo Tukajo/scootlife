@@ -613,6 +613,7 @@ function drawSprtSht() {
 var numProbs=0;
 var problemList = [];
 
+problemListUpdate();
 // updates problem List array to the current month
 function problemListUpdate() {
     for (numProbs >= 0; numProbs--;) {
@@ -1231,7 +1232,8 @@ function problemListUpdate() {
         //create functions for each of these
 
         month.chairsSold = monthChairsSold(monthCounter);
-        month.sales = Math.round(month.chairsSold * chairPrice);
+        //month.sales = Math.round(month.chairsSold * chairPrice);
+        month.sales = Math.round((monthChairsSold(monthCounter)* chairPrice));
         month.workers = monthWorkers(monthCounter);
         month.laborRegular = Math.round(month.workers * workerHours * laborRate);
         month.workerOvertime = total_WorkersOver(monthCounter);// from capacity
@@ -1285,10 +1287,10 @@ function problemListUpdate() {
         return (100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assemblyBench_BadQuality(month)));
     }
     function monthChairsSold(month){
-        console.log("month chairs sold return value= MIN((final inventory),(chairs)):"+ Math.min(assembly_FinalInventory(month), chairs));
-        console.log("month chairs sold assembly final inventory value:"+ assembly_FinalInventory(month));
+        console.log("month chairs sold return value= MIN((final inventory),(chairs)):"+ Math.min(assembly_FinalInventory(), chairs));
+        console.log("month chairs sold assembly final inventory value:"+ assembly_FinalInventory());
         console.log("month chairs  value:"+ chairs);
-        return (Math.min(assembly_FinalInventory(month), chairs));
+        return (Math.min(assembly_FinalInventory(), chairs));
     }
     function monthWorkers(month){
         if(leanTool_Cells)
@@ -2056,7 +2058,7 @@ function mitreSaw_ProcessTime() {
 }
 function mitreSaw_TotalTime(){
     return 10.4;
-} 
+}
 function mitreSaw_Efficiency(){
     var tempEff=.9;
     if(leanTool_fiveS_Saw)
@@ -2570,8 +2572,9 @@ function mitreSaw_WorkersOver(){
 function mitreSaw_MaxCapacity(){
     return Math.floor(chairs * (mitreSaw_NoCellsWorkers() + (0.25 * mitreSaw_WorkersOver()) * (mitreSaw_AvailableMin() / mitreSaw_NeededMin())));
 }
+var prevInventory_Saw=40;
 function mitreSaw_PrevInventory(){
-    return 40;
+    return prevInventory_Saw;
 }
 function mitreSaw_MaxOutInventory(){
     if (leanTool_Kaban_Metal) {
@@ -2598,7 +2601,7 @@ function mitreSaw_DaysLateOut(){
     else{
         temp = 4;
     }
-    
+
     var temp2;
     if (mitreSaw_MaxCapacity() < chairs) {
         temp2 = (chairs - mitreSaw_MaxCapacity()) / 10;
@@ -2640,10 +2643,11 @@ function drillPress_WorkersOver() {
     }
 }
 function drillPress_MaxCapacity() {
-    return Math.floor(chairs * (drillPress_NoCellsWorkers() + (0.25 * drillPress_WorkersOver()) *(drillPress_AvailableMin() / drillPress_NeededMin())));    
+    return Math.floor(chairs * (drillPress_NoCellsWorkers() + (0.25 * drillPress_WorkersOver()) *(drillPress_AvailableMin() / drillPress_NeededMin())));
 }
+var prevInventory_Drill=40;
 function drillPress_PrevInventory(){
-    return 40;
+    return prevInventory_Drill;
 }
 function drillPress_MaxOutInventory(){
     if (leanTool_Kaban_Metal) {
@@ -2662,7 +2666,7 @@ function drillPress_FinalInventory(){
 function drillPress_DaysLateOut() {
     var temp1;
     var temp2;
-    
+
     if (leanTool_Kaban_Metal) {
         temp1 = 0;
     }
@@ -2670,14 +2674,14 @@ function drillPress_DaysLateOut() {
         temp1 = 2;
     }
     else{ temp1 = 4;}
-    
+
     if (drillPress_MaxCapacity() < chairs) {
         temp2 = (chairs - drillPress_MaxCapacity()) / 10;
     }
     else{ temp2 = 0;}
-    
+
     return Math.max(drillPress_DaysDownQuality() - temp1, 0) + temp2;
-    
+
 }
 
 //Tube Bender Capacity
@@ -2713,8 +2717,9 @@ function tubeBender_WorkersOver(){
 function tubeBender_MaxCapacity() {
     return Math.floor(chairs * (tubeBender_NoCellsWorkers() + (0.25 * tubeBender_WorkersOver()) * (tubeBender_AvailableMin() / tubeBender_NeededMin())));
 }
+var prevInventory_Bender=35;
 function tubeBender_PrevInventory(){
-    return 35;
+    return prevInventory_Bender;
 }
 function tubeBender_MaxOutInventory() {
     if (leanTool_Market_Welding) {
@@ -2734,20 +2739,20 @@ function tubeBender_DaysLateOut(){
     var temp1;
     var temp2;
     var temp3;
-    
+
     if (leanTool_SmallLot_Metal) {
         temp1 = 2;
     }else{temp1 = 4;}
-    
+
     if (tubeBender_MaxCapacity()<chairs) {
         temp2 = (chairs - tubeBender_MaxCapacity()) / 10;
     }
     else{temp2 = 0;}
-    
+
     if (tubeBender_PrevInventory()<tubeBender_BatchSizes()) {
         temp3 = (tubeBender_BatchSizes() - tubeBender_PrevInventory()) / 10;
     }else{temp3 = 0;}
-    
+
     return Math.max(tubeBender_DaysDownQuality() - temp1 + temp2 + temp3);
 }
 
@@ -2790,8 +2795,9 @@ function welding_WorkersOver(){
 function welding_MaxCapacity() {
     return Math.floor(chairs * (welding_NoCellsWorkers() + (0.25 * welding_WorkersOver()) * welding_AvailableMin() / welding_NeededMin()));
 }
+var prevInventory_Weld=20;
 function welding_PrevInventory(){
-    return 20;
+    return prevInventory_Weld;
 }
 function welding_MaxOutInventory() {
     if (leanTool_Kaban_Weld) {
@@ -2810,7 +2816,7 @@ function welding_FinalInventory(){
 function welding_DaysLateOut(){
     var temp1;
     var temp2;
-    
+
     if (leanTool_Kaban_Weld) {
         temp1 = 0;
     }
@@ -2819,15 +2825,15 @@ function welding_DaysLateOut(){
     }
     else
         temp1 = 4;
-    
+
     if (welding_MaxCapacity() < chairs) {
         temp2 = (chairs - welding_MaxCapacity()) / 10;
     }
     else
         temp2 = 0;
-    
+
     return (Math.max(welding_DaysDownQuality() - temp1, 0) + temp2);
-} 
+}
 
 //Grinder Capacity
 function grinder_NeededMin(){
@@ -2862,8 +2868,9 @@ function grinder_WorkersOver(){
 function grinder_MaxCapacity() {
     return Math.floor(chairs * (grinder_NoCellsWorkers() + (0.25 * grinder_WorkersOver()) * (grinder_AvailableMin() / grinder_NeededMin())));
 }
+var prevInventory_Grind=15;
 function grinder_PrevInventory(){
-    return 15;
+    return prevInventory_Grind;
 }
 function grinder_MaxOutInventory() {
     if (leanTool_Kaban_Weld) {
@@ -2882,7 +2889,7 @@ function grinder_FinalInventory(){
 function grinder_DaysLateOut(){
     var temp;
     var temp2;
-    
+
     if (leanTool_Kaban_Weld) {
         temp = 0;
     }
@@ -2890,14 +2897,14 @@ function grinder_DaysLateOut(){
         temp = 2;
     }
     else {temp =4;}
-    
+
     if (grinder_MaxCapacity < chairs) {
         temp2 = (chairs - grinder_MaxCapacity) / 10;
     }
     else{temp2 = 0;}
-    
+
     return Math.max(grinder_DaysDownQuality() - temp, 0) + temp2;
-}   
+}
 
 // Paint Booth Capacity
 function paintBooth_NeededMin(){
@@ -2930,8 +2937,9 @@ function paintBooth_WorkersOver(){
 function paintBooth_MaxCapacity() {
     return Math.floor(chairs * (paintBooth_NoCellsWorkers() + (0.25 * paintBooth_WorkersOver()) * (paintBooth_AvailableMin() / paintBooth_NeededMin())));
 }
+var prevInventory_Paint=15;
 function paintBooth_PrevInventory(){
-    return 15;
+    return prevInventory_Paint;
 }
 function paintBooth_MaxOutInventory() {
     if (leanTool_Market_Assembly) {
@@ -2942,33 +2950,33 @@ function paintBooth_MaxOutInventory() {
     }
 }
 function paintBooth_ActualProd() {
-    return Math.min(paintBooth_MaxCapacity(), chairs + paintBooth_MaxCapacity() - paintBooth_PrevInventory(), grinder_ActualProd() + grinder_PrevInventory());
+    return Math.min(paintBooth_MaxCapacity(), chairs + paintBooth_MaxOutInventory() - paintBooth_PrevInventory(), grinder_ActualProd() + grinder_PrevInventory());
 }
 function paintBooth_FinalInventory(){
-    return paintBooth_PrevInventory() + paintBooth_ActualProd() - assembly_ActualProd();
+    return (paintBooth_PrevInventory() + paintBooth_ActualProd() - assembly_ActualProd());
 }
 function paintBooth_DaysLateOut(){
     var temp;
     var temp2;
     var temp3;
-    
+
     if (leanTool_SmallLot_Weld) {
         temp = 2;
     }
     else{temp = 4;}
-    
+
     if (sewing_MaxCapacity() < chairs) {
         temp2 = (chairs - sewing_MaxCapacity()) / 10
     }
     else{temp2 = 0;}
-    
+
     if (paintBooth_PrevInventory() < paintBooth_BatchSizes()) {
         temp3 = (paintBooth_BatchSizes() - paintBooth_PrevInventory()) / 10;
     }
     else{temp3 = 0;}
-    
+
     return (Math.max(paintBooth_DaysDownQuality() - temp, 0) + temp2 + temp3);
-}    
+}
 
 //Fabric Cut Capacity
 function fabricCut_NeededMin(){
@@ -3012,8 +3020,9 @@ function fabricCut_WorkersOver(){
 function fabricCut_MaxCapacity() {
     return Math.floor(chairs * (fabricCut_NoCellsWorkers() + (0.25 * fabricCut_WorkersOver()) *(fabricCut_AvailableMin() / fabricCut_NeededMin())));
 }
+var prevInventory_Fabric=20;
 function fabricCut_PrevInventory(){
-    return 20;
+    return prevInventory_Fabric;
 }
 function fabricCut_MaxOutInventory() {
     return 3 * fabricCutter_BatchSizes();
@@ -3027,19 +3036,19 @@ function fabricCut_FinalInventory(){
 function fabricCut_DaysLateOut(){
     var temp;
     var temp2;
-    
+
     if (leanTool_SmallLot_Fabric) {
         temp = 2
     }
     else{temp = 4;}
-    
+
     if (fabricCut_MaxCapacity() < chairs) {
         temp2 = ((chairs - fabricCut_MaxCapacity()) / 10);
     }
     else{temp2 = 0;}
-    
+
     return Math.max(fabricCut_DaysDownQuality() - temp,0) + temp2;
-}    
+}
 
 //Sewing Capacity
 function sewing_NeededMin(){
@@ -3074,8 +3083,9 @@ function sewing_WorkersOver(){
 function sewing_MaxCapacity() {
     return Math.floor(chairs * (sewing_NoCellsWorkers() + (0.25 * sewing_WorkersOver()) * (sewing_AvailableMin() / sewing_NeededMin())));
 }
+var prevInventory_Sewing=20;
 function sewing_PrevInventory(){
-    return 20;
+    return prevInventory_Sewing;
 }
 function sewing_MaxOutInventory() {
     if (leanTool_Market_Assembly) {
@@ -3095,24 +3105,24 @@ function sewing_DaysLateOut(){
     var temp;
     var temp2;
     var temp3;
-    
+
     if (leanTool_SmallLot_Fabric) {
         temp = 2;
     }
     else{temp = 4;}
-    
+
     if (sewing_MaxCapacity() < chairs) {
         temp2 = (chairs - sewing_MaxCapacity()) / 10;
     }
     else{temp2 = 0;}
-    
+
     if (sewing_PrevInventory() < sewing_BatchSizes()) {
         temp3 = (sewing_BatchSizes() - sewing_PrevInventory()) / 10;
     }
     else{temp3 = 0;}
-    
+
     return (Math.max(sewing_DaysDownQuality() - temp, 0) + temp2 + temp3);
-} 
+}
 
 //Assembly Capacity
 function assembly_NeededMin(){
@@ -3127,7 +3137,7 @@ function assembly_DaysStarved(){
         temp =  assemblyBench_LateParts(monthCounter);
     }
     else{temp = 0;}
-    
+
     return temp + (paintBooth_DaysLateOut() + sewing_DaysLateOut());
 }
 function assembly_AvailableMin(){
@@ -3153,23 +3163,22 @@ function assembly_WorkersOver(){
         return 0;
 }
 function assembly_MaxCapacity() {
-    return Math.floor(chairs * (assembly_NoCellsWorkers() + (0.25 * assembly_WorkersOver()) *((assembly_AvailableMin() / assembly_NeededMin()))));
+    return Math.floor(chairs * ( assembly_NoCellsWorkers() + (0.25 * assembly_WorkersOver()) ) *(assembly_AvailableMin() / assembly_NeededMin()) );
 }
 
+
+var prevInventory_Assembly=10;
 function assembly_PrevInventory() {
-    return 10;
+    return prevInventory_Assembly;
 }
 function assembly_MaxOutInventory() {
     return 0;
 }
 function assembly_ActualProd() {
-    console.log("assembly");
     return Math.min(assembly_MaxCapacity(), chairs + assembly_MaxOutInventory() - assembly_PrevInventory(), paintBooth_ActualProd() + paintBooth_PrevInventory(), sewing_ActualProd() + sewing_PrevInventory());
 }
 function assembly_FinalInventory(){
     var tempInventory=assembly_PrevInventory();
-    console.log("assembly prev inventory(10): "+assembly_PrevInventory() );
-    console.log("assembly actual production: "+assembly_ActualProd() );
     return (assembly_PrevInventory() + assembly_ActualProd());
 
 }
@@ -4082,8 +4091,8 @@ function totalPricePerChair(){
         // lean tool buttons
         contact(leanToolsBtnCells);
         contact(leanToolsBtnSmedSaw);
-        
-        problemListUpdate();
+
+
 
 
         for (var i = 0; i < 9; i++) {
@@ -4396,10 +4405,181 @@ function totalPricePerChair(){
 
     canvas.addEventListener('click', onClick, false);
 
+function createConsoleTable(){
+
+    console.log("Machine    Needed Min");
+    console.log("SAW            "+mitreSaw_NeededMin());
+    console.log("Drill          "+drillPress_NeededMin());
+    console.log("Bender         "+tubeBender_NeededMin());
+    console.log("Welding        "+welding_NeededMin());
+    console.log("Grinder        "+grinder_NeededMin());
+    console.log("paint          "+paintBooth_NeededMin());
+    console.log("fabric         "+fabricCut_NeededMin());
+    console.log("Sewing         "+sewing_NeededMin());
+    console.log("Assembly       "+assembly_NeededMin());
+
+    console.log("Machine    down");
+    console.log("SAW            "+mitreSaw_DaysDownQuality());
+    console.log("Drill          "+drillPress_DaysDownQuality());
+    console.log("Bender         "+tubeBender_DaysDownQuality());
+    console.log("Welding        "+welding_DaysDownQuality());
+    console.log("Grinder        "+grinder_DaysDownQuality());
+    console.log("paint          "+paintBooth_DaysDownQuality());
+    console.log("fabric         "+fabricCut_DaysDownQuality());
+    console.log("Sewing         "+sewing_DaysDownQuality());
+    console.log("Assembly       "+assembly_DaysDownQuality());
+
+    console.log("Machine    starved days");
+    console.log("SAW            "+mitreSaw_DaysStarved());
+    console.log("Drill          "+drillPress_DaysStarved());
+    console.log("Bender         "+tubeBender_DaysStarved());
+    console.log("Welding        "+welding_DaysStarved());
+    console.log("Grinder        "+grinder_DaysStarved());
+    console.log("paint          "+paintBooth_DaysStarved());
+    console.log("fabric         "+fabricCut_DaysStarved());
+    console.log("Sewing         "+sewing_DaysStarved());
+    console.log("Assembly       "+assembly_DaysStarved());
+
+    console.log("Machine    Available Min");
+    console.log("SAW            "+mitreSaw_AvailableMin());
+    console.log("Drill          "+drillPress_AvailableMin());
+    console.log("Bender         "+tubeBender_AvailableMin());
+    console.log("Welding        "+welding_AvailableMin());
+    console.log("Grinder        "+grinder_AvailableMin());
+    console.log("paint          "+paintBooth_AvailableMin());
+    console.log("fabric         "+fabricCut_AvailableMin());
+    console.log("Sewing         "+sewing_AvailableMin());
+    console.log("Assembly       "+assembly_AvailableMin());
+
+    console.log("Machine    needed min");
+    console.log("SAW            "+mitreSaw_NeededMin());
+    console.log("Drill          "+drillPress_NeededMin());
+    console.log("Bender         "+tubeBender_NeededMin());
+    console.log("Welding        "+welding_NeededMin());
+    console.log("Grinder        "+grinder_NeededMin());
+    console.log("paint          "+paintBooth_NeededMin());
+    console.log("fabric         "+fabricCut_NeededMin());
+    console.log("Sewing         "+sewing_NeededMin());
+    console.log("Assembly       "+assembly_NeededMin());
+
+    console.log("Machine    no cell workers");
+    console.log("SAW            "+mitreSaw_NoCellsWorkers());
+    console.log("Drill          "+drillPress_NoCellsWorkers());
+    console.log("Bender         "+tubeBender_NoCellsWorkers());
+    console.log("Welding        "+welding_NoCellsWorkers());
+    console.log("Grinder        "+grinder_NoCellsWorkers());
+    console.log("paint          "+paintBooth_NoCellsWorkers());
+    console.log("fabric         "+fabricCut_NoCellsWorkers());
+    console.log("Sewing         "+sewing_NoCellsWorkers());
+    console.log("Assembly       "+assembly_NoCellsWorkers());
+
+    console.log("Machine    cell trained workers");
+    console.log("SAW            "+mitreSaw_TrainWorkers());
+    console.log("Drill          ");
+    console.log("Bender         ");
+    console.log("Welding        "+welding_TrainWorkers());
+    console.log("Grinder        ");
+    console.log("paint          ");
+    console.log("fabric         "+fabricCut_TrainWorkers());
+    console.log("Sewing         ");
+    console.log("Assembly       "+assembly_TrainWorkers());
+
+    console.log("Machine    overtime workers");
+    console.log("SAW            "+mitreSaw_WorkersOver());
+    console.log("Drill          "+drillPress_WorkersOver());
+    console.log("Bender         "+tubeBender_WorkersOver());
+    console.log("Welding        "+welding_WorkersOver());
+    console.log("Grinder        "+grinder_WorkersOver());
+    console.log("paint          "+paintBooth_WorkersOver());
+    console.log("fabric         "+fabricCut_WorkersOver());
+    console.log("Sewing         "+sewing_WorkersOver());
+    console.log("Assembly       "+assembly_WorkersOver());
+
+    console.log("Machine    Max chair  capacity");
+    console.log("SAW            "+mitreSaw_MaxCapacity());
+    console.log("Drill          "+drillPress_MaxCapacity());
+    console.log("Bender         "+tubeBender_MaxCapacity());
+    console.log("Welding        "+welding_MaxCapacity());
+    console.log("Grinder        "+grinder_MaxCapacity());
+    console.log("paint          "+paintBooth_MaxCapacity());
+    console.log("fabric         "+fabricCut_MaxCapacity());
+    console.log("Sewing         "+sewing_MaxCapacity());
+    console.log("Assembly       "+assembly_MaxCapacity());
+
+    console.log("Machine    previous inventory");
+    console.log("SAW            "+mitreSaw_PrevInventory());
+    console.log("Drill          "+drillPress_PrevInventory());
+    console.log("Bender         "+tubeBender_PrevInventory());
+    console.log("Welding        "+welding_PrevInventory());
+    console.log("Grinder        "+grinder_PrevInventory());
+    console.log("paint          "+paintBooth_PrevInventory());
+    console.log("fabric         "+fabricCut_PrevInventory());
+    console.log("Sewing         "+sewing_PrevInventory());
+    console.log("Assembly       "+assembly_PrevInventory());
+
+    console.log("Machine    max out inventory");
+    console.log("SAW            "+mitreSaw_MaxOutInventory());
+    console.log("Drill          "+drillPress_MaxOutInventory());
+    console.log("Bender         "+tubeBender_MaxOutInventory());
+    console.log("Welding        "+welding_MaxOutInventory());
+    console.log("Grinder        "+grinder_MaxOutInventory());
+    console.log("paint          "+paintBooth_MaxOutInventory());
+    console.log("fabric         "+fabricCut_MaxOutInventory());
+    console.log("Sewing         "+sewing_MaxOutInventory());
+    console.log("Assembly       "+assembly_MaxOutInventory());
+
+    console.log("Machine    actual production");
+    console.log("SAW            "+mitreSaw_ActualProd());
+    console.log("Drill          "+drillPress_ActualProd());
+    console.log("Bender         "+tubeBender_ActualProd());
+    console.log("Welding        "+welding_ActualProd());
+    console.log("Grinder        "+grinder_ActualProd());
+    console.log("paint          "+paintBooth_ActualProd());
+    console.log("fabric         "+fabricCut_ActualProd());
+    console.log("Sewing         "+sewing_ActualProd());
+    console.log("Assembly       "+assembly_ActualProd());
+
+    console.log("Machine    final inventory");
+    console.log("SAW            "+mitreSaw_FinalInventory());
+    console.log("Drill          "+drillPress_FinalInventory());
+    console.log("Bender         "+tubeBender_FinalInventory());
+    console.log("Welding        "+welding_FinalInventory());
+    console.log("Grinder        "+grinder_FinalInventory());
+    console.log("paint          "+paintBooth_FinalInventory());
+    console.log("fabric         "+fabricCut_FinalInventory());
+    console.log("Sewing         "+sewing_FinalInventory());
+    console.log("Assembly       "+assembly_FinalInventory());
+
+    console.log("Machine    days late out");
+    console.log("SAW            "+mitreSaw_DaysLateOut());
+    console.log("Drill          "+drillPress_DaysLateOut());
+    console.log("Bender         "+tubeBender_DaysLateOut());
+    console.log("Welding        "+welding_DaysLateOut());
+    console.log("Grinder        "+grinder_DaysLateOut());
+    console.log("paint          "+paintBooth_DaysLateOut());
+    console.log("fabric         "+fabricCut_DaysLateOut());
+    console.log("Sewing         "+sewing_DaysLateOut());
+    console.log("Assembly        Don't worry about it");
+}
+
     function onClick(evt) {
         if (subScreen == "calendar") {
             if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
+                createConsoleTable();
+                prevInventory_Assembly=assembly_FinalInventory()-monthChairsSold();
+                prevInventory_Fabric=fabricCut_FinalInventory();
+                prevInventory_Bender=tubeBender_FinalInventory();
+                prevInventory_Drill=drillPress_FinalInventory();
+                prevInventory_Grind=grinder_FinalInventory();
+                prevInventory_Saw=mitreSaw_FinalInventory();
+                prevInventory_Sewing=sewing_FinalInventory();
+                prevInventory_Weld=welding_FinalInventory();
+                console.log("paint previous"+prevInventory_Paint);
+                prevInventory_Paint=paintBooth_FinalInventory();
+                console.log("paint previous 2nd month"+prevInventory_Paint);
+                problemListUpdate();
                 monthCounter++;
+
                 if (monthCounter == 12) {
                     monthCounter = 0;
                 }
