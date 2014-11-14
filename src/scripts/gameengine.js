@@ -962,31 +962,31 @@ function problemListUpdate() {
     var stationView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/Right_Side_Background.png", 0);
     loadImg(stationView);
 
-    var sawView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Saw_Right_Table.png", 0);
+    var sawView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_saw.jpg", 0);
     loadImg(sawView);
 
-    var drillView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Drill_Right_Table.png", 0);
+    var drillView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_drill.jpg", 0);
     loadImg(drillView);
 
-    var bendView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Bend_Right_Table.png", 0);
+    var bendView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_bending.jpg", 0);
     loadImg(bendView);
 
-    var weldView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Weld_Right_Table.png", 0);
+    var weldView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_welder.jpg", 0);
     loadImg(weldView);
 
-    var grindView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Saw_Right_Table.png", 0);
+    var grindView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_saw.jpg", 0);
     loadImg(grindView);
 
-    var paintView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Paint_Right_Table.png", 0);
+    var paintView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_painting.jpg", 0);
     loadImg(paintView);
 
-    var fabricView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Saw_Right_Table.png", 0);
+    var fabricView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_sewing.jpg", 0);
     loadImg(fabricView);
 
-    var sewingView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Sewing_Right_Table.png", 0);
+    var sewingView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_cutting.jpg", 0);
     loadImg(sewingView);
 
-    var assemblyView = new gameObject(800, 250, 480, 700, "Art_Assets/game_screen/Saw_Right_Table.png", 0);
+    var assemblyView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_assembly.jpg", 0);
     loadImg(assemblyView);
 
 
