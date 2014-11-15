@@ -100,16 +100,21 @@ var factoryFloorIconsArray = {
     BossIcon: 0,
     SmedIcon: 0,
     workerOneIcon: 0,
-    WorkerTwoIcon: 0,
-    WorkerThreeIcon: 0,
-    WorkerFourIcon: 0
+    workerTwoIcon: 0,
+    workerThreeIcon: 0,
+    workerFourIcon: 0,
+    workerFiveIcon:0,
+    workerSixIcon: 0,
+    workerSevenIcon:0,
+    workerEightIcon:0,
+    workerNineIcon:0
+
 };
 //This is the list to keep track of the workers that use crosstraining.
 //0 means no crosstraining
 //1 means was crosstrained
 //2 means was replaced by a crosstrained worker.
 var workerCrossTrainingList = {
-    workerZero:0,
     workerOne:0,
     workerTwo:0,
     workerThree:0,
@@ -117,7 +122,8 @@ var workerCrossTrainingList = {
     workerFive:0,
     workerSix:0,
     workerSeven:0,
-    workerEight:0
+    workerEight:0,
+    workerNine:0
 }
 var monthCounter = 0;
 
@@ -335,7 +341,7 @@ function drawSprtSht() {
             }
             break;
     }
-    switch (factoryFloorIconsArray.WorkerTwoIcon){
+    switch (factoryFloorIconsArray.workerTwoIcon){
         case 0:
             switch(workerCrossTrainingList.workerTwo){
                 case 0:
@@ -376,7 +382,7 @@ function drawSprtSht() {
             }
             break;
     }
-    switch (factoryFloorIconsArray.WorkerThreeIcon){
+    switch (factoryFloorIconsArray.workerThreeIcon){
         case 0:
             switch(workerCrossTrainingList.workerThree){
                 case 0:
@@ -417,7 +423,7 @@ function drawSprtSht() {
             }
             break;
     }
-    switch (factoryFloorIconsArray.WorkerFourIcon){
+    switch (factoryFloorIconsArray.workerFourIcon){
         case 0:
             switch(workerCrossTrainingList.workerFour){
                 case 0:
@@ -457,6 +463,217 @@ function drawSprtSht() {
                     break;
             }
             break;
+
+    }
+    switch (factoryFloorIconsArray.workerFiveIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerFive){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*5,300,300,station[4].x+30,station[4].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerFive){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[4].x+30,station[4].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerFive){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[4].x+30,station[4].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
+    }
+    switch (factoryFloorIconsArray.workerSixIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerSix){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*5,300,300,station[5].x+30,station[5].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerSix){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*6,300,300,station[5].x+30,station[5].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerSix){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*7,300,300,station[5].x+30,station[5].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
+    }
+    switch (factoryFloorIconsArray.workerSevenIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerSeven){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*5,300,300,station[6].x+30,station[6].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerSeven){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[6].x+30,station[6].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerSeven){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[6].x+30,station[6].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
+    }
+    switch (factoryFloorIconsArray.workerEightIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerEight){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*5,300,300,station[7].x+30,station[7].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerEight){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[7].x+30,station[7].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerEight){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[7].x+30,station[7].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
+    }
+    switch (factoryFloorIconsArray.workerNineIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerNine){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*5,300,300,station[8].x+30,station[8].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerNine){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[8].x+30,station[8].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerNine){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[8].x+30,station[8].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
     }
 
         //console.log("TEST1234");
