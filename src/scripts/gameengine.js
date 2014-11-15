@@ -1212,6 +1212,9 @@ function problemListUpdate() {
 
     var office = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/office.png', 0);
     loadImg(office);
+    
+    var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
+    loadImg(note);
 
 
     var posx;
@@ -4309,6 +4312,64 @@ function totalPricePerChair(){
             draw(ctx2, gameScreen, 0, 0); //entire screen
             //ctx2.drawImage(station[0].image,station[0].x,station[0].y,100,200);
             drawSprtSht();
+            
+            for (var i =0; i<9; i++) {
+                if (station[0].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Saw", posx + 70, posy + 30);
+                }
+                if (station[1].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Drill", posx + 70, posy + 30);
+                    
+                }
+                if (station[2].hover) {
+                    ctx.drawImage(note.image, posx - 200, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Bender", posx - 150, posy + 30);
+                }
+                if (station[3].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Welder", posx + 50, posy + 30);
+                }
+                if (station[4].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Grinder", posx + 50, posy + 30);
+                }
+                if (station[5].hover) {
+                    ctx.drawImage(note.image, posx - 200, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Paint Booth", posx - 180, posy + 30);
+                }
+                if (station[6].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Assembly", posx + 30, posy + 30);
+                }
+                if (station[7].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Fabric Cutter", posx + 10, posy + 30);
+                }
+                if (station[8].hover) {
+                    ctx.drawImage(note.image, posx - 200, posy, 200, 200);
+                    ctx.font = "25pt Arial";
+                    ctx.fillStyle = "#FFF";
+                    ctx.fillText("Sewing", posx - 150, posy + 30);
+                }
+            }
 
             /*for (var i = 0; i < 9; i++) {
                 draw(ctx2, station[i], 3, -3);
