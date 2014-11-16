@@ -10,6 +10,8 @@ canvas.left = 0;
 canvas.width = 1550;
 canvas.height = 750;
 document.body.appendChild(canvas);
+var shadowForFactoryIcons = new Image();
+shadowForFactoryIcons.src = "Art_Assets/workshop_icons/iconDropShadow.png";
 var ctx2 = canvas.getContext("2d");
 var monthsArray = {
     January: "January",
@@ -4255,6 +4257,8 @@ function totalPricePerChair(){
 
 
 
+
+
         for (var i = 0; i < 9; i++) {
             for (var a = 0; a < 9; a++) {
                 if (station[i].position == a) {
@@ -4310,6 +4314,13 @@ function totalPricePerChair(){
             //  ctx2.drawImage(gameScreen.image,0,0,960,1080, 0, 0, 750, 750);
 
             draw(ctx2, gameScreen, 0, 0); //entire screen
+            for(var i = 0; i < 9; i++){
+                if(station[i].hover){
+                    console.log("TESTING SHADOW DRAW")
+                    ctx.drawImage(shadowForFactoryIcons,0,0,86,86,station[i].x,station[i].y,120,120);
+                    //draw(ctx2,nameOfShadow,station[i].x,station[i].y);
+                }
+            }
             //ctx2.drawImage(station[0].image,station[0].x,station[0].y,100,200);
             drawSprtSht();
             
@@ -4356,6 +4367,8 @@ function totalPricePerChair(){
             }
             ctx.fillStyle = "#000";
             ctx2.font = "10px Georgia";
+
+
 
             /*for (var i = 0; i < 9; i++) {
                 draw(ctx2, station[i], 3, -3);
@@ -4764,6 +4777,19 @@ function createConsoleTable(){
     console.log("fabric         "+fabricCut_DaysLateOut());
     console.log("Sewing         "+sewing_DaysLateOut());
     console.log("Assembly        Don't worry about it");
+
+       /*
+         ...................../´¯/)
+        ....................,/¯../
+        .................../..../
+        ............./´¯/'...'/´¯¯`·¸
+        ........../'/.../..../......./¨¯\
+        ........('(...´...´.... ¯~/'...')
+        .........\.................'..../
+        ..........''...\.......... _.·´
+        ............\..............(
+        ..............\.............\...
+        */
 }
 
     function onClick(evt) {
