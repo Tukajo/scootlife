@@ -4253,6 +4253,8 @@ function totalPricePerChair(){
         // lean tool buttons
         contact(leanToolsBtnCells);
         contact(leanToolsBtnSmedSaw);
+        contact(leanToolsView);
+        contact(reportView);
 
 
 
@@ -4869,6 +4871,16 @@ function createConsoleTable(){
             }
             if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar") {
                 if (closeBtn.hover) {
+                    subScreen = "office";
+                }
+            }
+            if (subScreen=="leanTools") {
+                if (!leanToolsView.hover) {
+                    subScreen = "office";
+                }
+            }
+            if (subScreen=="monthlyReport") {
+                if (!reportView.hover) {
                     subScreen = "office";
                 }
             }
