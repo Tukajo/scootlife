@@ -4326,44 +4326,47 @@ function totalPricePerChair(){
             //ctx2.drawImage(station[0].image,station[0].x,station[0].y,100,200);
             drawSprtSht();
             
+            var noteHeight = 50;
+            
+            
             ctx.fillStyle = "#FFF";
             ctx.font = "25pt Arial";
             for (var i =0; i<9; i++) {
                 if (station[0].hover) {
-                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
                     ctx.fillText("Saw", posx + 70, posy + 30);
                 }
                 if (station[1].hover) {
-                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
                     ctx.fillText("Drill", posx + 70, posy + 30);
                     
                 }
                 if (station[2].hover) {
-                    ctx.drawImage(note.image, posx - 200, posy, 200, 200);
+                    ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
                     ctx.fillText("Bender", posx - 150, posy + 30);
                 }
                 if (station[3].hover) {
-                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
                     ctx.fillText("Welder", posx + 50, posy + 30);
                 }
                 if (station[4].hover) {
-                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
                     ctx.fillText("Grinder", posx + 50, posy + 30);
                 }
                 if (station[5].hover) {
-                    ctx.drawImage(note.image, posx - 200, posy, 200, 200);
+                    ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
                     ctx.fillText("Paint Booth", posx - 180, posy + 30);
                 }
                 if (station[6].hover) {
-                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
                     ctx.fillText("Assembly", posx + 30, posy + 30);
                 }
                 if (station[7].hover) {
-                    ctx.drawImage(note.image, posx, posy, 200, 200);
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
                     ctx.fillText("Fabric Cutter", posx + 10, posy + 30);
                 }
                 if (station[8].hover) {
-                    ctx.drawImage(note.image, posx - 200, posy, 200, 200);
+                    ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
                     ctx.fillText("Sewing", posx - 150, posy + 30);
                 }
             }
@@ -4869,7 +4872,7 @@ function createConsoleTable(){
                     subScreen = "monthlyReport";
                 }
             }
-            if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar") {
+            if (subScreen == "calendar") {
                 if (closeBtn.hover) {
                     subScreen = "office";
                 }
