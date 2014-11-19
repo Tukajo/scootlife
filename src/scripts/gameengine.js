@@ -9,10 +9,19 @@ canvas.top = 0;
 canvas.left = 0;
 canvas.width = 1550;
 canvas.height = 750;
+
+var xScale=(1600/1550);
+var yScale=(1000/750);
+
+//ctx.scale(xScale,yScale);
+
 document.body.appendChild(canvas);
 var shadowForFactoryIcons = new Image();
 shadowForFactoryIcons.src = "Art_Assets/workshop_icons/iconDropShadow.png";
 var ctx2 = canvas.getContext("2d");
+
+//ctx2.scale(xScale,yScale);
+
 var monthsArray = {
     January: "January",
     February: "February",
@@ -736,6 +745,7 @@ function drawSprtSht() {
         }
 
     };
+
 
 
     var gameObject = function (x, y, h, w, src, altSrc) {
@@ -4621,9 +4631,9 @@ function totalPricePerChair(){
 
     var draw = function (canvas, object, xDis, yDis) {
         if (object.ready && !object.hover)
-            canvas.drawImage(object.image, object.x, object.y, object.w, object.h);
+            canvas.drawImage(object.image, (object.x*xScale), (object.y*yScale), (object.w*xScale), (object.h*yScale));
         if (object.readyAlt && object.hover)
-            canvas.drawImage(object.imageAlt, object.x + xDis, object.y + yDis, object.w, object.h);
+            canvas.drawImage(object.imageAlt, (object.x*xScale) + xDis, (object.y*yScale) + yDis, (object.w*xScale), (object.h*yScale));
     }
 
     var tracker = function (e) {
