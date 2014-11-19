@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by Student on 9/24/2014.
  */
 var canvas = document.createElement("canvas");
@@ -10,6 +10,8 @@ canvas.left = 0;
 canvas.width = 1550;
 canvas.height = 750;
 document.body.appendChild(canvas);
+var shadowForFactoryIcons = new Image();
+shadowForFactoryIcons.src = "Art_Assets/workshop_icons/iconDropShadow.png";
 var ctx2 = canvas.getContext("2d");
 var monthsArray = {
     January: "January",
@@ -100,16 +102,21 @@ var factoryFloorIconsArray = {
     BossIcon: 0,
     SmedIcon: 0,
     workerOneIcon: 0,
-    WorkerTwoIcon: 0,
-    WorkerThreeIcon: 0,
-    WorkerFourIcon: 0
+    workerTwoIcon: 0,
+    workerThreeIcon: 0,
+    workerFourIcon: 0,
+    workerFiveIcon:0,
+    workerSixIcon: 0,
+    workerSevenIcon:0,
+    workerEightIcon:0,
+    workerNineIcon:0
+
 };
 //This is the list to keep track of the workers that use crosstraining.
 //0 means no crosstraining
 //1 means was crosstrained
 //2 means was replaced by a crosstrained worker.
 var workerCrossTrainingList = {
-    workerZero:0,
     workerOne:0,
     workerTwo:0,
     workerThree:0,
@@ -117,7 +124,8 @@ var workerCrossTrainingList = {
     workerFive:0,
     workerSix:0,
     workerSeven:0,
-    workerEight:0
+    workerEight:0,
+    workerNine:0
 }
 var monthCounter = 0;
 
@@ -335,7 +343,7 @@ function drawSprtSht() {
             }
             break;
     }
-    switch (factoryFloorIconsArray.WorkerTwoIcon){
+    switch (factoryFloorIconsArray.workerTwoIcon){
         case 0:
             switch(workerCrossTrainingList.workerTwo){
                 case 0:
@@ -376,7 +384,7 @@ function drawSprtSht() {
             }
             break;
     }
-    switch (factoryFloorIconsArray.WorkerThreeIcon){
+    switch (factoryFloorIconsArray.workerThreeIcon){
         case 0:
             switch(workerCrossTrainingList.workerThree){
                 case 0:
@@ -417,7 +425,7 @@ function drawSprtSht() {
             }
             break;
     }
-    switch (factoryFloorIconsArray.WorkerFourIcon){
+    switch (factoryFloorIconsArray.workerFourIcon){
         case 0:
             switch(workerCrossTrainingList.workerFour){
                 case 0:
@@ -457,6 +465,217 @@ function drawSprtSht() {
                     break;
             }
             break;
+
+    }
+    switch (factoryFloorIconsArray.workerFiveIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerFive){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*5,300,300,station[4].x+30,station[4].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerFive){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[4].x+30,station[4].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerFive){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[4].x+30,station[4].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
+    }
+    switch (factoryFloorIconsArray.workerSixIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerSix){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*5,300,300,station[5].x+30,station[5].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerSix){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*6,300,300,station[5].x+30,station[5].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerSix){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*7,300,300,station[5].x+30,station[5].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
+    }
+    switch (factoryFloorIconsArray.workerSevenIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerSeven){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*5,300,300,station[6].x+30,station[6].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerSeven){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[6].x+30,station[6].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerSeven){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[6].x+30,station[6].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
+    }
+    switch (factoryFloorIconsArray.workerEightIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerEight){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*5,300,300,station[7].x+30,station[7].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerEight){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[7].x+30,station[7].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerEight){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[7].x+30,station[7].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
+    }
+    switch (factoryFloorIconsArray.workerNineIcon){
+        case 0:
+            switch(workerCrossTrainingList.workerNine){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*5,300,300,station[8].x+30,station[8].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 1:
+            switch(workerCrossTrainingList.workerNine){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[8].x+30,station[8].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+        case 2:
+            switch(workerCrossTrainingList.workerNine){
+                case 0:
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[8].x+30,station[8].y-60,60,60);
+                    break;
+                case 1:
+                    //TODO - logic for moving for crosstrained
+                    break;
+                case 2:
+                    //Do nothing worker disappears
+                    break;
+            }
+            break;
+
     }
 
         //console.log("TEST1234");
@@ -995,6 +1214,9 @@ function problemListUpdate() {
 
     var office = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/office.png', 0);
     loadImg(office);
+    
+    var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
+    loadImg(note);
 
 
     var posx;
@@ -4047,6 +4269,10 @@ function totalPricePerChair(){
         // lean tool buttons
         contact(leanToolsBtnCells);
         contact(leanToolsBtnSmedSaw);
+        contact(leanToolsView);
+        contact(reportView);
+
+
 
 
 
@@ -4106,8 +4332,64 @@ function totalPricePerChair(){
             //  ctx2.drawImage(gameScreen.image,0,0,960,1080, 0, 0, 750, 750);
 
             draw(ctx2, gameScreen, 0, 0); //entire screen
+            for(var i = 0; i < 9; i++){
+                if(station[i].hover){
+                    console.log("TESTING SHADOW DRAW")
+                    ctx.drawImage(shadowForFactoryIcons,0,0,86,86,station[i].x,station[i].y,120,120);
+                    //draw(ctx2,nameOfShadow,station[i].x,station[i].y);
+                }
+            }
             //ctx2.drawImage(station[0].image,station[0].x,station[0].y,100,200);
             drawSprtSht();
+            
+            var noteHeight = 50;
+            
+            
+            ctx.fillStyle = "#FFF";
+            ctx.font = "25pt Arial";
+            for (var i =0; i<9; i++) {
+                if (station[0].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Saw", posx + 70, posy + 30);
+                }
+                if (station[1].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Drill", posx + 70, posy + 30);
+                    
+                }
+                if (station[2].hover) {
+                    ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
+                    ctx.fillText("Bender", posx - 150, posy + 30);
+                }
+                if (station[3].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Welder", posx + 50, posy + 30);
+                }
+                if (station[4].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Grinder", posx + 50, posy + 30);
+                }
+                if (station[5].hover) {
+                    ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
+                    ctx.fillText("Paint Booth", posx - 180, posy + 30);
+                }
+                if (station[6].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Assembly", posx + 30, posy + 30);
+                }
+                if (station[7].hover) {
+                    ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Fabric Cutter", posx + 10, posy + 30);
+                }
+                if (station[8].hover) {
+                    ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
+                    ctx.fillText("Sewing", posx - 150, posy + 30);
+                }
+            }
+            ctx.fillStyle = "#000";
+            ctx2.font = "10px Georgia";
+
+
 
             /*for (var i = 0; i < 9; i++) {
                 draw(ctx2, station[i], 3, -3);
@@ -4674,8 +4956,18 @@ createConsoleTable();
                     subScreen = "monthlyReport";
                 }
             }
-            if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar") {
+            if (subScreen == "calendar") {
                 if (closeBtn.hover) {
+                    subScreen = "office";
+                }
+            }
+            if (subScreen=="leanTools") {
+                if (!leanToolsView.hover) {
+                    subScreen = "office";
+                }
+            }
+            if (subScreen=="monthlyReport") {
+                if (!reportView.hover) {
                     subScreen = "office";
                 }
             }
