@@ -1241,14 +1241,15 @@ function problemListUpdate() {
         month.purchasedMaterials = total_MaterialCost();//from capacity
         month.scrap = monthScrap(monthCounter);
         month.totalMaterialsCost = Math.round(month.scrap + month.purchasedMaterials);
-        month.directCost = Math.round(month.laborRegular + month.laborOvertime + month.totalMaterialsCost);
+        month.directCost = Math.round(month.laborRegular) + Math.round(month.laborOvertime) + Math.round(month.totalMaterialsCost);
         month.inventory = total_Value();//from inventory
         month.inventoryCost = Math.round(month.inventory * inventoryPercentFee);
         month.leanIdeasCost = 1000 - leanToolAllowance;
         month.orderingCost = total_OrderCost();//from inventory
         month.baselineCost = monthBaseline(monthCounter);
         month.overheadCost = Math.round(month.baselineCost + (month.inventory * baselineInventoryPercentFee));
-        month.indirectCost = Math.round(month.inventoryCost + month.orderingCost + month.leanIdeasCost + month.overheadCost);
+        month.indirectCost = Math.round((month.inventory * inventoryPercentFee) + month.orderingCost + month.leanIdeasCost + (month.baselineCost + (month.inventory * baselineInventoryPercentFee)));
+        console.log("indirect cost= inventory: "+month.inventoryCost+" +  ordering:"+month.orderingCost+" +  lean tools: "+month.leanIdeasCost+" + overhead: "+month.overheadCost);
         month.totalExpenses = Math.round(month.directCost + month.indirectCost);
         month.totalProfit = Math.round(month.sales - month.totalExpenses);
 
@@ -1725,10 +1726,10 @@ function welding_BadQuality(month){
     else if (month==7) {
         if (!leanTool_Quality_Welding) {
             if (leanTool_SmallLot_Weld) {
-                return 1;
+                return 1.5;
             }
             else{
-                return 2;
+                return 3;
             }
         }
         else{return 0;}
@@ -2286,7 +2287,7 @@ function paintBooth_Quality(){
     return 1;
 }
 function paintBooth_BatchSizes(){
-    if(leanTool_SmallLot_Weld)
+    if(leanTool_SmallLot_Weld==true)
         return 20;
     else
         return 40;
@@ -2500,7 +2501,7 @@ function mitreSaw_WorkersOver(){
     }
 }
 function mitreSaw_MaxCapacity(){
-    return Math.floor(chairs * (mitreSaw_NoCellsWorkers() + (0.25 * mitreSaw_WorkersOver()) * (mitreSaw_AvailableMin() / mitreSaw_NeededMin())));
+    return Math.floor(chairs * (mitreSaw_NoCellsWorkers() + 0.25 * mitreSaw_WorkersOver()) * (mitreSaw_AvailableMin() / mitreSaw_NeededMin()));
 }
 var prevInventory_Saw=40;
 function mitreSaw_PrevInventory(){
@@ -2573,7 +2574,7 @@ function drillPress_WorkersOver() {
     }
 }
 function drillPress_MaxCapacity() {
-    return Math.floor(chairs * (drillPress_NoCellsWorkers() + (0.25 * drillPress_WorkersOver()) *(drillPress_AvailableMin() / drillPress_NeededMin())));
+    return Math.floor(chairs * (drillPress_NoCellsWorkers() + 0.25 * drillPress_WorkersOver()) *(drillPress_AvailableMin() / drillPress_NeededMin()));
 }
 var prevInventory_Drill=40;
 function drillPress_PrevInventory(){
@@ -2588,7 +2589,7 @@ function drillPress_MaxOutInventory(){
     }
 }
 function drillPress_ActualProd(){
-    return Math.min(drillPress_MaxCapacity(), chairs + drillPress_MaxOutInventory() - drillPress_PrevInventory(), mitreSaw_ActualProd() + mitreSaw_PrevInventory());
+    return Math.min(drillPress_MaxCapacity(), (chairs + drillPress_MaxOutInventory() - drillPress_PrevInventory()), mitreSaw_ActualProd() + mitreSaw_PrevInventory());
 }
 function drillPress_FinalInventory(){
     return drillPress_PrevInventory() + drillPress_ActualProd() - tubeBender_ActualProd();
@@ -2611,6 +2612,8 @@ function drillPress_DaysLateOut() {
     else{ temp2 = 0;}
 
     return Math.max(drillPress_DaysDownQuality() - temp1, 0) + temp2;
+
+
 
 }
 
@@ -2645,7 +2648,7 @@ function tubeBender_WorkersOver(){
     }
 }
 function tubeBender_MaxCapacity() {
-    return Math.floor(chairs * (tubeBender_NoCellsWorkers() + (0.25 * tubeBender_WorkersOver()) * (tubeBender_AvailableMin() / tubeBender_NeededMin())));
+    return Math.floor(chairs * (tubeBender_NoCellsWorkers() + 0.25 * tubeBender_WorkersOver()) * (tubeBender_AvailableMin() / tubeBender_NeededMin()));
 }
 var prevInventory_Bender=35;
 function tubeBender_PrevInventory(){
@@ -2731,7 +2734,7 @@ function welding_WorkersOver(){
     else{ return 0;}
 }
 function welding_MaxCapacity() {
-    return Math.floor(chairs * (welding_NoCellsWorkers() + (0.25 * welding_WorkersOver()) * welding_AvailableMin() / welding_NeededMin()));
+    return Math.floor(chairs * (welding_NoCellsWorkers() + 0.25 * welding_WorkersOver()) * welding_AvailableMin() / welding_NeededMin());
 }
 var prevInventory_Weld=20;
 function welding_PrevInventory(){
@@ -2766,13 +2769,12 @@ function welding_DaysLateOut(){
 
     temp1 = Math.max(welding_DaysDownQuality() - temp1, 0);
     if (welding_MaxCapacity() < chairs) {
-        temp2 = (chairs - welding_MaxCapacity()) / 10;
+        temp2 = ((chairs - welding_MaxCapacity()) / 10);
     }
     else
         temp2 = 0;
 
     return (temp1+ temp2);
-    //=MAX(C24-IF('Lean ideas'!$H$6="yes",0,IF('Lean ideas'!$H$8="yes",2,4)),0)+IF(J24<$F$3,($F$3-J24)/10,0)
 }
 
 //Grinder Capacity
@@ -2806,7 +2808,7 @@ function grinder_WorkersOver(){
     }
 }
 function grinder_MaxCapacity() {
-    return Math.floor(chairs * (grinder_NoCellsWorkers() + (0.25 * grinder_WorkersOver()) * (grinder_AvailableMin() / grinder_NeededMin())));
+    return Math.floor(chairs * (grinder_NoCellsWorkers() + 0.25 * grinder_WorkersOver()) * (grinder_AvailableMin() / grinder_NeededMin()));
 }
 var prevInventory_Grind=15;
 function grinder_PrevInventory(){
@@ -2838,8 +2840,8 @@ function grinder_DaysLateOut(){
     }
     else {temp =4;}
 
-    if (grinder_MaxCapacity < chairs) {
-        temp2 = (chairs - grinder_MaxCapacity) / 10;
+    if (grinder_MaxCapacity() < chairs) {
+        temp2 = (chairs - grinder_MaxCapacity()) / 10;
     }
     else{temp2 = 0;}
 
@@ -2875,7 +2877,7 @@ function paintBooth_WorkersOver(){
     else {return 0;}
 }
 function paintBooth_MaxCapacity() {
-    return Math.floor(chairs * (paintBooth_NoCellsWorkers() + (0.25 * paintBooth_WorkersOver()) * (paintBooth_AvailableMin() / paintBooth_NeededMin())));
+    return Math.floor(chairs * (paintBooth_NoCellsWorkers() + 0.25 * paintBooth_WorkersOver()) * (paintBooth_AvailableMin() / paintBooth_NeededMin()));
 }
 var prevInventory_Paint=15;
 function paintBooth_PrevInventory(){
@@ -2890,7 +2892,7 @@ function paintBooth_MaxOutInventory() {
     }
 }
 function paintBooth_ActualProd() {
-    return Math.min(paintBooth_MaxCapacity(), chairs + paintBooth_MaxOutInventory() - paintBooth_PrevInventory(), grinder_ActualProd() + grinder_PrevInventory());
+    return Math.min(paintBooth_MaxCapacity(), (chairs + paintBooth_MaxOutInventory() - paintBooth_PrevInventory()), (grinder_ActualProd() + grinder_PrevInventory()));
 }
 function paintBooth_FinalInventory(){
     return (paintBooth_PrevInventory() + paintBooth_ActualProd() - assembly_ActualProd());
@@ -2904,18 +2906,22 @@ function paintBooth_DaysLateOut(){
         temp = 2;
     }
     else{temp = 4;}
+    //console.log("temp 1 "+temp);
 
     if (sewing_MaxCapacity() < chairs) {
-        temp2 = (chairs - sewing_MaxCapacity()) / 10
+        temp2 = ((chairs - sewing_MaxCapacity()) / 10);
     }
     else{temp2 = 0;}
+    //console.log("temp 2 "+temp2);
 
     if (paintBooth_PrevInventory() < paintBooth_BatchSizes()) {
-        temp3 = (paintBooth_BatchSizes() - paintBooth_PrevInventory()) / 10;
+        //console.log("paint batch "+paintBooth_BatchSizes());
+        temp3 = ((paintBooth_BatchSizes() - paintBooth_PrevInventory()) / 10);
     }
     else{temp3 = 0;}
+    //console.log("temp 3 "+temp3);
 
-    return (Math.max(paintBooth_DaysDownQuality() - temp, 0) + temp2 + temp3);
+    return (Math.max((paintBooth_DaysDownQuality() - temp), 0) + temp2 + temp3);
 }
 
 //Fabric Cut Capacity
@@ -2958,7 +2964,7 @@ function fabricCut_WorkersOver(){
     else{return 0;}
 }
 function fabricCut_MaxCapacity() {
-    return Math.floor(chairs * (fabricCut_NoCellsWorkers() + (0.25 * fabricCut_WorkersOver()) *(fabricCut_AvailableMin() / fabricCut_NeededMin())));
+    return Math.floor(chairs * (fabricCut_NoCellsWorkers() + 0.25 * fabricCut_WorkersOver()) *(fabricCut_AvailableMin() / fabricCut_NeededMin()));
 }
 var prevInventory_Fabric=20;
 function fabricCut_PrevInventory(){
@@ -2968,7 +2974,7 @@ function fabricCut_MaxOutInventory() {
     return 3 * fabricCutter_BatchSizes();
 }
 function fabricCut_ActualProd() {
-    return Math.min(fabricCut_MaxCapacity(), chairs + fabricCut_MaxOutInventory() - fabricCut_PrevInventory());
+    return Math.min(fabricCut_MaxCapacity(), (chairs + fabricCut_MaxOutInventory() - fabricCut_PrevInventory()));
 }
 function fabricCut_FinalInventory(){
     return fabricCut_PrevInventory() + fabricCut_ActualProd() - sewing_ActualProd();
@@ -3021,7 +3027,7 @@ function sewing_WorkersOver(){
     }
 }
 function sewing_MaxCapacity() {
-    return Math.floor(chairs * (sewing_NoCellsWorkers() + (0.25 * sewing_WorkersOver()) * (sewing_AvailableMin() / sewing_NeededMin())));
+    return Math.floor(chairs * (sewing_NoCellsWorkers() + 0.25 * sewing_WorkersOver()) * (sewing_AvailableMin() / sewing_NeededMin()));
 }
 var prevInventory_Sewing=20;
 function sewing_PrevInventory(){
@@ -3036,7 +3042,7 @@ function sewing_MaxOutInventory() {
     }
 }
 function sewing_ActualProd() {
-    return Math.min(sewing_MaxCapacity(), chairs + sewing_MaxOutInventory() - sewing_PrevInventory(), fabricCut_ActualProd() + fabricCut_PrevInventory());
+    return Math.min(sewing_MaxCapacity(), (chairs + sewing_MaxOutInventory() - sewing_PrevInventory()), (fabricCut_ActualProd() + fabricCut_PrevInventory()));
 }
 function sewing_FinalInventory(){
     return sewing_PrevInventory() + sewing_ActualProd() - assembly_ActualProd();
@@ -3052,12 +3058,12 @@ function sewing_DaysLateOut(){
     else{temp = 4;}
 
     if (sewing_MaxCapacity() < chairs) {
-        temp2 = (chairs - sewing_MaxCapacity()) / 10;
+        temp2 = ((chairs - sewing_MaxCapacity()) / 10);
     }
     else{temp2 = 0;}
 
     if (sewing_PrevInventory() < sewing_BatchSizes()) {
-        temp3 = (sewing_BatchSizes() - sewing_PrevInventory()) / 10;
+        temp3 = ((sewing_BatchSizes() - sewing_PrevInventory()) / 10);
     }
     else{temp3 = 0;}
 
@@ -3103,7 +3109,7 @@ function assembly_WorkersOver(){
         return 0;
 }
 function assembly_MaxCapacity() {
-    return Math.floor(chairs * ( assembly_NoCellsWorkers() + (0.25 * assembly_WorkersOver()) ) *(assembly_AvailableMin() / assembly_NeededMin()) );
+    return Math.floor(chairs * ( assembly_NoCellsWorkers() + 0.25 * assembly_WorkersOver()) *(assembly_AvailableMin() / assembly_NeededMin()));
 }
 
 
@@ -3140,7 +3146,7 @@ function total_WorkersOver(){
 
 // Nineteen by one Tube Inventory
 function nineteenbyoneTube_ChairQuantity(){
-    return nineteenbyoneTube_PrevChairQuantity() + (nineteenbyoneTube_ChairOrderQuantity() * nineteenbyoneTube_NumOrders()) - mitreSaw_ActualProd();
+    return nineteenbyoneTube_PrevChairQuantity() + nineteenbyoneTube_ChairOrderQuantity() * nineteenbyoneTube_NumOrders() - mitreSaw_ActualProd();
 }
 function nineteenbyoneTube_ChairPrice() {
     return nineteenbyoneTube_PricePerChair();
@@ -3148,15 +3154,16 @@ function nineteenbyoneTube_ChairPrice() {
 function nineteenbyoneTube_Value(){
     return nineteenbyoneTube_ChairQuantity() * nineteenbyoneTube_ChairPrice();
 }
+var nineteenbyoneTube_PrevChair=200;
 function nineteenbyoneTube_PrevChairQuantity(){
-    return 200;
+    return nineteenbyoneTube_PrevChair;
 }
 function nineteenbyoneTube_ChairOrderQuantity(){
     return nineteenbyoneTube_ChairsPerUnit() * nineteenbyoneTube_OrderQuantity();
 }
 function nineteenbyoneTube_NumOrders(){
     if (nineteenbyoneTube_PrevChairQuantity() - mitreSaw_ActualProd() <= nineteenbyoneTube_ROP()) {
-        return (Math.ceil(nineteenbyoneTube_ROP() - nineteenbyoneTube_PrevChairQuantity() + mitreSaw_ActualProd()) / nineteenbyoneTube_ChairOrderQuantity())
+        return (Math.ceil((nineteenbyoneTube_ROP() - nineteenbyoneTube_PrevChairQuantity() + mitreSaw_ActualProd()) / nineteenbyoneTube_ChairOrderQuantity()));
     }
     else{
         return 0;
@@ -3183,15 +3190,16 @@ function twentyfivebyoneTube_ChairPrice() {
 function twentyfivebyoneTube_Value(){
     return twentyfivebyoneTube_ChairQuantity() * twentyfivebyoneTube_ChairPrice();
 }
+var twentyfivebyoneTube_PrevChair=200;
 function twentyfivebyoneTube_PrevChairQuantity(){
-    return 200;
+    return twentyfivebyoneTube_PrevChair;
 }
 function twentyfivebyoneTube_ChairOrderQuantity(){
     return twentyfivebyoneTube_ChairsPerUnit() * twentyfivebyoneTube_OrderQuantity();
 }
 function twentyfivebyoneTube_NumOrders(){
     if (twentyfivebyoneTube_PrevChairQuantity() - mitreSaw_ActualProd() <= twentyfivebyoneTube_ROP()) {
-        return Math.ceil(twentyfivebyoneTube_ROP() - twentyfivebyoneTube_PrevChairQuantity() + mitreSaw_ActualProd()) / twentyfivebyoneTube_ChairOrderQuantity();
+        return Math.ceil((twentyfivebyoneTube_ROP() - twentyfivebyoneTube_PrevChairQuantity() + mitreSaw_ActualProd()) / twentyfivebyoneTube_ChairOrderQuantity());
     }
     else{
         return 0;
@@ -3218,15 +3226,16 @@ function thirtyfivebytwoTube_ChairPrice() {
 function thirtyfivebytwoTube_Value(){
     return thirtyfivebytwoTube_ChairQuantity() * thirtyfivebytwoTube_ChairPrice();
 }
+var thirtyfivebytwoTube_PrevChair=1400;
 function thirtyfivebytwoTube_PrevChairQuantity(){
-    return 1400;
+    return thirtyfivebytwoTube_PrevChair;
 }
 function thirtyfivebytwoTube_ChairOrderQuantity(){
     return thirtyfivebytwoTube_ChairsPerUnit() * thirtyfivebytwoTube_OrderQuantity();
 }
 function thirtyfivebytwoTube_NumOrders(){
     if (thirtyfivebytwoTube_PrevChairQuantity() - mitreSaw_ActualProd() <= thirtyfivebytwoTube_ROP()) {
-        return Math.ceil(thirtyfivebytwoTube_ROP() - thirtyfivebytwoTube_PrevChairQuantity() + mitreSaw_ActualProd()) / thirtyfivebytwoTube_ChairOrderQuantity();
+        return Math.ceil((thirtyfivebytwoTube_ROP() - thirtyfivebytwoTube_PrevChairQuantity() + mitreSaw_ActualProd()) / thirtyfivebytwoTube_ChairOrderQuantity());
     }
     else{
         return 0;
@@ -3253,15 +3262,16 @@ function nylonFabric_ChairPrice() {
 function nylonFabric_Value(){
     return nylonFabric_ChairQuantity() * nylonFabric_ChairPrice();
 }
+var nylonFabric_PrevChair=320;
 function nylonFabric_PrevChairQuantity(){
-    return 320;
+    return nylonFabric_PrevChair;
 }
 function nylonFabric_ChairOrderQuantity(){
     return nylonFabric_ChairsPerUnit() * nylonFabric_OrderQuantity();
 }
 function nylonFabric_NumOrders(){
     if (nylonFabric_PrevChairQuantity() - fabricCut_ActualProd() <= nylonFabric_ROP()) {
-        return Math.ceil(nylonFabric_ROP() - nylonFabric_PrevChairQuantity() + fabricCut_ActualProd()) / nylonFabric_ChairOrderQuantity();
+        return Math.ceil((nylonFabric_ROP() - nylonFabric_PrevChairQuantity() + fabricCut_ActualProd()) / nylonFabric_ChairOrderQuantity());
     }
     else{
         return 0;
@@ -3287,15 +3297,16 @@ function casterWheel_ChairPrice() {
 function casterWheel_Value(){
     return casterWheel_ChairQuantity() * casterWheel_ChairPrice();
 }
+var casterWheel_PrevChair=200;
 function casterWheel_PrevChairQuantity(){
-    return 200;
+    return casterWheel_PrevChair;
 }
 function casterWheel_ChairOrderQuantity(){
     return casterWheel_ChairsPerUnit() * casterWheel_OrderQuantity();
 }
 function casterWheel_NumOrders(){
     if (casterWheel_PrevChairQuantity() - assembly_ActualProd() <= casterWheel_ROP()) {
-        return Math.ceil(casterWheel_ROP() - casterWheel_PrevChairQuantity() + assembly_ActualProd()) / casterWheel_ChairOrderQuantity();
+        return Math.ceil((casterWheel_ROP() - casterWheel_PrevChairQuantity() + assembly_ActualProd()) / casterWheel_ChairOrderQuantity());
     }
     else{return 0;}
 }
@@ -3320,15 +3331,16 @@ function rearBikeWheel_ChairPrice() {
 function rearBikeWheel_Value(){
     return rearBikeWheel_ChairQuantity() * rearBikeWheel_ChairPrice();
 }
+var rearBikeWheel_PrevChair=180;
 function rearBikeWheel_PrevChairQuantity(){
-    return 180;
+    return rearBikeWheel_PrevChair;
 }
 function rearBikeWheel_ChairOrderQuantity(){
     return rearBikeWheel_ChairsPerUnit() * rearBikeWheel_OrderQuantity();
 }
 function rearBikeWheel_NumOrders(){
     if (rearBikeWheel_ChairOrderQuantity() - assembly_ActualProd() <= rearBikeWheel_ROP()) {
-        return Math.ceil(rearBikeWheel_ROP() - rearBikeWheel_PrevChairQuantity() + assembly_ActualProd()) / rearBikeWheel_ChairOrderQuantity();
+        return Math.ceil((rearBikeWheel_ROP() - rearBikeWheel_PrevChairQuantity() + assembly_ActualProd()) / rearBikeWheel_ChairOrderQuantity());
     }
     else{
         return 0;
@@ -3354,15 +3366,16 @@ function handle_ChairPrice() {
 function handle_Value(){
     return handle_ChairQuantity() * handle_ChairPrice();
 }
+var handle_PrevChair=400;
 function handle_PrevChairQuantity(){
-    return 400;
+    return handle_PrevChair;
 }
 function handle_ChairOrderQuantity(){
     return handle_ChairsPerUnit() * handle_OrderQuantity();
 }
 function handle_NumOrders(){
     if (handle_PrevChairQuantity() - assembly_ActualProd() <= handle_ROP()) {
-        return Math.ceil(handle_ROP() - handle_PrevChairQuantity() + assembly_ActualProd()) / handle_ChairOrderQuantity();
+        return Math.ceil((handle_ROP() - handle_PrevChairQuantity() + assembly_ActualProd()) / handle_ChairOrderQuantity());
     }
     else{
         return 0;
@@ -3388,15 +3401,16 @@ function fender_ChairPrice() {
 function fender_Value(){
     return fender_ChairQuantity() * fender_ChairPrice();
 }
+var fender_PrevChair=500;
 function fender_PrevChairQuantity(){
-    return 500;
+    return fender_PrevChair;
 }
 function fender_ChairOrderQuantity(){
     return fender_ChairsPerUnit() * fender_OrderQuantity();
 }
 function fender_NumOrders(){
     if (fender_PrevChairQuantity() - assembly_ActualProd() <= fender_ROP()) {
-        return Math.ceil(fender_ROP() - fender_PrevChairQuantity() + assembly_ActualProd()) / fender_ChairOrderQuantity();
+        return Math.ceil((fender_ROP() - fender_PrevChairQuantity() + assembly_ActualProd()) / fender_ChairOrderQuantity());
     }
     else{
         return 0;
@@ -3422,15 +3436,16 @@ function footrestPlate_ChairPrice() {
 function footrestPlate_Value(){
     return footrestPlate_ChairQuantity() * footrestPlate_ChairPrice();
 }
+var footrestPlate_PrevChair=200;
 function footrestPlate_PrevChairQuantity(){
-    return 200;
+    return footrestPlate_PrevChair;
 }
 function footrestPlate_ChairOrderQuantity(){
     return footrestPlate_ChairsPerUnit() * footrestPlate_OrderQuantity();
 }
 function footrestPlate_NumOrders(){
     if (footrestPlate_PrevChairQuantity() - assembly_ActualProd() <= footrestPlate_ROP()) {
-        return Math.ceil(footrestPlate_ROP() - footrestPlate_PrevChairQuantity() + assembly_ActualProd()) / footrestPlate_ChairOrderQuantity();
+        return Math.ceil((footrestPlate_ROP() - footrestPlate_PrevChairQuantity() + assembly_ActualProd()) / footrestPlate_ChairOrderQuantity());
     }
     else{
         return 0;
@@ -3456,15 +3471,16 @@ function brakeLever_ChairPrice() {
 function brakeLever_Value(){
     return brakeLever_ChairQuantity() * brakeLever_ChairPrice();
 }
+var brakeLever_PrevChair=250;
 function brakeLever_PrevChairQuantity(){
-    return 250;
+    return brakeLever_PrevChair;
 }
 function brakeLever_ChairOrderQuantity(){
     return brakeLever_ChairsPerUnit() * brakeLever_OrderQuantity();
 }
 function brakeLever_NumOrders(){
     if (brakeLever_PrevChairQuantity() - assembly_ActualProd() <= brakeLever_ROP()) {
-        return Math.ceil(brakeLever_ROP() - brakeLever_PrevChairQuantity() + assembly_ActualProd()) / brakeLever_ChairOrderQuantity();
+        return Math.ceil((brakeLever_ROP() - brakeLever_PrevChairQuantity() + assembly_ActualProd()) / brakeLever_ChairOrderQuantity());
     }
     else{return 0;}
 }
@@ -3602,13 +3618,13 @@ function total_Value(){
     return (nineteenbyoneTube_Value() + twentyfivebyoneTube_Value() + thirtyfivebytwoTube_Value() + nylonFabric_Value() + casterWheel_Value() + rearBikeWheel_Value() + handle_Value() + fender_Value() + footrestPlate_Value() + brakeLever_Value() + tubeSaw_Value() + tubeDrill_Value() + tubeBender_Value() + weldWelder_Value() + weldGrinder_Value() + weldPaint_Value() + fabricFabCut_Value() + fabricSewing_Value() + finalAssembly_Value());
 }
 function total_NumOrders(){
-    return (nineteenbyoneTube_NumOrders() + twentyfivebyoneTube_NumOrders() + thirtyfivebytwoTube_NumOrders() + nylonFabric_NumOrders() + casterWheel_NumOrders() + handle_NumOrders() + fender_NumOrders() + footrestPlate_NumOrders() + brakeLever_NumOrders());
+    return (nineteenbyoneTube_NumOrders() + twentyfivebyoneTube_NumOrders() + thirtyfivebytwoTube_NumOrders() + nylonFabric_NumOrders() + casterWheel_NumOrders() +rearBikeWheel_NumOrders()+ handle_NumOrders() + fender_NumOrders() + footrestPlate_NumOrders() + brakeLever_NumOrders());
 }
 function total_OrderCost(){
-    return (nineteenbyoneTube_OrderCost() + twentyfivebyoneTube_OrderCost() + thirtyfivebytwoTube_OrderCost() + nylonFabric_OrderCost() + casterWheel_OrderCost() + handle_OrderCost() + fender_OrderCost() + footrestPlate_OrderCost() + brakeLever_OrderCost());
+    return (nineteenbyoneTube_InventoryOrderCost() + twentyfivebyoneTube_InventoryOrderCost() + thirtyfivebytwoTube_InventoryOrderCost() + nylonFabric_InventoryOrderCost() + casterWheel_InventoryOrderCost()+ rearBikeWheel_InventoryOrderCost()+ handle_InventoryOrderCost() + fender_InventoryOrderCost() + footrestPlate_InventoryOrderCost() + brakeLever_InventoryOrderCost());
 }
 function total_MaterialCost(){
-    return (nineteenbyoneTube_MaterialCost() + twentyfivebyoneTube_MaterialCost() + thirtyfivebytwoTube_MaterialCost() + nylonFabric_MaterialCost() + casterWheel_MaterialCost() + handle_MaterialCost() + fender_MaterialCost() + footrestPlate_MaterialCost() + brakeLever_MaterialCost());
+    return (nineteenbyoneTube_MaterialCost() + twentyfivebyoneTube_MaterialCost() + thirtyfivebytwoTube_MaterialCost() + nylonFabric_MaterialCost() + casterWheel_MaterialCost() + rearBikeWheel_MaterialCost() + handle_MaterialCost() + fender_MaterialCost() + footrestPlate_MaterialCost() + brakeLever_MaterialCost());
 }
 
 /////////////////////////////////////
@@ -4391,16 +4407,16 @@ function createConsoleTable(){
     console.log("Sewing         "+sewing_AvailableMin());
     console.log("Assembly       "+assembly_AvailableMin());
 
-    console.log("Machine    needed min");
-    console.log("SAW            "+mitreSaw_NeededMin());
-    console.log("Drill          "+drillPress_NeededMin());
-    console.log("Bender         "+tubeBender_NeededMin());
-    console.log("Welding        "+welding_NeededMin());
-    console.log("Grinder        "+grinder_NeededMin());
-    console.log("paint          "+paintBooth_NeededMin());
-    console.log("fabric         "+fabricCut_NeededMin());
-    console.log("Sewing         "+sewing_NeededMin());
-    console.log("Assembly       "+assembly_NeededMin());
+    console.log("Machine    needed machines");
+    console.log("SAW            "+mitreSaw_NeededMachines());
+    console.log("Drill          "+drillPress_NeededMachines());
+    console.log("Bender         "+tubeBender_NeededMachines());
+    console.log("Welding        "+welding_NeededMachines());
+    console.log("Grinder        "+grinder_NeededMachines());
+    console.log("paint          "+paintBooth_NeededMachines());
+    console.log("fabric         "+fabricCut_NeededMachines());
+    console.log("Sewing         "+sewing_NeededMachines());
+    console.log("Assembly       "+assembly_NeededMachines());
 
     console.log("Machine    no cell workers");
     console.log("SAW            "+mitreSaw_NoCellsWorkers());
@@ -4500,24 +4516,106 @@ function createConsoleTable(){
     console.log("fabric         "+fabricCut_DaysLateOut());
     console.log("Sewing         "+sewing_DaysLateOut());
     console.log("Assembly        Don't worry about it");
+
+
+    console.log("Part          Value");
+    console.log("19x1           "+nineteenbyoneTube_Value());
+    console.log("              $"+nineteenbyoneTube_ChairPrice());
+    console.log("              #"+nineteenbyoneTube_ChairQuantity());
+    console.log("prev: "+nineteenbyoneTube_PrevChairQuantity()+" + chars in order: "+nineteenbyoneTube_ChairOrderQuantity()+" * # orders: "+nineteenbyoneTube_NumOrders()+" - saw prod: "+mitreSaw_ActualProd());
+
+
+
+    console.log("25x1           "+twentyfivebyoneTube_Value());
+    console.log("              $"+twentyfivebyoneTube_ChairPrice());
+    console.log("              #"+twentyfivebyoneTube_ChairQuantity());
+    console.log("prev: "+twentyfivebyoneTube_PrevChairQuantity()+" + chars in order: "+twentyfivebyoneTube_ChairOrderQuantity()+" * # orders: "+twentyfivebyoneTube_NumOrders()+" - saw prod: "+mitreSaw_ActualProd());
+
+    console.log("35x2           "+thirtyfivebytwoTube_Value());
+    console.log("              $"+thirtyfivebytwoTube_ChairPrice());
+    console.log("              #"+thirtyfivebytwoTube_ChairQuantity());
+    console.log("prev: "+thirtyfivebytwoTube_PrevChairQuantity()+" + chars in order: "+thirtyfivebytwoTube_ChairOrderQuantity()+" * # orders: "+thirtyfivebytwoTube_NumOrders()+" - saw prod: "+mitreSaw_ActualProd());
+
+    console.log("Nylon          "+nylonFabric_Value());
+    console.log("# "+nylonFabric_NumOrders());
+    console.log("Caster         "+casterWheel_Value());
+    console.log("# "+casterWheel_NumOrders());
+    console.log("Rear wheel     "+rearBikeWheel_Value());
+    console.log("# "+rearBikeWheel_NumOrders());
+    console.log("Handle         "+handle_Value());
+    console.log("# "+handle_NumOrders());
+    console.log("Fender         "+fender_Value());
+    console.log("# "+fender_NumOrders());
+    console.log("Footrest       "+footrestPlate_Value());
+    console.log("# "+footrestPlate_NumOrders());
+    console.log("Brake Lever    "+brakeLever_Value());
+    console.log("# "+brakeLever_NumOrders());
+    console.log("tube Saw       "+tubeSaw_Value());
+    console.log("tube drill     "+tubeDrill_Value());
+    console.log("tube bend      "+tubeBender_Value());
+    console.log("weld weld      "+weldWelder_Value());
+    console.log("weld grind     "+weldGrinder_Value());
+    console.log("weld paint     "+weldPaint_Value());
+    console.log("Fabric fabric  "+fabricFabCut_Value());
+    console.log("Fabric sew     "+fabricSewing_Value());
+    console.log("final          "+finalAssembly_Value());
 }
 
+createConsoleTable();
     function onClick(evt) {
         if (subScreen == "calendar") {
             if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
-                prevInventory_Assembly=assembly_FinalInventory()-monthChairsSold();
-                prevInventory_Fabric=fabricCut_FinalInventory();
-                prevInventory_Bender=tubeBender_FinalInventory();
-                prevInventory_Drill=drillPress_FinalInventory();
-                prevInventory_Grind=grinder_FinalInventory();
-                prevInventory_Saw=mitreSaw_FinalInventory();
-                prevInventory_Sewing=sewing_FinalInventory();
-                prevInventory_Weld=welding_FinalInventory();
+                var sawTemp=mitreSaw_FinalInventory();
+                var drillTemp=drillPress_FinalInventory();
+                var bendTemp=tubeBender_FinalInventory();
+                var weldTemp=welding_FinalInventory();
+                var grindTemp=grinder_FinalInventory();
+                var paintTemp=paintBooth_FinalInventory();
+                var fabricTemp=fabricCut_FinalInventory();
+                var sewingTemp=sewing_FinalInventory();
+                var assemblyTemp=assembly_FinalInventory()-monthChairsSold();
+
+                //Inventory temp
+                var tempNineteenbyoneTube=nineteenbyoneTube_ChairQuantity();
+                var tempTwentyfivebyoneTube= twentyfivebyoneTube_ChairQuantity();
+                var tempThirtyfivebytwoTube= thirtyfivebytwoTube_ChairQuantity();
+                var tempNylonFabric_PrevChair= nylonFabric_ChairQuantity();
+                var tempCasterWheel_PrevChair= casterWheel_ChairQuantity();
+                var tempRearBikeWheel_PrevChair= rearBikeWheel_ChairQuantity();
+                var tempHandle_prevChair= handle_ChairQuantity();
+                var tempFender_PrevChair= fender_ChairQuantity();
+                var tempFootrestPlate_PrevChair= footrestPlate_ChairQuantity();
+                var tempBrakeLever_PrevChair= brakeLever_ChairQuantity();
+
+                //inventory update
+                nineteenbyoneTube_PrevChair=tempNineteenbyoneTube;
+                twentyfivebyoneTube_PrevChair=tempTwentyfivebyoneTube;
+                thirtyfivebytwoTube_PrevChair=tempThirtyfivebytwoTube;
+                nylonFabric_PrevChair=tempNylonFabric_PrevChair;
+                casterWheel_PrevChair=tempCasterWheel_PrevChair;
+                rearBikeWheel_PrevChair=tempRearBikeWheel_PrevChair;
+                handle_PrevChair=tempHandle_prevChair;
+                fender_PrevChair= tempFender_PrevChair;
+                footrestPlate_PrevChair= tempFootrestPlate_PrevChair;
+                brakeLever_PrevChair= tempBrakeLever_PrevChair;
+
+
+                //prev inventory update
+                prevInventory_Saw=sawTemp;
+                prevInventory_Drill=drillTemp;
+                prevInventory_Bender=bendTemp;
+                prevInventory_Weld=weldTemp;
+                prevInventory_Grind=grindTemp;
+                prevInventory_Paint=paintTemp;
+                prevInventory_Fabric=fabricTemp;
+                prevInventory_Sewing=sewingTemp;
+                prevInventory_Assembly=assemblyTemp;
+
+
                 console.log("paint previous"+prevInventory_Paint);
-                prevInventory_Paint=paintBooth_FinalInventory();
                 console.log("paint previous 2nd month"+prevInventory_Paint);
-                problemListUpdate();
                 monthCounter++;
+                problemListUpdate();
 
 
                 if (monthCounter == 12) {
