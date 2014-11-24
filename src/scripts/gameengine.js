@@ -110,6 +110,49 @@ function drawBossWalkRightandMoveRight(){
     }
 }
 
+//To change the status of the lean tools selected.
+//0 - unselected.
+//1 - highlighted (hover).
+//2 - selected.
+
+var leanSprite1 = new Image();
+var leanSprite2 = new Image();
+var leanSprite3 = new Image();
+var leanToolStartX = 800;
+var leanToolStartY = 210;
+var leanToolYDif = 62;
+var leanToolXDif = 200;
+
+leanSprite1.src = "Art_Assets/game_screen/buttons/sprtsht_leanToolButtons.jpg";
+leanSprite2.src = "Art_Assets/game_screen/buttons/sprtsht_leanToolButtonsHover.jpg";
+leanSprite3.src = "Art_Assets/game_screen/buttons/sprtsht_leanToolButtonsPressed.jpg";
+function drawLeanTools(){
+    var spriteX = 293;
+    var spriteY = 54;
+    for(var val in leanToolButtonArray){
+        switch(leanToolButtonArray[val][1]){
+            case 0:
+                console.log("MAJOR TEST HERE BOYYYY");
+                ctx.drawImage(leanSprite1, spriteX*leanToolButtonArray[val][2], spriteY*leanToolButtonArray[val][3],
+                    293, 54, leanToolStartX + leanToolXDif * leanToolButtonArray[val][2],
+                    leanToolStartY + leanToolYDif * leanToolButtonArray[val][3], 180, 60);
+                break;
+
+            case 1:
+                ctx.drawImage(leanSprite2, spriteX*leanToolButtonArray[val][2], spriteY*leanToolButtonArray[val][3],
+                    293, 54, leanToolStartX + leanToolXDif * leanToolButtonArray[val][2],
+                    leanToolStartY + leanToolYDif * leanToolButtonArray[val][3], 180, 60);
+                break;
+            case 2:
+                ctx.drawImage(leanSprite3, spriteX*leanToolButtonArray[val][2], spriteY*leanToolButtonArray[val][3],
+                    293, 54, leanToolStartX + leanToolXDif * leanToolButtonArray[val][2],
+                    leanToolStartY + leanToolYDif * leanToolButtonArray[val][3], 180, 60);
+                break;
+        }
+    }
+
+}
+
 //---------------------------------------------------------------------------------------------------
 //To change the color of the icons or the emotions of the workers change in concordance to this order:
 //0 - Green Icon/Smiling Worker
@@ -1191,15 +1234,63 @@ function problemListUpdate() {
 
 
 //lean tools buttons
-    var leanToolsBtnCells = new gameObject(866, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+
+    var leanToolsBtnCells = new gameObject(800+leanToolXDif*1, 210+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
     loadImg(leanToolsBtnCells);
 
-    var leanToolsBtnSmed = new gameObject(1012, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+    var leanToolsBtnSmed = new gameObject(800+leanToolXDif*0, 210+leanToolYDif*5, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
     loadImg(leanToolsBtnSmed);
 
+    var leanToolsBtnFiveS = new gameObject(800+leanToolXDif*0, 210+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+    loadImg(leanToolsBtnFiveS);
 
+    var leanToolsBtnKanban = new gameObject(800+leanToolXDif*0,210+leanToolYDif*2,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnKanban);
+
+    var leanToolsBtnCrossTrain = new gameObject(800+leanToolXDif*0,210+leanToolYDif*1,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnCrossTrain);
+
+    var leanToolsBtnNew = new gameObject(800+leanToolXDif*1,210+leanToolYDif*2,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnNew);
+
+    var leanToolsBtnPM = new gameObject(800+leanToolXDif*1,210+leanToolYDif*1,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnPM);
+
+    var leanToolsBtnMarket = new gameObject(800+leanToolXDif*1,210+leanToolYDif*5,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnMarket);
+
+    var leanToolsBtnSmallLot = new gameObject(800+leanToolXDif*0,210+leanToolYDif*4,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnSmallLot);
+
+    var leanToolsBtnQuality = new gameObject(800+leanToolXDif*0,210+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnQuality);
+
+    var leanToolsBtnSmallPurchase = new gameObject(800+leanToolXDif*1,210+leanToolYDif*4,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnSmallPurchase);
+
+    var leanToolsBtnVendor = new gameObject(800+leanToolXDif*0,210+leanToolYDif*6,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnVendor);
+
+    var leanToolsBtnSelfDirected = new gameObject(800+leanToolXDif*1,210+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    loadImg(leanToolsBtnVendor);
+
+    var leanToolButtonArray = {
+        cellsBtn:[leanToolsBtnCells,0,1,0],
+        smedBtn: [leanToolsBtnSmed,0,0,5],
+        fiveSBtn:[leanToolsBtnFiveS,0,0,0],
+        kanbanBtn:[leanToolsBtnKanban,0,0,2],
+        newBtn: [leanToolsBtnNew,0,1,2],
+        PMBtn:[leanToolsBtnPM,0,1,1],
+        qualityBtn:[leanToolsBtnQuality,0,0,3],
+        marketBtn: [leanToolsBtnMarket,0,1,5],
+        smallLotBtn: [leanToolsBtnSmallLot,0,0,4],
+        smallPurchaseBtn: [leanToolsBtnSmallPurchase,0,1,4],
+        vendorBtn: [leanToolsBtnVendor,0,0,6],
+        selfDirectedBtn: [leanToolsBtnSelfDirected,0,1,3],
+        crossTrainBtn: [leanToolsBtnCrossTrain,0,0,1]
+    }
 //Office screen views
-    var leanToolsView = new gameObject(825, 176, 400, 600, "Art_Assets/game_screen/LEANback.png", 0);
+    var leanToolsView = new gameObject(775, 100, 626, 451, "Art_Assets/game_screen/gui/img_leanToolsMenuSmall.png", 0);
     loadImg(leanToolsView);
 
     var reportView = new gameObject(850, 20, 710, 550, "Art_Assets/game_screen/report_view.png", 0);
@@ -1237,6 +1328,7 @@ function problemListUpdate() {
     loadImg(sewingStation);
 
     var assemblyStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "assemblyView", problemList[21], problemList[22], problemList[23], 0);
+
     loadImg(assemblyStation);
 
     var station = [sawStation, drillStation, bendStation,
@@ -1247,7 +1339,9 @@ function problemListUpdate() {
         station[i].position = i;
     }
 
+
     // Workstation views
+
     var stationView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/backgrounds/bkg_Workstation.png", 0);
     loadImg(stationView);
 
@@ -1277,7 +1371,6 @@ function problemListUpdate() {
 
     var assemblyView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_assembly.png", 0);
     loadImg(assemblyView);
-
 
     var desk = new gameObject(250, 600, 128, 256, 'Art_Assets/game_screen/desk.png', 0);
     loadImg(desk);
@@ -4321,7 +4414,7 @@ function totalPricePerChair(){
 
 
     var update = function (modifier) {
-
+    console.log(subScreen);
 
         if (updateRate == 60)
             updateRate = 0;
@@ -4330,17 +4423,14 @@ function totalPricePerChair(){
         contact(startBtn);
         contact(creditBtn);
         contact(desk);
-
         //finish all of the following through onclick and draw
         contact(reportBtn);
         contact(closeBtn);
         contact(leanToolsBtn);
         contact(calendarBtn);
         contact(nextMonthBtn);
-        // lean tool buttons
-        contact(leanToolsBtnCells);
-        contact(leanToolsBtnSmed);
         contact(leanToolsView);
+
         contact(reportView);
 
         contact(checkboxPosA);
@@ -4353,7 +4443,19 @@ function totalPricePerChair(){
         contact(checkboxPosH);
         contact(checkboxPosI);
 
-        //ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+
+        // lean tool buttons
+        for(var object in leanToolButtonArray){
+            contact(leanToolButtonArray[object][0]);
+        }
+
+        for(var object in leanToolButtonArray){
+            if(leanToolButtonArray[object][0].hover){
+                leanToolButtonArray[object][1] = 1;
+            }else if(!leanToolButtonArray[object][0].hover && leanToolButtonArray[object][1] == 1){
+                leanToolButtonArray[object][1] = 0;
+            }
+        }
 
 
         for (var i = 0; i < 9; i++) {
@@ -4377,6 +4479,7 @@ function totalPricePerChair(){
             posx <= button.w + button.x &&
             posy >= button.y &&
             posy <= button.h + button.y) {
+            console.log("in contact");
             button.hover = true;
         }
         else
@@ -4394,9 +4497,12 @@ function totalPricePerChair(){
                 bgLeftDrawn=true;
             }
 
+
             draw(ctxBack,menu,0,0);
+
             draw(ctx, startBtn, 0, 0);
             draw(ctx, creditBtn, 0, 0);
+
             // draw(ctx,loadingBar[0],0,0);
 
             //for(var i=0;i<loadingBar.length;i++){
@@ -4419,7 +4525,6 @@ function totalPricePerChair(){
             draw(ctx, gameScreen, 0, 0); //entire screen
             for(var i = 0; i < 9; i++){
                 if(station[i].hover){
-                    console.log("TESTING SHADOW DRAW")
                     ctx.drawImage(shadowForFactoryIcons,0,0,86,86,station[i].x,station[i].y,120,120);
                     //draw(ctx,nameOfShadow,station[i].x,station[i].y);
                 }
@@ -4687,6 +4792,7 @@ function totalPricePerChair(){
                 ctx.fillText(leanToolAllowance, 1020, 550);
                 ctx.textAlign = "left";
                 ctx.font = "10px Georgia";
+
             }
 
             //report screen is background of
@@ -5245,71 +5351,138 @@ createConsoleTable();
             }/////////////////////////////////////////////////////////////////////////////////
             else if (subScreen == "leanTools") {
                 var tabCost=0;
+
                 //Selection of subscreens from the lean tools page tooltabs
-                if(leanToolsBtnKanban.hover) {//Button for Kanban (kaban in our code)
+                if(leanToolButtonArray.kanbanBtn[0].hover) {//Button for Kanban (kaban in our code)
                     resetCheckbox(leanTool_Kaban_Metal,leanTool_Kaban_Weld,0,0,0,0,0,0,0);
                     toolTab="kanban";
+                    if(leanToolButtonArray.kanbanBtn[1] == 2){
+                        leanToolButtonArray.kanbanBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.kanbanBtn[1] = 2;
+                    }
                 }
-                else if(leanToolsBtnMarket.hover){// Button for supermarket
+                else if(leanToolButtonArray.marketBtn[0].hover){// Button for supermarket
                     resetCheckbox(leanTool_Market_Welding,leanTool_Market_Assembly,0,0,0,0,0,0,0);
                     toolTab="superMarket";
+                    if(leanToolButtonArray.marketBtn[1] == 2){
+                        leanToolButtonArray.marketBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.marketBtn[1] = 2;
+                    }
                 }
-                else if(leanToolsBtnSmallLot.hover){//Button for smallLot
+                else if(leanToolButtonArray.smallLotBtn[0].hover){//Button for smallLot
                     resetCheckbox(leanTool_SmallLot_Metal,leanTool_SmallLot_Weld,leanTool_SmallLot_Fabric,0,0,0,0,0,0);
                     toolTab="smallLot";
+                    if(leanToolButtonArray.smallLotBtn[1] == 2){
+                        leanToolButtonArray.smallLotBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.smallLotBtn[1] = 2;
+                    }
                 }
-                else if(leanToolsBtnFiveS.hover){//Button for fiveS 5S
+                else if(leanToolButtonArray.fiveSBtn[0].hover){//Button for fiveS 5S
                     resetCheckbox(leanTool_fiveS_Saw,leanTool_fiveS_Drill,leanTool_fiveS_Bender,
                         leanTool_fiveS_Welding,leanTool_fiveS_Grind,leanTool_fiveS_Paint,
                         leanTool_fiveS_Fabric,leanTool_fiveS_Sewing,leanTool_fiveS_Assembly);
                     toolTab="fiveS";
+                    if(leanToolButtonArray.fiveSBtn[1] == 2){
+                        leanToolButtonArray.fiveSBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.fiveSBtn[1] = 2;
+                    }
                 }
-                else if (leanToolsBtnSmed.hover) {//click on smed button
+                else if (leanToolButtonArray.smedBtn[0].hover) {//click on smed button
                     resetCheckbox(leanTool_Smed_Saw,leanTool_Smed_Drill,leanTool_Smed_Bender,
                         leanTool_Smed_Welding,leanTool_Smed_Paint,leanTool_Smed_Sewing,0,0,0);
                     toolTab="smed";
+                    if(leanToolButtonArray.smedBtn[1] == 2){
+                        leanToolButtonArray.smedBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.smedBtn[1] = 2;
+                    }
+
                 }
-                else if (leanToolsBtnQuality.hover) {//click on quality button
+                else if (leanToolButtonArray.qualityBtn[0].hover) {//click on quality button
                     resetCheckbox(leanTool_Quality_Drill,leanTool_Quality_Bender,leanTool_Quality_Welding,
                         leanTool_Quality_Sewing,leanTool_Quality_Assembly,0,
                         0,0,0);
                     toolTab="quality";
+                    if(leanToolButtonArray.qualityBtn[1] == 2){
+                        leanToolButtonArray.qualityBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.qualityBtn[1] = 2;
+                    }
                 }
-                else if (leanToolsBtnCells.hover) {//click on cells button
+                else if (leanToolButtonArray.cellsBtn[0].hover) {//click on cells button
                     resetCheckbox(leanTool_Cells,0,0,0,0,0,0,0,0);
                     toolTab="cells";
+                    if(leanToolButtonArray.cellsBtn[1] == 2){
+                        leanToolButtonArray.cellsBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.cellsBtn[1] = 2;
+                    }
                 }
-                else if (leanToolsBtnCrossTrain.hover) {//click on crossTrain button
+                else if (leanToolButtonArray.crossTrainBtn[0].hover) {//click on crossTrain button
                     resetCheckbox(leanTool_CrossTrain_Metal,leanTool_CrossTrain_Weld,leanTool_CrossTrain_Fabric,0,0,0,0,0,0);
                     toolTab="crossTrain";
+                    if(leanToolButtonArray.crossTrainBtn[1] == 2){
+                        leanToolButtonArray.crossTrainBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.crossTrainBtn[1] = 2;
+                    }
                 }
-                else if (leanToolsBtnSelfDirected.hover) {//click on selfDirected button
+                else if (leanToolButtonArray.selfDirectedBtn[0].hover) {//click on selfDirected button
                     resetCheckbox(leanTool_SelfDirected_Metal,leanTool_SelfDirected_Weld,leanTool_SelfDirected_Fabric,0,0,0,0,0,0);
                     toolTab="selfDirected";
+                    if(leanToolButtonArray.selfDirectedBtn[1] == 2){
+                        leanToolButtonArray.selfDirectedBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.selfDirectedBtn[1] = 2;
+                    }
                 }
-                else if (leanToolsBtnPM.hover) {//click on PM button
+                else if (leanToolButtonArray.PMBtn[0].hover) {//click on PM button
                     resetCheckbox(leanTool_PM_Saw,leanTool_PM_Drill,leanTool_PM_Bender,
                         leanTool_PM_Welding,leanTool_PM_Paint,leanTool_PM_Sewing,
                         0,0,0);
                     toolTab="pM";
+                    if(leanToolButtonArray.PMBtn[1] == 2){
+                        leanToolButtonArray.PMBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.PMBtn[1] = 2;
+                    }
                 }
-                else if (leanToolsBtnVendor.hover) {//click on vendor button
+                else if (leanToolButtonArray.vendorBtn[0].hover) {//click on vendor button
                     resetCheckbox(leanTool_Vendor_Steel,leanTool_Vendor_Nylon,leanTool_Vendor_Bike,
                         leanTool_Vendor_Metal,0,0,
                         0,0,0);
                     toolTab="vendor";
+                    if(leanToolButtonArray.vendorBtn[1] == 2){
+                        leanToolButtonArray.vendorBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.vendorBtn[1] = 2;
+                    }
                 }
-                else if (leanToolsBtnSmallPurchase.hover) {//click on smallPurchase button
+                else if (leanToolButtonArray.smallPurchaseBtn[0].hover) {//click on smallPurchase button
                     resetCheckbox(leanTool_SmallPurchase_Steel,leanTool_SmallPurchase_Nylon,leanTool_SmallPurchase_Bike,
                         leanTool_SmallPurchase_Metal,0,0,
                         0,0,0);
                     toolTab="smallPurchase";
+                    if(leanToolButtonArray.smallPurchaseBtn[1] == 2){
+                        leanToolButtonArray.smallPurchaseBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.smallPurchaseBtn[1] = 2;
+                    }
                 }
-                else if (leanToolsBtnNew.hover) {//click on new button
+                else if (leanToolButtonArray.newBtn[0].hover) {//click on new button
                     resetCheckbox(leanTool_New_Saw,leanTool_New_Drill,leanTool_New_Bender,
                         leanTool_New_Welding,leanTool_New_Grind,leanTool_New_Paint,
                         leanTool_New_Fabric,leanTool_New_Sewing,leanTool_New_Assembly);
                     toolTab="new";
+                    if(leanToolButtonArray.newBtn[1] == 2){
+                        leanToolButtonArray.newBtn[1] = 0;
+                    }else{
+                        leanToolButtonArray.newBtn[1] = 2;
+                    }
                 }
 
 
