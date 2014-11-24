@@ -1124,8 +1124,8 @@ function problemListUpdate() {
     var leanToolsBtnCells = new gameObject(866, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
     loadImg(leanToolsBtnCells);
 
-    var leanToolsBtnSmedSaw = new gameObject(1012, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
-    loadImg(leanToolsBtnSmedSaw);
+    var leanToolsBtnSmed = new gameObject(1012, 300, 34, 126, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+    loadImg(leanToolsBtnSmed);
 
 
 //Office screen views
@@ -1224,6 +1224,7 @@ function problemListUpdate() {
 
     var currentScreen = "mainMenu";
     var subScreen = "null";
+    var toolTab="null";
 
 
     var leanToolAllowance = 1000;
@@ -4268,7 +4269,7 @@ function totalPricePerChair(){
         contact(nextMonthBtn);
         // lean tool buttons
         contact(leanToolsBtnCells);
-        contact(leanToolsBtnSmedSaw);
+        contact(leanToolsBtnSmed);
         contact(leanToolsView);
         contact(reportView);
 
@@ -4843,6 +4844,85 @@ function createConsoleTable(){
     console.log("final          "+finalAssembly_Value());
 }
 
+
+function clickToolSelector(checkbox,leanTool,toolCost,currentToolName) {
+    if (checkbox.hover && leanTool== false && checkbox.selected == false) {
+        checkbox.selected = true;
+        tabCost += toolCost;
+    }
+    if (checkbox.hover && leanTool == false && checkbox.selected) {
+        checkbox.selected = false;
+        tabCost -= toolCost;
+    }
+    if (buyBtn.hover && checkbox.selected && leanTool == false && tabCost <= leanToolAllowance &&
+        (currentLeanPurchase == "null" || currentLeanPurchaseSecond == "null" || currentLeanPurchase == currentToolName ||
+        currentLeanPurchaseSecond == currentToolName)) {
+
+        if (currentLeanPurchase == "null")
+            currentLeanPurchase = currentToolName;
+        else if (currentLeanPurchaseSecond == "null")
+            currentLeanPurchaseSecond = currentToolName;
+
+        leanTool = true;
+        leanToolAllowance -= toolCost;
+    }
+}
+function clickToolSelectorAll(toolCost,currentToolName,leanToolA,leanToolB,leanToolC,leanToolD,
+                              leanToolE,leanToolF,leanToolG,leanToolH,leanToolI) {
+    if(leanToolA!=0)
+        clickToolSelector(checkboxPosA,leanToolA,toolCost,currentToolName);
+    if(leanToolB!=0)
+        clickToolSelector(checkboxPosB,leanToolB,toolCost,currentToolName);
+    if(leanToolC!=0)
+        clickToolSelector(checkboxPosC,leanToolC,toolCost,currentToolName);
+    if(leanToolD!=0)
+        clickToolSelector(checkboxPosD,leanToolD,toolCost,currentToolName);
+    if(leanToolE!=0)
+        clickToolSelector(checkboxPosE,leanToolE,toolCost,currentToolName);
+    if(leanToolF!=0)
+        clickToolSelector(checkboxPosF,leanToolF,toolCost,currentToolName);
+    if(leanToolG!=0)
+        clickToolSelector(checkboxPosG,leanToolG,toolCost,currentToolName);
+    if(leanToolH!=0)
+        clickToolSelector(checkboxPosH,leanToolH,toolCost,currentToolName);
+    if(leanToolI!=0)
+        clickToolSelector(checkboxPosI,leanToolI,toolCost,currentToolName);
+}
+var resetCheckbox = function(leanToolA,leanToolB,leanToolC,leanToolD,
+    leanToolE,leanToolF,leanToolG,leanToolH,leanToolI){
+
+    checkboxPosA.selected=false;
+    checkboxPosB.selected=false;
+    checkboxPosC.selected=false;
+    checkboxPosD.selected=false;
+    checkboxPosE.selected=false;
+    checkboxPosF.selected=false;
+    checkboxPosG.selected=false;
+    checkboxPosH.selected=false;
+    checkboxPosI.selected=false;
+
+    if(leanToolA!=0&&leanToolA==true)
+        checkboxPosA.selected=true;
+    if(leanToolB!=0&&leanToolB==true)
+        checkboxPosB.selected=true;
+    if(leanToolC!=0&&leanToolC==true)
+        checkboxPosC.selected=true;
+    if(leanToolD!=0&&leanToolD==true)
+        checkboxPosD.selected=true;
+    if(leanToolE!=0&&leanToolE==true)
+        checkboxPosE.selected=true;
+    if(leanToolF!=0&&leanToolF==true)
+        checkboxPosF.selected=true;;
+    if(leanToolG!=0&&leanToolG==true)
+        checkboxPosG.selected=true;
+    if(leanToolH!=0&&leanToolH==true)
+        checkboxPosH.selected=true;
+    if(leanToolI!=0&&leanToolI==true)
+        checkboxPosI.selected=true;
+
+}
+var currentLeanPurchase="null";
+var currentLeanPurchaseSecond="null";
 createConsoleTable();
     function onClick(evt) {
         if (subScreen == "calendar") {
@@ -4894,6 +4974,8 @@ createConsoleTable();
                 prevInventory_Assembly=assemblyTemp;
 
 
+
+
                 console.log("paint previous"+prevInventory_Paint);
                 console.log("paint previous 2nd month"+prevInventory_Paint);
                 monthCounter++;
@@ -4906,6 +4988,8 @@ createConsoleTable();
                 updateMonth(monthData[monthCounter]);
                 createConsoleTable();
                 leanToolAllowance = 1000;
+                currentLeanPurchase="null";
+                currentLeanPurchaseSecond="null";
                 draw(ctx, office, 0, 0);
                 subScreen = "monthlyReport";
             }
@@ -4934,17 +5018,151 @@ createConsoleTable();
             if (desk.hover) {
                 currentScreen = "factory";
                 subScreen = "office";
-            }
+            }/////////////////////////////////////////////////////////////////////////////////
             else if (subScreen == "leanTools") {
-                if (leanToolsBtnCells.hover && leanToolAllowance == 1000) {//This must be modified to keep cost under 1000
-                    leanToolAllowance = 0;
-                    leanTool_Cells = true;
+                var tabCost=0;
+                //Selection of subscreens from the lean tools page tooltabs
+                if(leanToolsBtnKanban.hover) {//Button for Kanban (kaban in our code)
+                    resetCheckbox(leanTool_Kaban_Metal,leanTool_Kaban_Weld,0,0,0,0,0,0,0);
+                    toolTab="kanban";
                 }
-                if (leanToolsBtnSmedSaw.hover && leanToolAllowance >= 300 && leanTool_Smed_Saw == false) {//This must be modified to keep cost under 1000
-                    leanToolAllowance -= 300;
-                    leanTool_Smed_Saw = true;
+                else if(leanToolsBtnMarket.hover){// Button for supermarket
+                    resetCheckbox(leanTool_Market_Welding,leanTool_Market_Assembly,0,0,0,0,0,0,0);
+                    toolTab="superMarket";
                 }
+                else if(leanToolsBtnSmallLot.hover){//Button for smallLot
+                    resetCheckbox(leanTool_SmallLot_Metal,leanTool_SmallLot_Weld,leanTool_SmallLot_Fabric,0,0,0,0,0,0);
+                    toolTab="smallLot";
+                }
+                else if(leanToolsBtnFiveS.hover){//Button for fiveS 5S
+                    resetCheckbox(leanTool_fiveS_Saw,leanTool_fiveS_Drill,leanTool_fiveS_Bender,
+                        leanTool_fiveS_Welding,leanTool_fiveS_Grind,leanTool_fiveS_Paint,
+                        leanTool_fiveS_Fabric,leanTool_fiveS_Sewing,leanTool_fiveS_Assembly);
+                    toolTab="fiveS";
+                }
+                else if (leanToolsBtnSmed.hover) {//click on smed button
+                    resetCheckbox(leanTool_Smed_Saw,leanTool_Smed_Drill,leanTool_Smed_Bender,
+                        leanTool_Smed_Welding,leanTool_Smed_Paint,leanTool_Smed_Sewing,0,0,0);
+                    toolTab="smed";
+                }
+                else if (leanToolsBtnQuality.hover) {//click on quality button
+                    resetCheckbox(leanTool_Quality_Drill,leanTool_Quality_Bender,leanTool_Quality_Welding,
+                        leanTool_Quality_Sewing,leanTool_Quality_Assembly,0,
+                        0,0,0);
+                    toolTab="quality";
+                }
+                else if (leanToolsBtnCells.hover) {//click on cells button
+                    resetCheckbox(leanTool_Cells,0,0,0,0,0,0,0,0);
+                    toolTab="cells";
+                }
+                else if (leanToolsBtnCrossTrain.hover) {//click on crossTrain button
+                    resetCheckbox(leanTool_CrossTrain_Metal,leanTool_CrossTrain_Weld,leanTool_CrossTrain_Fabric,0,0,0,0,0,0);
+                    toolTab="crossTrain";
+                }
+                else if (leanToolsBtnSelfDirected.hover) {//click on selfDirected button
+                    resetCheckbox(leanTool_SelfDirected_Metal,leanTool_SelfDirected_Weld,leanTool_SelfDirected_Fabric,0,0,0,0,0,0);
+                    toolTab="selfDirected";
+                }
+                else if (leanToolsBtnPM.hover) {//click on PM button
+                    resetCheckbox(leanTool_PM_Saw,leanTool_PM_Drill,leanTool_PM_Bender,
+                        leanTool_PM_Welding,leanTool_PM_Paint,leanTool_PM_Sewing,
+                        0,0,0);
+                    toolTab="pM";
+                }
+                else if (leanToolsBtnVendor.hover) {//click on vendor button
+                    resetCheckbox(leanTool_Vendor_Steel,leanTool_Vendor_Nylon,leanTool_Vendor_Bike,
+                        leanTool_Vendor_Metal,0,0,
+                        0,0,0);
+                    toolTab="vendor";
+                }
+                else if (leanToolsBtnSmallPurchase.hover) {//click on smallPurchase button
+                    resetCheckbox(leanTool_SmallPurchase_Steel,leanTool_SmallPurchase_Nylon,leanTool_SmallPurchase_Bike,
+                        leanTool_SmallPurchase_Metal,0,0,
+                        0,0,0);
+                    toolTab="smallPurchase";
+                }
+                else if (leanToolsBtnNew.hover) {//click on new button
+                    resetCheckbox(leanTool_New_Saw,leanTool_New_Drill,leanTool_New_Bender,
+                        leanTool_New_Welding,leanTool_New_Grind,leanTool_New_Paint,
+                        leanTool_New_Fabric,leanTool_New_Sewing,leanTool_New_Assembly);
+                    toolTab="new";
+                }
+
+
+
+
+
+
+
+                if(toolTab=="kanban"){
+                    clickToolSelectorAll(100,"kanban",leanTool_Kaban_Metal,leanTool_Kaban_Weld,0,
+                        0,0,0,
+                        0,0,0);
+                }
+                else if(toolTab=="superMarket"){
+                    clickToolSelectorAll(200,"superMarket",leanTool_Market_Welding,leanTool_Market_Assembly,0,
+                        0,0,0,
+                        0,0,0);
+                }
+                else if(toolTab=="smallLot"){
+                    clickToolSelectorAll(100,"smallLot",leanTool_SmallLot_Metal,leanTool_SmallLot_Weld,leanTool_SmallLot_Fabric,
+                        0,0,0,
+                        0,0,0);
+                }
+                else if(toolTab=="fiveS"){
+                    clickToolSelectorAll(100,toolTab,leanTool_fiveS_Saw,leanTool_fiveS_Drill,leanTool_fiveS_Bender,
+                        leanTool_fiveS_Welding,leanTool_fiveS_Grind,leanTool_fiveS_Paint,
+                        leanTool_fiveS_Fabric,leanTool_fiveS_Sewing,leanTool_fiveS_Assembly);
+                }
+                else if(toolTab=="smed"){
+                    clickToolSelectorAll(300,"smed",leanTool_Smed_Saw,leanTool_Smed_Drill,leanTool_Smed_Bender,
+                        leanTool_Smed_Welding,leanTool_Smed_Paint,leanTool_Smed_Sewing,
+                        0,0,0);
+                }
+                else if(toolTab=="quality"){
+                    clickToolSelectorAll(200,"quality",leanTool_Quality_Drill,leanTool_Quality_Bender,leanTool_Quality_Welding,
+                        leanTool_Quality_Sewing,leanTool_Quality_Assembly,0,
+                        0,0,0);
+                }
+                else if(toolTab=="cells"){
+                    clickToolSelectorAll(1000,"cells",leanTool_Cells,0,0,
+                        0,0,0,
+                        0,0,0);
+                }
+                else if(toolTab=="crossTrain"){
+                    clickToolSelectorAll(200,"crossTrain",leanTool_CrossTrain_Metal,leanTool_CrossTrain_Weld,leanTool_CrossTrain_Fabric,
+                                        0,0,0,
+                                        0,0,0);
+                }
+                else if(toolTab=="selfDirected"){
+                    clickToolSelectorAll(200,"selfDirected",leanTool_SelfDirected_Metal,leanTool_SelfDirected_Weld,leanTool_SelfDirected_Fabric,
+                                        0,0,0,
+                                        0,0,0);
+                }
+                else if(toolTab=="pM"){
+                    clickToolSelectorAll(200,"pM",leanTool_PM_Saw,leanTool_PM_Drill,leanTool_PM_Bender,
+                        leanTool_PM_Welding,leanTool_PM_Paint,leanTool_PM_Sewing,
+                        0,0,0);
+                }
+                else if(toolTab=="vendor"){
+                    clickToolSelectorAll(200,"vendor",leanTool_Vendor_Steel,leanTool_Vendor_Nylon,leanTool_Vendor_Bike,
+                        leanTool_Vendor_Metal,0,0,
+                        0,0,0);
+                }
+                else if(toolTab=="smallPurchase"){
+                    clickToolSelectorAll(100,"smallPurchase",leanTool_SmallPurchase_Steel,leanTool_SmallPurchase_Nylon,leanTool_SmallPurchase_Bike,
+                        leanTool_SmallPurchase_Metal,0,0,
+                        0,0,0);
+                }
+                else if(toolTab=="new"){
+                    clickToolSelectorAll(700,"new",leanTool_New_Saw,leanTool_New_Drill,leanTool_New_Bender,
+                        leanTool_New_Welding,leanTool_New_Grind,leanTool_New_Paint,
+                        leanTool_New_Fabric,leanTool_New_Sewing,leanTool_New_Assembly);
+                }
+
+
             }
+            ///////////////////////////////////////////////////////////
             else if (subScreen == "office") {
                 if (leanToolsBtn.hover) {
                     subScreen = "leanTools";
