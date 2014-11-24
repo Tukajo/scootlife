@@ -132,7 +132,7 @@ function drawLeanTools(){
     for(var val in leanToolButtonArray){
         switch(leanToolButtonArray[val][1]){
             case 0:
-                console.log("MAJOR TEST HERE BOYYYY");
+
                 ctx.drawImage(leanSprite1, spriteX*leanToolButtonArray[val][2], spriteY*leanToolButtonArray[val][3],
                     293, 54, leanToolStartX + leanToolXDif * leanToolButtonArray[val][2],
                     leanToolStartY + leanToolYDif * leanToolButtonArray[val][3], 180, 60);
@@ -885,9 +885,6 @@ function drawSprtSht() {
     var barX = 400;
     var barY = 600;
 
-    var leanToolTab = new gameObject(leanToolsView.x+leanToolsView.w,leanToolsView.y,"Art_Assets/game_screen/gui/leanToolsPopout.png",0);
-    loadImg(leanToolTab);
-
     var checkboxPosA = new checkBox(1100, 250);
     loadImg(checkboxPosA);
     var checkboxPosB = new checkBox(1200, 250);
@@ -1274,6 +1271,7 @@ function problemListUpdate() {
     var leanToolsBtnSelfDirected = new gameObject(800+leanToolXDif*1,210+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnVendor);
 
+
     var leanToolButtonArray = {
         cellsBtn:[leanToolsBtnCells,0,1,0],
         smedBtn: [leanToolsBtnSmed,0,0,5],
@@ -1292,6 +1290,11 @@ function problemListUpdate() {
 //Office screen views
     var leanToolsView = new gameObject(775, 100, 626, 451, "Art_Assets/game_screen/gui/img_leanToolsMenuSmall.png", 0);
     loadImg(leanToolsView);
+
+
+    var leanToolTab = new gameObject(leanToolsView.x+leanToolsView.w,leanToolsView.y,"Art_Assets/game_screen/gui/leanToolsPopout.png",0);
+    loadImg(leanToolTab);
+
 
     var reportView = new gameObject(850, 20, 710, 550, "Art_Assets/game_screen/report_view.png", 0);
     loadImg(reportView);
@@ -4414,7 +4417,7 @@ function totalPricePerChair(){
 
 
     var update = function (modifier) {
-    console.log(subScreen);
+
 
         if (updateRate == 60)
             updateRate = 0;
@@ -4446,12 +4449,15 @@ function totalPricePerChair(){
 
         // lean tool buttons
         for(var object in leanToolButtonArray){
+
             contact(leanToolButtonArray[object][0]);
         }
 
         for(var object in leanToolButtonArray){
             if(leanToolButtonArray[object][0].hover){
-                leanToolButtonArray[object][1] = 1;
+                if(leanToolButtonArray[object][1] != 2) {
+                    leanToolButtonArray[object][1] = 1;
+                }
             }else if(!leanToolButtonArray[object][0].hover && leanToolButtonArray[object][1] == 1){
                 leanToolButtonArray[object][1] = 0;
             }
@@ -4479,7 +4485,6 @@ function totalPricePerChair(){
             posx <= button.w + button.x &&
             posy >= button.y &&
             posy <= button.h + button.y) {
-            console.log("in contact");
             button.hover = true;
         }
         else
@@ -4634,6 +4639,7 @@ function totalPricePerChair(){
             var cbOff=16;
             var cbLeft=6;
             if (subScreen == "leanTools") {
+
                 if(toolTab="kanban"){
                     ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
                     draw(ctx,checkboxPosA,0,0);
@@ -4769,30 +4775,11 @@ function totalPricePerChair(){
                     draw(ctx,checkboxPosH,0,0);
                     ctx.fillText("Assembly",checkboxPosI.x-cbLeft,checkboxPosI.y-cbOff);
                     draw(ctx,checkboxPosI,0,0);
+
                 }
 
                 draw(ctx, leanToolsView, 0, 0);
-                ctx.font = "80px Georgia";
-                //ctx.fillText("Lean Tools",900,100);
-                ctx.font = "16px Georgia";
-                //draw(ctx,leanToolsBtnCells,0,0);
-                if (leanTool_Cells == true) {
-                    ctx.fillText("/////", 910, 314);
-                }
-                ctx.fillText("Cells", 910, 314);
-
-                // place in a different screen in the near future
-                if (leanTool_Smed_Saw == true) {
-                    ctx.fillText("///////////", 1030, 314);
-                }
-                ctx.fillText("SMED-Saw", 1030, 314);
-
-
-                ctx.textAlign = "right";
-                ctx.fillText(leanToolAllowance, 1020, 550);
-                ctx.textAlign = "left";
-                ctx.font = "10px Georgia";
-
+                drawLeanTools();
             }
 
             //report screen is background of
@@ -5357,8 +5344,11 @@ createConsoleTable();
                     resetCheckbox(leanTool_Kaban_Metal,leanTool_Kaban_Weld,0,0,0,0,0,0,0);
                     toolTab="kanban";
                     if(leanToolButtonArray.kanbanBtn[1] == 2){
+                        console.log("Test click for kanban");
                         leanToolButtonArray.kanbanBtn[1] = 0;
                     }else{
+                        console.log("Test click for kanban 2");
+                        console.log(leanToolButtonArray.kanbanBtn[1]);
                         leanToolButtonArray.kanbanBtn[1] = 2;
                     }
                 }

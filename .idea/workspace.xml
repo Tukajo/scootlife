@@ -27,21 +27,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.06276151" vertical-offset="0" max-vertical-offset="717">
-              <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+            <state vertical-scroll-proportion="-0.75" vertical-offset="0" max-vertical-offset="225">
+              <caret line="4" column="10" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameengine.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gameengine.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/scripts/gameengine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.596491" vertical-offset="17570" max-vertical-offset="80550">
-              <caret line="1204" column="32" selection-start-line="1204" selection-start-column="32" selection-end-line="1204" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.5119403" vertical-offset="66602" max-vertical-offset="84150">
+              <caret line="4463" column="9" selection-start-line="4455" selection-start-column="7" selection-end-line="4463" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -801,18 +801,18 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/scripts/gameengine.js">
+    <entry file="file://$PROJECT_DIR$/src/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.596491" vertical-offset="17570" max-vertical-offset="80550">
-          <caret line="1204" column="32" selection-start-line="1204" selection-start-column="32" selection-end-line="1204" selection-end-column="32" />
+        <state vertical-scroll-proportion="-0.75" vertical-offset="0" max-vertical-offset="225">
+          <caret line="4" column="10" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.html">
+    <entry file="file://$PROJECT_DIR$/src/scripts/gameengine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06276151" vertical-offset="0" max-vertical-offset="717">
-          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.5119403" vertical-offset="66602" max-vertical-offset="84150">
+          <caret line="4463" column="9" selection-start-line="4455" selection-start-column="7" selection-end-line="4463" selection-end-column="9" />
           <folding />
         </state>
       </provider>
