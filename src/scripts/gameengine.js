@@ -838,8 +838,8 @@ function drawSprtSht() {
     var checkBox = function (x, y) {
         this.x = x;
         this.y = y;
-        this.h = 83;
-        this.w = 83;
+        this.h = 20;
+        this.w = 20;
         this.hover = false;
         this.ready = false;
         this.selected=false;
@@ -885,23 +885,23 @@ function drawSprtSht() {
     var barX = 400;
     var barY = 600;
 
-    var checkboxPosA = new checkBox(1100, 250);
+    var checkboxPosA = new checkBox(1250, 250);
     loadImg(checkboxPosA);
-    var checkboxPosB = new checkBox(1200, 250);
+    var checkboxPosB = new checkBox(1350, 250);
     loadImg(checkboxPosB);
-    var checkboxPosC = new checkBox(1300, 250);
+    var checkboxPosC = new checkBox(1450, 250);
     loadImg(checkboxPosC);
-    var checkboxPosD = new checkBox(1100, 350);
+    var checkboxPosD = new checkBox(1250, 350);
     loadImg(checkboxPosD);
-    var checkboxPosE = new checkBox(1200, 350);
+    var checkboxPosE = new checkBox(1350, 350);
     loadImg(checkboxPosE);
-    var checkboxPosF = new checkBox(1300, 350);
+    var checkboxPosF = new checkBox(1450, 350);
     loadImg(checkboxPosF);
-    var checkboxPosG = new checkBox(1100, 450);
+    var checkboxPosG = new checkBox(1250, 450);
     loadImg(checkboxPosG);
-    var checkboxPosH = new checkBox(1200, 450);
+    var checkboxPosH = new checkBox(1350, 450);
     loadImg(checkboxPosH);
-    var checkboxPosI = new checkBox(1300, 450);
+    var checkboxPosI = new checkBox(1450, 450);
     loadImg(checkboxPosI);
 
     var loadingPeg = function (x) {
@@ -1292,7 +1292,7 @@ function problemListUpdate() {
     loadImg(leanToolsView);
 
 
-    var leanToolTab = new gameObject(leanToolsView.x+leanToolsView.w,leanToolsView.y,"Art_Assets/game_screen/gui/leanToolsPopout.png",0);
+    var leanToolTab = new gameObject(leanToolsView.x+leanToolsView.w,leanToolsView.y+23,580,277,"Art_Assets/game_screen/gui/leanToolsPopoutSmall.png",0);
     loadImg(leanToolTab);
 
 
@@ -4485,6 +4485,7 @@ function totalPricePerChair(){
             posx <= button.w + button.x &&
             posy >= button.y &&
             posy <= button.h + button.y) {
+            console.log(button);
             button.hover = true;
         }
         else
@@ -4639,142 +4640,145 @@ function totalPricePerChair(){
             var cbOff=16;
             var cbLeft=6;
             if (subScreen == "leanTools") {
+                if(toolTab!="null"){
+                    draw(ctx,leanToolTab,0,0);
+                }
 
-                if(toolTab="kanban"){
+                if(toolTab=="kanban"){
                     ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                 } else if(toolTab=="superMarket"){
                     ctx.fillText("Welding",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Assembly",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                 } else if(toolTab=="smallLot"){
                     ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
-                } else if(tooTab=="fiveS"){
+                    checkboxDraw(ctx,checkboxPosC,0,0);
+                } else if(toolTab=="fiveS"){
 
                     ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
 
                     ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    draw(ctx,checkboxPosD,0,0);
+                    checkboxDraw(ctx,checkboxPosD,0,0);
                     ctx.fillText("Grind",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    draw(ctx,checkboxPosE,0,0);
+                    checkboxDraw(ctx,checkboxPosE,0,0);
                     ctx.fillText("Paint",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
-                    draw(ctx,checkboxPosF,0,0);
+                    checkboxDraw(ctx,checkboxPosF,0,0);
 
                     ctx.fillText("Fabric",checkboxPosG.x-cbLeft,checkboxPosG.y-cbOff);
-                    draw(ctx,checkboxPosG,0,0);
+                    checkboxDraw(ctx,checkboxPosG,0,0);
                     ctx.fillText("Sew",checkboxPosH.x-cbLeft,checkboxPosH.y-cbOff);
-                    draw(ctx,checkboxPosH,0,0);
+                    checkboxDraw(ctx,checkboxPosH,0,0);
                     ctx.fillText("Assembly",checkboxPosI.x-cbLeft,checkboxPosI.y-cbOff);
-                    draw(ctx,checkboxPosI,0,0);
+                    checkboxDraw(ctx,checkboxPosI,0,0);
                 } else if(toolTab=="smed"){
                     ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
 
                     ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    draw(ctx,checkboxPosD,0,0);
+                    checkboxDraw(ctx,checkboxPosD,0,0);
                     ctx.fillText("Paint",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    draw(ctx,checkboxPosE,0,0);
+                    checkboxDraw(ctx,checkboxPosE,0,0);
                     ctx.fillText("Sew",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
-                    draw(ctx,checkboxPosF,0,0);
+                    checkboxDraw(ctx,checkboxPosF,0,0);
                 } else if(toolTab=="quality"){
                     ctx.fillText("Drill",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Bender",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Weld",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
                     ctx.fillText("Sew",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    draw(ctx,checkboxPosD,0,0);
+                    checkboxDraw(ctx,checkboxPosD,0,0);
                     ctx.fillText("Assembly",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    draw(ctx,checkboxPosE,0,0);
+                    checkboxDraw(ctx,checkboxPosE,0,0);
                 } else if(toolTab=="cells"){
                     ctx.fillText("Overall",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
 
                 } else if (toolTab=="crossTrain"){
                     ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
                 } else if (toolTab=="selfDirected"){
                     ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
                 } else if (toolTab=="pM"){
                     ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
 
                     ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    draw(ctx,checkboxPosD,0,0);
+                    checkboxDraw(ctx,checkboxPosD,0,0);
                     ctx.fillText("Paint",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    draw(ctx,checkboxPosE,0,0);
+                    checkboxDraw(ctx,checkboxPosE,0,0);
                     ctx.fillText("Sew",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
-                    draw(ctx,checkboxPosF,0,0);
+                    checkboxDraw(ctx,checkboxPosF,0,0);
                 } else if (toolTab=="vendor"){
                     ctx.fillText("Steel",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Nylon",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Bike",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
                     ctx.fillText("Metal Cut",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    draw(ctx,checkboxPosD,0,0);
+                    checkboxDraw(ctx,checkboxPosD,0,0);
                 } else if(toolTab=="smallPurchase"){
                     ctx.fillText("Steel",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Nylon",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Bike",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
                     ctx.fillText("Metal Cut",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    draw(ctx,checkboxPosD,0,0);
+                    checkboxDraw(ctx,checkboxPosD,0,0);
                 } else if(toolTab=="new"){
                     ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    draw(ctx,checkboxPosA,0,0);
+                    checkboxDraw(ctx,checkboxPosA,0,0);
                     ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    draw(ctx,checkboxPosB,0,0);
+                    checkboxDraw(ctx,checkboxPosB,0,0);
                     ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    draw(ctx,checkboxPosC,0,0);
+                    checkboxDraw(ctx,checkboxPosC,0,0);
 
                     ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    draw(ctx,checkboxPosD,0,0);
+                    checkboxDraw(ctx,checkboxPosD,0,0);
                     ctx.fillText("Grind",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    draw(ctx,checkboxPosE,0,0);
+                    checkboxDraw(ctx,checkboxPosE,0,0);
                     ctx.fillText("Paint",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
-                    draw(ctx,checkboxPosF,0,0);
+                    checkboxDraw(ctx,checkboxPosF,0,0);
 
                     ctx.fillText("Fabric",checkboxPosG.x-cbLeft,checkboxPosG.y-cbOff);
-                    draw(ctx,checkboxPosG,0,0);
+                    checkboxDraw(ctx,checkboxPosG,0,0);
                     ctx.fillText("Sew",checkboxPosH.x-cbLeft,checkboxPosH.y-cbOff);
-                    draw(ctx,checkboxPosH,0,0);
+                    checkboxDraw(ctx,checkboxPosH,0,0);
                     ctx.fillText("Assembly",checkboxPosI.x-cbLeft,checkboxPosI.y-cbOff);
-                    draw(ctx,checkboxPosI,0,0);
+                    checkboxDraw(ctx,checkboxPosI,0,0);
 
                 }
 
@@ -4936,6 +4940,12 @@ function totalPricePerChair(){
 
     }
 
+    var checkboxDraw = function (canvas, object, xDis, yDis) {
+    if (object.ready)
+        canvas.drawImage(object.image, object.x, object.y, object.w, object.h);
+    if (object.readyAlt && object.selected)
+        canvas.drawImage(object.imageAlt, object.x + xDis, object.y + yDis, object.w, object.h);
+}
     var draw = function (canvas, object, xDis, yDis) {
         if (object.ready && !object.hover)
             canvas.drawImage(object.image, object.x, object.y, object.w, object.h);
@@ -5163,14 +5173,27 @@ function createConsoleTable(){
 
 
 function clickToolSelector(checkbox,leanTool,toolCost,currentToolName) {
-    if (checkbox.hover && leanTool== false && checkbox.selected == false) {
-        checkbox.selected = true;
+    /*if (checkbox.hover && leanTool == false && checkbox.selected) {
+        checkbox.selected = false;
+        console.log("selected "+checkbox+"asd;jlkfasdfjasd;klfjklasdjf;klasdjl");
+        tabCost -= toolCost;
+    }*/
+    if(leanTool== true)
+        checkbox.selected=true;
+    if (leanTool == false && checkbox.selected) {
+        //checkbox.selected = false;
+        console.log("selected "+checkbox+"asd;jlkfasdfjasd;klfjklasdjf;klasdjl");
         tabCost += toolCost;
     }
-    if (checkbox.hover && leanTool == false && checkbox.selected) {
-        checkbox.selected = false;
+    else if (leanTool== false && checkbox.selected == false) {
+        //checkbox.selected = true;
         tabCost -= toolCost;
     }
+    /*else if (checkbox.hover && leanTool== false && checkbox.selected == false) {
+        checkbox.selected = true;
+        tabCost += toolCost;
+    }*/
+
     if (buyBtn.hover && checkbox.selected && leanTool == false && tabCost <= leanToolAllowance &&
         (currentLeanPurchase == "null" || currentLeanPurchaseSecond == "null" || currentLeanPurchase == currentToolName ||
         currentLeanPurchaseSecond == currentToolName)) {
@@ -5476,12 +5499,83 @@ createConsoleTable();
                 }
 
 
+                if(checkboxPosA.hover&&checkboxPosA.selected==false)
+                    checkboxPosA.selected=true;
+                else if(checkboxPosA.hover&&checkboxPosA.selected==true)
+                    checkboxPosA.selected=false;
+
+                if(checkboxPosB.hover&&checkboxPosB.selected==false)
+                    checkboxPosB.selected=true;
+                else if(checkboxPosB.hover&&checkboxPosB.selected==true)
+                    checkboxPosB.selected=false;
+
+                if(checkboxPosC.hover&&checkboxPosC.selected==false)
+                    checkboxPosC.selected=true;
+                else if(checkboxPosC.hover&&checkboxPosC.selected==true)
+                    checkboxPosC.selected=false;
+
+                if(checkboxPosD.hover&&checkboxPosD.selected==false)
+                    checkboxPosD.selected=true;
+                else if(checkboxPosD.hover&&checkboxPosD.selected==true)
+                    checkboxPosD.selected=false;
+
+                if(checkboxPosE.hover&&checkboxPosE.selected==false)
+                    checkboxPosE.selected=true;
+                else if(checkboxPosE.hover&&checkboxPosE.selected==true)
+                    checkboxPosE.selected=false;
+
+                if(checkboxPosF.hover&&checkboxPosF.selected==false)
+                    checkboxPosF.selected=true;
+                else if(checkboxPosF.hover&&checkboxPosF.selected==true)
+                    checkboxPosF.selected=false;
+
+                if(checkboxPosG.hover&&checkboxPosG.selected==false)
+                    checkboxPosG.selected=true;
+                else if(checkboxPosG.hover&&checkboxPosG.selected==true)
+                    checkboxPosG.selected=fGlse;
+
+                if(checkboxPosH.hover&&checkboxPosH.selected==false)
+                    checkboxPosH.selected=true;
+                else if(checkboxPosH.hover&&checkboxPosH.selected==true)
+                    checkboxPosH.selected=false;
+
+                if(checkboxPosI.hover&&checkboxPosI.selected==false)
+                    checkboxPosI.selected=true;
+                else if(checkboxPosI.hover&&checkboxPosI.selected==true)
+                    checkboxPosI.selected=false;
 
 
 
 
+                if(toolTab!="kanban")
+                    leanToolButtonArray.kanbanBtn[1] = 0;
+                if(toolTab!="superMarket")
+                    leanToolButtonArray.marketBtn[1] = 0;
+                if(toolTab!="smallLot")
+                    leanToolButtonArray.smallLotBtn[1] = 0;
+                if(toolTab!="fiveS")
+                    leanToolButtonArray.fiveSBtn[1] = 0;
+                if(toolTab!="smed")
+                    leanToolButtonArray.smedBtn[1] = 0;
+                if(toolTab!="quality")
+                    leanToolButtonArray.qualityBtn[1] = 0;
+                if(toolTab!="cells")
+                    leanToolButtonArray.cellsBtn[1] = 0;
+                if(toolTab!="crossTrain")
+                    leanToolButtonArray.crossTrainBtn[1] = 0;
+                if(toolTab!="selfDirected")
+                    leanToolButtonArray.selfDirectedBtn[1] = 0;
+                if(toolTab!="pM")
+                    leanToolButtonArray.PMBtn[1] = 0;
+                if(toolTab!="vendor")
+                    leanToolButtonArray.vendorBtn[1] = 0;
+                if(toolTab!="smallPurchase")
+                    leanToolButtonArray.smallPurchaseBtn[1] = 0;
+                if(toolTab!="new")
+                    leanToolButtonArray.newBtn[1] = 0;
 
                 if(toolTab=="kanban"){
+
                     clickToolSelectorAll(100,"kanban",leanTool_Kaban_Metal,leanTool_Kaban_Weld,0,
                         0,0,0,
                         0,0,0);
@@ -5568,7 +5662,7 @@ createConsoleTable();
             }
             if (subScreen=="leanTools") {
                 if (!leanToolsView.hover) {
-                    subScreen = "office";
+                    //subScreen = "office";
                 }
             }
             if (subScreen=="monthlyReport") {
