@@ -1,18 +1,51 @@
 ﻿/**
  * Created by Student on 9/24/2014.
  */
+var background = document.createElement("canvas");
+var ctxBack = background.getContext("2d");
+background.width = 1500;
+background.height = 750;
+background.style.marginLeft=((window.innerWidth-background.width)/2-8)+"px";
+background.style.marginTop=((window.innerHeight-background.height)/2-8)+"px";
+background.style.left="0px";
+background.style.top-"0px";
+background.style.position="absolute";
+document.body.appendChild(background);
+background.zIndex=0;
+
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-
-canvas.border = 0;
-canvas.top = 0;
-canvas.left = 0;
-canvas.width = 1550;
+canvas.x=background.x;
+canvas.y=background.y;
+canvas.width = 1500;
 canvas.height = 750;
+canvas.style.marginLeft=((window.innerWidth-canvas.width)/2-8)+"px";
+canvas.style.marginTop=((window.innerHeight-canvas.height)/2)-8+"px";
+canvas.style.left="0px";
+canvas.style.top-"0px";
+canvas.style.position="absolute";
 document.body.appendChild(canvas);
+canvas.zIndex=1;
+
+
+var bgLeftDrawn=false;
+var bgRightDrawn=false;
+var midRightDrawn=false;
+
+
+
+
 var shadowForFactoryIcons = new Image();
 shadowForFactoryIcons.src = "Art_Assets/workshop_icons/iconDropShadow.png";
-var ctx2 = canvas.getContext("2d");
+//var ctx = canvas.getContext("2d");
+
+
+
+
+
+
+
+//////////
 var monthsArray = {
     January: "January",
     February: "February",
@@ -695,7 +728,7 @@ function drawSprtSht() {
     }
     /*
      var canvas2 = document.createElement("canvas");
-     var ctx2 = canvas.getContext("2d");
+     var ctx = canvas.getContext("2d");
      canvas2.top=0;
      canvas2.left=0;
      canvas2.width = 1550;
@@ -759,6 +792,21 @@ function drawSprtSht() {
         }
 
     };
+    var checkBox = function (x, y) {
+        this.x = x;
+        this.y = y;
+        this.h = 83;
+        this.w = 83;
+        this.hover = false;
+        this.ready = false;
+        this.selected=false;
+        this.readyAlt = false;
+        this.image = new Image();
+        this.image.src = 'Art_Assets/game_screen/gui/img_checkBox.png';
+        this.imageAlt = new Image();
+        this.imageAlt.src = 'Art_Assets/game_screen/gui/img_checkBoxChecked.png';
+
+    };
 
     var stationPos = function (x, y) {
         this.x = x;
@@ -793,6 +841,28 @@ function drawSprtSht() {
     loadImg(border);
     var barX = 400;
     var barY = 600;
+
+    var leanToolTab = new gameObject(leanToolsView.x+leanToolsView.w,leanToolsView.y,"Art_Assets/game_screen/gui/leanToolsPopout.png",0);
+    loadImg(leanToolTab);
+
+    var checkboxPosA = new checkBox(1100, 250);
+    loadImg(checkboxPosA);
+    var checkboxPosB = new checkBox(1200, 250);
+    loadImg(checkboxPosB);
+    var checkboxPosC = new checkBox(1300, 250);
+    loadImg(checkboxPosC);
+    var checkboxPosD = new checkBox(1100, 350);
+    loadImg(checkboxPosD);
+    var checkboxPosE = new checkBox(1200, 350);
+    loadImg(checkboxPosE);
+    var checkboxPosF = new checkBox(1300, 350);
+    loadImg(checkboxPosF);
+    var checkboxPosG = new checkBox(1100, 450);
+    loadImg(checkboxPosG);
+    var checkboxPosH = new checkBox(1200, 450);
+    loadImg(checkboxPosH);
+    var checkboxPosI = new checkBox(1300, 450);
+    loadImg(checkboxPosI);
 
     var loadingPeg = function (x) {
         this.x = x;
@@ -1142,31 +1212,31 @@ function problemListUpdate() {
 ///////////////////////////////////////   v   Replace image for each workstation
 
 // 9 work stations icons
-    var sawStation = new workStation('Art_Assets/workshop_icons/icon_saw.png', 0, "sawView", problemList[0], problemList[1], 0, 0);
+    var sawStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "sawView", problemList[0], problemList[1], 0, 0);
     loadImg(sawStation);
 
-    var drillStation = new workStation('Art_Assets/workshop_icons/icon_drill.png', 0, "drillView", problemList[2], problemList[3], problemList[4], 0);
+    var drillStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "drillView", problemList[2], problemList[3], problemList[4], 0);
     loadImg(drillStation);
 
-    var bendStation = new workStation('Art_Assets/workshop_icons/icon_bender.png', 0, "bendView", problemList[5], problemList[6], problemList[7], problemList[8]);
+    var bendStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "bendView", problemList[5], problemList[6], problemList[7], problemList[8]);
     loadImg(bendStation);
 
-    var weldStation = new workStation('Art_Assets/workshop_icons/icon_welder.png', 0, "weldView", problemList[9], problemList[10], problemList[11], 0);
+    var weldStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "weldView", problemList[9], problemList[10], problemList[11], 0);
     loadImg(weldStation);
 
-    var grindStation = new workStation('Art_Assets/workshop_icons/icon_grinder.png', 0, "grindView", problemList[12], problemList[13], 0, 0);
+    var grindStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "grindView", problemList[12], problemList[13], 0, 0);
     loadImg(grindStation);
 
-    var paintStation = new workStation('Art_Assets/workshop_icons/icon_paint.png', 0, "paintView", problemList[14], problemList[15], problemList[16], 0);
+    var paintStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "paintView", problemList[14], problemList[15], problemList[16], 0);
     loadImg(paintStation);
 
-    var fabricStation = new workStation('Art_Assets/workshop_icons/icon_cutting.png', 0, "fabricView", problemList[17], 0, 0, 0);
+    var fabricStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "fabricView", problemList[17], 0, 0, 0);
     loadImg(fabricStation);
 
-    var sewingStation = new workStation('Art_Assets/workshop_icons/icon_sewing.png', 0, "sewingView", problemList[18], problemList[19], problemList[20], 0);
+    var sewingStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "sewingView", problemList[18], problemList[19], problemList[20], 0);
     loadImg(sewingStation);
 
-    var assemblyStation = new workStation('Art_Assets/workshop_icons/icon_assembly.png', 0, "assemblyView", problemList[21], problemList[22], problemList[23], 0);
+    var assemblyStation = new workStation('Art_Assets/game_screen/gui/img_checkBox.png', 0, "assemblyView", problemList[21], problemList[22], problemList[23], 0);
     loadImg(assemblyStation);
 
     var station = [sawStation, drillStation, bendStation,
@@ -1177,35 +1247,35 @@ function problemListUpdate() {
         station[i].position = i;
     }
 
-// Workstation views
-    var stationView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/Right_Side_Background.png", 0);
+    // Workstation views
+    var stationView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/backgrounds/bkg_Workstation.png", 0);
     loadImg(stationView);
 
-    var sawView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_saw.jpg", 0);
+    var sawView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_saw.png", 0);
     loadImg(sawView);
 
-    var drillView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_drill.jpg", 0);
+    var drillView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_drill.png", 0);
     loadImg(drillView);
 
-    var bendView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_bending.jpg", 0);
+    var bendView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_bend.png", 0);
     loadImg(bendView);
 
-    var weldView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_welder.jpg", 0);
+    var weldView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_welding.png", 0);
     loadImg(weldView);
 
-    var grindView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_saw.jpg", 0);
+    var grindView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_grinder.png", 0);
     loadImg(grindView);
 
-    var paintView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_painting.jpg", 0);
+    var paintView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_paint.png", 0);
     loadImg(paintView);
 
-    var fabricView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_sewing.jpg", 0);
+    var fabricView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_fabric.png", 0);
     loadImg(fabricView);
 
-    var sewingView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_cutting.jpg", 0);
+    var sewingView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_sewing.png", 0);
     loadImg(sewingView);
 
-    var assemblyView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/workshop_assembly.jpg", 0);
+    var assemblyView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_assembly.png", 0);
     loadImg(assemblyView);
 
 
@@ -4273,9 +4343,17 @@ function totalPricePerChair(){
         contact(leanToolsView);
         contact(reportView);
 
+        contact(checkboxPosA);
+        contact(checkboxPosB);
+        contact(checkboxPosC);
+        contact(checkboxPosD);
+        contact(checkboxPosE);
+        contact(checkboxPosF);
+        contact(checkboxPosG);
+        contact(checkboxPosH);
+        contact(checkboxPosI);
 
-
-
+        //ctx.drawImage(note.image, posx, posy, 200, noteHeight);
 
 
         for (var i = 0; i < 9; i++) {
@@ -4306,11 +4384,17 @@ function totalPricePerChair(){
     }
 
 
+
     var render = function () {
-
-
+        //ctx.clearRect(0,0,canvas.width,canvas.height);
         if (currentScreen == "mainMenu") {
-            draw(ctx, menu, 0, 0);
+
+            if (menu.ready&&bgLeftDrawn!=true) {
+                draw(ctxBack,menu,0,0);
+                bgLeftDrawn=true;
+            }
+
+            draw(ctxBack,menu,0,0);
             draw(ctx, startBtn, 0, 0);
             draw(ctx, creditBtn, 0, 0);
             // draw(ctx,loadingBar[0],0,0);
@@ -4330,17 +4414,17 @@ function totalPricePerChair(){
         if (currentScreen == "factory") {
 
             //if (gameScreen.ready) //half of sceen
-            //  ctx2.drawImage(gameScreen.image,0,0,960,1080, 0, 0, 750, 750);
+            //  ctx.drawImage(gameScreen.image,0,0,960,1080, 0, 0, 750, 750);
 
-            draw(ctx2, gameScreen, 0, 0); //entire screen
+            draw(ctx, gameScreen, 0, 0); //entire screen
             for(var i = 0; i < 9; i++){
                 if(station[i].hover){
                     console.log("TESTING SHADOW DRAW")
                     ctx.drawImage(shadowForFactoryIcons,0,0,86,86,station[i].x,station[i].y,120,120);
-                    //draw(ctx2,nameOfShadow,station[i].x,station[i].y);
+                    //draw(ctx,nameOfShadow,station[i].x,station[i].y);
                 }
             }
-            //ctx2.drawImage(station[0].image,station[0].x,station[0].y,100,200);
+            //ctx.drawImage(station[0].image,station[0].x,station[0].y,100,200);
             drawSprtSht();
             
             var noteHeight = 50;
@@ -4388,65 +4472,204 @@ function totalPricePerChair(){
                 }
             }
             ctx.fillStyle = "#000";
-            ctx2.font = "10px Georgia";
+            ctx.font = "10px Georgia";
 
 
 
             /*for (var i = 0; i < 9; i++) {
-                draw(ctx2, station[i], 3, -3);
+                draw(ctx, station[i], 3, -3);
             }*/
             if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar")
-                draw(ctx2, office, 0, 0);
+                draw(ctx, office, 0, 0);
             if (subScreen == "office") {
 
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
-                //draw(ctx2,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
-                //draw(ctx2,reportBtn,0,0);/////////////////////////// temp invisible hitbox
-                //draw(ctx2,advMonthBtn,0,0);///////////////////////// temp invisible hitbox
+                //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
+                //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
+                //draw(ctx,advMonthBtn,0,0);///////////////////////// temp invisible hitbox
             }
 
             //draw background of workstation
             if (subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
-                draw(ctx2, stationView, 0, 0);
+                draw(ctx, stationView, 0, 0);
             }
             //Determine which station to draw using this switch.
             switch (subScreen) {
                 case sawStation.subScreen:
-                    draw(ctx2, sawView, 0, 0);
+                    draw(ctx, sawView, 0, 0);
                     break;
                 case drillStation.subScreen:
-                    draw(ctx2, drillView, 0, 0);
+                    draw(ctx, drillView, 0, 0);
                     break;
                 case bendStation.subScreen:
-                    draw(ctx2, bendView, 0, 0);
+                    draw(ctx, bendView, 0, 0);
                     break;
                 case weldStation.subScreen:
                     draw(ctx, weldView, 0, 0);
                     break;
                 case grindStation.subScreen:
-                    draw(ctx2, grindView, 0, 0);
+                    draw(ctx, grindView, 0, 0);
                     break;
                 case paintStation.subScreen:
-                    draw(ctx2, paintView, 0, 0);
+                    draw(ctx, paintView, 0, 0);
                     break;
                 case assemblyStation.subScreen:
-                    draw(ctx2, assemblyView, 0, 0);
+                    draw(ctx, assemblyView, 0, 0);
                     break;
                 case fabricStation.subScreen:
-                    draw(ctx2, fabricView, 0, 0);
+                    draw(ctx, fabricView, 0, 0);
                     break;
                 case sewingStation.subScreen:
-                    draw(ctx2, sewingView, 0, 0);
+                    draw(ctx, sewingView, 0, 0);
                     break;
             }
 
 
+            var cbOff=16;
+            var cbLeft=6;
             if (subScreen == "leanTools") {
-                draw(ctx2, leanToolsView, 0, 0);
-                ctx2.font = "80px Georgia";
-                //ctx2.fillText("Lean Tools",900,100);
-                ctx2.font = "16px Georgia";
+                if(toolTab="kanban"){
+                    ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                } else if(toolTab=="superMarket"){
+                    ctx.fillText("Welding",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Assembly",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                } else if(toolTab=="smallLot"){
+                    ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+                } else if(tooTab=="fiveS"){
+
+                    ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+
+                    ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
+                    draw(ctx,checkboxPosD,0,0);
+                    ctx.fillText("Grind",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
+                    draw(ctx,checkboxPosE,0,0);
+                    ctx.fillText("Paint",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
+                    draw(ctx,checkboxPosF,0,0);
+
+                    ctx.fillText("Fabric",checkboxPosG.x-cbLeft,checkboxPosG.y-cbOff);
+                    draw(ctx,checkboxPosG,0,0);
+                    ctx.fillText("Sew",checkboxPosH.x-cbLeft,checkboxPosH.y-cbOff);
+                    draw(ctx,checkboxPosH,0,0);
+                    ctx.fillText("Assembly",checkboxPosI.x-cbLeft,checkboxPosI.y-cbOff);
+                    draw(ctx,checkboxPosI,0,0);
+                } else if(toolTab=="smed"){
+                    ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+
+                    ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
+                    draw(ctx,checkboxPosD,0,0);
+                    ctx.fillText("Paint",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
+                    draw(ctx,checkboxPosE,0,0);
+                    ctx.fillText("Sew",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
+                    draw(ctx,checkboxPosF,0,0);
+                } else if(toolTab=="quality"){
+                    ctx.fillText("Drill",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Bender",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Weld",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+                    ctx.fillText("Sew",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
+                    draw(ctx,checkboxPosD,0,0);
+                    ctx.fillText("Assembly",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
+                    draw(ctx,checkboxPosE,0,0);
+                } else if(toolTab=="cells"){
+                    ctx.fillText("Overall",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+
+                } else if (toolTab=="crossTrain"){
+                    ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+                } else if (toolTab=="selfDirected"){
+                    ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+                } else if (toolTab=="pM"){
+                    ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+
+                    ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
+                    draw(ctx,checkboxPosD,0,0);
+                    ctx.fillText("Paint",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
+                    draw(ctx,checkboxPosE,0,0);
+                    ctx.fillText("Sew",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
+                    draw(ctx,checkboxPosF,0,0);
+                } else if (toolTab=="vendor"){
+                    ctx.fillText("Steel",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Nylon",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Bike",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+                    ctx.fillText("Metal Cut",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
+                    draw(ctx,checkboxPosD,0,0);
+                } else if(toolTab=="smallPurchase"){
+                    ctx.fillText("Steel",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Nylon",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Bike",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+                    ctx.fillText("Metal Cut",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
+                    draw(ctx,checkboxPosD,0,0);
+                } else if(toolTab=="new"){
+                    ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
+                    draw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
+                    draw(ctx,checkboxPosB,0,0);
+                    ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
+                    draw(ctx,checkboxPosC,0,0);
+
+                    ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
+                    draw(ctx,checkboxPosD,0,0);
+                    ctx.fillText("Grind",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
+                    draw(ctx,checkboxPosE,0,0);
+                    ctx.fillText("Paint",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
+                    draw(ctx,checkboxPosF,0,0);
+
+                    ctx.fillText("Fabric",checkboxPosG.x-cbLeft,checkboxPosG.y-cbOff);
+                    draw(ctx,checkboxPosG,0,0);
+                    ctx.fillText("Sew",checkboxPosH.x-cbLeft,checkboxPosH.y-cbOff);
+                    draw(ctx,checkboxPosH,0,0);
+                    ctx.fillText("Assembly",checkboxPosI.x-cbLeft,checkboxPosI.y-cbOff);
+                    draw(ctx,checkboxPosI,0,0);
+                }
+
+                draw(ctx, leanToolsView, 0, 0);
+                ctx.font = "80px Georgia";
+                //ctx.fillText("Lean Tools",900,100);
+                ctx.font = "16px Georgia";
                 //draw(ctx,leanToolsBtnCells,0,0);
                 if (leanTool_Cells == true) {
                     ctx.fillText("/////", 910, 314);
@@ -4463,15 +4686,15 @@ function totalPricePerChair(){
                 ctx.textAlign = "right";
                 ctx.fillText(leanToolAllowance, 1020, 550);
                 ctx.textAlign = "left";
-                ctx2.font = "10px Georgia";
+                ctx.font = "10px Georgia";
             }
 
             //report screen is background of
             if (subScreen == "monthlyReport") {
-                draw(ctx2, reportView, 0, 0);
-                ctx2.font = "60px Georgia";
-                ctx2.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
-                ctx2.font = "10px Georgia";
+                draw(ctx, reportView, 0, 0);
+                ctx.font = "60px Georgia";
+                ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
+                ctx.font = "10px Georgia";
 
                 var column = [];
                 column[0] = reportView.x + 30;
@@ -4489,7 +4712,7 @@ function totalPricePerChair(){
                 for (var i = 1; i < 20; i++) {
                     row[i] = row[i - 1] + 15;
                 }
-                ctx2.font = "14px Georgia";
+                ctx.font = "14px Georgia";
 
                 //headings
                 ctx.fillText("Sales: ", column[0], row[2]);
@@ -4509,7 +4732,7 @@ function totalPricePerChair(){
                 ctx.fillText("Total expenses:", column[0], row[17]);
 
                 //right alligned values
-                ctx2.textAlign = "right";
+                ctx.textAlign = "right";
                 ctx.fillText("$", column[1], row[2]), ctx.fillText(monthData[monthCounter].sales, column[2], row[2]);
 
 
@@ -4527,12 +4750,12 @@ function totalPricePerChair(){
                 ctx.fillText("$", column[1], row[17]), ctx.fillText(monthData[monthCounter].totalExpenses, column[2], row[17]);
 
 
-                ctx2.font = "bold 14px Georgia";
+                ctx.font = "bold 14px Georgia";
                 ctx.fillText("$", column[1], row[3]), ctx.fillText(monthData[monthCounter].sales, column[2], row[3]);
                 ctx.fillText("$", column[1], row[19]), ctx.fillText(monthData[monthCounter].totalProfit, column[2], row[19]);
-                ctx2.font = "normal 14px Georgia"
+                ctx.font = "normal 14px Georgia"
 
-                ctx2.textAlign = "left";
+                ctx.textAlign = "left";
 
 
                 //ctx.fillText("Chairs Sold: ",column[2],row[0]), ctx.fillText(monthData[monthCounter].chairsSold,column[3],row[0]);
@@ -4540,12 +4763,12 @@ function totalPricePerChair(){
                 //ctx.fillText("$    "+chairPrice,column[5],row[0]);
 
                 //Bold headings
-                ctx2.font = "bold 14px Georgia";
+                ctx.font = "bold 14px Georgia";
                 ctx.fillText("Income", column[0], row[1]);
                 ctx.fillText("Expenses", column[0], row[5]);
                 ctx.fillText("Total profit:", column[0], row[19]);
-                ctx2.font = "normal 14px Georgia";
-                ctx2.font = "10px Georgia";
+                ctx.font = "normal 14px Georgia";
+                ctx.font = "10px Georgia";
                 /*month.chairsSold = 200;
 
 
@@ -4557,8 +4780,8 @@ function totalPricePerChair(){
                 //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
             }
             if (subScreen == "calendar") {
-                draw(ctx2, calendarView, 0, 0);
-                ctx2.font = "80px Georgia";
+                draw(ctx, calendarView, 0, 0);
+                ctx.font = "80px Georgia";
                 switch (monthCounter) {
                     case 0:
                         currentMonth = monthsArray.January;
@@ -4596,19 +4819,19 @@ function totalPricePerChair(){
                     case 11:
                         currentMonth = monthsArray.December;
                 }
-                ctx2.fillText(currentMonth, 900, 100);
-                ctx2.font = "10px Georgia";
+                ctx.fillText(currentMonth, 900, 100);
+                ctx.font = "10px Georgia";
             }
             if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar"){
 
             }
-            //draw(ctx2,closeBtn,0,0);
+            //draw(ctx,closeBtn,0,0);
             //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
-            //  draw(ctx2,)
+            //  draw(ctx,)
                 if (subScreen != "sawView" && subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
-                    ctx2.font = "80px Georgia";
-                    ctx2.fillText(subScreen, 900, 500);
-                    ctx2.font = "10px Georgia";
+                    ctx.font = "80px Georgia";
+                    ctx.fillText(subScreen, 900, 500);
+                    ctx.font = "10px Georgia";
                 }
 
 
@@ -4643,6 +4866,7 @@ function totalPricePerChair(){
     }
 
     canvas.addEventListener('click', onClick, false);
+
 
 function createConsoleTable(){
 
@@ -5196,7 +5420,7 @@ createConsoleTable();
 
     }
 
-
+//ctxBack.drawImage(menu.image, 0, 0, 1500, 750);
     var main = function () {
         var now = Date.now();
         var delta = now - then;
