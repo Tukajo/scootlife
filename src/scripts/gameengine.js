@@ -4589,10 +4589,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + sawDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + mitreSaw_WorkersOver(), posx + 10, posy + 100);
                     if (mitreSaw_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                 }
                 if (station[1].hover) {
@@ -4602,10 +4602,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + drillDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + drillPress_WorkersOver(), posx + 10, posy + 100);
                     if (drillPress_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                 }
                 if (station[2].hover) {
@@ -4615,10 +4615,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + benderDaysDown, posx - 250, posy + 70);
                     ctx.fillText("Workers Overtime: " + tubeBender_WorkersOver(), posx - 250, posy + 100);
                     if (tubeBender_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx - 250, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
                 }
                 if (station[3].hover) {
@@ -4628,10 +4628,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + welderDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + welding_WorkersOver(), posx + 10, posy + 100);
                     if (welding_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                 }
                 if (station[4].hover) {
@@ -4641,10 +4641,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + grinderDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx + 10, posy + 100);
                     if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                 }
                 if (station[5].hover) {
@@ -4654,10 +4654,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + grinderDaysDown, posx - 250, posy + 70);
                     ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx - 250, posy + 100);
                     if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx - 250, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
                 }
                 if (station[6].hover) {
@@ -4667,10 +4667,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + assemblyDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + assembly_WorkersOver(), posx + 10, posy + 100);
                     if (assembly_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }                   
                 }
                 if (station[7].hover) {
@@ -4680,10 +4680,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + fabricDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + fabricCut_WorkersOver(), posx + 10, posy + 100);
                     if (fabricCut_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                 }
                 if (station[8].hover) {
@@ -4693,10 +4693,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + sewingDaysDown, posx - 250, posy + 70);
                     ctx.fillText("Workers Overtime: " + sewing_WorkersOver(), posx - 250, posy + 100);
                     if (sewing_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx - 250, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
                 }
             }
