@@ -1396,7 +1396,7 @@ var leanToolButtonArray = {
     var office = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/office.png', 0);
     loadImg(office);
 
-    var officeDesk = new gameObject(850,525,263,591,"Art_Assets/game_screen/office/deskmedium.png",0);
+    var officeDesk = new gameObject(875,400,380,538,"Art_Assets/game_screen/office/dankdesk_obj.png",0);
     loadImg(officeDesk);
 
     var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
