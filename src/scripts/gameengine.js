@@ -1396,7 +1396,7 @@ var leanToolButtonArray = {
     var office = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/office.png', 0);
     loadImg(office);
 
-    var officeDesk = new gameObject(947,525,175,394,"Art_Assets/game_screen/office/desksmall.png",0);
+    var officeDesk = new gameObject(850,525,263,591,"Art_Assets/game_screen/office/deskmedium.png",0);
     loadImg(officeDesk);
 
     var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
@@ -4702,9 +4702,9 @@ function totalPricePerChair(){
             if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar")
                 draw(ctx, office, 0, 0);
 
-                //draw(ctx, officeDesk,0,0);
+
             if (subScreen == "office") {
-                draw(ctx,desk,0,0);
+                draw(ctx, officeDesk,0,0);
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
 /*<<<<<<< HEAD
@@ -5058,9 +5058,8 @@ function totalPricePerChair(){
 
         }
 
-
-        //ctx.fillText("x: "+posx,100,400);
-        //ctx.fillText("y: "+posy,100,415);
+        ctx.fillText("x: "+posx,100,400);
+        ctx.fillText("y: "+posy,100,415);
 
     }
 
