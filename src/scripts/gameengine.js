@@ -1212,7 +1212,7 @@ function problemListUpdate() {
     var creditBtn = new gameObject(50, 150, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
     loadImg(creditBtn);
 
-    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.png', 0);
+    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.p9ng', 0);
     loadImg(credits);
 
 
@@ -1399,7 +1399,7 @@ var leanToolButtonArray = {
     var office = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/office.png', 0);
     loadImg(office);
 
-    var officeDesk = new gameObject(947,525,175,394,"Art_Assets/game_screen/office/desksmall.png",0);
+    var officeDesk = new gameObject(875,400,380,538,"Art_Assets/game_screen/office/dankdesk_obj.png",0);
     loadImg(officeDesk);
 
     var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
@@ -4566,144 +4566,9 @@ function totalPricePerChair(){
             drawSprtSht();
 
             /////////////////////
-            for (var i =0; i<9; i++) {
-                ctx.fillStyle = "#FFF";
-                ctx.font = "25pt Arial";
-                var sawDaysDown = mitreSaw_LateParts(monthCounter) + mitreSaw_Downtime(monthCounter);
-                var drillDaysDown = drillPress_LateWIP() + drillPress_Downtime(monthCounter) + drillPress_BadQuality(monthCounter);
-                var benderDaysDown = tubeBender_LateWIP() + tubeBender_Downtime(monthCounter) + tubeBender_BadQuality(monthCounter) + tubeBender_DelayQuality(monthCounter);
-                var welderDaysDown = welding_LateWIP() + welding_Downtime(monthCounter) + welding_BadQuality(monthCounter);
-                var grinderDaysDown = grinder_LateWIP() + grinder_DelayQuality(monthCounter);
-                var painterDaysDown = paintBooth_LateWIP() + paintBooth_Downtime(monthCounter) + paintBooth_DelayQuality(monthCounter);
-                var assemblyDaysDown = assemblyBench_LateParts(monthCounter) + assemblyBench_LateWIP() + assemblyBench_BadQuality(monthCounter);
-                var fabricDaysDown = fabricCutter_LateParts(monthCounter);
-                var sewingDaysDown = sewing_LateWIP() + sewing_Downtime(monthCounter) + sewing_BadQuality(monthCounter);
+           
 
-                if (station[0].hover) {
-                    ctx.drawImage(note.image, posx, posy, 260, 160);
-                    ctx.fillText("Saw", posx + 50, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + sawDaysDown, posx + 10, posy + 70);
-                    ctx.fillText("Workers Overtime: " + mitreSaw_WorkersOver(), posx + 10, posy + 100);
-                    if (mitreSaw_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
-                    }
-                }
-                if (station[1].hover) {
-                    ctx.drawImage(note.image, posx, posy, 260, 160);
-                    ctx.fillText("Drill", posx + 50, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + drillDaysDown, posx + 10, posy + 70);
-                    ctx.fillText("Workers Overtime: " + drillPress_WorkersOver(), posx + 10, posy + 100);
-                    if (drillPress_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
-                    }
-                }
-                if (station[2].hover) {
-                    ctx.drawImage(note.image, posx - 200, posy, 260, 160);
-                    ctx.fillText("Bender", posx - 160, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + benderDaysDown, posx - 190, posy + 70);
-                    ctx.fillText("Workers Overtime: " + tubeBender_WorkersOver(), posx - 190, posy + 100);
-                    if (tubeBender_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx - 190, posy + 130);
-                    }
-                }
-                if (station[3].hover) {
-                    ctx.drawImage(note.image, posx, posy, 260, 160);
-                    ctx.fillText("Welder", posx + 50, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + welderDaysDown, posx + 10, posy + 70);
-                    ctx.fillText("Workers Overtime: " + welding_WorkersOver(), posx + 10, posy + 100);
-                    if (welding_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
-                    }
-                }
-                if (station[4].hover) {
-                    ctx.drawImage(note.image, posx, posy, 260, 160);
-                    ctx.fillText("Grinder", posx + 50, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + grinderDaysDown, posx + 10, posy + 70);
-                    ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx + 10, posy + 100);
-                    if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
-                    }
-                }
-                if (station[5].hover) {
-                    ctx.drawImage(note.image, posx - 200, posy, 260, 160);
-                    ctx.fillText("Paint Booth", posx - 170, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + grinderDaysDown, posx - 190, posy + 70);
-                    ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx - 190, posy + 100);
-                    if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx - 190, posy + 130);
-                    }
-                }
-                if (station[6].hover) {
-                    ctx.drawImage(note.image, posx, posy, 260, 160);
-                    ctx.fillText("Assembly", posx + 40, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + assemblyDaysDown, posx + 10, posy + 70);
-                    ctx.fillText("Workers Overtime: " + assembly_WorkersOver(), posx + 10, posy + 100);
-                    if (assembly_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
-                    }
-                }
-                if (station[7].hover) {
-                    ctx.drawImage(note.image, posx, posy, 260, 160);
-                    ctx.fillText("Fabric Cutter", posx + 30, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + fabricDaysDown, posx + 10, posy + 70);
-                    ctx.fillText("Workers Overtime: " + fabricCut_WorkersOver(), posx + 10, posy + 100);
-                    if (fabricCut_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
-                    }
-                }
-                if (station[8].hover) {
-                    ctx.drawImage(note.image, posx - 200, posy, 260, 160);
-                    ctx.fillText("Sewing", posx - 160, posy + 30);
-                    ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + sewingDaysDown, posx - 190, posy + 70);
-                    ctx.fillText("Workers Overtime: " + sewing_WorkersOver(), posx - 190, posy + 100);
-                    if (sewing_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy + 130);
-                    }
-                    else {
-                        ctx.fillText("Meets Production", posx - 190, posy + 130);
-                    }
-                }
-            }
-                ////////////////////
-            //var noteHeight = 50;
-
-
-            ctx.fillStyle = "black";
-            ctx.font = "25pt Arial";/*
-
+        ///Quick Tool Tip    
             for (var i =0; i<9; i++) {
                 ctx.fillStyle = "#FFF";ctx.font = "25pt Arial";
                 var sawDaysDown = mitreSaw_LateParts(monthCounter) + mitreSaw_Downtime(monthCounter);
@@ -4716,8 +4581,8 @@ function totalPricePerChair(){
                 var fabricDaysDown = fabricCutter_LateParts(monthCounter);
                 var sewingDaysDown = sewing_LateWIP() + sewing_Downtime(monthCounter) + sewing_BadQuality(monthCounter);
                          
-                if (station[0].hover) {
 
+                if (station[0].hover) {
                     ctx.drawImage(note.image, posx, posy, 260, 160);
                     ctx.fillText("Saw", posx + 50, posy + 30);
                     ctx.font = "15pt Arial";
@@ -4744,16 +4609,16 @@ function totalPricePerChair(){
                     }
                 }
                 if (station[2].hover) {
-                    ctx.drawImage(note.image, posx - 200, posy, 260, 160);
-                    ctx.fillText("Bender", posx - 160, posy + 30);
+                    ctx.drawImage(note.image, posx - 260, posy, 260, 160);
+                    ctx.fillText("Bender", posx - 230, posy + 30);
                     ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + benderDaysDown, posx - 190, posy + 70);
-                    ctx.fillText("Workers Overtime: " + tubeBender_WorkersOver(), posx - 190, posy + 100);
+                    ctx.fillText("Days Down: " + benderDaysDown, posx - 250, posy + 70);
+                    ctx.fillText("Workers Overtime: " + tubeBender_WorkersOver(), posx - 250, posy + 100);
                     if (tubeBender_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx - 190, posy + 130);
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                 }
                 if (station[3].hover) {
@@ -4770,8 +4635,7 @@ function totalPricePerChair(){
                     }
                 }
                 if (station[4].hover) {
-                    //ctx.drawImage(note.image, posx, posy, 200, noteHeight);
-
+                    ctx.drawImage(note.image, posx, posy, 260, 160);
                     ctx.fillText("Grinder", posx + 50, posy + 30);
                     ctx.font = "15pt Arial";
                     ctx.fillText("Days Down: " + grinderDaysDown, posx + 10, posy + 70);
@@ -4784,17 +4648,16 @@ function totalPricePerChair(){
                     }
                 }
                 if (station[5].hover) {
-
-                    ctx.drawImage(note.image, posx - 200, posy, 260, 160);
-                    ctx.fillText("Paint Booth", posx - 170, posy + 30);
+                    ctx.drawImage(note.image, posx - 260, posy, 260, 160);
+                    ctx.fillText("Paint Booth", posx - 230, posy + 30);
                     ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + grinderDaysDown, posx - 190, posy + 70);
-                    ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx - 190, posy + 100);
+                    ctx.fillText("Days Down: " + grinderDaysDown, posx - 250, posy + 70);
+                    ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx - 250, posy + 100);
                     if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx - 190, posy + 130);
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                 }
                 if (station[6].hover) {
@@ -4824,16 +4687,16 @@ function totalPricePerChair(){
                     }
                 }
                 if (station[8].hover) {
-                    ctx.drawImage(note.image, posx - 200, posy, 260, 160);
-                    ctx.fillText("Sewing", posx - 160, posy + 30);
+                    ctx.drawImage(note.image, posx - 260, posy, 260, 160);
+                    ctx.fillText("Sewing", posx - 230, posy + 30);
                     ctx.font = "15pt Arial";
-                    ctx.fillText("Days Down: " + sewingDaysDown, posx - 190, posy + 70);
-                    ctx.fillText("Workers Overtime: " + sewing_WorkersOver(), posx - 190, posy + 100);
+                    ctx.fillText("Days Down: " + sewingDaysDown, posx - 250, posy + 70);
+                    ctx.fillText("Workers Overtime: " + sewing_WorkersOver(), posx - 250, posy + 100);
                     if (sewing_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
                     else{
-                        ctx.fillText("Meets Production", posx - 190, posy + 130);
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                 }
             }
@@ -4845,15 +4708,17 @@ function totalPricePerChair(){
             if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar")
                 draw(ctx, office, 0, 0);
 
-                //draw(ctx, officeDesk,0,0);
-            if (subScreen == "office") {
 
+            if (subScreen == "office") {
+                draw(ctx, officeDesk,0,0);
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
+
                 //draw(ctx,reportBtn,0,0);
                 //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
                 //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
                 //draw(ctx,advMonthBtn,0,0);///////////////////////// temp invisible hitbox
+
             }
 
             //draw background of workstation
@@ -5052,6 +4917,7 @@ function totalPricePerChair(){
             if (subScreen == "monthlyReport") {
                 draw(ctx, reportView, 0, 0);
                 ctx.font = "60px Georgia";
+                ctx.fillStyle = "black";
                 ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
                 ctx.font = "10px Georgia";
 
@@ -5196,9 +5062,8 @@ function totalPricePerChair(){
 
         }
 
-
-        //ctx.fillText("x: "+posx,100,400);
-        //ctx.fillText("y: "+posy,100,415);
+        ctx.fillText("x: "+posx,100,400);
+        ctx.fillText("y: "+posy,100,415);
 
     }
 
