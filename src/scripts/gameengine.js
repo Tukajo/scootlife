@@ -886,6 +886,9 @@ function drawSprtSht() {
     var barX = 400;
     var barY = 600;
 
+
+
+
     var checkboxPosA = new checkBox(1250, 250);
     loadImg(checkboxPosA);
     var checkboxPosB = new checkBox(1350, 250);
@@ -4698,7 +4701,7 @@ function totalPricePerChair(){
             //var noteHeight = 50;
 
 
-            ctx.fillStyle = "#FFF";
+            ctx.fillStyle = "black";
             ctx.font = "25pt Arial";/*
 
             for (var i =0; i<9; i++) {
@@ -5635,6 +5638,7 @@ createConsoleTable();
                     if(leanToolButtonArray.kanbanBtn[1] == 2){
                         //console.log("Test click for kanban");
                         leanToolButtonArray.kanbanBtn[1] = 0;
+                        toolTab="null";
                     }else{
                         //console.log("Test click for kanban 2");
                         //console.log(leanToolButtonArray.kanbanBtn[1]);
@@ -5646,8 +5650,10 @@ createConsoleTable();
                     toolTab="superMarket";
                     if(leanToolButtonArray.marketBtn[1] == 2){
                         leanToolButtonArray.marketBtn[1] = 0;
+                        toolTab="null";
                     }else{
                         leanToolButtonArray.marketBtn[1] = 2;
+
                     }
                 }
                 else if(leanToolButtonArray.smallLotBtn[0].hover){//Button for smallLot
@@ -5655,6 +5661,8 @@ createConsoleTable();
                     toolTab="smallLot";
                     if(leanToolButtonArray.smallLotBtn[1] == 2){
                         leanToolButtonArray.smallLotBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.smallLotBtn[1] = 2;
                     }
@@ -5666,8 +5674,11 @@ createConsoleTable();
                     toolTab="fiveS";
                     if(leanToolButtonArray.fiveSBtn[1] == 2){
                         leanToolButtonArray.fiveSBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.fiveSBtn[1] = 2;
+
                     }
                 }
                 else if (leanToolButtonArray.smedBtn[0].hover) {//click on smed button
@@ -5676,8 +5687,11 @@ createConsoleTable();
                     toolTab="smed";
                     if(leanToolButtonArray.smedBtn[1] == 2){
                         leanToolButtonArray.smedBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.smedBtn[1] = 2;
+
                     }
 
                 }
@@ -5688,6 +5702,8 @@ createConsoleTable();
                     toolTab="quality";
                     if(leanToolButtonArray.qualityBtn[1] == 2){
                         leanToolButtonArray.qualityBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.qualityBtn[1] = 2;
                     }
@@ -5697,8 +5713,10 @@ createConsoleTable();
                     toolTab="cells";
                     if(leanToolButtonArray.cellsBtn[1] == 2){
                         leanToolButtonArray.cellsBtn[1] = 0;
+                        toolTab="null";
                     }else{
                         leanToolButtonArray.cellsBtn[1] = 2;
+
                     }
                 }
                 else if (leanToolButtonArray.crossTrainBtn[0].hover) {//click on crossTrain button
@@ -5706,6 +5724,8 @@ createConsoleTable();
                     toolTab="crossTrain";
                     if(leanToolButtonArray.crossTrainBtn[1] == 2){
                         leanToolButtonArray.crossTrainBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.crossTrainBtn[1] = 2;
                     }
@@ -5715,6 +5735,8 @@ createConsoleTable();
                     toolTab="selfDirected";
                     if(leanToolButtonArray.selfDirectedBtn[1] == 2){
                         leanToolButtonArray.selfDirectedBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.selfDirectedBtn[1] = 2;
                     }
@@ -5726,6 +5748,8 @@ createConsoleTable();
                     toolTab="pM";
                     if(leanToolButtonArray.PMBtn[1] == 2){
                         leanToolButtonArray.PMBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.PMBtn[1] = 2;
                     }
@@ -5737,6 +5761,8 @@ createConsoleTable();
                     toolTab="vendor";
                     if(leanToolButtonArray.vendorBtn[1] == 2){
                         leanToolButtonArray.vendorBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.vendorBtn[1] = 2;
                     }
@@ -5748,6 +5774,8 @@ createConsoleTable();
                     toolTab="smallPurchase";
                     if(leanToolButtonArray.smallPurchaseBtn[1] == 2){
                         leanToolButtonArray.smallPurchaseBtn[1] = 0;
+                        toolTab="null";
+
                     }else{
                         leanToolButtonArray.smallPurchaseBtn[1] = 2;
                     }
@@ -5761,6 +5789,7 @@ createConsoleTable();
                         leanToolButtonArray.newBtn[1] = 0;
                     }else{
                         leanToolButtonArray.newBtn[1] = 2;
+                        toolTab="null";
                     }
                 }
 
