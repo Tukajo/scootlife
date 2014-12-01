@@ -1209,7 +1209,7 @@ function problemListUpdate() {
     var creditBtn = new gameObject(50, 150, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
     loadImg(creditBtn);
 
-    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.png', 0);
+    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.p9ng', 0);
     loadImg(credits);
 
 
@@ -4698,12 +4698,10 @@ function totalPricePerChair(){
             if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar")
                 draw(ctx, office, 0, 0);
             if (subScreen == "office") {
-
+                draw(ctx,desk,0,0);
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
-                //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
-                //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
-                //draw(ctx,advMonthBtn,0,0);///////////////////////// temp invisible hitbox
+
             }
 
             //draw background of workstation
