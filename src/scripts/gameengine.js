@@ -1279,7 +1279,7 @@ function problemListUpdate() {
     var confirmScreen = new gameObject(800, 20, 400, 600, 'Art_Assets/game_screen/report_view.png', 0);
     loadImg(confirmScreen);
 
-    var buyBtn = new gameObject(1350, 600, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
+    var buyBtn = new gameObject(1320, 600, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
     loadImg(buyBtn);
 
     var closeBtn = new gameObject(820, 300, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
@@ -1395,7 +1395,10 @@ var leanToolButtonArray = {
 
     var office = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/office.png', 0);
     loadImg(office);
-    
+
+    var officeDesk = new gameObject(947,525,175,394,"Art_Assets/game_screen/office/desksmall.png",0);
+    loadImg(officeDesk);
+
     var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
     loadImg(note);
 
@@ -1417,7 +1420,7 @@ var leanToolButtonArray = {
 
 
 //kaban
-    var leanTool_Kaban_Metal = false;
+    var leanTool_Kaban_Metal =false;
     var leanTool_Kaban_Weld = false;
 
 
@@ -1457,7 +1460,7 @@ var leanToolButtonArray = {
     var leanTool_Quality_Assembly = false;
 
 //cells
-    var leanTool_Cells = false;
+    var leanTool_Cells =false;
 
 //crossTraining
     var leanTool_CrossTrain_Metal = false;
@@ -4558,9 +4561,11 @@ function totalPricePerChair(){
             }
             //ctx.drawImage(station[0].image,station[0].x,station[0].y,100,200);
             drawSprtSht();
-            
+
+            /////////////////////
             for (var i =0; i<9; i++) {
-                ctx.fillStyle = "#FFF";ctx.font = "25pt Arial";
+                ctx.fillStyle = "#FFF";
+                ctx.font = "25pt Arial";
                 var sawDaysDown = mitreSaw_LateParts(monthCounter) + mitreSaw_Downtime(monthCounter);
                 var drillDaysDown = drillPress_LateWIP() + drillPress_Downtime(monthCounter) + drillPress_BadQuality(monthCounter);
                 var benderDaysDown = tubeBender_LateWIP() + tubeBender_Downtime(monthCounter) + tubeBender_BadQuality(monthCounter) + tubeBender_DelayQuality(monthCounter);
@@ -4570,7 +4575,7 @@ function totalPricePerChair(){
                 var assemblyDaysDown = assemblyBench_LateParts(monthCounter) + assemblyBench_LateWIP() + assemblyBench_BadQuality(monthCounter);
                 var fabricDaysDown = fabricCutter_LateParts(monthCounter);
                 var sewingDaysDown = sewing_LateWIP() + sewing_Downtime(monthCounter) + sewing_BadQuality(monthCounter);
-                         
+
                 if (station[0].hover) {
                     ctx.drawImage(note.image, posx, posy, 260, 160);
                     ctx.fillText("Saw", posx + 50, posy + 30);
@@ -4578,9 +4583,9 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + sawDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + mitreSaw_WorkersOver(), posx + 10, posy + 100);
                     if (mitreSaw_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
@@ -4591,9 +4596,9 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + drillDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + drillPress_WorkersOver(), posx + 10, posy + 100);
                     if (drillPress_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
@@ -4604,9 +4609,9 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + benderDaysDown, posx - 190, posy + 70);
                     ctx.fillText("Workers Overtime: " + tubeBender_WorkersOver(), posx - 190, posy + 100);
                     if (tubeBender_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx - 190, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx - 190, posy + 130);
                     }
                 }
@@ -4617,9 +4622,9 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + welderDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + welding_WorkersOver(), posx + 10, posy + 100);
                     if (welding_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
@@ -4630,9 +4635,9 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + grinderDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx + 10, posy + 100);
                     if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
@@ -4643,9 +4648,9 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + grinderDaysDown, posx - 190, posy + 70);
                     ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx - 190, posy + 100);
                     if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx - 190, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx - 190, posy + 130);
                     }
                 }
@@ -4656,11 +4661,11 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + assemblyDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + assembly_WorkersOver(), posx + 10, posy + 100);
                     if (assembly_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
-                    }                   
+                    }
                 }
                 if (station[7].hover) {
                     ctx.drawImage(note.image, posx, posy, 260, 160);
@@ -4669,9 +4674,9 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + fabricDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + fabricCut_WorkersOver(), posx + 10, posy + 100);
                     if (fabricCut_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
@@ -4682,13 +4687,60 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + sewingDaysDown, posx - 190, posy + 70);
                     ctx.fillText("Workers Overtime: " + sewing_WorkersOver(), posx - 190, posy + 100);
                     if (sewing_MaxCapacity() < 200) {
-                        ctx.fillText("Does Not Meet Production", posx - 190, posy +130);
+                        ctx.fillText("Does Not Meet Production", posx - 190, posy + 130);
                     }
-                    else{
+                    else {
                         ctx.fillText("Meets Production", posx - 190, posy + 130);
                     }
                 }
             }
+                ////////////////////
+            //var noteHeight = 50;
+
+
+            ctx.fillStyle = "#FFF";
+            ctx.font = "25pt Arial";/*
+            for (var i =0; i<9; i++) {
+                if (station[0].hover) {
+                    //ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Saw", posx + 70, posy + 30);
+                }
+                if (station[1].hover) {
+                    //ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Drill", posx + 70, posy + 30);
+
+                }
+                if (station[2].hover) {
+                    //ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
+                    ctx.fillText("Bender", posx - 150, posy + 30);
+                }
+                if (station[3].hover) {
+                    //ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Welder", posx + 50, posy + 30);
+                }
+                if (station[4].hover) {
+                    //ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Grinder", posx + 50, posy + 30);
+                }
+                if (station[5].hover) {
+                    //ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
+                    ctx.fillText("Paint Booth", posx - 180, posy + 30);
+                }
+                if (station[6].hover) {
+                    //ctx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Assembly", posx + 30, posy + 30);
+                }
+                if (station[7].hover) {
+                    //tx.drawImage(note.image, posx, posy, 200, noteHeight);
+                    ctx.fillText("Fabric Cutter", posx + 10, posy + 30);
+                }
+                if (station[8].hover) {
+                    //ctx.drawImage(note.image, posx - 200, posy, 200, noteHeight);
+                    ctx.fillText("Sewing", posx - 150, posy + 30);
+                }
+            }*/
+            ctx.fillStyle = "#000";
+            ctx.font = "10px Georgia";
 
 
 
@@ -4697,11 +4749,20 @@ function totalPricePerChair(){
             }*/
             if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar")
                 draw(ctx, office, 0, 0);
+
+                //draw(ctx, officeDesk,0,0);
             if (subScreen == "office") {
                 draw(ctx,desk,0,0);
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
+<<<<<<< HEAD
 
+=======
+                //draw(ctx,reportBtn,0,0);
+                //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
+                //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
+                //draw(ctx,advMonthBtn,0,0);///////////////////////// temp invisible hitbox
+>>>>>>> origin/master
             }
 
             //draw background of workstation
@@ -4745,7 +4806,7 @@ function totalPricePerChair(){
             if (subScreen == "leanTools") {
                 if(toolTab!="null"&&toolTab!="confirm"){
                     draw(ctx,leanToolTab,0,0);
-                    draw(ctx,buyBtn,0,0);
+                    //draw(ctx,buyBtn,0,0);
                 }
 
 
@@ -5316,7 +5377,9 @@ function clickToolSelector(checkbox,leanTool,toolCost,currentToolName) {
         else if (currentLeanPurchaseSecond == "null")
             currentLeanPurchaseSecond = currentToolName;
 
-        checkbox.leantool= true;
+        //checkbox.leantool= true;
+        leantool=true;
+        checkbox.leantool=true;
         leanToolAllowance -= toolCost;
     }
 }
@@ -5324,7 +5387,7 @@ function clickToolSelectorAll(toolCost,currentToolName,leanToolA,leanToolB,leanT
                               leanToolE,leanToolF,leanToolG,leanToolH,leanToolI) {
     console.log("clickToolSelectorAll");
     if(typeof leanToolA== "boolean")
-        clickToolSelector(checkboxPosA,leanToolA,toolCost,currentToolName);
+        clickToolSelector(checkboxPosA, leanToolA, toolCost, currentToolName);
     if(typeof leanToolB== "boolean")
         clickToolSelector(checkboxPosB,leanToolB,toolCost,currentToolName);
     if(typeof leanToolC== "boolean")
@@ -5701,76 +5764,125 @@ createConsoleTable();
                     clickToolSelectorAll(200,"superMarket",leanTool_Market_Welding,leanTool_Market_Assembly,0,
                         0,0,0,
                         0,0,0);
-                    leanTool_Market_Welding=checkboxPosA.leantool;
-                    leanTool_Market_Assembly=checkboxPosB.leanool;
+                    leanTool_Market_Welding=checkboxPosA.leantool;////// THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    leanTool_Market_Assembly=checkboxPosB.leantool;
                 }
                 else if(toolTab=="smallLot"){
                     clickToolSelectorAll(100,"smallLot",leanTool_SmallLot_Metal,leanTool_SmallLot_Weld,leanTool_SmallLot_Fabric,
                         0,0,0,
                         0,0,0);
-                    leanTool_SmallLot_Metal=checkboxPosA;
-                    leanTool_SmallLot_Weld=checkboxPosB;
-                    leanTool_SmallLot_Fabric=checkboxPosC;
+                    leanTool_SmallLot_Metal=checkboxPosA.leantool;
+                    leanTool_SmallLot_Weld=checkboxPosB.leantool;
+                    leanTool_SmallLot_Fabric=checkboxPosC.leantool;
                 }
                 else if(toolTab=="fiveS"){
                     clickToolSelectorAll(100,toolTab,leanTool_fiveS_Saw,leanTool_fiveS_Drill,leanTool_fiveS_Bender,
                         leanTool_fiveS_Welding,leanTool_fiveS_Grind,leanTool_fiveS_Paint,
                         leanTool_fiveS_Fabric,leanTool_fiveS_Sewing,leanTool_fiveS_Assembly);
-                    /*
-                    leanTool_fiveS_Saw=checkboxPosA;
-                    leanTool_fiveS_Drill=checkboxPosB;
-                    leanTool_fiveS_Bender=checkboxPosC;
-                    leanTool_fiveS_Welding=checkboxPosD;
-                    leanTool_fiveS_Grind=checkboxPosE;
-                    leanTool_fiveS_Paint=checkboxPosF;
-                    leanTool_fiveS_Fabric=checkboxPosG;
-                    leanTool_fiveS_Sewing=checkboxPosH;
-                    leanTool_fiveS_Assembly=checkboxPosI;*/
+
+                    leanTool_fiveS_Saw=checkboxPosA.leantool;
+                    leanTool_fiveS_Drill=checkboxPosB.leantool;
+                    leanTool_fiveS_Bender=checkboxPosC.leantool;
+
+                    leanTool_fiveS_Welding=checkboxPosD.leantool;
+                    leanTool_fiveS_Grind=checkboxPosE.leantool;
+                    leanTool_fiveS_Paint=checkboxPosF.leantool;
+
+                    leanTool_fiveS_Fabric=checkboxPosG.leantool;
+                    leanTool_fiveS_Sewing=checkboxPosH.leantool;
+                    leanTool_fiveS_Assembly=checkboxPosI.leantool;
                 }
                 else if(toolTab=="smed"){
                     clickToolSelectorAll(300,"smed",leanTool_Smed_Saw,leanTool_Smed_Drill,leanTool_Smed_Bender,
                         leanTool_Smed_Welding,leanTool_Smed_Paint,leanTool_Smed_Sewing,
                         0,0,0);
+                    leanTool_Smed_Saw=checkboxPosA.leantool;
+                    leanTool_Smed_Drill=checkboxPosB.leantool;
+                    leanTool_Smed_Bender=checkboxPosC.leantool;
+                    leanTool_Smed_Welding=checkboxPosD.leantool;
+                    leanTool_Smed_Paint =checkboxPosE.leantool;
+                    leanTool_Smed_Sewing =checkboxPosF.leantool;
                 }
                 else if(toolTab=="quality"){
                     clickToolSelectorAll(200,"quality",leanTool_Quality_Drill,leanTool_Quality_Bender,leanTool_Quality_Welding,
                         leanTool_Quality_Sewing,leanTool_Quality_Assembly,0,
                         0,0,0);
+                    leanTool_Quality_Drill=checkboxPosA.leantool;
+                    leanTool_Quality_Bender=checkboxPosB.leantool;
+                    leanTool_Quality_Welding=checkboxPosC.leantool;
+                    leanTool_Quality_Sewing=checkboxPosD.leantool;
+                    leanTool_Quality_Assembly =checkboxPosE.leantool;
                 }
                 else if(toolTab=="cells"){
                     clickToolSelectorAll(1000,"cells",leanTool_Cells,0,0,
                         0,0,0,
                         0,0,0);
+                    leanTool_Cells=checkboxPosA.leantool;
+
                 }
                 else if(toolTab=="crossTrain"){
                     clickToolSelectorAll(200,"crossTrain",leanTool_CrossTrain_Metal,leanTool_CrossTrain_Weld,leanTool_CrossTrain_Fabric,
                                         0,0,0,
                                         0,0,0);
+                    leanTool_CrossTrain_Metal=checkboxPosA.leantool;
+                    leanTool_CrossTrain_Weld=checkboxPosB.leantool;
+                    leanTool_CrossTrain_Fabric=checkboxPosC.leantool;
                 }
                 else if(toolTab=="selfDirected"){
                     clickToolSelectorAll(200,"selfDirected",leanTool_SelfDirected_Metal,leanTool_SelfDirected_Weld,leanTool_SelfDirected_Fabric,
                                         0,0,0,
                                         0,0,0);
+                    leanTool_SelfDirected_Metal=checkboxPosA.leantool;
+                    leanTool_SelfDirected_Weld=checkboxPosB.leantool;
+                    leanTool_SelfDirected_Fabric=checkboxPosC.leantool;
                 }
                 else if(toolTab=="pM"){
                     clickToolSelectorAll(200,"pM",leanTool_PM_Saw,leanTool_PM_Drill,leanTool_PM_Bender,
                         leanTool_PM_Welding,leanTool_PM_Paint,leanTool_PM_Sewing,
                         0,0,0);
+                    leanTool_PM_Saw=checkboxPosA.leantool;
+                    leanTool_PM_Drill=checkboxPosB.leantool;
+                    leanTool_PM_Bender=checkboxPosC.leantool;
+                    leanTool_PM_Welding=checkboxPosD.leantool;
+                    leanTool_PM_Paint=checkboxPosE.leantool;
+                    leanTool_PM_Sewing=checkboxPosF.leantool;
                 }
                 else if(toolTab=="vendor"){
                     clickToolSelectorAll(200,"vendor",leanTool_Vendor_Steel,leanTool_Vendor_Nylon,leanTool_Vendor_Bike,
                         leanTool_Vendor_Metal,0,0,
                         0,0,0);
+                    leanTool_Vendor_Steel=checkboxPosA.leantool;
+                    leanTool_Vendor_Nylon=checkboxPosB.leantool;
+                    leanTool_Vendor_Bike=checkboxPosC.leantool;
+                    leanTool_Vendor_Metal=checkboxPosD.leantool;
                 }
                 else if(toolTab=="smallPurchase"){
                     clickToolSelectorAll(100,"smallPurchase",leanTool_SmallPurchase_Steel,leanTool_SmallPurchase_Nylon,leanTool_SmallPurchase_Bike,
                         leanTool_SmallPurchase_Metal,0,0,
                         0,0,0);
+                    leanTool_SmallPurchase_Steel=checkboxPosA.leantool;
+                    leanTool_SmallPurchase_Nylon=checkboxPosB.leantool;
+                    leanTool_SmallPurchase_Bike=checkboxPosC.leantool;
+                    leanTool_SmallPurchase_Metal=checkboxPosD.leantool;
                 }
                 else if(toolTab=="new"){
                     clickToolSelectorAll(700,"new",leanTool_New_Saw,leanTool_New_Drill,leanTool_New_Bender,
                         leanTool_New_Welding,leanTool_New_Grind,leanTool_New_Paint,
                         leanTool_New_Fabric,leanTool_New_Sewing,leanTool_New_Assembly);
+
+                    leanTool_New_Saw=checkboxPosA.leantool;
+                    leanTool_New_Drill=checkboxPosB.leantool;
+                    leanTool_New_Bender=checkboxPosC.leantool;
+
+                    leanTool_New_Welding=checkboxPosD.leantool;
+                    leanTool_New_Grind=checkboxPosE.leantool;
+                    leanTool_New_Paint=checkboxPosF.leantool;
+
+                    leanTool_New_Fabric=checkboxPosG.leantool;
+                    leanTool_New_Sewing=checkboxPosH.leantool;
+                    leanTool_New_Assembly=checkboxPosI.leantool;
+
+
                 }
 
 
