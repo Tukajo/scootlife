@@ -5169,7 +5169,7 @@ function totalPricePerChair(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia";
             ctx.fillText("Current Quantity: " + mitreSaw_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + mitreSaw_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + mitreSaw_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + mitreSaw_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + mitreSaw_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + mitreSaw_TotalTime(), 850, 250);
@@ -5189,15 +5189,18 @@ function totalPricePerChair(){
                 ctx.fillText("Saw down " + mitreSaw_Downtime(monthCounter) + " days due to machine breakdown", 850, 475);
             }
             
-            
-            
-            
+            if (mitreSaw_WorkersOver() > 0) {
+                ctx.fillText("Saw works overtime to try and meet production", 850, 500);
+            }
+            if (mitreSaw_MaxCapacity() < 200) {
+                ctx.fillText("Saw cannot meet production due to capacity constraint", 850, 525);
+            }
         }
         function drillReport(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia"; 
             ctx.fillText("Current Quantity: " + drillPress_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + drillPress_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + drillPress_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + drillPress_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + drillPress_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + drillPress_TotalTime(), 850, 250);
@@ -5219,12 +5222,19 @@ function totalPricePerChair(){
             if (drillPress_BadQuality(monthCounter) > 0) {
                  ctx.fillText("Drill press down " + drillPress_BadQuality(monthCounter) + " days due to quality problem", 850, 500);
             }
+            
+            if (drillPress_WorkersOver() > 0) {
+                ctx.fillText("Drill press works overtime to try and meet production", 850, 525);
+            }
+            if (drillPress_MaxCapacity() < 200) {
+                ctx.fillText("Drill press cannot meet production due to capacity constraint", 850, 550);
+            }
         }
         function bendReport(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia";  
             ctx.fillText("Current Quantity: " + tubeBender_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + tubeBender_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + tubeBender_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + tubeBender_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + tubeBender_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + tubeBender_TotalTime(), 850, 250);
@@ -5249,13 +5259,20 @@ function totalPricePerChair(){
             if (tubeBender_DelayQuality(monthCounter) > 0) {
                 ctx.fillText("Bender down " + tubeBender_DelayQuality(monthCounter) + " days due to bad parts from drill", 850, 525);
             }
+            
+            if (tubeBender_WorkersOver() > 0) {
+                ctx.fillText("Bender works overtime to try and meet production", 850, 550);
+            }
+            if (tubeBender_MaxCapacity() < 200) {
+                ctx.fillText("Bender cannot meet production due to capacity constraint", 850, 575);
+            }
 
         }
         function weldReport(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia"; 
             ctx.fillText("Current Quantity: " + welding_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + welding_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + welding_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + welding_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + welding_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + welding_TotalTime(), 850, 250);
@@ -5277,12 +5294,19 @@ function totalPricePerChair(){
             if (welding_BadQuality(monthCounter) > 0) {
                 ctx.fillText("Welding down " + welding_BadQuality(monthCounter) + " days due to quality problem", 850, 500);
             }
+            
+            if (welding_WorkersOver() > 0) {
+                ctx.fillText("Welding works overtime to try and meet production", 850, 525);
+            }
+            if (welding_MaxCapacity() < 200) {
+                ctx.fillText("Welding cannot meet production due to capacity constraint", 850, 550);
+            }
         }
         function grindReport(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia"; 
             ctx.fillText("Current Quantity: " + grinder_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + grinder_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + grinder_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + grinder_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + grinder_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + grinder_TotalTime(), 850, 250);
@@ -5302,12 +5326,18 @@ function totalPricePerChair(){
                 ctx.fillText("Grinder down " + grinder_DelayQuality(monthCounter) + " days due to bad parts from welding", 850, 475);
             }
             
+            if (grinder_WorkersOver() > 0) {
+                ctx.fillText("Grinder works overtime to try and meet production", 850, 500);
+            }
+            if (grinder_MaxCapacity() < 200) {
+                ctx.fillText("Grinder cannot meet production due to capacity constraint", 850, 525);
+            }
         }
         function paintReport(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia"; 
             ctx.fillText("Current Quantity: " + paintBooth_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + paintBooth_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + paintBooth_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + paintBooth_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + paintBooth_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + paintBooth_TotalTime(), 850, 250);
@@ -5327,15 +5357,22 @@ function totalPricePerChair(){
                 ctx.fillText("Paint booth down " + paintBooth_Downtime(monthCounter) + " days due to machine breakdown", 850, 475);  
             }
             if (paintBooth_DelayQuality(monthCounter) > 0) {
-                ctx.fillText("Paint booth down " + paintBooth_DelayQuality(monthCounter) + "days due to bad parts from welding", 850, 500);
+                ctx.fillText("Paint booth down " + paintBooth_DelayQuality(monthCounter) + " days due to bad parts from welding", 850, 500);
             }
             
+            if (paintBooth_WorkersOver() > 0) {
+                ctx.fillText("Paint booth works overtime to try and meet production", 850, 525);
+            }
+            if (paintBooth_MaxCapacity() < 200) {
+                ctx.fillText("Paint booth cannot meet production due to ", 850, 550);
+                ctx.fillText(" capacity constraint", 875, 575);
+            }
         }
         function assemblyReport(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia"; 
             ctx.fillText("Current Quantity: " + assembly_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + assembly_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + assembly_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + assembly_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + assembly_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + assembly_TotalTime(), 850, 250);
@@ -5358,12 +5395,18 @@ function totalPricePerChair(){
                 ctx.fillText("Assembly down " + assemblyBench_BadQuality(monthCounter) + " days due to quality problem", 850, 500);
             }
             
+            if (assembly_WorkersOver() > 0) {
+                ctx.fillText("Assembly works overtime to try and meet production", 850, 525);
+            }
+            if (assembly_MaxCapacity() < 200) {
+                ctx.fillText("Assembly cannot meet production due to capacity constraint", 850, 550);
+            }
         }
         function fabricReport(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia"; 
             ctx.fillText("Current Quantity: " + fabricCutter_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + fabricCutter_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + fabricCutter_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + fabricCutter_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + fabricCutter_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + fabricCutter_TotalTime(), 850, 250);
@@ -5380,12 +5423,19 @@ function totalPricePerChair(){
                 ctx.fillText("Fabric cutter down " + fabricCutter_LateParts(monthCounter) + " days due to late nylon", 850, 450);
             }
             
+            if (fabricCut_WorkersOver() > 0) {
+                ctx.fillText("Fabric cutter works overtime to try and meet production", 850, 475);
+            }
+            if (fabricCut_MaxCapacity() < 200) {
+                ctx.fillText("Fabric cutter cannot meet production due to ", 850, 500);
+                ctx.fillText(" capacity constraint", 875, 525);
+            }
         }
         function sewingReport(){
             ctx.fillStyle = "black";
             ctx.font = "15pt Georgia"; 
             ctx.fillText("Current Quantity: " + sewing_CurrentQuantity(), 850, 150);
-            ctx.fillText("Setup Time: " + sewing_SetupTime(), 850, 175);
+            ctx.fillText("Setup Time: " + sewing_SetupTime() + " min", 850, 175);
             ctx.fillText("Number of Parts: " + sewing_NumParts(), 850, 200);
             ctx.fillText("Process Times: " + sewing_ProcessTime(), 850, 225);
             ctx.fillText("Total Minutes per Chair: " + sewing_TotalTime(), 850, 250);
@@ -5407,12 +5457,18 @@ function totalPricePerChair(){
             if (sewing_BadQuality(monthCounter) > 0) {
                 ctx.fillText("Sewing down " + sewing_BadQuality(monthCounter) + " days due to quality problem", 850, 500);
             }
-        
+            
+            if (sewing_WorkersOver() > 0) {
+                ctx.fillText("Sewing works overtime to try and meet production", 850, 525);
+            }
+            if (sewing_MaxCapacity() < 200) {
+                ctx.fillText("Sewing cannot meet production due to capacity constraint", 850, 550);
+            }
+        }
 
+    
         ctx.fillText("x: "+posx,100,400);
         ctx.fillText("y: "+posy,100,415);
-
-    }
 
     var checkboxDraw = function (canvas, object, xDis, yDis) {
     if (object.ready)
