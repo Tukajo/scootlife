@@ -27,7 +27,7 @@ canvas.style.position="absolute";
 document.body.appendChild(canvas);
 canvas.zIndex=1;
 
-
+var myTitleCounter = 0;
 var bgLeftDrawn=false;
 var bgRightDrawn=false;
 var midRightDrawn=false;
@@ -151,6 +151,13 @@ function drawLeanTools(){
         }
     }
 
+}
+var titleAnimImg = new Image();
+titleAnimImg.src = "Art_Assets/main_menu/titlescreenanim.png";
+function drawTitleAnim(myTitleCounterTracker){
+    var spriteX = 677;
+    var spriteY = 711;
+        ctx.drawImage(titleAnimImg, spriteX * (myTitleCounterTracker % 7), spriteY * (myTitleCounterTracker % 7), 677, 711, -300, -25, 2100, 2100);
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -4440,10 +4447,14 @@ function totalPricePerChair(){
 //                                                                                            //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+    var frameControl = 0;
     var update = function (modifier) {
+        frameControl++;
+        if(currentScreen == "mainMenu" && frameControl%7 == 0) {
 
-
+            myTitleCounter++
+            drawTitleAnim(myTitleCounter % 47);
+        }
         if (updateRate == 60)
             updateRate = 0;
         ++updateRate;
@@ -4529,23 +4540,16 @@ function totalPricePerChair(){
         if (currentScreen == "mainMenu") {
 
             if (menu.ready&&bgLeftDrawn!=true) {
-                draw(ctxBack,menu,0,0);
+                draw(ctxBack,menu,0,0)
                 bgLeftDrawn=true;
             }
 
 
-            draw(ctxBack,menu,0,0);
+
+            //draw(ctxBack,menu,0,0);
 
             draw(ctx, startBtn, 0, 0);
             draw(ctx, creditBtn, 0, 0);
-
-            // draw(ctx,loadingBar[0],0,0);
-
-            //for(var i=0;i<loadingBar.length;i++){
-            //  draw(ctx,loadingBar[i],0,0);
-            //check if problem[i].== true to display problem
-
-            //}
 
         }
         if (currentScreen == "credits")
@@ -5912,6 +5916,7 @@ createConsoleTable();
 
         update(delta / 1000);
         render();
+
         then = now;
         requestAnimationFrame(main);
 

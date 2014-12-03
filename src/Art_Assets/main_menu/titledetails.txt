@@ -1,0 +1,4 @@
+each frame:
+
+Width: 677
+Height: 711
