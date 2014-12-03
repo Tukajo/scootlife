@@ -1229,7 +1229,7 @@ function problemListUpdate() {
     var reportBtn = new gameObject(1000, 550, 80, 80, 'Art_Assets/game_screen/reportBtn_temp.png', 0);
     loadImg(reportBtn);
 
-    var leanToolsBtn = new gameObject(780, 100, 300, 300, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0);
+    var leanToolsBtn = new gameObject(1200, 525, 120, 171, 'Art_Assets/game_screen/office/obj_leanTools.png', 0);
     loadImg(leanToolsBtn);
 
     var calendarBtn = new gameObject(1300, 550, 100, 100, 'Art_Assets/game_screen/calendarBtn_temp.png', 0);
@@ -4716,11 +4716,13 @@ function totalPricePerChair(){
                 draw(ctx, office, 0, 0);
 
 
+
             if (subScreen == "office") {
 
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
                 draw(ctx, officeDesk,0,0);
+                scaleDraw(ctx,leanToolsBtn,0,0,.75);
                 //draw(ctx,reportBtn,0,0);
                 //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
                 //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
@@ -5082,6 +5084,12 @@ function totalPricePerChair(){
             canvas.drawImage(object.image, object.x, object.y, object.w, object.h);
         if (object.readyAlt && object.hover)
             canvas.drawImage(object.imageAlt, object.x + xDis, object.y + yDis, object.w, object.h);
+    }
+    var scaleDraw = function (canvas, object, xDis, yDis, scale) {
+        if (object.ready && !object.hover)
+            canvas.drawImage(object.image,0,0,object.w,object.h, object.x, object.y,object.w*scale, object.h*scale);
+        if (object.readyAlt && object.hover)
+            canvas.drawImage(object.image,0,0,object.w,object.h, object.x, object.y,object.w*scale, object.h*scale);
     }
 
     var tracker = function (e) {
