@@ -1242,6 +1242,17 @@ function problemListUpdate() {
 
 
 //lean tools buttons
+    var officeWindow_Spring = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Spring.png");
+    loadImg(officeWindow_Spring);
+
+    var officeWindow_Fall = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Fall.png");
+    loadImg(officeWindow_Fall);
+
+    var officeWindow_Winter = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Winter.png");
+    loadImg(officeWindow_Winter);
+
+    var officeWindow_Summer = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Summer.png");
+    loadImg(officeWindow_Summer);
 
     var leanToolsBtnCells = new gameObject(800+leanToolXDif*1, 210+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
     loadImg(leanToolsBtnCells);
@@ -4707,7 +4718,49 @@ function totalPricePerChair(){
                     }
                 }
             }
-
+            if (subScreen == "calendar") {
+                draw(ctx, calendarView, 0, 0);
+                ctx.font = "80px Georgia";
+                switch (monthCounter) {
+                    case 0:
+                        currentMonth = monthsArray.January;
+                        break;
+                    case 1:
+                        currentMonth = monthsArray.February;
+                        break;
+                    case 2:
+                        currentMonth = monthsArray.March;
+                        break;
+                    case 3:
+                        currentMonth = monthsArray.April;
+                        break;
+                    case 4:
+                        currentMonth = monthsArray.May;
+                        break;
+                    case 5:
+                        currentMonth = monthsArray.June;
+                        break;
+                    case 6:
+                        currentMonth = monthsArray.July;
+                        break;
+                    case 7:
+                        currentMonth = monthsArray.August;
+                        break;
+                    case 8:
+                        currentMonth = monthsArray.September;
+                        break;
+                    case 9:
+                        currentMonth = monthsArray.October;
+                        break;
+                    case 10:
+                        currentMonth = monthsArray.November;
+                        break;
+                    case 11:
+                        currentMonth = monthsArray.December;
+                }
+                ctx.fillText(currentMonth, 900, 100);
+                ctx.font = "10px Georgia";
+            }
 
             /*for (var i = 0; i < 9; i++) {
                 draw(ctx, station[i], 3, -3);
@@ -4718,11 +4771,21 @@ function totalPricePerChair(){
 
 
             if (subScreen == "office") {
-
+                if(currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March){
+                    scaleDraw(ctx,officeWindow_Winter,0,0,1);
+                }else if(currentMonth == monthsArray.April || currentMonth == monthsArray.May){
+                    scaleDraw(ctx,officeWindow_Spring,0,0,1);
+                }else if(currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August){
+                    scaleDraw(ctx,officeWindow_Summer,0,0,1);
+                }else{
+                    scaleDraw(ctx,officeWindow_Fall,0,0,1);
+                }
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
                 draw(ctx, officeDesk,0,0);
                 scaleDraw(ctx,leanToolsBtn,0,0,.75);
+
+
                 //draw(ctx,reportBtn,0,0);
                 //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
                 //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
@@ -5013,49 +5076,7 @@ function totalPricePerChair(){
 
                 //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
             }
-            if (subScreen == "calendar") {
-                draw(ctx, calendarView, 0, 0);
-                ctx.font = "80px Georgia";
-                switch (monthCounter) {
-                    case 0:
-                        currentMonth = monthsArray.January;
-                        break;
-                    case 1:
-                        currentMonth = monthsArray.February;
-                        break;
-                    case 2:
-                        currentMonth = monthsArray.March;
-                        break;
-                    case 3:
-                        currentMonth = monthsArray.April;
-                        break;
-                    case 4:
-                        currentMonth = monthsArray.May;
-                        break;
-                    case 5:
-                        currentMonth = monthsArray.June;
-                        break;
-                    case 6:
-                        currentMonth = monthsArray.July;
-                        break;
-                    case 7:
-                        currentMonth = monthsArray.August;
-                        break;
-                    case 8:
-                        currentMonth = monthsArray.September;
-                        break;
-                    case 9:
-                        currentMonth = monthsArray.October;
-                        break;
-                    case 10:
-                        currentMonth = monthsArray.November;
-                        break;
-                    case 11:
-                        currentMonth = monthsArray.December;
-                }
-                ctx.fillText(currentMonth, 900, 100);
-                ctx.font = "10px Georgia";
-            }
+
             if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar"){
 
             }
