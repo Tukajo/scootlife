@@ -1212,7 +1212,7 @@ function problemListUpdate() {
     var creditBtn = new gameObject(50, 150, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
     loadImg(creditBtn);
 
-    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.p9ng', 0);
+    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.png', 0);
     loadImg(credits);
 
 
@@ -1362,6 +1362,9 @@ var leanToolButtonArray = {
 
 
     // Workstation views
+
+    var gameBorder = new gameObject(0,0,750,1500,"Art_Assets/game_screen/gui/bkg_Border.png",0)
+    loadImg(gameBorder);
 
     var stationView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/backgrounds/bkg_Workstation.png", 0);
     loadImg(stationView);
@@ -4710,10 +4713,10 @@ function totalPricePerChair(){
 
 
             if (subScreen == "office") {
-                draw(ctx, officeDesk,0,0);
+
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
-
+                draw(ctx, officeDesk,0,0);
                 //draw(ctx,reportBtn,0,0);
                 //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
                 //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
@@ -5050,16 +5053,13 @@ function totalPricePerChair(){
             if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar"){
 
             }
-            //draw(ctx,closeBtn,0,0);
-            //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
-            //  draw(ctx,)
                 if (subScreen != "sawView" && subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
                     ctx.font = "80px Georgia";
                     ctx.fillText(subScreen, 900, 500);
                     ctx.font = "10px Georgia";
                 }
 
-
+            draw(ctx,gameBorder,0,0);
         }
 
         ctx.fillText("x: "+posx,100,400);
