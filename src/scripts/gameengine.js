@@ -153,11 +153,11 @@ function drawLeanTools(){
 
 }
 var titleAnimImg = new Image();
-titleAnimImg.src = "Art_Assets/main_menu/titlescreenanim.png";
+titleAnimImg.src = "Art_Assets/main_menu/TitleScreenV2.png";
 function drawTitleAnim(myTitleCounterTracker){
-    var spriteX = 677;
-    var spriteY = 711;
-        ctx.drawImage(titleAnimImg, spriteX * (myTitleCounterTracker % 7), spriteY * (myTitleCounterTracker % 7), 677, 711, -300, -25, 2100, 2100);
+    var spriteX = 997;
+    var spriteY = 560;
+        ctx.drawImage(titleAnimImg, spriteX * (myTitleCounterTracker % 9), spriteY * (myTitleCounterTracker % 9), 997, 560, 0, 0, 1500, 750);
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -4469,10 +4469,10 @@ function totalPricePerChair(){
     var frameControl = 0;
     var update = function (modifier) {
         frameControl++;
-        if(currentScreen == "mainMenu" && frameControl%7 == 0) {
+        if(currentScreen == "mainMenu" && frameControl%5 == 0) {
 
             myTitleCounter++
-            drawTitleAnim(myTitleCounter % 47);
+            drawTitleAnim(myTitleCounter % 70);
         }
         if (updateRate == 60)
             updateRate = 0;
