@@ -1219,7 +1219,7 @@ function problemListUpdate() {
     var creditBtn = new gameObject(50, 150, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
     loadImg(creditBtn);
 
-    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.p9ng', 0);
+    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.png', 0);
     loadImg(credits);
 
 
@@ -4486,16 +4486,19 @@ function totalPricePerChair(){
         if(currentScreen=="factory") {
 
             //finish all of the following through onclick and draw
-            if(subScreen == "office") {
-                contact(reportBtn);
-                contact(closeBtn);
-                contact(leanToolsBtn);
-                contact(calendarBtn);
-                contact(nextMonthBtn);
-		contact(desk);
-	}
+                if(subScreen == "office") {
+                    contact(reportBtn);
+                    contact(closeBtn);
+                    contact(leanToolsBtn);
+                    contact(calendarBtn);
+                    contact(nextMonthBtn);
+
+                }
+            contact(desk);
+	    }
         
 	//finish all of the following through onclick and draw
+
         contact(reportBtn);
         contact(closeBtn);
         contact(leanToolsBtn);
