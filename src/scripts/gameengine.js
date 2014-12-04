@@ -27,7 +27,7 @@ canvas.style.position="absolute";
 document.body.appendChild(canvas);
 canvas.zIndex=1;
 
-var myTitleCounter = 0;
+
 var bgLeftDrawn=false;
 var bgRightDrawn=false;
 var midRightDrawn=false;
@@ -1229,7 +1229,7 @@ function problemListUpdate() {
     var reportBtn = new gameObject(1000, 550, 80, 80, 'Art_Assets/game_screen/reportBtn_temp.png', 0);
     loadImg(reportBtn);
 
-    var leanToolsBtn = new gameObject(1200, 525, 120, 171, 'Art_Assets/game_screen/office/obj_leanTools.png', 0);
+    var leanToolsBtn = new gameObject(780, 100, 300, 300, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0);
     loadImg(leanToolsBtn);
 
     var calendarBtn = new gameObject(1300, 550, 100, 100, 'Art_Assets/game_screen/calendarBtn_temp.png', 0);
@@ -1241,17 +1241,6 @@ function problemListUpdate() {
 
 
 //lean tools buttons
-    var officeWindow_Spring = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Spring.png", 0);
-    loadImg(officeWindow_Spring);
-
-    var officeWindow_Fall = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Fall.png", 0);
-    loadImg(officeWindow_Fall);
-
-    var officeWindow_Winter = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Winter.png", 0);
-    loadImg(officeWindow_Winter);
-
-    var officeWindow_Summer = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Summer.png", 0);
-    loadImg(officeWindow_Summer);
 
 
 //lean tools buttons
@@ -1383,9 +1372,6 @@ var leanToolButtonArray = {
 
     // Workstation views
 
-    var gameBorder = new gameObject(0,0,750,1500,"Art_Assets/game_screen/gui/bkg_Border.png",0)
-    loadImg(gameBorder);
-
     var stationView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/backgrounds/bkg_Workstation.png", 0);
     loadImg(stationView);
 
@@ -1427,12 +1413,6 @@ var leanToolButtonArray = {
 
     var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
     loadImg(note);
-    
-    var stationReport = new gameObject( 800, 450, 150, 100, "Art_Assets/game_screen/menu_MonthlyReport.png", 0);
-    loadImg(stationReport);
-    
-    var Report = new gameObject(800, 10, 750, 550, "Art_Assets/game_screen/StationReport.png", 0);
-    loadImg(Report);
 
 
     var posx;
@@ -2460,9 +2440,9 @@ function mitreSaw_Handling(){
         return 2;
 }
 //Duplicate Function
-function mitreSaw_ProcessNeededMachines(){
-    return (mitreSaw_NeededMin()/(24 * MinPerDay * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
-}
+//function mitreSaw_NeededMachines(){
+  //  return (mitreSaw_NeededMin()/(24 * MinPerDay * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
+//}
 
 
 //Drill functions
@@ -2519,9 +2499,9 @@ function drillPress_Handling(){
         return 2;
 }
 //Duplicate Function
-function drillPress_ProcessNeededMachines(){
-    return (drillPress_NeededMin()/(24 * MinPerDay * drillPress_Efficiency() * drillPress_Reliability() * drillPress_Quality()));
-}
+//function drillPress_NeededMachines(){
+  //  return (drillPress_NeededMin()/(24 * MinPerDay * drillPress_Efficiency() * drillPress_Reliability() * drillPress_Quality()));
+//}
 
 //Bender functions
 function tubeBender_CurrentQuantity(){
@@ -2574,9 +2554,9 @@ function tubeBender_CurrentQuantity(){
     return 2;
  }
 //Duplicate Function
- function tubeBender_ProcessNeededMachines(){
-    return (tubeBender_NeededMin()/(24 * MinPerDay * tubeBender_Efficiency() * tubeBender_Reliability() * tubeBender_Quality()));
- }
+ //function tubeBender_NeededMachines(){
+   // return (tubeBender_NeededMin()/(24 * MinPerDay * tubeBender_Efficiency() * tubeBender_Reliability() * tubeBender_Quality()));
+ //}
 
 //welding functions
 function welding_CurrentQuantity(){
@@ -2633,9 +2613,9 @@ function welding_Handling(){
         return 2;
 }
 //Duplicate Function
-function welding_ProcessNeededMachines(){
-    return (welding_NeededMin()/(24 * MinPerDay * welding_Efficiency() * welding_Reliability() * welding_Quality()));
-}
+//function welding_NeededMachines(){
+  //  return (welding_NeededMin()/(24 * MinPerDay * welding_Efficiency() * welding_Reliability() * welding_Quality()));
+//}
 
 //Grinder functions
 function grinder_CurrentQuantity(){
@@ -2683,9 +2663,9 @@ function grinder_Handling(){
         return 2;
 }
 //Duplicate function
-function grinder_ProcessNeededMachines(){
-    return (grinder_NeededMin()/(24 * MinPerDay * grinder_Efficiency() * grinder_Reliability() * grinder_Quality()));
-}
+//function grinder_NeededMachines(){
+  //  return (grinder_NeededMin()/(24 * MinPerDay * grinder_Efficiency() * grinder_Reliability() * grinder_Quality()));
+//}
 
 //Paint functions
 function paintBooth_CurrentQuantity(){
@@ -2736,9 +2716,9 @@ function paintBooth_Handling(){
     return 2;
 }
 //Duplicate Function
-function paintBooth_ProcessNeededMachines(){
-    return (paintBooth_NeededMin()/(24 * MinPerDay * paintBooth_Efficiency() * paintBooth_Reliability() * paintBooth_Quality()));
-}
+//function paintBooth_NeededMachines(){
+  //  return (paintBooth_NeededMin()/(24 * MinPerDay * paintBooth_Efficiency() * paintBooth_Reliability() * paintBooth_Quality()));
+//}
 
 // fabric functions
 function fabricCutter_CurrentQuantity(){
@@ -2786,9 +2766,9 @@ function fabricCutter_Handling(){
         return 2;
 }
 //Duplicate Function
-function fabricCut_ProcessNeededMachines(){
-    return (fabricCut_NeededMin()/(24 * MinPerDay * fabricCutter_Efficiency() * fabricCutter_Reliability() * fabricCutter_Quality()));
-}
+//function fabricCut_NeededMachines(){
+  //  return (fabricCut_NeededMin()/(24 * MinPerDay * fabricCutter_Efficiency() * fabricCutter_Reliability() * fabricCutter_Quality()));
+//}
 
 // Sewing functions
 function sewing_CurrentQuantity(){
@@ -2842,9 +2822,9 @@ function sewing_Handling(){
     return 2;
 }
 //Duplicate Function
-function sewing_ProcessNeededMachines(){
-    return (sewing_NeededMin()/(24 * MinPerDay * sewing_Efficiency() * sewing_Reliability() * sewing_Quality()));
-}
+//function sewing_NeededMachines(){
+  //  return (sewing_NeededMin()/(24 * MinPerDay() * sewing_Efficiency() * sewing_Reliability() * sewing_Quality()));
+//}
 
 //Assembly functions
 function assembly_CurrentQuantity(){
@@ -2887,9 +2867,9 @@ function assembly_Handling(){
     return 0;
 }
 //Duplicate Function
-function assembly_ProcessNeededMachines(){
-    return (assembly_NeededMin()/(24 * MinPerDay * assembly_Efficiency() * assembly_Reliability() * assembly_Quality()));
-}
+//function assembly_NeededMachines(){
+  //  return (assembly_NeededMin()/(24 * MinPerDay() * assembly_Efficiency() * assembly_Reliability() * assembly_Quality()));
+//}
 
 
 
@@ -4466,14 +4446,16 @@ function totalPricePerChair(){
 //                                                                                            //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    var frameControl = 0;
+
     var update = function (modifier) {
+
         frameControl++;
         if(currentScreen == "mainMenu" && frameControl%5 == 0) {
 
             myTitleCounter++
             drawTitleAnim(myTitleCounter % 70);
         }
+
         if (updateRate == 60)
             updateRate = 0;
         ++updateRate;
@@ -4481,19 +4463,20 @@ function totalPricePerChair(){
         if(currentScreen=="mainMenu") {
             contact(startBtn);
             contact(creditBtn);
-
         }
         if(currentScreen=="factory") {
 
             //finish all of the following through onclick and draw
-                if(subScreen == "office") {
-                    contact(reportBtn);
-                    contact(closeBtn);
-                    contact(leanToolsBtn);
-                    contact(calendarBtn);
-                    contact(nextMonthBtn);
 
-                }
+            if(subScreen == "office") {
+                contact(reportBtn);
+                contact(closeBtn);
+                contact(leanToolsBtn);
+                contact(calendarBtn);
+                contact(nextMonthBtn);
+            }
+            contact(leanToolsView);
+              
             contact(desk);
 	    }
         
@@ -4577,16 +4560,23 @@ function totalPricePerChair(){
         if (currentScreen == "mainMenu") {
 
             if (menu.ready&&bgLeftDrawn!=true) {
-                draw(ctxBack,menu,0,0)
+                draw(ctxBack,menu,0,0);
                 bgLeftDrawn=true;
             }
 
 
-
-            //draw(ctxBack,menu,0,0);
+            draw(ctxBack,menu,0,0);
 
             draw(ctx, startBtn, 0, 0);
             draw(ctx, creditBtn, 0, 0);
+
+            // draw(ctx,loadingBar[0],0,0);
+
+            //for(var i=0;i<loadingBar.length;i++){
+            //  draw(ctx,loadingBar[i],0,0);
+            //check if problem[i].== true to display problem
+
+            //}
 
         }
         if (currentScreen == "credits")
@@ -4633,10 +4623,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + sawDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + mitreSaw_WorkersOver(), posx + 10, posy + 100);
                     if (mitreSaw_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                     else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[1].hover) {
@@ -4646,10 +4636,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + drillDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + drillPress_WorkersOver(), posx + 10, posy + 100);
                     if (drillPress_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                     else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[2].hover) {
@@ -4659,10 +4649,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + benderDaysDown, posx - 250, posy + 70);
                     ctx.fillText("Workers Overtime: " + tubeBender_WorkersOver(), posx - 250, posy + 100);
                     if (tubeBender_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx - 250, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
                     else{
-                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                 }
                 if (station[3].hover) {
@@ -4672,10 +4662,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + welderDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + welding_WorkersOver(), posx + 10, posy + 100);
                     if (welding_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                     else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[4].hover) {
@@ -4685,10 +4675,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + grinderDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx + 10, posy + 100);
                     if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                     else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[5].hover) {
@@ -4698,10 +4688,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + grinderDaysDown, posx - 250, posy + 70);
                     ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx - 250, posy + 100);
                     if (grinder_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx - 250, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
                     else{
-                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                 }
                 if (station[6].hover) {
@@ -4711,10 +4701,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + assemblyDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + assembly_WorkersOver(), posx + 10, posy + 100);
                     if (assembly_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                     else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }                   
                 }
                 if (station[7].hover) {
@@ -4724,10 +4714,10 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + fabricDaysDown, posx + 10, posy + 70);
                     ctx.fillText("Workers Overtime: " + fabricCut_WorkersOver(), posx + 10, posy + 100);
                     if (fabricCut_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx + 10, posy + 130);
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
                     }
                     else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                        ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[8].hover) {
@@ -4737,56 +4727,14 @@ function totalPricePerChair(){
                     ctx.fillText("Days Down: " + sewingDaysDown, posx - 250, posy + 70);
                     ctx.fillText("Workers Overtime: " + sewing_WorkersOver(), posx - 250, posy + 100);
                     if (sewing_MaxCapacity() < 200) {
-                        ctx.fillText("Meets Production", posx - 250, posy + 130);
-                    }
-                    else{
                         ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
                     }
+                    else{
+                        ctx.fillText("Meets Production", posx - 250, posy + 130);
+                    }
                 }
             }
-            if (subScreen == "calendar") {
-                draw(ctx, calendarView, 0, 0);
-                ctx.font = "80px Georgia";
-                switch (monthCounter) {
-                    case 0:
-                        currentMonth = monthsArray.January;
-                        break;
-                    case 1:
-                        currentMonth = monthsArray.February;
-                        break;
-                    case 2:
-                        currentMonth = monthsArray.March;
-                        break;
-                    case 3:
-                        currentMonth = monthsArray.April;
-                        break;
-                    case 4:
-                        currentMonth = monthsArray.May;
-                        break;
-                    case 5:
-                        currentMonth = monthsArray.June;
-                        break;
-                    case 6:
-                        currentMonth = monthsArray.July;
-                        break;
-                    case 7:
-                        currentMonth = monthsArray.August;
-                        break;
-                    case 8:
-                        currentMonth = monthsArray.September;
-                        break;
-                    case 9:
-                        currentMonth = monthsArray.October;
-                        break;
-                    case 10:
-                        currentMonth = monthsArray.November;
-                        break;
-                    case 11:
-                        currentMonth = monthsArray.December;
-                }
-                ctx.fillText(currentMonth, 900, 100);
-                ctx.font = "10px Georgia";
-            }
+
 
             /*for (var i = 0; i < 9; i++) {
                 draw(ctx, station[i], 3, -3);
@@ -4795,22 +4743,11 @@ function totalPricePerChair(){
                 draw(ctx, office, 0, 0);
 
 
-
             if (subScreen == "office") {
-
-                if(currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March){
-                    scaleDraw(ctx,officeWindow_Winter,0,0,1);
-                }else if(currentMonth == monthsArray.April || currentMonth == monthsArray.May){
-                    scaleDraw(ctx,officeWindow_Spring,0,0,1);
-                }else if(currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August){
-                    scaleDraw(ctx,officeWindow_Summer,0,0,1);
-                }else{
-                    scaleDraw(ctx,officeWindow_Fall,0,0,1);
-                }
+                //draw(ctx, officeDesk,0,0);
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
                 draw(ctx, officeDesk,0,0);
-                scaleDraw(ctx,leanToolsBtn,0,0,.75);
 
                 //draw(ctx,reportBtn,0,0);
                 //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
@@ -5102,7 +5039,6 @@ function totalPricePerChair(){
 
                 //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
             }
-
             if (subScreen == "calendar") {
                 draw(ctx, calendarView, 0, 0);
                 ctx.font = "80px Georgia";
@@ -5146,84 +5082,17 @@ function totalPricePerChair(){
                 ctx.fillText(currentMonth, 900, 100);
                 ctx.font = "10px Georgia";
             }
-
             if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar"){
 
             }
+            //draw(ctx,closeBtn,0,0);
+            //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
+            //  draw(ctx,)
                 if (subScreen != "sawView" && subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
                     ctx.font = "80px Georgia";
                     ctx.fillText(subScreen, 900, 500);
                     ctx.font = "10px Georgia";
                 }
-
-            draw(ctx,gameBorder,0,0);
-        }
-        
-            if (subScreen == "sawView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            if (subScreen == "drillView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            if (subScreen == "bendView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            if (subScreen == "weldView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            if (subScreen == "grindView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            if (subScreen == "paintView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            if (subScreen == "assemblyView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            if (subScreen == "fabricView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            if (subScreen == "sewingView") {
-                draw(ctx, stationReport, 0, 0);
-            }
-            
-            
-            if (subScreen == "sawReport") {
-               draw(ctx, Report, 0, 0);
-               sawReport();
-            }
-            if (subScreen == "drillReport") {
-                draw(ctx, Report, 0, 0);
-                drillReport();
-            }
-            if (subScreen == "bendReport") {
-                draw(ctx, Report, 0, 0);
-                bendReport();
-            }
-            if (subScreen == "weldReport") {
-                draw(ctx, Report, 0, 0);
-                weldReport();
-            }
-            if (subScreen == "grindReport") {
-                draw(ctx, Report, 0, 0);
-                grindReport();
-            }
-            if (subScreen == "paintReport") {
-                draw(ctx, Report, 0, 0);
-                paintReport();
-            }
-            if (subScreen == "assemblyReport") {
-                draw(ctx, Report, 0, 0);
-                assemblyReport();
-            }
-            if (subScreen == "fabricReport") {
-                draw(ctx, Report, 0, 0);
-                fabricReport();
-            }
-            if (subScreen == "sewingReport") {
-                draw(ctx, Report, 0, 0);
-                sewingReport();
-            }
 
 
         }
@@ -5531,6 +5400,8 @@ function totalPricePerChair(){
         ctx.fillText("x: "+posx,100,400);
         ctx.fillText("y: "+posy,100,415);
 
+    }
+
     var checkboxDraw = function (canvas, object, xDis, yDis) {
     if (object.ready)
         canvas.drawImage(object.image, object.x, object.y, object.w, object.h);
@@ -5542,12 +5413,6 @@ function totalPricePerChair(){
             canvas.drawImage(object.image, object.x, object.y, object.w, object.h);
         if (object.readyAlt && object.hover)
             canvas.drawImage(object.imageAlt, object.x + xDis, object.y + yDis, object.w, object.h);
-    }
-    var scaleDraw = function (canvas, object, xDis, yDis, scale) {
-        if (object.ready && !object.hover)
-            canvas.drawImage(object.image,0,0,object.w,object.h, object.x, object.y,object.w*scale, object.h*scale);
-        if (object.readyAlt && object.hover)
-            canvas.drawImage(object.image,0,0,object.w,object.h, object.x, object.y,object.w*scale, object.h*scale);
     }
 
     var tracker = function (e) {
@@ -6369,53 +6234,6 @@ createConsoleTable();
 
 
         }
-        
-                //Station Report Click
-        if (subScreen=="sawView") {
-            if (stationReport.hover) {
-                subScreen = "sawReport";
-            }
-        }
-        if (subScreen=="drillView") {
-            if (stationReport.hover) {
-                subScreen = "drillReport";
-            }
-        }
-        if (subScreen=="bendView") {
-            if (stationReport.hover) {
-                subScreen = "bendReport";
-            }
-        }
-        if (subScreen=="weldView") {
-            if (stationReport.hover) {
-                subScreen = "weldReport";
-            }
-        }
-        if (subScreen=="grindView") {
-            if (stationReport.hover) {
-                subScreen = "grindReport";
-            }
-        }
-        if (subScreen=="paintView") {
-            if (stationReport.hover) {
-                subScreen = "paintReport";
-            }
-        }
-        if (subScreen=="assemblyView") {
-            if (stationReport.hover) {
-                subScreen = "assemblyReport";
-            }
-        }
-        if (subScreen=="fabricView") {
-            if (stationReport.hover) {
-                subScreen = "fabricReport";
-            }
-        }
-        if (subScreen=="sewingView") {
-            if (stationReport.hover) {
-                subScreen = "sewingReport";
-            }
-        }
 
 
     }
@@ -6429,7 +6247,6 @@ createConsoleTable();
 
         update(delta / 1000);
         render();
-
         then = now;
         requestAnimationFrame(main);
 
