@@ -118,8 +118,10 @@ function drawBossWalkRightandMoveRight(){
 var leanSprite1 = new Image();
 var leanSprite2 = new Image();
 var leanSprite3 = new Image();
-var leanToolStartX = 800;
-var leanToolStartY = 210;
+//var leanToolStartX = 800;
+//var leanToolStartY = 210;
+var leanToolStartX = 800;//leantoolview+54
+var leanToolStartY = 62+110;//leantoolview+110
 var leanToolYDif = 62;
 var leanToolXDif = 200;
 
@@ -127,6 +129,7 @@ leanSprite1.src = "Art_Assets/game_screen/buttons/sprtsht_leanToolButtons.jpg";
 leanSprite2.src = "Art_Assets/game_screen/buttons/sprtsht_leanToolButtonsHover.jpg";
 leanSprite3.src = "Art_Assets/game_screen/buttons/sprtsht_leanToolButtonsPressed.jpg";
 function drawLeanTools(){
+
     var spriteX = 293;
     var spriteY = 54;
     for(var val in leanToolButtonArray){
@@ -886,26 +889,67 @@ function drawSprtSht() {
     var barX = 400;
     var barY = 600;
 
+//Office screen views
+var leanToolsView = new gameObject(775, 62, 626, 451, "Art_Assets/game_screen/gui/img_leanToolsMenuSmall.png", 0);
+loadImg(leanToolsView);
+
+
+var leanToolTab = new gameObject(leanToolsView.x+leanToolsView.w-16,leanToolsView.y+23,580,277,"Art_Assets/game_screen/gui/leanToolsPopoutSmall.png",0);
+loadImg(leanToolTab);
+
+
+var reportView = new gameObject(850, 20, 710, 550, "Art_Assets/game_screen/report_view.png", 0);
+loadImg(reportView);
+
+var calendarView = new gameObject(770, 20, 710, 710, "Art_Assets/game_screen/Calendar.png", 0);
+loadImg(calendarView);
 
 
 
-    var checkboxPosA = new checkBox(1250, 250);
+
+
+
+var spaceH= 22;
+var spaceV= 90;
+
+    //Grid layout
+    /*var checkboxPosA = new checkBox(1260, 270);
     loadImg(checkboxPosA);
-    var checkboxPosB = new checkBox(1350, 250);
+    var checkboxPosB = new checkBox(checkboxPosA.x + spaceH, checkboxPosA.y);
     loadImg(checkboxPosB);
-    var checkboxPosC = new checkBox(1450, 250);
+    var checkboxPosC = new checkBox(checkboxPosB.x + spaceH, checkboxPosA.y);
     loadImg(checkboxPosC);
-    var checkboxPosD = new checkBox(1250, 350);
+    var checkboxPosD = new checkBox(checkboxPosA.x, checkboxPosA.y+spaceH);
     loadImg(checkboxPosD);
-    var checkboxPosE = new checkBox(1350, 350);
+    var checkboxPosE = new checkBox(checkboxPosB.x, checkboxPosD.y);
     loadImg(checkboxPosE);
-    var checkboxPosF = new checkBox(1450, 350);
+    var checkboxPosF = new checkBox(checkboxPosC.x, checkboxPosD.y);
     loadImg(checkboxPosF);
-    var checkboxPosG = new checkBox(1250, 450);
+    var checkboxPosG = new checkBox(checkboxPosA.x, checkboxPosD.y+spaceH);
     loadImg(checkboxPosG);
-    var checkboxPosH = new checkBox(1350, 450);
+    var checkboxPosH = new checkBox(checkboxPosB.x, checkboxPosG.y);
     loadImg(checkboxPosH);
-    var checkboxPosI = new checkBox(1450, 450);
+    var checkboxPosI = new checkBox(checkboxPosC.x, checkboxPosG.y);
+    loadImg(checkboxPosI);*/
+
+    //list layout
+    var checkboxPosA = new checkBox(1360,leanToolTab.y+103);
+    loadImg(checkboxPosA);
+    var checkboxPosB = new checkBox(checkboxPosA.x, checkboxPosA.y+spaceH);
+    loadImg(checkboxPosB);
+    var checkboxPosC = new checkBox(checkboxPosA.x, checkboxPosB.y+spaceH);
+    loadImg(checkboxPosC);
+    var checkboxPosD = new checkBox(checkboxPosA.x, checkboxPosC.y+spaceH);
+    loadImg(checkboxPosD);
+    var checkboxPosE = new checkBox(checkboxPosA.x, checkboxPosD.y+spaceH);
+    loadImg(checkboxPosE);
+    var checkboxPosF = new checkBox(checkboxPosA.x, checkboxPosE.y+spaceH);
+    loadImg(checkboxPosF);
+    var checkboxPosG = new checkBox(checkboxPosA.x, checkboxPosF.y+spaceH);
+    loadImg(checkboxPosG);
+    var checkboxPosH = new checkBox(checkboxPosA.x, checkboxPosG.y+spaceH);
+    loadImg(checkboxPosH);
+    var checkboxPosI = new checkBox(checkboxPosA.x, checkboxPosH.y+spaceH);
     loadImg(checkboxPosI);
 
     var loadingPeg = function (x) {
@@ -1212,7 +1256,7 @@ function problemListUpdate() {
     var creditBtn = new gameObject(50, 150, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
     loadImg(creditBtn);
 
-    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.p9ng', 0);
+    var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.png', 0);
     loadImg(credits);
 
 
@@ -1233,46 +1277,48 @@ function problemListUpdate() {
 
 
 
-
 //lean tools buttons
 
-    var leanToolsBtnCells = new gameObject(800+leanToolXDif*1, 210+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+    var leanToolStartingX=leanToolsView.x+25;
+    var leanToolStartingY=leanToolsView.y+110;
+
+    var leanToolsBtnCells = new gameObject(leanToolStartingX+leanToolXDif*1, leanToolStartingY+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
     loadImg(leanToolsBtnCells);
 
-    var leanToolsBtnSmed = new gameObject(800+leanToolXDif*0, 210+leanToolYDif*5, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+    var leanToolsBtnSmed = new gameObject(leanToolStartingX+leanToolXDif*0, leanToolStartingY+leanToolYDif*5, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
     loadImg(leanToolsBtnSmed);
 
-    var leanToolsBtnFiveS = new gameObject(800+leanToolXDif*0, 210+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+    var leanToolsBtnFiveS = new gameObject(leanToolStartingX+leanToolXDif*0, leanToolStartingY+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
     loadImg(leanToolsBtnFiveS);
 
-    var leanToolsBtnKanban = new gameObject(800+leanToolXDif*0,210+leanToolYDif*2,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnKanban = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*2,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnKanban);
 
-    var leanToolsBtnCrossTrain = new gameObject(800+leanToolXDif*0,210+leanToolYDif*1,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnCrossTrain = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*1,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnCrossTrain);
 
-    var leanToolsBtnNew = new gameObject(800+leanToolXDif*1,210+leanToolYDif*2,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnNew = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*2,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnNew);
 
-    var leanToolsBtnPM = new gameObject(800+leanToolXDif*1,210+leanToolYDif*1,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnPM = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*1,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnPM);
 
-    var leanToolsBtnMarket = new gameObject(800+leanToolXDif*1,210+leanToolYDif*5,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnMarket = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*5,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnMarket);
 
-    var leanToolsBtnSmallLot = new gameObject(800+leanToolXDif*0,210+leanToolYDif*4,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnSmallLot = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*4,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnSmallLot);
 
-    var leanToolsBtnQuality = new gameObject(800+leanToolXDif*0,210+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnQuality = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnQuality);
 
-    var leanToolsBtnSmallPurchase = new gameObject(800+leanToolXDif*1,210+leanToolYDif*4,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnSmallPurchase = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*4,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnSmallPurchase);
 
-    var leanToolsBtnVendor = new gameObject(800+leanToolXDif*0,210+leanToolYDif*6,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnVendor = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*6,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnVendor);
 
-    var leanToolsBtnSelfDirected = new gameObject(800+leanToolXDif*1,210+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+    var leanToolsBtnSelfDirected = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
     loadImg(leanToolsBtnVendor);
 
     //lean tool buy button
@@ -1294,32 +1340,17 @@ var leanToolButtonArray = {
         cellsBtn:[leanToolsBtnCells,0,1,0],
         smedBtn: [leanToolsBtnSmed,0,0,5],
         fiveSBtn:[leanToolsBtnFiveS,0,0,0],
-        kanbanBtn:[leanToolsBtnKanban,0,0,2],
+        kanbanBtn:[leanToolsBtnKanban,1,0,2],
         newBtn: [leanToolsBtnNew,0,1,2],
         PMBtn:[leanToolsBtnPM,0,1,1],
         qualityBtn:[leanToolsBtnQuality,0,0,3],
         marketBtn: [leanToolsBtnMarket,0,1,5],
-        smallLotBtn: [leanToolsBtnSmallLot,0,0,4],
+        smallLotBtn: [leanToolsBtnSmallLot,1,0,4],
         smallPurchaseBtn: [leanToolsBtnSmallPurchase,0,1,4],
         vendorBtn: [leanToolsBtnVendor,0,0,6],
-        selfDirectedBtn: [leanToolsBtnSelfDirected,0,1,3],
-        crossTrainBtn: [leanToolsBtnCrossTrain,0,0,1]
+        selfDirectedBtn: [leanToolsBtnSelfDirected,1,1,3],
+        crossTrainBtn: [leanToolsBtnCrossTrain,1,0,1]
     }
-//Office screen views
-    var leanToolsView = new gameObject(775, 100, 626, 451, "Art_Assets/game_screen/gui/img_leanToolsMenuSmall.png", 0);
-    loadImg(leanToolsView);
-
-
-    var leanToolTab = new gameObject(leanToolsView.x+leanToolsView.w,leanToolsView.y+23,580,277,"Art_Assets/game_screen/gui/leanToolsPopoutSmall.png",0);
-    loadImg(leanToolTab);
-
-
-    var reportView = new gameObject(850, 20, 710, 550, "Art_Assets/game_screen/report_view.png", 0);
-    loadImg(reportView);
-
-    var calendarView = new gameObject(770, 20, 710, 710, "Art_Assets/game_screen/Calendar.png", 0);
-    loadImg(calendarView);
-
 
 ///////////////////////////////////////   v   Replace image for each workstation
 
@@ -4445,62 +4476,74 @@ function totalPricePerChair(){
             updateRate = 0;
         ++updateRate;
 
-        contact(startBtn);
-        contact(creditBtn);
-        contact(desk);
-        //finish all of the following through onclick and draw
-        contact(reportBtn);
-        contact(closeBtn);
-        contact(leanToolsBtn);
-        contact(calendarBtn);
-        contact(nextMonthBtn);
-        contact(leanToolsView);
-
-        contact(reportView);
-
-        contact(checkboxPosA);
-        contact(checkboxPosB);
-        contact(checkboxPosC);
-        contact(checkboxPosD);
-        contact(checkboxPosE);
-        contact(checkboxPosF);
-        contact(checkboxPosG);
-        contact(checkboxPosH);
-        contact(checkboxPosI);
-
-        //contact(purchaseBtn);
-        contact(buyBtn);
-
-
-        // lean tool buttons
-        if(toolTab!="confirm") {
-            for (var object in leanToolButtonArray) {
-
-                contact(leanToolButtonArray[object][0]);
-            }
+        if(currentScreen=="mainMenu") {
+            contact(startBtn);
+            contact(creditBtn);
         }
+        if(currentScreen=="factory") {
 
-        for(var object in leanToolButtonArray){
-            if(leanToolButtonArray[object][0].hover){
-                if(leanToolButtonArray[object][1] != 2) {
-                    leanToolButtonArray[object][1] = 1;
-                }
-            }else if(!leanToolButtonArray[object][0].hover && leanToolButtonArray[object][1] == 1){
-                leanToolButtonArray[object][1] = 0;
+            //finish all of the following through onclick and draw
+            if(subScreen == "office") {
+                contact(reportBtn);
+                contact(closeBtn);
+                contact(leanToolsBtn);
+                contact(calendarBtn);
+                contact(nextMonthBtn);
             }
-        }
+            contact(leanToolsView);
+
+            contact(reportView);
+            contact(calendarView);
+
+            if(subScreen == "leanTools") {
+                contact(checkboxPosA);
+                contact(checkboxPosB);
+                contact(checkboxPosC);
+                contact(checkboxPosD);
+                contact(checkboxPosE);
+                contact(checkboxPosF);
+                contact(checkboxPosG);
+                contact(checkboxPosH);
+                contact(checkboxPosI);
+
+                //contact(purchaseBtn);
+                contact(buyBtn);
+            }
 
 
-        for (var i = 0; i < 9; i++) {
-            for (var a = 0; a < 9; a++) {
-                if (station[i].position == a) {
-                    station[i].x = position[a].x;
-                    station[i].y = position[a].y;
+            // lean tool buttons
+            if (toolTab != "confirm"&&subScreen == "leanTools") {
+                for (var object in leanToolButtonArray) {
+
+                    contact(leanToolButtonArray[object][0]);
                 }
             }
-        }
-        for (var i = 0; i < 9; i++) {
-            contact(station[i]);
+
+            if(subScreen == "leanTools") {
+                for (var object in leanToolButtonArray) {
+                    if (leanToolButtonArray[object][0].hover) {
+                        if (leanToolButtonArray[object][1] != 2) {
+                            leanToolButtonArray[object][1] = 1;
+                        }
+                    } else if (!leanToolButtonArray[object][0].hover && leanToolButtonArray[object][1] == 1) {
+                        leanToolButtonArray[object][1] = 0;
+                    }
+                }
+            }
+
+            contact(desk);
+            for (var i = 0; i < 9; i++) {
+                for (var a = 0; a < 9; a++) {
+                    if (station[i].position == a) {
+                        station[i].x = position[a].x;
+                        station[i].y = position[a].y;
+                    }
+                }
+            }
+            for (var i = 0; i < 9; i++) {
+                contact(station[i]);
+            }
+
         }
     };
 
@@ -4524,6 +4567,7 @@ function totalPricePerChair(){
     var render = function () {
         //ctx.clearRect(0,0,canvas.width,canvas.height);
         if (currentScreen == "mainMenu") {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
 
             if (menu.ready&&bgLeftDrawn!=true) {
                 draw(ctxBack,menu,0,0);
@@ -4710,9 +4754,10 @@ function totalPricePerChair(){
 
 
             if (subScreen == "office") {
-                draw(ctx, officeDesk,0,0);
+                //draw(ctx, officeDesk,0,0);
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
+                draw(ctx, officeDesk,0,0);
 
                 //draw(ctx,reportBtn,0,0);
                 //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
@@ -4757,15 +4802,19 @@ function totalPricePerChair(){
             }
 
 
-            var cbOff=16;
-            var cbLeft=6;
+            /*var cbOff=16;
+            var cbLeft=6;*/
+            var cbOff=-16;
+            var cbLeft=100;
+
             if (subScreen == "leanTools") {
                 if(toolTab!="null"&&toolTab!="confirm"){
                     draw(ctx,leanToolTab,0,0);
                     //draw(ctx,buyBtn,0,0);
                 }
 
-
+                ctx.fillStyle = "black";
+                ctx.font = "20px Arial";
                 if(toolTab=="kanban"){
                     ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
                     checkboxDraw(ctx,checkboxPosA,0,0);
@@ -4906,20 +4955,39 @@ function totalPricePerChair(){
 
                 draw(ctx, leanToolsView, 0, 0);
                 drawLeanTools();
+                ctx.fillText("Lean tool 1: "+currentLeanPurchase,750,50);
+                ctx.fillText("Lean tool 2: "+currentLeanPurchaseSecond,1150,50);
                 if(toolTab=="confirm"){
                     draw(ctx,confirmScreen,0,0);
                     draw(ctx,buyBtn,0,0);
                     draw(ctx,closeBtn,0,0);
                 }
+                ctx.textAlign = "right";
+                ctx.fillText("$"+leanToolAllowance,1200,650);
+                if(tabCost!=0)
+                ctx.fillText("- $"+tabCost,1200,590);
+                if(leanTool_Cells==false) {
+                    ctx.textAlign = "center";
+                    ctx.fillStyle = "white";
+                    ctx.font = "bold 24px Arial";
+                    ctx.fillText("Cells Required", 888, 268);
+                    ctx.fillText("Cells Required", 888, 330);
+                    ctx.fillText("Cells Required", 888, 456);
+                    ctx.fillText("Cells Required", 1090, 392);
+                    ctx.fillStyle = "black";
+
+                }
+                ctx.textAlign = "left";
+
             }
 
             //report screen is background of
             if (subScreen == "monthlyReport") {
                 draw(ctx, reportView, 0, 0);
-                ctx.font = "60px Georgia";
+                ctx.font = "60px Arial";
                 ctx.fillStyle = "black";
                 ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
-                ctx.font = "10px Georgia";
+                ctx.font = "10px Arial";
 
                 var column = [];
                 column[0] = reportView.x + 30;
@@ -4929,7 +4997,7 @@ function totalPricePerChair(){
 
                 }
 
-                column[1] = column[0] + 150;
+                column[1] = column[0] + 160;
                 column[2] = column[1] + 60;
                 column[3] = column[2] + 100;
                 var row = [];
@@ -4937,7 +5005,7 @@ function totalPricePerChair(){
                 for (var i = 1; i < 20; i++) {
                     row[i] = row[i - 1] + 15;
                 }
-                ctx.font = "14px Georgia";
+                ctx.font = "16px Arial";
 
                 //headings
                 ctx.fillText("Sales: ", column[0], row[2]);
@@ -4975,10 +5043,10 @@ function totalPricePerChair(){
                 ctx.fillText("$", column[1], row[17]), ctx.fillText(monthData[monthCounter].totalExpenses, column[2], row[17]);
 
 
-                ctx.font = "bold 14px Georgia";
+                ctx.font = "bold 16px Arial";
                 ctx.fillText("$", column[1], row[3]), ctx.fillText(monthData[monthCounter].sales, column[2], row[3]);
                 ctx.fillText("$", column[1], row[19]), ctx.fillText(monthData[monthCounter].totalProfit, column[2], row[19]);
-                ctx.font = "normal 14px Georgia"
+                ctx.font = "normal 16px Arial"
 
                 ctx.textAlign = "left";
 
@@ -4988,12 +5056,12 @@ function totalPricePerChair(){
                 //ctx.fillText("$    "+chairPrice,column[5],row[0]);
 
                 //Bold headings
-                ctx.font = "bold 14px Georgia";
+                ctx.font = "bold 16px Arial";
                 ctx.fillText("Income", column[0], row[1]);
                 ctx.fillText("Expenses", column[0], row[5]);
                 ctx.fillText("Total profit:", column[0], row[19]);
-                ctx.font = "normal 14px Georgia";
-                ctx.font = "10px Georgia";
+                ctx.font = "normal 14px Arial";
+                ctx.font = "10px Arial";
                 /*month.chairsSold = 200;
 
 
@@ -5006,7 +5074,7 @@ function totalPricePerChair(){
             }
             if (subScreen == "calendar") {
                 draw(ctx, calendarView, 0, 0);
-                ctx.font = "80px Georgia";
+                ctx.font = "80px Arial";
                 switch (monthCounter) {
                     case 0:
                         currentMonth = monthsArray.January;
@@ -5045,7 +5113,7 @@ function totalPricePerChair(){
                         currentMonth = monthsArray.December;
                 }
                 ctx.fillText(currentMonth, 900, 100);
-                ctx.font = "10px Georgia";
+                ctx.font = "10px Arial";
             }
             if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar"){
 
@@ -5054,14 +5122,16 @@ function totalPricePerChair(){
             //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
             //  draw(ctx,)
                 if (subScreen != "sawView" && subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
-                    ctx.font = "80px Georgia";
+                    ctx.font = "80px Arial";
                     ctx.fillText(subScreen, 900, 500);
-                    ctx.font = "10px Georgia";
+                    ctx.font = "10px Arial";
                 }
 
 
         }
 
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
         ctx.fillText("x: "+posx,100,400);
         ctx.fillText("y: "+posy,100,415);
 
@@ -5309,13 +5379,15 @@ function clickToolSelector(checkbox,leanTool,toolCost,currentToolName) {
 
     if(leanTool== true)
         checkbox.selected=true;
-    if (leanTool == false && checkbox.selected&&checkbox.hover) {
+    if (checkbox.leantool == false && checkbox.selected&&checkbox.hover) {
         checkbox.selected = false;
         //console.log("selected "+checkbox+"asd;jlkfasdfjasd;klfjklasdjf;klasdjl");
         tabCost -= toolCost;
         console.log(tabCost);
     }
-    else if (leanTool== false && checkbox.selected == false&&checkbox.hover) {
+    else if (checkbox.leantool== false && checkbox.selected == false&&checkbox.hover&&leanToolAllowance-toolCost-tabCost>=0&&
+        (currentLeanPurchase == "null" || currentLeanPurchaseSecond == "null" || currentLeanPurchase == currentToolName ||
+        currentLeanPurchaseSecond == currentToolName)) {
         checkbox.selected = true;
         tabCost += toolCost;
     }
@@ -5324,19 +5396,20 @@ function clickToolSelector(checkbox,leanTool,toolCost,currentToolName) {
         tabCost += toolCost;
     }*/
 
-    if (buyBtn.hover && checkbox.selected && leanTool == false && tabCost <= leanToolAllowance &&
-        (currentLeanPurchase == "null" || currentLeanPurchaseSecond == "null" || currentLeanPurchase == currentToolName ||
+    if (buyBtn.hover && checkbox.selected && leanTool == false &&checkbox.leantool==false && tabCost <= leanToolAllowance &&
+        leanToolAllowance>0&&(currentLeanPurchase == "null" || currentLeanPurchaseSecond == "null" || currentLeanPurchase == currentToolName ||
         currentLeanPurchaseSecond == currentToolName)) {
 
         if (currentLeanPurchase == "null")
             currentLeanPurchase = currentToolName;
-        else if (currentLeanPurchaseSecond == "null")
+        else if (currentLeanPurchaseSecond == "null"&&currentLeanPurchase!=currentToolName)
             currentLeanPurchaseSecond = currentToolName;
 
         //checkbox.leantool= true;
-        leantool=true;
+        //leantool=true;
         checkbox.leantool=true;
         leanToolAllowance -= toolCost;
+        tabCost=0;
     }
 }
 function clickToolSelectorAll(toolCost,currentToolName,leanToolA,leanToolB,leanToolC,leanToolD,
@@ -5364,6 +5437,16 @@ function clickToolSelectorAll(toolCost,currentToolName,leanToolA,leanToolB,leanT
 var resetCheckbox = function(leanToolA,leanToolB,leanToolC,leanToolD,
     leanToolE,leanToolF,leanToolG,leanToolH,leanToolI){
 
+    checkboxPosA.leantool=false;
+    checkboxPosB.leantool=false;
+    checkboxPosC.leantool=false;
+    checkboxPosD.leantool=false;
+    checkboxPosE.leantool=false;
+    checkboxPosF.leantool=false;
+    checkboxPosG.leantool=false;
+    checkboxPosH.leantool=false;
+    checkboxPosI.leantool=false;
+
     checkboxPosA.selected=false;
     checkboxPosB.selected=false;
     checkboxPosC.selected=false;
@@ -5374,24 +5457,42 @@ var resetCheckbox = function(leanToolA,leanToolB,leanToolC,leanToolD,
     checkboxPosH.selected=false;
     checkboxPosI.selected=false;
 
-    if(leanToolA==true)
-        checkboxPosA.selected=true;
-    if(leanToolB==true)
-        checkboxPosB.selected=true;
-    if(leanToolC==true)
-        checkboxPosC.selected=true;
-    if(leanToolD==true)
-        checkboxPosD.selected=true;
-    if(leanToolE==true)
-        checkboxPosE.selected=true;
-    if(leanToolF==true)
-        checkboxPosF.selected=true;;
-    if(leanToolG==true)
-        checkboxPosG.selected=true;
-    if(leanToolH==true)
-        checkboxPosH.selected=true;
-    if(leanToolI==true)
-        checkboxPosI.selected=true;
+    if(leanToolA==true) {
+        checkboxPosA.selected = true;
+        checkboxPosA.leantool = true;
+    }
+    if(leanToolB==true) {
+        checkboxPosB.selected = true;
+        checkboxPosB.leantool = true;
+    }
+    if(leanToolC==true) {
+        checkboxPosC.selected = true;
+        checkboxPosC.leantool = true;
+    }
+    if(leanToolD==true) {
+        checkboxPosD.selected = true;
+        checkboxPosD.leantool = true;
+    }
+    if(leanToolE==true) {
+        checkboxPosE.selected = true;
+        checkboxPosE.leantool = true;
+    }
+    if(leanToolF==true) {
+        checkboxPosF.selected = true;
+        checkboxPosF.leantool = true;
+    }
+    if(leanToolG==true) {
+        checkboxPosG.selected = true;
+        checkboxPosG.leantool = true;
+    }
+    if(leanToolH==true) {
+        checkboxPosH.selected = true;
+        checkboxPosH.leantool = true;
+    }
+    if(leanToolI==true) {
+        checkboxPosI.selected = true;
+        checkboxPosI.leantool = true;
+    }
 
 }
 var currentLeanPurchase="null";
@@ -5399,6 +5500,9 @@ var currentLeanPurchaseSecond="null";
 createConsoleTable();
     function onClick(evt) {
         if (subScreen == "calendar") {
+            if (calendarView.hover==false) {
+                subScreen = "office";
+            }
             if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
                 var sawTemp=mitreSaw_FinalInventory();
                 var drillTemp=drillPress_FinalInventory();
@@ -5496,10 +5600,12 @@ createConsoleTable();
 
 
 
+
                 //Selection of subscreens from the lean tools page tooltabs
-                if(leanToolButtonArray.kanbanBtn[0].hover) {//Button for Kanban (kaban in our code)
+                if(leanToolButtonArray.kanbanBtn[0].hover&& leanTool_Cells) {//Button for Kanban (kaban in our code)
                     resetCheckbox(leanTool_Kaban_Metal,leanTool_Kaban_Weld,0,0,0,0,0,0,0);
                     toolTab="kanban";
+                    tabCost=0;
                     if(leanToolButtonArray.kanbanBtn[1] == 2){
                         //console.log("Test click for kanban");
                         leanToolButtonArray.kanbanBtn[1] = 0;
@@ -5513,6 +5619,7 @@ createConsoleTable();
                 else if(leanToolButtonArray.marketBtn[0].hover){// Button for supermarket
                     resetCheckbox(leanTool_Market_Welding,leanTool_Market_Assembly,0,0,0,0,0,0,0);
                     toolTab="superMarket";
+                    tabCost=0;
                     if(leanToolButtonArray.marketBtn[1] == 2){
                         leanToolButtonArray.marketBtn[1] = 0;
                         toolTab="null";
@@ -5524,6 +5631,7 @@ createConsoleTable();
                 else if(leanToolButtonArray.smallLotBtn[0].hover){//Button for smallLot
                     resetCheckbox(leanTool_SmallLot_Metal,leanTool_SmallLot_Weld,leanTool_SmallLot_Fabric,0,0,0,0,0,0);
                     toolTab="smallLot";
+                    tabCost=0;
                     if(leanToolButtonArray.smallLotBtn[1] == 2){
                         leanToolButtonArray.smallLotBtn[1] = 0;
                         toolTab="null";
@@ -5537,6 +5645,7 @@ createConsoleTable();
                         leanTool_fiveS_Welding,leanTool_fiveS_Grind,leanTool_fiveS_Paint,
                         leanTool_fiveS_Fabric,leanTool_fiveS_Sewing,leanTool_fiveS_Assembly);
                     toolTab="fiveS";
+                    tabCost=0;
                     if(leanToolButtonArray.fiveSBtn[1] == 2){
                         leanToolButtonArray.fiveSBtn[1] = 0;
                         toolTab="null";
@@ -5550,6 +5659,7 @@ createConsoleTable();
                     resetCheckbox(leanTool_Smed_Saw,leanTool_Smed_Drill,leanTool_Smed_Bender,
                         leanTool_Smed_Welding,leanTool_Smed_Paint,leanTool_Smed_Sewing,0,0,0);
                     toolTab="smed";
+                    tabCost=0;
                     if(leanToolButtonArray.smedBtn[1] == 2){
                         leanToolButtonArray.smedBtn[1] = 0;
                         toolTab="null";
@@ -5565,6 +5675,7 @@ createConsoleTable();
                         leanTool_Quality_Sewing,leanTool_Quality_Assembly,0,
                         0,0,0);
                     toolTab="quality";
+                    tabCost=0;
                     if(leanToolButtonArray.qualityBtn[1] == 2){
                         leanToolButtonArray.qualityBtn[1] = 0;
                         toolTab="null";
@@ -5576,6 +5687,7 @@ createConsoleTable();
                 else if (leanToolButtonArray.cellsBtn[0].hover) {//click on cells button
                     resetCheckbox(leanTool_Cells,0,0,0,0,0,0,0,0);
                     toolTab="cells";
+                    tabCost=0;
                     if(leanToolButtonArray.cellsBtn[1] == 2){
                         leanToolButtonArray.cellsBtn[1] = 0;
                         toolTab="null";
@@ -5587,6 +5699,7 @@ createConsoleTable();
                 else if (leanToolButtonArray.crossTrainBtn[0].hover) {//click on crossTrain button
                     resetCheckbox(leanTool_CrossTrain_Metal,leanTool_CrossTrain_Weld,leanTool_CrossTrain_Fabric,0,0,0,0,0,0);
                     toolTab="crossTrain";
+                    tabCost=0;
                     if(leanToolButtonArray.crossTrainBtn[1] == 2){
                         leanToolButtonArray.crossTrainBtn[1] = 0;
                         toolTab="null";
@@ -5598,6 +5711,7 @@ createConsoleTable();
                 else if (leanToolButtonArray.selfDirectedBtn[0].hover) {//click on selfDirected button
                     resetCheckbox(leanTool_SelfDirected_Metal,leanTool_SelfDirected_Weld,leanTool_SelfDirected_Fabric,0,0,0,0,0,0);
                     toolTab="selfDirected";
+                    tabCost=0;
                     if(leanToolButtonArray.selfDirectedBtn[1] == 2){
                         leanToolButtonArray.selfDirectedBtn[1] = 0;
                         toolTab="null";
@@ -5611,6 +5725,7 @@ createConsoleTable();
                         leanTool_PM_Welding,leanTool_PM_Paint,leanTool_PM_Sewing,
                         0,0,0);
                     toolTab="pM";
+                    tabCost=0;
                     if(leanToolButtonArray.PMBtn[1] == 2){
                         leanToolButtonArray.PMBtn[1] = 0;
                         toolTab="null";
@@ -5624,6 +5739,7 @@ createConsoleTable();
                         leanTool_Vendor_Metal,0,0,
                         0,0,0);
                     toolTab="vendor";
+                    tabCost=0;
                     if(leanToolButtonArray.vendorBtn[1] == 2){
                         leanToolButtonArray.vendorBtn[1] = 0;
                         toolTab="null";
@@ -5637,6 +5753,7 @@ createConsoleTable();
                         leanTool_SmallPurchase_Metal,0,0,
                         0,0,0);
                     toolTab="smallPurchase";
+                    tabCost=0;
                     if(leanToolButtonArray.smallPurchaseBtn[1] == 2){
                         leanToolButtonArray.smallPurchaseBtn[1] = 0;
                         toolTab="null";
@@ -5650,11 +5767,13 @@ createConsoleTable();
                         leanTool_New_Welding,leanTool_New_Grind,leanTool_New_Paint,
                         leanTool_New_Fabric,leanTool_New_Sewing,leanTool_New_Assembly);
                     toolTab="new";
+                    tabCost=0;
                     if(leanToolButtonArray.newBtn[1] == 2){
                         leanToolButtonArray.newBtn[1] = 0;
+                        toolTab="null";
                     }else{
                         leanToolButtonArray.newBtn[1] = 2;
-                        toolTab="null";
+
                     }
                 }
 
@@ -5707,11 +5826,15 @@ createConsoleTable();
 
 
 
-                if(toolTab!="kanban")
+                if(leanTool_Cells==false&&toolTab!="kanban")
+                    leanToolButtonArray.kanbanBtn[1] = 2;
+                if(leanTool_Cells==true&&toolTab!="kanban")
                     leanToolButtonArray.kanbanBtn[1] = 0;
                 if(toolTab!="superMarket")
                     leanToolButtonArray.marketBtn[1] = 0;
-                if(toolTab!="smallLot")
+                if(leanTool_Cells==false&&toolTab!="smallLot")
+                    leanToolButtonArray.smallLotBtn[1] = 2;
+                if(leanTool_Cells==true&&toolTab!="smallLot")
                     leanToolButtonArray.smallLotBtn[1] = 0;
                 if(toolTab!="fiveS")
                     leanToolButtonArray.fiveSBtn[1] = 0;
@@ -5721,9 +5844,13 @@ createConsoleTable();
                     leanToolButtonArray.qualityBtn[1] = 0;
                 if(toolTab!="cells")
                     leanToolButtonArray.cellsBtn[1] = 0;
-                if(toolTab!="crossTrain")
+                if(leanTool_Cells==false&&toolTab!="crossTrain")
+                    leanToolButtonArray.crossTrainBtn[1] = 2;
+                if(leanTool_Cells==true&&toolTab!="crossTrain")
                     leanToolButtonArray.crossTrainBtn[1] = 0;
-                if(toolTab!="selfDirected")
+                if(leanTool_Cells==false&&toolTab!="selfDirected")
+                    leanToolButtonArray.selfDirectedBtn[1] = 2;
+                if(leanTool_Cells==true&&toolTab!="selfDirected")
                     leanToolButtonArray.selfDirectedBtn[1] = 0;
                 if(toolTab!="pM")
                     leanToolButtonArray.PMBtn[1] = 0;
@@ -5736,135 +5863,170 @@ createConsoleTable();
 
                 if(toolTab=="kanban"){
 
-                    clickToolSelectorAll(100,"kanban",leanTool_Kaban_Metal,leanTool_Kaban_Weld,0,
+                    clickToolSelectorAll(100,"Kanban",leanTool_Kaban_Metal,leanTool_Kaban_Weld,0,
                         0,0,0,
                         0,0,0);
-                    leanTool_Kaban_Metal=checkboxPosA.leantool;
-                    leanTool_Kaban_Weld=checkboxPosB.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_Kaban_Metal = checkboxPosA.leantool;
+                        leanTool_Kaban_Weld = checkboxPosB.leantool;
+                    }
                 }
                 else if(toolTab=="superMarket"){
-                    clickToolSelectorAll(200,"superMarket",leanTool_Market_Welding,leanTool_Market_Assembly,0,
+                    clickToolSelectorAll(200,"SuperMarket",leanTool_Market_Welding,leanTool_Market_Assembly,0,
                         0,0,0,
                         0,0,0);
-                    leanTool_Market_Welding=checkboxPosA.leantool;////// THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    leanTool_Market_Assembly=checkboxPosB.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_Market_Welding = checkboxPosA.leantool;////// THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        leanTool_Market_Assembly = checkboxPosB.leantool;
+                    }
                 }
                 else if(toolTab=="smallLot"){
-                    clickToolSelectorAll(100,"smallLot",leanTool_SmallLot_Metal,leanTool_SmallLot_Weld,leanTool_SmallLot_Fabric,
+                    clickToolSelectorAll(100,"Small Lot Size",leanTool_SmallLot_Metal,leanTool_SmallLot_Weld,leanTool_SmallLot_Fabric,
                         0,0,0,
                         0,0,0);
-                    leanTool_SmallLot_Metal=checkboxPosA.leantool;
-                    leanTool_SmallLot_Weld=checkboxPosB.leantool;
-                    leanTool_SmallLot_Fabric=checkboxPosC.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_SmallLot_Metal = checkboxPosA.leantool;
+                        leanTool_SmallLot_Weld = checkboxPosB.leantool;
+                        leanTool_SmallLot_Fabric = checkboxPosC.leantool;
+                    }
                 }
                 else if(toolTab=="fiveS"){
-                    clickToolSelectorAll(100,toolTab,leanTool_fiveS_Saw,leanTool_fiveS_Drill,leanTool_fiveS_Bender,
+                    clickToolSelectorAll(100,"5-S",leanTool_fiveS_Saw,leanTool_fiveS_Drill,leanTool_fiveS_Bender,
                         leanTool_fiveS_Welding,leanTool_fiveS_Grind,leanTool_fiveS_Paint,
                         leanTool_fiveS_Fabric,leanTool_fiveS_Sewing,leanTool_fiveS_Assembly);
 
-                    leanTool_fiveS_Saw=checkboxPosA.leantool;
-                    leanTool_fiveS_Drill=checkboxPosB.leantool;
-                    leanTool_fiveS_Bender=checkboxPosC.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_fiveS_Saw = checkboxPosA.leantool;
+                        leanTool_fiveS_Drill = checkboxPosB.leantool;
+                        leanTool_fiveS_Bender = checkboxPosC.leantool;
 
-                    leanTool_fiveS_Welding=checkboxPosD.leantool;
-                    leanTool_fiveS_Grind=checkboxPosE.leantool;
-                    leanTool_fiveS_Paint=checkboxPosF.leantool;
+                        leanTool_fiveS_Welding = checkboxPosD.leantool;
+                        leanTool_fiveS_Grind = checkboxPosE.leantool;
+                        leanTool_fiveS_Paint = checkboxPosF.leantool;
 
-                    leanTool_fiveS_Fabric=checkboxPosG.leantool;
-                    leanTool_fiveS_Sewing=checkboxPosH.leantool;
-                    leanTool_fiveS_Assembly=checkboxPosI.leantool;
+                        leanTool_fiveS_Fabric = checkboxPosG.leantool;
+                        leanTool_fiveS_Sewing = checkboxPosH.leantool;
+                        leanTool_fiveS_Assembly = checkboxPosI.leantool;
+                    }
                 }
                 else if(toolTab=="smed"){
-                    clickToolSelectorAll(300,"smed",leanTool_Smed_Saw,leanTool_Smed_Drill,leanTool_Smed_Bender,
+                    clickToolSelectorAll(300,"SMED",leanTool_Smed_Saw,leanTool_Smed_Drill,leanTool_Smed_Bender,
                         leanTool_Smed_Welding,leanTool_Smed_Paint,leanTool_Smed_Sewing,
                         0,0,0);
-                    leanTool_Smed_Saw=checkboxPosA.leantool;
-                    leanTool_Smed_Drill=checkboxPosB.leantool;
-                    leanTool_Smed_Bender=checkboxPosC.leantool;
-                    leanTool_Smed_Welding=checkboxPosD.leantool;
-                    leanTool_Smed_Paint =checkboxPosE.leantool;
-                    leanTool_Smed_Sewing =checkboxPosF.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_Smed_Saw = checkboxPosA.leantool;
+                        leanTool_Smed_Drill = checkboxPosB.leantool;
+                        leanTool_Smed_Bender = checkboxPosC.leantool;
+                        leanTool_Smed_Welding = checkboxPosD.leantool;
+                        leanTool_Smed_Paint = checkboxPosE.leantool;
+                        leanTool_Smed_Sewing = checkboxPosF.leantool;
+                    }
                 }
                 else if(toolTab=="quality"){
-                    clickToolSelectorAll(200,"quality",leanTool_Quality_Drill,leanTool_Quality_Bender,leanTool_Quality_Welding,
+                    clickToolSelectorAll(200,"Source Quality",leanTool_Quality_Drill,leanTool_Quality_Bender,leanTool_Quality_Welding,
                         leanTool_Quality_Sewing,leanTool_Quality_Assembly,0,
                         0,0,0);
-                    leanTool_Quality_Drill=checkboxPosA.leantool;
-                    leanTool_Quality_Bender=checkboxPosB.leantool;
-                    leanTool_Quality_Welding=checkboxPosC.leantool;
-                    leanTool_Quality_Sewing=checkboxPosD.leantool;
-                    leanTool_Quality_Assembly =checkboxPosE.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_Quality_Drill = checkboxPosA.leantool;
+                        leanTool_Quality_Bender = checkboxPosB.leantool;
+                        leanTool_Quality_Welding = checkboxPosC.leantool;
+                        leanTool_Quality_Sewing = checkboxPosD.leantool;
+                        leanTool_Quality_Assembly = checkboxPosE.leantool;
+                    }
                 }
                 else if(toolTab=="cells"){
-                    clickToolSelectorAll(1000,"cells",leanTool_Cells,0,0,
+                    clickToolSelectorAll(1000,"Cells",leanTool_Cells,0,0,
                         0,0,0,
                         0,0,0);
-                    leanTool_Cells=checkboxPosA.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_Cells = checkboxPosA.leantool;
+                        if(leanTool_Cells) {
+                            leanToolButtonArray.smallLotBtn[1] = 0;
+                            leanToolButtonArray.selfDirectedBtn[1] = 0;
+                            leanToolButtonArray.crossTrainBtn[1] = 0;
+                            leanToolButtonArray.kanbanBtn[1] = 0;
+                        }
+                    }
 
                 }
                 else if(toolTab=="crossTrain"){
-                    clickToolSelectorAll(200,"crossTrain",leanTool_CrossTrain_Metal,leanTool_CrossTrain_Weld,leanTool_CrossTrain_Fabric,
+                    clickToolSelectorAll(200,"Cross Training",leanTool_CrossTrain_Metal,leanTool_CrossTrain_Weld,leanTool_CrossTrain_Fabric,
                                         0,0,0,
                                         0,0,0);
-                    leanTool_CrossTrain_Metal=checkboxPosA.leantool;
-                    leanTool_CrossTrain_Weld=checkboxPosB.leantool;
-                    leanTool_CrossTrain_Fabric=checkboxPosC.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_CrossTrain_Metal = checkboxPosA.leantool;
+                        leanTool_CrossTrain_Weld = checkboxPosB.leantool;
+                        leanTool_CrossTrain_Fabric = checkboxPosC.leantool;
+                    }
                 }
                 else if(toolTab=="selfDirected"){
-                    clickToolSelectorAll(200,"selfDirected",leanTool_SelfDirected_Metal,leanTool_SelfDirected_Weld,leanTool_SelfDirected_Fabric,
+                    clickToolSelectorAll(200,"Self-Directed Teams",leanTool_SelfDirected_Metal,leanTool_SelfDirected_Weld,leanTool_SelfDirected_Fabric,
                                         0,0,0,
                                         0,0,0);
-                    leanTool_SelfDirected_Metal=checkboxPosA.leantool;
-                    leanTool_SelfDirected_Weld=checkboxPosB.leantool;
-                    leanTool_SelfDirected_Fabric=checkboxPosC.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_SelfDirected_Metal = checkboxPosA.leantool;
+                        leanTool_SelfDirected_Weld = checkboxPosB.leantool;
+                        leanTool_SelfDirected_Fabric = checkboxPosC.leantool;
+                    }
                 }
                 else if(toolTab=="pM"){
-                    clickToolSelectorAll(200,"pM",leanTool_PM_Saw,leanTool_PM_Drill,leanTool_PM_Bender,
+                    clickToolSelectorAll(200,"Equipment PM",leanTool_PM_Saw,leanTool_PM_Drill,leanTool_PM_Bender,
                         leanTool_PM_Welding,leanTool_PM_Paint,leanTool_PM_Sewing,
                         0,0,0);
-                    leanTool_PM_Saw=checkboxPosA.leantool;
-                    leanTool_PM_Drill=checkboxPosB.leantool;
-                    leanTool_PM_Bender=checkboxPosC.leantool;
-                    leanTool_PM_Welding=checkboxPosD.leantool;
-                    leanTool_PM_Paint=checkboxPosE.leantool;
-                    leanTool_PM_Sewing=checkboxPosF.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_PM_Saw = checkboxPosA.leantool;
+                        leanTool_PM_Drill = checkboxPosB.leantool;
+                        leanTool_PM_Bender = checkboxPosC.leantool;
+                        leanTool_PM_Welding = checkboxPosD.leantool;
+                        leanTool_PM_Paint = checkboxPosE.leantool;
+                        leanTool_PM_Sewing = checkboxPosF.leantool;
+                    }
                 }
                 else if(toolTab=="vendor"){
-                    clickToolSelectorAll(200,"vendor",leanTool_Vendor_Steel,leanTool_Vendor_Nylon,leanTool_Vendor_Bike,
+                    clickToolSelectorAll(200,"Vendor Certification",leanTool_Vendor_Steel,leanTool_Vendor_Nylon,leanTool_Vendor_Bike,
                         leanTool_Vendor_Metal,0,0,
                         0,0,0);
-                    leanTool_Vendor_Steel=checkboxPosA.leantool;
-                    leanTool_Vendor_Nylon=checkboxPosB.leantool;
-                    leanTool_Vendor_Bike=checkboxPosC.leantool;
-                    leanTool_Vendor_Metal=checkboxPosD.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_Vendor_Steel = checkboxPosA.leantool;
+                        leanTool_Vendor_Nylon = checkboxPosB.leantool;
+                        leanTool_Vendor_Bike = checkboxPosC.leantool;
+                        leanTool_Vendor_Metal = checkboxPosD.leantool;
+                    }
                 }
                 else if(toolTab=="smallPurchase"){
-                    clickToolSelectorAll(100,"smallPurchase",leanTool_SmallPurchase_Steel,leanTool_SmallPurchase_Nylon,leanTool_SmallPurchase_Bike,
+                    clickToolSelectorAll(100,"Small Purchase Lot Size",leanTool_SmallPurchase_Steel,leanTool_SmallPurchase_Nylon,leanTool_SmallPurchase_Bike,
                         leanTool_SmallPurchase_Metal,0,0,
                         0,0,0);
-                    leanTool_SmallPurchase_Steel=checkboxPosA.leantool;
-                    leanTool_SmallPurchase_Nylon=checkboxPosB.leantool;
-                    leanTool_SmallPurchase_Bike=checkboxPosC.leantool;
-                    leanTool_SmallPurchase_Metal=checkboxPosD.leantool;
+                    if(buyBtn.hover) {
+                        leanTool_SmallPurchase_Steel = checkboxPosA.leantool;
+                        leanTool_SmallPurchase_Nylon = checkboxPosB.leantool;
+                        leanTool_SmallPurchase_Bike = checkboxPosC.leantool;
+                        leanTool_SmallPurchase_Metal = checkboxPosD.leantool;
+                    }
                 }
                 else if(toolTab=="new"){
-                    clickToolSelectorAll(700,"new",leanTool_New_Saw,leanTool_New_Drill,leanTool_New_Bender,
+                    clickToolSelectorAll(700,"New Equipment",leanTool_New_Saw,leanTool_New_Drill,leanTool_New_Bender,
                         leanTool_New_Welding,leanTool_New_Grind,leanTool_New_Paint,
                         leanTool_New_Fabric,leanTool_New_Sewing,leanTool_New_Assembly);
+                    if(buyBtn.hover) {
+                        leanTool_New_Saw = checkboxPosA.leantool;
+                        leanTool_New_Drill = checkboxPosB.leantool;
+                        leanTool_New_Bender = checkboxPosC.leantool;
 
-                    leanTool_New_Saw=checkboxPosA.leantool;
-                    leanTool_New_Drill=checkboxPosB.leantool;
-                    leanTool_New_Bender=checkboxPosC.leantool;
+                        leanTool_New_Welding = checkboxPosD.leantool;
+                        leanTool_New_Grind = checkboxPosE.leantool;
+                        leanTool_New_Paint = checkboxPosF.leantool;
 
-                    leanTool_New_Welding=checkboxPosD.leantool;
-                    leanTool_New_Grind=checkboxPosE.leantool;
-                    leanTool_New_Paint=checkboxPosF.leantool;
-
-                    leanTool_New_Fabric=checkboxPosG.leantool;
-                    leanTool_New_Sewing=checkboxPosH.leantool;
-                    leanTool_New_Assembly=checkboxPosI.leantool;
+                        leanTool_New_Fabric = checkboxPosG.leantool;
+                        leanTool_New_Sewing = checkboxPosH.leantool;
+                        leanTool_New_Assembly = checkboxPosI.leantool;
+                    }
 
 
+                }
+                if(posx<leanToolsView.x||posy<leanToolTab.y||posy>leanToolTab.y+leanToolTab.h){
+                    tooltab="null";
+                    subScreen="office";
                 }
 
 
@@ -5872,6 +6034,12 @@ createConsoleTable();
             ///////////////////////////////////////////////////////////
             else if (subScreen == "office") {
                 if (leanToolsBtn.hover) {
+                    if(leanTool_Cells==false) {
+                        leanToolButtonArray.smallLotBtn[1] = 2;
+                        leanToolButtonArray.selfDirectedBtn[1] = 2;
+                        leanToolButtonArray.crossTrainBtn[1] = 2;
+                        leanToolButtonArray.kanbanBtn[1] = 2;
+                    }
                     subScreen = "leanTools";
                 }
                 if (calendarBtn.hover) {
@@ -5882,7 +6050,7 @@ createConsoleTable();
                 }
             }
             if (subScreen == "calendar") {
-                if (closeBtn.hover) {
+                if (calendarView.hover==false) {
                     subScreen = "office";
                 }
             }
