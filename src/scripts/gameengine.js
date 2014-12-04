@@ -156,11 +156,11 @@ function drawLeanTools(){
 
 }
 var titleAnimImg = new Image();
-titleAnimImg.src = "Art_Assets/main_menu/titlescreenanim.png";
+titleAnimImg.src = "Art_Assets/main_menu/titlescreenv3.png";
 function drawTitleAnim(myTitleCounterTracker){
-    var spriteX = 677;
-    var spriteY = 711;
-        ctx.drawImage(titleAnimImg, spriteX * (myTitleCounterTracker % 7), spriteY * (myTitleCounterTracker % 7), 677, 711, -300, -25, 2100, 2100);
+    var spriteX = 987;
+    var spriteY = 586;
+        ctx.drawImage(titleAnimImg, spriteX * (myTitleCounterTracker % 9), spriteY * (myTitleCounterTracker % 9), 987, 586, 0, 0, 1500, 750);
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -4499,9 +4499,9 @@ function totalPricePerChair(){
     var update = function (modifier) {
         frameControl++;
         if(currentScreen == "mainMenu" && frameControl%7 == 0) {
-
-            myTitleCounter++
-            drawTitleAnim(myTitleCounter % 47);
+            drawTitleAnim(myTitleCounter % 75);
+            myTitleCounter++;
+            console.log("DRAWING THE TITLE");
         }
         if (updateRate == 60)
             updateRate = 0;
@@ -4520,9 +4520,10 @@ function totalPricePerChair(){
                 contact(closeBtn);
                 contact(leanToolsBtn);
                 contact(calendarBtn);
-                contact(nextMonthBtn);
-		contact(desk);
+
+
             }
+            contact(desk);
             contact(leanToolsView);
 
             contact(reportView);
@@ -4542,7 +4543,9 @@ function totalPricePerChair(){
                 //contact(purchaseBtn);
                 contact(buyBtn);
             }
-
+            if(subScreen =="calendar"){
+                contact(nextMonthBtn);
+            }
 
             // lean tool buttons
             if (toolTab != "confirm"&&subScreen == "leanTools") {
@@ -4588,11 +4591,16 @@ function totalPricePerChair(){
             posx <= button.w + button.x &&
             posy >= button.y &&
             posy <= button.h + button.y) {
-            //console.log(button);
+            if (button == nextMonthBtn) {
+                console.log(button);
+            }
             button.hover = true;
+        }else if(posx < 0 || posx > 1500 || posy < 0 || posx > 750){
+            button.hover = false;
         }
         else
             button.hover = false;
+
     }
 
 
@@ -4600,7 +4608,6 @@ function totalPricePerChair(){
     var render = function () {
         //ctx.clearRect(0,0,canvas.width,canvas.height);
         if (currentScreen == "mainMenu") {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
 
             if (menu.ready&&bgLeftDrawn!=true) {
                 draw(ctxBack,menu,0,0)
@@ -4626,9 +4633,9 @@ function totalPricePerChair(){
             //  ctx.drawImage(gameScreen.image,0,0,960,1080, 0, 0, 750, 750);
 
             draw(ctx, gameScreen, 0, 0); //entire screen
-            for(var i = 0; i < 9; i++){
-                if(station[i].hover){
-                    ctx.drawImage(shadowForFactoryIcons,0,0,86,86,station[i].x,station[i].y,120,120);
+            for (var i = 0; i < 9; i++) {
+                if (station[i].hover) {
+                    ctx.drawImage(shadowForFactoryIcons, 0, 0, 86, 86, station[i].x, station[i].y, 120, 120);
                     //draw(ctx,nameOfShadow,station[i].x,station[i].y);
                 }
             }
@@ -4636,11 +4643,12 @@ function totalPricePerChair(){
             drawSprtSht();
 
             /////////////////////
-           
 
-        ///Quick Tool Tip    
-            for (var i =0; i<9; i++) {
-                ctx.fillStyle = "#FFF";ctx.font = "25pt Arial";
+
+            ///Quick Tool Tip
+            for (var i = 0; i < 9; i++) {
+                ctx.fillStyle = "#FFF";
+                ctx.font = "25pt Arial";
                 var sawDaysDown = mitreSaw_LateParts(monthCounter) + mitreSaw_Downtime(monthCounter);
                 var drillDaysDown = drillPress_LateWIP() + drillPress_Downtime(monthCounter) + drillPress_BadQuality(monthCounter);
                 var benderDaysDown = tubeBender_LateWIP() + tubeBender_Downtime(monthCounter) + tubeBender_BadQuality(monthCounter) + tubeBender_DelayQuality(monthCounter);
@@ -4650,7 +4658,7 @@ function totalPricePerChair(){
                 var assemblyDaysDown = assemblyBench_LateParts(monthCounter) + assemblyBench_LateWIP() + assemblyBench_BadQuality(monthCounter);
                 var fabricDaysDown = fabricCutter_LateParts(monthCounter);
                 var sewingDaysDown = sewing_LateWIP() + sewing_Downtime(monthCounter) + sewing_BadQuality(monthCounter);
-                         
+
 
                 if (station[0].hover) {
                     ctx.drawImage(note.image, posx, posy, 260, 160);
@@ -4661,8 +4669,8 @@ function totalPricePerChair(){
                     if (mitreSaw_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[1].hover) {
@@ -4674,8 +4682,8 @@ function totalPricePerChair(){
                     if (drillPress_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[2].hover) {
@@ -4687,8 +4695,8 @@ function totalPricePerChair(){
                     if (tubeBender_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy + 130);
                     }
                 }
                 if (station[3].hover) {
@@ -4700,8 +4708,8 @@ function totalPricePerChair(){
                     if (welding_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[4].hover) {
@@ -4713,8 +4721,8 @@ function totalPricePerChair(){
                     if (grinder_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[5].hover) {
@@ -4726,8 +4734,8 @@ function totalPricePerChair(){
                     if (grinder_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy + 130);
                     }
                 }
                 if (station[6].hover) {
@@ -4739,9 +4747,9 @@ function totalPricePerChair(){
                     if (assembly_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
-                    }                   
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
+                    }
                 }
                 if (station[7].hover) {
                     ctx.drawImage(note.image, posx, posy, 260, 160);
@@ -4752,8 +4760,8 @@ function totalPricePerChair(){
                     if (fabricCut_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx + 10, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx + 10, posy +130);
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx + 10, posy + 130);
                     }
                 }
                 if (station[8].hover) {
@@ -4765,13 +4773,15 @@ function totalPricePerChair(){
                     if (sewing_MaxCapacity() < 200) {
                         ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
-                    else{
-                        ctx.fillText("Does Not Meet Production", posx - 250, posy +130);
+                    else {
+                        ctx.fillText("Does Not Meet Production", posx - 250, posy + 130);
                     }
                 }
             }
             if (subScreen == "calendar") {
+
                 draw(ctx, calendarView, 0, 0);
+
                 ctx.font = "80px Georgia";
                 switch (monthCounter) {
                     case 0:
@@ -4812,31 +4822,31 @@ function totalPricePerChair(){
                 }
                 ctx.fillText(currentMonth, 900, 100);
                 ctx.font = "10px Georgia";
+
             }
 
             /*for (var i = 0; i < 9; i++) {
-                draw(ctx, station[i], 3, -3);
-            }*/
+             draw(ctx, station[i], 3, -3);
+             }*/
             if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar")
                 draw(ctx, office, 0, 0);
 
 
-
             if (subScreen == "office") {
 
-                if(currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March){
-                    scaleDraw(ctx,officeWindow_Winter,0,0,1);
-                }else if(currentMonth == monthsArray.April || currentMonth == monthsArray.May){
-                    scaleDraw(ctx,officeWindow_Spring,0,0,1);
-                }else if(currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August){
-                    scaleDraw(ctx,officeWindow_Summer,0,0,1);
-                }else{
-                    scaleDraw(ctx,officeWindow_Fall,0,0,1);
+                if (currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March) {
+                    scaleDraw(ctx, officeWindow_Winter, 0, 0, 1);
+                } else if (currentMonth == monthsArray.April || currentMonth == monthsArray.May) {
+                    scaleDraw(ctx, officeWindow_Spring, 0, 0, 1);
+                } else if (currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August) {
+                    scaleDraw(ctx, officeWindow_Summer, 0, 0, 1);
+                } else {
+                    scaleDraw(ctx, officeWindow_Fall, 0, 0, 1);
                 }
                 drawBossCoffeeAnm();
                 drawBossWalkRightandMoveRight();
-                draw(ctx, officeDesk,0,0);
-                scaleDraw(ctx,leanToolsBtn,0,0,.75);
+                draw(ctx, officeDesk, 0, 0);
+                scaleDraw(ctx, leanToolsBtn, 0, 0, .75);
 
                 //draw(ctx,reportBtn,0,0);
                 //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
@@ -4882,170 +4892,170 @@ function totalPricePerChair(){
 
 
             /*var cbOff=16;
-            var cbLeft=6;*/
-            var cbOff=-16;
-            var cbLeft=100;
+             var cbLeft=6;*/
+            var cbOff = -16;
+            var cbLeft = 100;
 
             if (subScreen == "leanTools") {
-                if(toolTab!="null"&&toolTab!="confirm"){
-                    draw(ctx,leanToolTab,0,0);
+                if (toolTab != "null" && toolTab != "confirm") {
+                    draw(ctx, leanToolTab, 0, 0);
                     //draw(ctx,buyBtn,0,0);
                 }
 
                 ctx.fillStyle = "black";
                 ctx.font = "20px Arial";
-                if(toolTab=="kanban"){
-                    ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                } else if(toolTab=="superMarket"){
-                    ctx.fillText("Welding",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Assembly",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                } else if(toolTab=="smallLot"){
-                    ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
-                } else if(toolTab=="fiveS"){
+                if (toolTab == "kanban") {
+                    ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                } else if (toolTab == "superMarket") {
+                    ctx.fillText("Welding", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Assembly", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                } else if (toolTab == "smallLot") {
+                    ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                } else if (toolTab == "fiveS") {
 
-                    ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
+                    ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
 
-                    ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosD,0,0);
-                    ctx.fillText("Grind",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosE,0,0);
-                    ctx.fillText("Paint",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosF,0,0);
+                    ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Grind", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("Paint", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosF, 0, 0);
 
-                    ctx.fillText("Fabric",checkboxPosG.x-cbLeft,checkboxPosG.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosG,0,0);
-                    ctx.fillText("Sew",checkboxPosH.x-cbLeft,checkboxPosH.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosH,0,0);
-                    ctx.fillText("Assembly",checkboxPosI.x-cbLeft,checkboxPosI.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosI,0,0);
-                } else if(toolTab=="smed"){
-                    ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
+                    ctx.fillText("Fabric", checkboxPosG.x - cbLeft, checkboxPosG.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosG, 0, 0);
+                    ctx.fillText("Sew", checkboxPosH.x - cbLeft, checkboxPosH.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosH, 0, 0);
+                    ctx.fillText("Assembly", checkboxPosI.x - cbLeft, checkboxPosI.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosI, 0, 0);
+                } else if (toolTab == "smed") {
+                    ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
 
-                    ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosD,0,0);
-                    ctx.fillText("Paint",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosE,0,0);
-                    ctx.fillText("Sew",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosF,0,0);
-                } else if(toolTab=="quality"){
-                    ctx.fillText("Drill",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Bender",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Weld",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
-                    ctx.fillText("Sew",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosD,0,0);
-                    ctx.fillText("Assembly",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosE,0,0);
-                } else if(toolTab=="cells"){
-                    ctx.fillText("Overall",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
+                    ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Paint", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("Sew", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosF, 0, 0);
+                } else if (toolTab == "quality") {
+                    ctx.fillText("Drill", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Bender", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Weld", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("Sew", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Assembly", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                } else if (toolTab == "cells") {
+                    ctx.fillText("Overall", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
 
-                } else if (toolTab=="crossTrain"){
-                    ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
-                } else if (toolTab=="selfDirected"){
-                    ctx.fillText("Metal",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Weld",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Fabric",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
-                } else if (toolTab=="pM"){
-                    ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
+                } else if (toolTab == "crossTrain") {
+                    ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                } else if (toolTab == "selfDirected") {
+                    ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                } else if (toolTab == "pM") {
+                    ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
 
-                    ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosD,0,0);
-                    ctx.fillText("Paint",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosE,0,0);
-                    ctx.fillText("Sew",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosF,0,0);
-                } else if (toolTab=="vendor"){
-                    ctx.fillText("Steel",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Nylon",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Bike",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
-                    ctx.fillText("Metal Cut",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosD,0,0);
-                } else if(toolTab=="smallPurchase"){
-                    ctx.fillText("Steel",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Nylon",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Bike",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
-                    ctx.fillText("Metal Cut",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosD,0,0);
-                } else if(toolTab=="new"){
-                    ctx.fillText("Saw",checkboxPosA.x-cbLeft,checkboxPosA.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosA,0,0);
-                    ctx.fillText("Drill",checkboxPosB.x-cbLeft,checkboxPosB.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosB,0,0);
-                    ctx.fillText("Bender",checkboxPosC.x-cbLeft,checkboxPosC.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosC,0,0);
+                    ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Paint", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("Sew", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosF, 0, 0);
+                } else if (toolTab == "vendor") {
+                    ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Nylon", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bike", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("Metal Cut", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                } else if (toolTab == "smallPurchase") {
+                    ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Nylon", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bike", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("Metal Cut", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                } else if (toolTab == "new") {
+                    ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
 
-                    ctx.fillText("Weld",checkboxPosD.x-cbLeft,checkboxPosD.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosD,0,0);
-                    ctx.fillText("Grind",checkboxPosE.x-cbLeft,checkboxPosE.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosE,0,0);
-                    ctx.fillText("Paint",checkboxPosF.x-cbLeft,checkboxPosF.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosF,0,0);
+                    ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Grind", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("Paint", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosF, 0, 0);
 
-                    ctx.fillText("Fabric",checkboxPosG.x-cbLeft,checkboxPosG.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosG,0,0);
-                    ctx.fillText("Sew",checkboxPosH.x-cbLeft,checkboxPosH.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosH,0,0);
-                    ctx.fillText("Assembly",checkboxPosI.x-cbLeft,checkboxPosI.y-cbOff);
-                    checkboxDraw(ctx,checkboxPosI,0,0);
+                    ctx.fillText("Fabric", checkboxPosG.x - cbLeft, checkboxPosG.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosG, 0, 0);
+                    ctx.fillText("Sew", checkboxPosH.x - cbLeft, checkboxPosH.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosH, 0, 0);
+                    ctx.fillText("Assembly", checkboxPosI.x - cbLeft, checkboxPosI.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosI, 0, 0);
 
                 }
 
                 draw(ctx, leanToolsView, 0, 0);
                 drawLeanTools();
-                ctx.fillText("Lean tool 1: "+currentLeanPurchase,750,50);
-                ctx.fillText("Lean tool 2: "+currentLeanPurchaseSecond,1150,50);
-                if(toolTab=="confirm"){
-                    draw(ctx,confirmScreen,0,0);
-                    draw(ctx,buyBtn,0,0);
-                    draw(ctx,closeBtn,0,0);
+                ctx.fillText("Lean tool 1: " + currentLeanPurchase, 750, 50);
+                ctx.fillText("Lean tool 2: " + currentLeanPurchaseSecond, 1150, 50);
+                if (toolTab == "confirm") {
+                    draw(ctx, confirmScreen, 0, 0);
+                    draw(ctx, buyBtn, 0, 0);
+                    draw(ctx, closeBtn, 0, 0);
                 }
                 ctx.textAlign = "right";
-                ctx.fillText("$"+leanToolAllowance,1200,650);
-                if(tabCost!=0)
-                ctx.fillText("- $"+tabCost,1200,590);
-                if(leanTool_Cells==false) {
+                ctx.fillText("$" + leanToolAllowance, 1200, 650);
+                if (tabCost != 0)
+                    ctx.fillText("- $" + tabCost, 1200, 590);
+                if (leanTool_Cells == false) {
                     ctx.textAlign = "center";
                     ctx.fillStyle = "white";
                     ctx.font = "bold 24px Arial";
@@ -5129,28 +5139,15 @@ function totalPricePerChair(){
 
                 ctx.textAlign = "left";
 
-
-                //ctx.fillText("Chairs Sold: ",column[2],row[0]), ctx.fillText(monthData[monthCounter].chairsSold,column[3],row[0]);
-                //ctx.fillText("Price: ",column[4],row[0]);
-                //ctx.fillText("$    "+chairPrice,column[5],row[0]);
-
-                //Bold headings
                 ctx.font = "bold 16px Arial";
                 ctx.fillText("Income", column[0], row[1]);
                 ctx.fillText("Expenses", column[0], row[5]);
                 ctx.fillText("Total profit:", column[0], row[19]);
                 ctx.font = "normal 14px Arial";
                 ctx.font = "10px Arial";
-                /*month.chairsSold = 200;
 
-
-                 month.totalExpenses=month.directCost+month.indirectCost;
-
-                 month.totalProfit=month.sales-month.totalExpenses;
-                 */
-
-                //ctx.fillText("Sales"+sales,reportView.x+10,reportView.y+);
             }
+
 
             if (subScreen == "calendar") {
                 draw(ctx, calendarView, 0, 0);
@@ -5274,7 +5271,9 @@ function totalPricePerChair(){
                 sewingReport();
             }
 
-
+        draw(ctx,nextMonthBtn,0,0);
+        ctx.fillText("x: "+posx,100,400);
+        ctx.fillText("y: "+posy,100,415);
         }
         
         function sawReport(){
