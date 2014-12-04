@@ -5096,7 +5096,7 @@ function totalPricePerChair(){
             draw(ctx,gameBorder,0,0);
         }
         
-                    if (subScreen == "sawView") {
+            if (subScreen == "sawView") {
                 draw(ctx, stationReport, 0, 0);
             }
             if (subScreen == "drillView") {
