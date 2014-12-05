@@ -6090,6 +6090,7 @@ var currentLeanPurchase="null";
 var currentLeanPurchaseSecond="null";
 createConsoleTable();
 function onClick(evt) {
+    click.load();
     if (subScreen == "leanTools") {
 
         if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
