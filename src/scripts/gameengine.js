@@ -153,11 +153,11 @@ function drawLeanTools(){
 
 }
 var titleAnimImg = new Image();
-titleAnimImg.src = "Art_Assets/main_menu/titlescreenv3.png";
+titleAnimImg.src = "Art_Assets/main_menu/finaltitle.png";
 function drawTitleAnim(myTitleCounterTracker){
     var spriteX = 987;
     var spriteY = 586;
-        ctx.drawImage(titleAnimImg, spriteX * (myTitleCounterTracker % 9), spriteY * (myTitleCounterTracker % 9), 987, 586, 0, 0, 1500, 750);
+        ctx.drawImage(titleAnimImg, spriteX * (myTitleCounterTracker % 8), spriteY * (myTitleCounterTracker % 8), 987, 586, 15, -30, 1500, 750);
 
 }
 
@@ -777,23 +777,6 @@ function drawSprtSht() {
             spriteFrameCount++
         }
     }
-    /*
-     var canvas2 = document.createElement("canvas");
-     var ctx = canvas.getContext("2d");
-     canvas2.top=0;
-     canvas2.left=0;
-     canvas2.width = 1550;
-     canvas2.height = 750;
-     document.body.appendChild(canvas2);
-
-     var background = document.createElement("canvas");
-     var ctx3 = background.getContext("2d");
-     background.left=-3;
-     background.top=-3;
-     background.width = 1000;
-     background.height = 500;
-     document.body.appendChild(background);
-     */
 
     var workStation = function (src, altSrc, subScreen, p, pTwo, pThree, pFour) {
         this.problem = p;
@@ -4475,8 +4458,8 @@ var myTitleCounter = 0;
     var update = function (modifier) {
 
         frameControl++;
-        if(currentScreen == "mainMenu" && frameControl%7 == 0) {
-            drawTitleAnim(myTitleCounter % 75);
+        if(currentScreen == "mainMenu" && frameControl%6 == 0) {
+            drawTitleAnim(myTitleCounter % 61);
             myTitleCounter++;
             console.log("DRAWING THE TITLE");
 
@@ -4588,38 +4571,26 @@ var myTitleCounter = 0;
         //ctx.clearRect(0,0,canvas.width,canvas.height);
         if (currentScreen == "mainMenu") {
 
-            if (menu.ready && bgLeftDrawn != true) {
+        /*    if (menu.ready && bgLeftDrawn != true) {
                 draw(ctxBack, menu, 0, 0);
                 bgLeftDrawn = true;
             }
 
 
-            draw(ctxBack, menu, 0, 0);
+            draw(ctxBack, menu, 0, 0);*/
 
             draw(ctx, startBtn, 0, 0);
             draw(ctx, creditBtn, 0, 0);
 
-            // draw(ctx,loadingBar[0],0,0);
-
-            //for(var i=0;i<loadingBar.length;i++){
-            //  draw(ctx,loadingBar[i],0,0);
-            //check if problem[i].== true to display problem
-
-            //}
-
         }
         if (currentScreen == "credits")
             ctx.drawImage(credits.image, 0, 0);
-        //    draw(ctx,credits,0,0);
-
-        //factory background layer (Left window)
         if (currentScreen == "factory") {
 
             //if (gameScreen.ready) //half of sceen
             //  ctx.drawImage(gameScreen.image,0,0,960,1080, 0, 0, 750, 750);
 
             draw(ctx, gameScreen, 0, 0); //entire screen
-            draw(ctx, gameBorder, 0, 0);
 
             for (var i = 0; i < 9; i++) {
                 if (station[i].hover) {
@@ -5266,9 +5237,11 @@ var myTitleCounter = 0;
         }
         ctx.fillText("x: " + posx, 100, 400);
         ctx.fillText("y: " + posy, 100, 415);
-    }
-
+            draw(ctx, gameBorder, 0, 0);
         }
+
+
+    }
         
 function sawReport(){
     ctx.fillStyle = "black";
