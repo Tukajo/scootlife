@@ -886,7 +886,7 @@ var gameScreen = new gameObject(0, 0, 750, 750, 'Art_Assets/game_screen/workstat
     var spaceH= 22;
     var spaceV= 90;
     //list layout
-    var checkboxPosA = new checkBox(1360,leanToolTab.y+103);
+    var checkboxPosA = new checkBox(1345,leanToolTab.y+106);
     loadImg(checkboxPosA);
     var checkboxPosB = new checkBox(checkboxPosA.x, checkboxPosA.y+spaceH);
     loadImg(checkboxPosB);
@@ -4859,6 +4859,7 @@ var myTitleCounter = 0;
          var cbLeft=6;*/
         var cbOff = -16;
         var cbLeft = 100;
+        var cbPriceOff = 42;
 
         if (subScreen == "leanTools") {
             if (toolTab != "null" && toolTab != "confirm") {
@@ -4869,14 +4870,20 @@ var myTitleCounter = 0;
             ctx.font = "20px Arial";
             if (toolTab == "kanban") {
                 ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+
                 checkboxDraw(ctx, checkboxPosB, 0, 0);
+                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
             } else if (toolTab == "superMarket") {
                 ctx.fillText("Welding", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Assembly", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
                 checkboxDraw(ctx, checkboxPosB, 0, 0);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
             } else if (toolTab == "smallLot") {
                 ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4884,6 +4891,9 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosB, 0, 0);
                 ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
                 checkboxDraw(ctx, checkboxPosC, 0, 0);
+                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
             } else if (toolTab == "fiveS") {
 
                 ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
@@ -4906,6 +4916,15 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosH, 0, 0);
                 ctx.fillText("Assembly", checkboxPosI.x - cbLeft, checkboxPosI.y - cbOff);
                 checkboxDraw(ctx, checkboxPosI, 0, 0);
+                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosE.y - cbOff);
+                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosF.y - cbOff);
+                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosG.y - cbOff);
+                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosH.y - cbOff);
+                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosI.y - cbOff);
             } else if (toolTab == "smed") {
                 ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4920,6 +4939,12 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosE, 0, 0);
                 ctx.fillText("Sew", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
                 checkboxDraw(ctx, checkboxPosF, 0, 0);
+                ctx.fillText("$  300", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  300", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  300", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                ctx.fillText("$  300", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                ctx.fillText("$  300", checkboxPosB.x + cbPriceOff, checkboxPosE.y - cbOff);
+                ctx.fillText("$  300", checkboxPosC.x + cbPriceOff, checkboxPosF.y - cbOff);
             } else if (toolTab == "quality") {
                 ctx.fillText("Drill", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4931,9 +4956,15 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosD, 0, 0);
                 ctx.fillText("Assembly", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
                 checkboxDraw(ctx, checkboxPosE, 0, 0);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
             } else if (toolTab == "cells") {
                 ctx.fillText("Overall", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
+                ctx.fillText("$ 1000", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
 
             } else if (toolTab == "crossTrain") {
                 ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
@@ -4942,6 +4973,9 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosB, 0, 0);
                 ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
                 checkboxDraw(ctx, checkboxPosC, 0, 0);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
             } else if (toolTab == "selfDirected") {
                 ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4949,6 +4983,9 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosB, 0, 0);
                 ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
                 checkboxDraw(ctx, checkboxPosC, 0, 0);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
             } else if (toolTab == "pM") {
                 ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4963,6 +5000,12 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosE, 0, 0);
                 ctx.fillText("Sew", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
                 checkboxDraw(ctx, checkboxPosF, 0, 0);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosF.y - cbOff);
             } else if (toolTab == "vendor") {
                 ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4972,6 +5015,10 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosC, 0, 0);
                 ctx.fillText("Metal Cut", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
                 checkboxDraw(ctx, checkboxPosD, 0, 0);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
             } else if (toolTab == "smallPurchase") {
                 ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4981,6 +5028,10 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosC, 0, 0);
                 ctx.fillText("Metal Cut", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
                 checkboxDraw(ctx, checkboxPosD, 0, 0);
+                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
             } else if (toolTab == "new") {
                 ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -5002,6 +5053,15 @@ var myTitleCounter = 0;
                 checkboxDraw(ctx, checkboxPosH, 0, 0);
                 ctx.fillText("Assembly", checkboxPosI.x - cbLeft, checkboxPosI.y - cbOff);
                 checkboxDraw(ctx, checkboxPosI, 0, 0);
+                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                ctx.fillText("$  700", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                ctx.fillText("$  700", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
+                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosF.y - cbOff);
+                ctx.fillText("$  700", checkboxPosB.x + cbPriceOff, checkboxPosG.y - cbOff);
+                ctx.fillText("$  700", checkboxPosC.x + cbPriceOff, checkboxPosH.y - cbOff);
+                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosI.y - cbOff);
 
 
             }
