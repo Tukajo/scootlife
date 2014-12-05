@@ -4900,7 +4900,7 @@ var myTitleCounter = 0;
                 ctx.fillStyle = "black";
                 ctx.font = "20px Arial";
                 ctx.textAlign="center";
-                ctx.fillText(toolTab,leanToolTab.x+60,leanToolTab.y+40);
+                //ctx.fillText(toolTab,leanToolTab.x+60,leanToolTab.y+40);
                 //draw(ctx,buyBtn,0,0);
 
             }
