@@ -1329,6 +1329,8 @@ function problemListUpdate() {
     var closeBtn = new gameObject(820, 300, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
     loadImg(closeBtn);
 
+    var tutorialEndBtn = new gameObject(1440, 10, 50, 50, 'Art_Assets/game_screen/close.png', 'Art_Assets/game_screen/closeH.png');
+    loadImg(tutorialEndBtn);
 
 
 var leanToolButtonArray = {
@@ -1446,6 +1448,9 @@ var leanToolButtonArray = {
 
     var Report = new gameObject(800, 10, 750, 550, "Art_Assets/game_screen/StationReport.png", 0);
     loadImg(Report);
+
+    var bigDialog = new gameObject(750+136, 275, 200, 477, "Art_Assets/game_screen/dialogLarge.png", 0);
+    loadImg(bigDialog);//left is (137,
 
 
     var posx;
@@ -4482,6 +4487,12 @@ function totalPricePerChair(){
 var myTitleCounter = 0;
 
     var update = function (modifier) {
+        contact(tutorialEndBtn);
+        if(posx>=800) {
+            bigDialog.x = 137;
+        } else if (posx<700){
+            bigDialog.x = 886;
+        }
 
         frameControl++;
         if(currentScreen == "mainMenu" && frameControl%6 == 0) {
@@ -4587,7 +4598,7 @@ var myTitleCounter = 0;
 
     }
 
-
+    var tutorial=true;
 
     var render = function () {
         //ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -5319,6 +5330,44 @@ var myTitleCounter = 0;
         ctx.fillText("x: " + posx, 100, 400);
         ctx.fillText("y: " + posy, 100, 415);
             draw(ctx, gameBorder, 0, 0);
+        }
+
+        if(currentScreen!="mainMenu"&&tutorial==true&&currentScreen!="credits"){
+            ctx.font = "18px Arial";
+            ctx.fillStyle="white";
+            draw(ctx, bigDialog,0,0);
+            draw(ctx, tutorialEndBtn,0,0);
+            var textBoarderX=20;
+            var textBoarderY=45;
+            if(subScreen=="office"){
+                ctx.fillText("Click on a workstation Icon to the left to open a  ",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
+                ctx.fillText("workstation on the right.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
+
+                ctx.fillText("Click on the Phone Icon to open the Lean Tools Menu",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+50);
+                ctx.fillText("Click on the Papers Icon to open the Lean Tools Menu",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
+
+                ctx.fillText("Click on the Red X to close the Tutorial",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(subScreen=="sawView"||subScreen=="weldView"||subScreen=="drillView"||subScreen=="bendView"||subScreen=="grindView"||subScreen=="paintView"||subScreen=="fabricView"||subScreen=="sewingView"||subScreen=="assemblyView"){
+                ctx.fillText("Click on the Clipboard Icon to open a Station Report",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
+                //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
+            }else if(subScreen=="sawReport"||subScreen=="weldReport"||subScreen=="drillReport"||subScreen=="bendReport"||subScreen=="grindReport"||subScreen=="paintReport"||subScreen=="fabricReport"||subScreen=="sewingReport"||subScreen=="assemblyView"){
+                ctx.fillText("Click on the Desk Icon to return to the office",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
+                //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
+            }else if(subScreen=="leanTools"){
+                ctx.fillText("Click on a Lean Tool to open a Lean Tool Tab",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
+                // ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
+            }else if(subScreen=="leanTools"&&toolTab!="null"){
+                //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
+                ctx.fillText("Spend up to $1000 on up to 2 different Lean Tool types",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+30);
+            }else if(subScreen=="monthlyReport"||subScreen=="monthlyreport2ndscreen"){//Change this name hobo
+                ctx.fillText("Click on the Purple Tab to open the problems List",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
+                ctx.fillText("Click on the Blue Tab to open the Monthly Reportt",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+30);
+
+                ctx.fillText("The Monthly Report displays income and expenses",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+60);
+                ctx.fillText("The Problems List displays current issues",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+90);
+
+                ctx.fillText("with workstations",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }
         }
 
 
@@ -6087,6 +6136,9 @@ function onClick(evt) {
         }
     }
     if (currentScreen == "factory") {
+        if(tutorialEndBtn.hover){
+            tutorial=false;
+        }
 
         for (var i = 0; i < 9; i++) {
             if (station[i].hover) {
