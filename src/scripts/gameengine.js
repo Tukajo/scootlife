@@ -862,11 +862,12 @@ function drawSprtSht() {
         this.selected=false;
         this.readyAlt = false;
         this.image = new Image();
-        this.image.src = 'Art_Assets/game_screen/gui/img_checkBox.png';
+        this.image.src = 'Art_Assets/game_screen/gui/checkBox-01.png';
         this.imageAlt = new Image();
-        this.imageAlt.src = 'Art_Assets/game_screen/gui/img_checkBoxChecked.png';
+        this.imageAlt.src = 'Art_Assets/game_screen/gui/checkBox_Selected.png';
 
     };
+
 
     var stationPos = function (x, y) {
         this.x = x;
@@ -893,6 +894,8 @@ function drawSprtSht() {
      right now you must declare the gameObject, call loadImg(), call contact(), and call draw() manually
 
      */
+    var checkboxTrue= new gameObject(0,0,20,20,'Art_Assets/game_screen/gui/checkBoxPurchased-04.png',0);
+    loadImg(checkboxTrue);
     var leanToolsView = new gameObject(775, 62, 626, 451, "Art_Assets/game_screen/gui/img_leanToolsMenuSmall.png", 0);
     loadImg(leanToolsView);
 
@@ -4536,6 +4539,9 @@ var myTitleCounter = 0;
                 contact(nextMonthBtn);
                 contact(leanToolsView);
             }
+            if(subScreen =="monthlyReport"){
+                contact(nextMonthBtn);
+            }
             contact(stationReport);
             contact(desk);
 
@@ -5204,6 +5210,9 @@ var myTitleCounter = 0;
             ctx.font = "normal 14px Arial";
             ctx.font = "10px Arial";
 
+            if(monthCounter>6&&monthCounter!=12) {
+                scaleDraw(ctx, nextMonthBtn, 0, 0, 1);
+            }
 
         }
         /*if (subScreen == "calendar") {
@@ -5356,9 +5365,12 @@ var myTitleCounter = 0;
             }else if(subScreen=="leanTools"){
                 ctx.fillText("Click on a Lean Tool to open a Lean Tool Tab",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
                 // ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
-            }else if(subScreen=="leanTools"&&toolTab!="null"){
-                //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
-                ctx.fillText("Spend up to $1000 on up to 2 different Lean Tool types",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+30);
+                if(toolTab!="null"){
+                    //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
+                    ctx.fillText("Spend up to $1000 on up to 2 different Lean Tool types",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+30);
+                    ctx.fillText("Choose wisely, lean tool purchases are unavailable",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+60);
+                    ctx.fillText("after the sixth month",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
+                }
             }else if(subScreen=="monthlyReport"||subScreen=="monthlyreport2ndscreen"){//Change this name hobo
                 ctx.fillText("Click on the Purple Tab to open the problems List",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
                 ctx.fillText("Click on the Blue Tab to open the Monthly Reportt",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+30);
@@ -5993,6 +6005,16 @@ var resetCheckbox = function(leanToolA,leanToolB,leanToolC,leanToolD,
     checkboxPosH.leantool=false;
     checkboxPosI.leantool=false;
 
+    checkboxPosA.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+    checkboxPosB.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+    checkboxPosC.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+    checkboxPosD.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+    checkboxPosE.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+    checkboxPosF.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+    checkboxPosG.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+    checkboxPosH.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+    checkboxPosI.imageAlt.src='Art_Assets/game_screen/gui/checkBox_Selected.png';
+
     checkboxPosA.selected=false;
     checkboxPosB.selected=false;
     checkboxPosC.selected=false;
@@ -6006,38 +6028,56 @@ var resetCheckbox = function(leanToolA,leanToolB,leanToolC,leanToolD,
     if(leanToolA==true) {
         checkboxPosA.selected = true;
         checkboxPosA.leantool = true;
+        checkboxPosA.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosA.readyAlt=checkboxTrue.ready;
     }
     if(leanToolB==true) {
         checkboxPosB.selected = true;
         checkboxPosB.leantool = true;
+        checkboxPosB.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosB.readyAlt=checkboxTrue.ready;
     }
     if(leanToolC==true) {
         checkboxPosC.selected = true;
         checkboxPosC.leantool = true;
+        checkboxPosC.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosC.readyAlt=checkboxTrue.ready;
     }
     if(leanToolD==true) {
         checkboxPosD.selected = true;
         checkboxPosD.leantool = true;
+        checkboxPosD.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosD.readyAlt=checkboxTrue.ready;
     }
     if(leanToolE==true) {
         checkboxPosE.selected = true;
         checkboxPosE.leantool = true;
+        checkboxPosE.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosE.readyAlt=checkboxTrue.ready;
     }
     if(leanToolF==true) {
         checkboxPosF.selected = true;
         checkboxPosF.leantool = true;
+        checkboxPosF.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosF.readyAlt=checkboxTrue.ready;
     }
     if(leanToolG==true) {
         checkboxPosG.selected = true;
         checkboxPosG.leantool = true;
+        checkboxPosG.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosG.readyAlt=checkboxTrue.ready;
     }
     if(leanToolH==true) {
         checkboxPosH.selected = true;
         checkboxPosH.leantool = true;
+        checkboxPosH.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosH.readyAlt=checkboxTrue.ready;
     }
     if(leanToolI==true) {
         checkboxPosI.selected = true;
         checkboxPosI.leantool = true;
+        checkboxPosI.imageAlt.src="Art_Assets/game_screen/gui/checkBoxPurchased-04.png";
+        checkboxPosI.readyAlt=checkboxTrue.ready;
     }
 
 }
@@ -6100,21 +6140,23 @@ function onClick(evt) {
 
             //console.log("paint previous"+prevInventory_Paint);
             //console.log("paint previous 2nd month"+prevInventory_Paint);
-            monthCounter++;
-            problemListUpdate();
 
-
-            if (monthCounter == 12) {
-                monthCounter = 0;
+            if(monthCounter<11) {
+                monthCounter++;
+                problemListUpdate();
+                updateMonth(monthData[monthCounter]);
+                createConsoleTable();
+                leanToolAllowance = 1000;
+                currentLeanPurchase = "null";
+                currentLeanPurchaseSecond = "null";
+                if(monthCounter>6){
+                    currentLeanPurchase = "unavailable";
+                    currentLeanPurchaseSecond = "unavailable";
+                }
+                draw(ctx, office, 0, 0);
+                subScreen = "monthlyReport";
+                noise.play();
             }
-            updateMonth(monthData[monthCounter]);
-            createConsoleTable();
-            leanToolAllowance = 1000;
-            currentLeanPurchase = "null";
-            currentLeanPurchaseSecond = "null";
-            draw(ctx, office, 0, 0);
-            subScreen = "monthlyReport";
-            noise.play();
         }
         if (closeBtn.hover) {
             subScreen = "office";
@@ -6421,6 +6463,7 @@ function onClick(evt) {
                     click.play();
                     leanTool_Kaban_Metal = checkboxPosA.leantool;
                     leanTool_Kaban_Weld = checkboxPosB.leantool;
+                    resetCheckbox(leanTool_Kaban_Metal, leanTool_Kaban_Weld, 0, 0, 0, 0, 0, 0, 0);
                 }
             }
             else if (toolTab == "superMarket") {
@@ -6431,6 +6474,7 @@ function onClick(evt) {
                     click.play();
                     leanTool_Market_Welding = checkboxPosA.leantool;////// THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     leanTool_Market_Assembly = checkboxPosB.leantool;
+                    resetCheckbox(leanTool_Market_Welding, leanTool_Market_Assembly, 0, 0, 0, 0, 0, 0, 0);
                 }
             }
             else if (toolTab == "smallLot") {
@@ -6442,6 +6486,9 @@ function onClick(evt) {
                     leanTool_SmallLot_Metal = checkboxPosA.leantool;
                     leanTool_SmallLot_Weld = checkboxPosB.leantool;
                     leanTool_SmallLot_Fabric = checkboxPosC.leantool;
+                    resetCheckbox(leanTool_SmallLot_Metal, leanTool_SmallLot_Weld, leanTool_SmallLot_Fabric,
+                        0, 0, 0,
+                        0, 0, 0);
                 }
             }
             else if (toolTab == "fiveS") {
@@ -6462,6 +6509,9 @@ function onClick(evt) {
                     leanTool_fiveS_Fabric = checkboxPosG.leantool;
                     leanTool_fiveS_Sewing = checkboxPosH.leantool;
                     leanTool_fiveS_Assembly = checkboxPosI.leantool;
+                    resetCheckbox(leanTool_fiveS_Saw, leanTool_fiveS_Drill, leanTool_fiveS_Bender,
+                        leanTool_fiveS_Welding, leanTool_fiveS_Grind, leanTool_fiveS_Paint,
+                        leanTool_fiveS_Fabric, leanTool_fiveS_Sewing, leanTool_fiveS_Assembly);
                 }
             }
             else if (toolTab == "smed") {
@@ -6476,6 +6526,9 @@ function onClick(evt) {
                     leanTool_Smed_Welding = checkboxPosD.leantool;
                     leanTool_Smed_Paint = checkboxPosE.leantool;
                     leanTool_Smed_Sewing = checkboxPosF.leantool;
+                    resetCheckbox(leanTool_Smed_Saw, leanTool_Smed_Drill, leanTool_Smed_Bender,
+                        leanTool_Smed_Welding, leanTool_Smed_Paint, leanTool_Smed_Sewing,
+                        0, 0, 0);
                 }
             }
             else if (toolTab == "quality") {
@@ -6489,6 +6542,9 @@ function onClick(evt) {
                     leanTool_Quality_Welding = checkboxPosC.leantool;
                     leanTool_Quality_Sewing = checkboxPosD.leantool;
                     leanTool_Quality_Assembly = checkboxPosE.leantool;
+                    resetCheckbox(leanTool_Quality_Drill, leanTool_Quality_Bender, leanTool_Quality_Welding,
+                        leanTool_Quality_Sewing, leanTool_Quality_Assembly, 0,
+                        0, 0, 0);
                 }
             }
             else if (toolTab == "cells") {
@@ -6498,6 +6554,9 @@ function onClick(evt) {
                 if (buyBtn.hover) {
                     click.play();
                     leanTool_Cells = checkboxPosA.leantool;
+                    resetCheckbox(leanTool_Cells, 0, 0,
+                        0, 0, 0,
+                        0, 0, 0);
                     if (leanTool_Cells) {
                         leanToolButtonArray.smallLotBtn[1] = 0;
                         leanToolButtonArray.selfDirectedBtn[1] = 0;
@@ -6516,6 +6575,10 @@ function onClick(evt) {
                     leanTool_CrossTrain_Metal = checkboxPosA.leantool;
                     leanTool_CrossTrain_Weld = checkboxPosB.leantool;
                     leanTool_CrossTrain_Fabric = checkboxPosC.leantool;
+                    resetCheckbox(leanTool_CrossTrain_Metal, leanTool_CrossTrain_Weld, leanTool_CrossTrain_Fabric,
+                        0, 0, 0,
+                        0, 0, 0);
+
                 }
             }
             else if (toolTab == "selfDirected") {
@@ -6527,6 +6590,9 @@ function onClick(evt) {
                     leanTool_SelfDirected_Metal = checkboxPosA.leantool;
                     leanTool_SelfDirected_Weld = checkboxPosB.leantool;
                     leanTool_SelfDirected_Fabric = checkboxPosC.leantool;
+                    resetCheckbox(leanTool_SelfDirected_Metal, leanTool_SelfDirected_Weld, leanTool_SelfDirected_Fabric,
+                        0, 0, 0,
+                        0, 0, 0);
                 }
             }
             else if (toolTab == "pM") {
@@ -6541,6 +6607,10 @@ function onClick(evt) {
                     leanTool_PM_Welding = checkboxPosD.leantool;
                     leanTool_PM_Paint = checkboxPosE.leantool;
                     leanTool_PM_Sewing = checkboxPosF.leantool;
+
+                    resetCheckbox(leanTool_PM_Saw, leanTool_PM_Drill, leanTool_PM_Bender,
+                        leanTool_PM_Welding, leanTool_PM_Paint, leanTool_PM_Sewing,
+                        0, 0, 0);
                 }
             }
             else if (toolTab == "vendor") {
@@ -6553,6 +6623,9 @@ function onClick(evt) {
                     leanTool_Vendor_Nylon = checkboxPosB.leantool;
                     leanTool_Vendor_Bike = checkboxPosC.leantool;
                     leanTool_Vendor_Metal = checkboxPosD.leantool;
+                    resetCheckbox(leanTool_Vendor_Steel, leanTool_Vendor_Nylon, leanTool_Vendor_Bike,
+                        leanTool_Vendor_Metal, 0, 0,
+                        0, 0, 0);
                 }
             }
             else if (toolTab == "smallPurchase") {
@@ -6565,6 +6638,9 @@ function onClick(evt) {
                     leanTool_SmallPurchase_Nylon = checkboxPosB.leantool;
                     leanTool_SmallPurchase_Bike = checkboxPosC.leantool;
                     leanTool_SmallPurchase_Metal = checkboxPosD.leantool;
+                    resetCheckbox(leanTool_SmallPurchase_Steel, leanTool_SmallPurchase_Nylon, leanTool_SmallPurchase_Bike,
+                        leanTool_SmallPurchase_Metal, 0, 0,
+                        0, 0, 0);
                 }
             }
             else if (toolTab == "new") {
@@ -6584,6 +6660,9 @@ function onClick(evt) {
                     leanTool_New_Fabric = checkboxPosG.leantool;
                     leanTool_New_Sewing = checkboxPosH.leantool;
                     leanTool_New_Assembly = checkboxPosI.leantool;
+                    resetCheckbox(leanTool_New_Drill, leanTool_New_Bender,
+                        leanTool_New_Welding, leanTool_New_Grind, leanTool_New_Paint,
+                        leanTool_New_Fabric, leanTool_New_Sewing, leanTool_New_Assembly);
                 }
 
 
