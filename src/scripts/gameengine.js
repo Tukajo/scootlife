@@ -39,6 +39,15 @@ var shadowForFactoryIcons = new Image();
 shadowForFactoryIcons.src = "Art_Assets/workshop_icons/iconDropShadow.png";
 //var ctx = canvas.getContext("2d");
 
+//Sound
+var click = new Audio("Art_Assets/Sounds/click.wav");
+var bckSong = new Audio("Art_Assets/Sounds/Main Background Sound.mp3");
+var altSong = new Audio("Art_Assets/Sounds/AllWorldWheelchair_BackgroundSound(Alternate).mp3");
+var noise = new Audio("Art_Assets/Sounds/factory noise.wav");
+var dawn = new Audio("Art_Assets/Sounds/Dawn the next day.wav");
+var bend = new Audio("Art_Assets/Sounds/bend.wav");
+var buying = new Audio("Art_Assets/Sounds/buying.wav");
+var drill = new Audio("Art_Assets/Sounds/drill.mp3");
 
 
 
@@ -5990,6 +5999,9 @@ function onClick(evt) {
     if (subScreen == "leanTools") {
 
         if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
+            click.play();
+            noise.pause();
+            noise.currentTime = 0;
             var sawTemp = mitreSaw_FinalInventory();
             var drillTemp = drillPress_FinalInventory();
             var bendTemp = tubeBender_FinalInventory();
@@ -6053,6 +6065,7 @@ function onClick(evt) {
             currentLeanPurchaseSecond = "null";
             draw(ctx, office, 0, 0);
             subScreen = "monthlyReport";
+            noise.play();
         }
         if (closeBtn.hover) {
             subScreen = "office";
@@ -6063,9 +6076,12 @@ function onClick(evt) {
         subScreen = "null"
     }
     else if (currentScreen == "mainMenu") {
-        if (creditBtn.hover)
+        if (creditBtn.hover){
+            click.play();
             currentScreen = "credits";
+        }
         else if (startBtn.hover) {
+            noise.play();
             currentScreen = "factory";
             subScreen = "office";
         }
@@ -6074,10 +6090,12 @@ function onClick(evt) {
 
         for (var i = 0; i < 9; i++) {
             if (station[i].hover) {
+                click.play();
                 subScreen = station[i].subScreen;
             }
         }
         if (desk.hover) {
+            click.play();
             currentScreen = "factory";
             subScreen = "office";
         }/////////////////////////////////////////////////////////////////////////////////
@@ -6348,6 +6366,7 @@ function onClick(evt) {
                     0, 0, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_Kaban_Metal = checkboxPosA.leantool;
                     leanTool_Kaban_Weld = checkboxPosB.leantool;
                 }
@@ -6357,6 +6376,7 @@ function onClick(evt) {
                     0, 0, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_Market_Welding = checkboxPosA.leantool;////// THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     leanTool_Market_Assembly = checkboxPosB.leantool;
                 }
@@ -6366,6 +6386,7 @@ function onClick(evt) {
                     0, 0, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_SmallLot_Metal = checkboxPosA.leantool;
                     leanTool_SmallLot_Weld = checkboxPosB.leantool;
                     leanTool_SmallLot_Fabric = checkboxPosC.leantool;
@@ -6377,6 +6398,7 @@ function onClick(evt) {
                     leanTool_fiveS_Fabric, leanTool_fiveS_Sewing, leanTool_fiveS_Assembly);
 
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_fiveS_Saw = checkboxPosA.leantool;
                     leanTool_fiveS_Drill = checkboxPosB.leantool;
                     leanTool_fiveS_Bender = checkboxPosC.leantool;
@@ -6395,6 +6417,7 @@ function onClick(evt) {
                     leanTool_Smed_Welding, leanTool_Smed_Paint, leanTool_Smed_Sewing,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_Smed_Saw = checkboxPosA.leantool;
                     leanTool_Smed_Drill = checkboxPosB.leantool;
                     leanTool_Smed_Bender = checkboxPosC.leantool;
@@ -6408,6 +6431,7 @@ function onClick(evt) {
                     leanTool_Quality_Sewing, leanTool_Quality_Assembly, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_Quality_Drill = checkboxPosA.leantool;
                     leanTool_Quality_Bender = checkboxPosB.leantool;
                     leanTool_Quality_Welding = checkboxPosC.leantool;
@@ -6420,6 +6444,7 @@ function onClick(evt) {
                     0, 0, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_Cells = checkboxPosA.leantool;
                     if (leanTool_Cells) {
                         leanToolButtonArray.smallLotBtn[1] = 0;
@@ -6435,6 +6460,7 @@ function onClick(evt) {
                     0, 0, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_CrossTrain_Metal = checkboxPosA.leantool;
                     leanTool_CrossTrain_Weld = checkboxPosB.leantool;
                     leanTool_CrossTrain_Fabric = checkboxPosC.leantool;
@@ -6445,6 +6471,7 @@ function onClick(evt) {
                     0, 0, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_SelfDirected_Metal = checkboxPosA.leantool;
                     leanTool_SelfDirected_Weld = checkboxPosB.leantool;
                     leanTool_SelfDirected_Fabric = checkboxPosC.leantool;
@@ -6455,6 +6482,7 @@ function onClick(evt) {
                     leanTool_PM_Welding, leanTool_PM_Paint, leanTool_PM_Sewing,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_PM_Saw = checkboxPosA.leantool;
                     leanTool_PM_Drill = checkboxPosB.leantool;
                     leanTool_PM_Bender = checkboxPosC.leantool;
@@ -6468,6 +6496,7 @@ function onClick(evt) {
                     leanTool_Vendor_Metal, 0, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_Vendor_Steel = checkboxPosA.leantool;
                     leanTool_Vendor_Nylon = checkboxPosB.leantool;
                     leanTool_Vendor_Bike = checkboxPosC.leantool;
@@ -6479,6 +6508,7 @@ function onClick(evt) {
                     leanTool_SmallPurchase_Metal, 0, 0,
                     0, 0, 0);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_SmallPurchase_Steel = checkboxPosA.leantool;
                     leanTool_SmallPurchase_Nylon = checkboxPosB.leantool;
                     leanTool_SmallPurchase_Bike = checkboxPosC.leantool;
@@ -6490,6 +6520,7 @@ function onClick(evt) {
                     leanTool_New_Welding, leanTool_New_Grind, leanTool_New_Paint,
                     leanTool_New_Fabric, leanTool_New_Sewing, leanTool_New_Assembly);
                 if (buyBtn.hover) {
+                    click.play();
                     leanTool_New_Saw = checkboxPosA.leantool;
                     leanTool_New_Drill = checkboxPosB.leantool;
                     leanTool_New_Bender = checkboxPosC.leantool;
@@ -6516,6 +6547,7 @@ function onClick(evt) {
         ///////////////////////////////////////////////////////////
         else if (subScreen == "office") {
             if (leanToolsBtn.hover) {
+                click.play();
                 if (leanTool_Cells == false) {
                     leanToolButtonArray.smallLotBtn[1] = 2;
                     leanToolButtonArray.selfDirectedBtn[1] = 2;
@@ -6525,9 +6557,11 @@ function onClick(evt) {
                 subScreen = "leanTools";
             }
             if (calendarBtn.hover) {
+                click.play();
                 subScreen = "leanTools";
             }
             if (reportBtn.hover) {
+                click.play();
                 subScreen = "monthlyReport";
             }
         }
