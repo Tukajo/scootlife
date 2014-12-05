@@ -1240,7 +1240,7 @@ function problemListUpdate() {
     var calendarBtn = new gameObject(1300, 550, 100, 100, 'Art_Assets/game_screen/calendarBtn_temp.png', 0);
     loadImg(calendarBtn);
 
-    var nextMonthBtn = new gameObject(1350, 600, 100, 100, 'Art_Assets/game_screen/calendarBtn_temp.png', 0);
+    var nextMonthBtn = new gameObject(850, 625, 250, 965, "Art_Assets/game_screen/buttons/nextMonth_norm.png", "Art_Assets/game_screen/buttons/nextMonth_click.png");
     loadImg(nextMonthBtn);
 
 
@@ -4483,6 +4483,9 @@ var myTitleCounter = 0;
                 contact(leanToolsBtn);
                 contact(calendarBtn);
             }
+            if(subScreen == "leanTools"){
+                contact(nextMonthBtn);
+            }
             contact(stationReport);
             contact(desk);
             contact(leanToolsView);
@@ -4494,13 +4497,8 @@ var myTitleCounter = 0;
         contact(closeBtn);
         contact(leanToolsBtn);
         contact(leanToolsView);
-
         contact(reportView);
-		 
 
-        if(subScreen =="calendar"){
-            contact(nextMonthBtn);
-        }
         contact(checkboxPosA);
         contact(checkboxPosB);
         contact(checkboxPosC);
@@ -4865,6 +4863,7 @@ var myTitleCounter = 0;
             if (toolTab != "null" && toolTab != "confirm") {
                 draw(ctx, leanToolTab, 0, 0);
                 //draw(ctx,buyBtn,0,0);
+
             }
             ctx.fillStyle = "black";
             ctx.font = "20px Arial";
@@ -5068,7 +5067,7 @@ var myTitleCounter = 0;
 
             draw(ctx, leanToolsView, 0, 0);
             drawLeanTools();
-
+            scaleDraw(ctx,nextMonthBtn,0,0,.15);
             ctx.fillText("Lean tool 1: " + currentLeanPurchase, 750, 50);
             ctx.fillText("Lean tool 2: " + currentLeanPurchaseSecond, 1150, 50);
             if (toolTab == "confirm") {
@@ -5828,7 +5827,7 @@ var scaleDraw = function (canvas, object, xDis, yDis, scale) {
     if (object.ready && !object.hover)
         canvas.drawImage(object.image,0,0,object.w,object.h, object.x, object.y,object.w*scale, object.h*scale);
     if (object.readyAlt && object.hover)
-        canvas.drawImage(object.image,0,0,object.w,object.h, object.x, object.y,object.w*scale, object.h*scale);
+        canvas.drawImage(object.imageAlt,0,0,object.w,object.h, object.x, object.y,object.w*scale, object.h*scale);
 }
 var tracker = function (e) {
     var pos = getMousePos(canvas, e);
@@ -5975,10 +5974,8 @@ var currentLeanPurchase="null";
 var currentLeanPurchaseSecond="null";
 createConsoleTable();
 function onClick(evt) {
-    if (subScreen == "calendar") {
-        if (calendarView.hover == false) {
-            subScreen = "office";
-        }
+    if (subScreen == "leanTools") {
+
         if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
             var sawTemp = mitreSaw_FinalInventory();
             var drillTemp = drillPress_FinalInventory();
@@ -6060,7 +6057,8 @@ function onClick(evt) {
             subScreen = "office";
         }
     }
-    else if (currentScreen == "factory") {
+    if (currentScreen == "factory") {
+
         for (var i = 0; i < 9; i++) {
             if (station[i].hover) {
                 subScreen = station[i].subScreen;
@@ -6071,9 +6069,6 @@ function onClick(evt) {
             subScreen = "office";
         }/////////////////////////////////////////////////////////////////////////////////
         else if (subScreen == "leanTools") {
-
-
-
 
             //Selection of subscreens from the lean tools page tooltabs
             if (leanToolButtonArray.kanbanBtn[0].hover && leanTool_Cells) {//Button for Kanban (kaban in our code)
@@ -6496,6 +6491,7 @@ function onClick(evt) {
 
 
             }
+
             if (posx < leanToolsView.x || posy < leanToolTab.y || posy > leanToolTab.y + leanToolTab.h) {
                 tooltab = "null";
                 subScreen = "office";
@@ -6539,6 +6535,7 @@ function onClick(evt) {
 
 
     }
+
 }
 
 //ctxBack.drawImage(menu.image, 0, 0, 1500, 750);
