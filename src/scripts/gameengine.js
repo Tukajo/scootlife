@@ -859,9 +859,9 @@ function drawSprtSht() {
         object.imageAlt.onload = readyAlt(object);
     }
 
-    var position = [new stationPos(95, 60), new stationPos(310, 60), new stationPos(525, 60),
-        new stationPos(95, 248), new stationPos(310, 248), new stationPos(525, 248),
-        new stationPos(95, 436), new stationPos(310, 436), new stationPos(525, 436)];
+    var position = [new stationPos(95, 80), new stationPos(310, 80), new stationPos(525, 80),
+        new stationPos(95, 268), new stationPos(310, 268), new stationPos(525, 268),
+        new stationPos(95, 456), new stationPos(310, 456), new stationPos(525, 456)];
 
 //declaring all game objects
     /*
@@ -1231,10 +1231,10 @@ function problemListUpdate() {
     var officeWindow_Summer = new gameObject(800,90,238,338,"Art_Assets/game_screen/office/windowFrames/OfficeWindow_Seasons_Summer.png", 0);
     loadImg(officeWindow_Summer);
 
-    var reportBtn = new gameObject(1000, 550, 80, 80, 'Art_Assets/game_screen/reportBtn_temp.png', 0);
+    var reportBtn = new gameObject(1000, 545, 94, 110, 'Art_Assets/game_screen/office/img_monthlyReport.png', 0);
     loadImg(reportBtn);
 
-    var leanToolsBtn = new gameObject(780, 100, 300, 300, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0);
+    var leanToolsBtn = new gameObject(1240, 525, 120 , 171, 'Art_Assets/game_screen/office/obj_leanTools.png', 0);
     loadImg(leanToolsBtn);
 
     var calendarBtn = new gameObject(1300, 550, 100, 100, 'Art_Assets/game_screen/calendarBtn_temp.png', 0);
@@ -4813,7 +4813,7 @@ var myTitleCounter = 0;
             drawBossWalkRightandMoveRight();
             draw(ctx, officeDesk, 0, 0);
             scaleDraw(ctx, leanToolsBtn, 0, 0, .75);
-
+            scaleDraw(ctx,reportBtn,0,0,.80);
             //draw(ctx,reportBtn,0,0);
             //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
             //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
