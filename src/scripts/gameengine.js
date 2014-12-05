@@ -4897,9 +4897,14 @@ var myTitleCounter = 0;
         if (subScreen == "leanTools") {
             if (toolTab != "null" && toolTab != "confirm") {
                 draw(ctx, leanToolTab, 0, 0);
+                ctx.fillStyle = "black";
+                ctx.font = "20px Arial";
+                ctx.textAlign="center";
+                ctx.fillText(toolTab,leanToolTab.x+60,leanToolTab.y+40);
                 //draw(ctx,buyBtn,0,0);
 
             }
+            ctx.textAlign="left";
             ctx.fillStyle = "black";
             ctx.font = "20px Arial";
             if (toolTab == "kanban") {
@@ -5266,7 +5271,7 @@ var myTitleCounter = 0;
         //  draw(ctx,)
         if (subScreen != "sawView" && subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
             ctx.font = "80px Georgia";
-            ctx.fillText(subScreen, 900, 500);
+            //ctx.fillText(subScreen, 900, 500);
             ctx.font = "10px Georgia";
         }
 
