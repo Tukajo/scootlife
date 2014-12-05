@@ -1008,6 +1008,7 @@ function problemListUpdate() {
         problemList[numProbs] = "Saw down" + mitreSaw_Downtime(monthCounter) + "days due to machine breakdown";
         if(factoryFloorIconsArray.Saw<2)
             factoryFloorIconsArray.Saw+=1;
+
         numProbs++;
     }
     if (mitreSaw_MaxCapacity() < 200) {
@@ -1020,6 +1021,7 @@ function problemListUpdate() {
         problemList[numProbs] = "Drill press down " + drillPress_LateWIP() + "days due to late parts from saw";
         if(factoryFloorIconsArray.Drill<2)
             factoryFloorIconsArray.Drill+=1;
+
         numProbs++;
     }
     if (drillPress_Downtime(monthCounter) > 0) {
@@ -1048,12 +1050,14 @@ function problemListUpdate() {
         problemList[numProbs] = "Tube bender down " + tubeBender_LateWIP() + " days due to late parts from drill";
         if(factoryFloorIconsArray.Bend<2)
             factoryFloorIconsArray.Bend+=1;
+
         numProbs++;
     }
     if(tubeBender_Downtime(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_Downtime(monthCounter) + " days due to machine breakdown";
         if(factoryFloorIconsArray.Bend<2)
             factoryFloorIconsArray.Bend+=1;
+
         numProbs++;
     }
     if(tubeBender_WorkersOver() > 0){
@@ -1064,6 +1068,7 @@ function problemListUpdate() {
         problemList[numProbs] = "Tube bender down " + tubeBender_BadQuality(monthCounter) + " days due to quality problem";
         if(factoryFloorIconsArray.Bend<2)
             factoryFloorIconsArray.Bend+=1;
+
         numProbs++;
     }
     if(tubeBender_MaxCapacity() < 200){
@@ -1073,7 +1078,8 @@ function problemListUpdate() {
     if(tubeBender_DelayQuality(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_DelayQuality(monthCounter) + " days due to bad parts from drill";
         if(factoryFloorIconsArray.Bend<2)
-            factoryFloorIconsArray.Bend+=1;
+            factoryFloorIconsArray.Bend+=1
+
         numProbs++;
     }
 
@@ -1226,6 +1232,17 @@ function problemListUpdate() {
             factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
+
+    factoryFloorIconsArray.workerOneIcon = factoryFloorIconsArray.Saw;
+    factoryFloorIconsArray.workerTwoIcon = factoryFloorIconsArray.Drill;
+    factoryFloorIconsArray.workerThreeIcon = factoryFloorIconsArray.Bend;
+    factoryFloorIconsArray.workerFourIcon = factoryFloorIconsArray.Weld;
+    factoryFloorIconsArray.workerFiveIcon = factoryFloorIconsArray.Grind;
+    factoryFloorIconsArray.workerSixIcon = factoryFloorIconsArray.Paint;
+    factoryFloorIconsArray.workerSevenIcon = factoryFloorIconsArray.Assembly;
+    factoryFloorIconsArray.workerEightIcon = factoryFloorIconsArray.Cut;
+    factoryFloorIconsArray.workerNineIcon = factoryFloorIconsArray.Sew;
+
 }
 
 
