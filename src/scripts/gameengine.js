@@ -63,52 +63,51 @@ var monthsArray = {
 var currentMonth = monthsArray.January;
 
 
-
+var bossStateArray = {
+    stateCoffee: "coffeeState",
+    stateWalkingRight: "walkingRightState",
+    stateNormalStand: "normalStandState",
+    stateScaredStand: "scaredStandState"
+};
+var currentBossState = "coffeeState";
 var bossSpriteFrameCoffee = 0;
 var BossCoffeeSpriteX;
 var BossCoffeeSpriteY;
 var bossCoffeeSipAnm = new Image();
-bossCoffeeSipAnm.src = "Art_Assets/characters/boss/coffee_sip.png";
+bossCoffeeSipAnm.src = "Art_Assets/characters/boss/newAnims/bosscoffeemed.png";
 //Animation method for the sipping of coffee.
+var bossScaredAnm = new Image();
+bossScaredAnm.src = "Art_Assets/characters/boss/newAnims/bossscaredmed.png";
 function drawBossCoffeeAnm(){
 
+    if(currentBossState == bossStateArray.stateCoffee) {
+        BossCoffeeSpriteX = (bossSpriteFrameCoffee % 10) *324 ;
+        BossCoffeeSpriteY = Math.floor(bossSpriteFrameCoffee / 10) * 804;
+        ctx.drawImage(bossCoffeeSipAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 324, 804, 800, 100, (324 *.60505), (804 * .60505));
 
-    BossCoffeeSpriteX = (bossSpriteFrameCoffee%38)*259;
-    BossCoffeeSpriteY = Math.floor(bossSpriteFrameCoffee/38)*642;
-    ctx.drawImage(bossCoffeeSipAnm,BossCoffeeSpriteX,BossCoffeeSpriteY,259,642,1050,100,(259/1.55),(642/1.55));
+        if (bossSpriteFrameCoffee == 187) {
+            currentBossState = bossStateArray.stateScaredStand;
+            bossSpriteFrameCoffee = 0;
+        }
+        else {
+            bossSpriteFrameCoffee++
+        }
+    }
+    if(currentBossState == bossStateArray.stateScaredStand){
+        BossCoffeeSpriteX = (bossSpriteFrameCoffee % 10) * 237;
+        BossCoffeeSpriteY = Math.floor(bossSpriteFrameCoffee / 10) * 804;
+        ctx.drawImage(bossScaredAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 237, 804, 800, 100, (237 *.60505), (804 *.60505));
+        if (bossSpriteFrameCoffee == 187) {
+            currentBossState = bossStateArray.stateCoffee;
+            bossSpriteFrameCoffee = 0;
+        }
+        else {
+            bossSpriteFrameCoffee++
+        }
+    }
 
-    if(bossSpriteFrameCoffee==152){
-        bossSpriteFrameCoffee=0;
-    }
-    else{
-        bossSpriteFrameCoffee++
-    }
 }
 
-var bossWalkRightFrameCount = 0;
-var BossWalkRightSpriteX;
-var BossWalkRightSpriteX;
-var BossWalkRightXPos=1050;
-var BossWalkRightYPos=100;
-var bossWalkRightAnm = new Image();
-bossWalkRightAnm.src = "Art_Assets/characters/boss/twostep.png";
-//Animation method for the sipping of coffee.
-function drawBossWalkRightandMoveRight(){
-
-    BossWalkRightSpriteX = (bossWalkRightFrameCount%19)*370;
-    BossWalkRightSpriteX = Math.floor(bossWalkRightFrameCount/19)*649;
-    ctx.drawImage(bossWalkRightAnm,BossWalkRightSpriteX,BossWalkRightSpriteX,370,649,1050+BossWalkRightXPos,100,(259/1.55),(642/1.55));
-    if(bossWalkRightFrameCount==94){
-        bossWalkRightFrameCount=0;
-      if(BossWalkRightXPos==100){
-          BossWalkRightXPos=0;
-      }
-    }
-    else{
-        BossWalkRightXPos++;
-        bossWalkRightFrameCount++
-    }
-}
 
 //To change the status of the lean tools selected.
 //0 - unselected.
@@ -1240,8 +1239,9 @@ function problemListUpdate() {
     var calendarBtn = new gameObject(1300, 550, 100, 100, 'Art_Assets/game_screen/calendarBtn_temp.png', 0);
     loadImg(calendarBtn);
 
-    var nextMonthBtn = new gameObject(850, 625, 250, 965, "Art_Assets/game_screen/buttons/nextMonth_norm.png", "Art_Assets/game_screen/buttons/nextMonth_click.png");
+    var nextMonthBtn = new gameObject(850, 625, 38, 145, "Art_Assets/game_screen/buttons/nextMonth_norm.png", "Art_Assets/game_screen/buttons/nextMonth_click.png");
     loadImg(nextMonthBtn);
+
 
 
 
@@ -1297,7 +1297,7 @@ function problemListUpdate() {
     var confirmScreen = new gameObject(800, 20, 400, 600, 'Art_Assets/game_screen/report_view.png', 0);
     loadImg(confirmScreen);
 
-    var buyBtn = new gameObject(1320, 600, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
+    var buyBtn = new gameObject(1300, 600, 38, 92, 'Art_Assets/game_screen/buttons/buyTool_norm.png', 'Art_Assets/game_screen/buttons/buyTool_click.png');
     loadImg(buyBtn);
 
     var closeBtn = new gameObject(820, 300, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
@@ -4475,27 +4475,38 @@ var myTitleCounter = 0;
         }
         if(currentScreen=="factory") {
 
+            for (var i = 0; i < 9; i++) {
+                for (var a = 0; a < 9; a++) {
+                    if (station[i].position == a) {
+                        station[i].x = position[a].x;
+                        station[i].y = position[a].y;
+                    }
+                }
+            }
+
+            for (var i = 0; i < 9; i++) {
+                contact(station[i]);
+            }
             //finish all of the following through onclick and draw
 
             if(subScreen == "office") {
                 contact(reportBtn);
                 //contact(closeBtn);
                 contact(leanToolsBtn);
-                contact(calendarBtn);
+                //contact(calendarBtn);
             }
             if(subScreen == "leanTools"){
                 contact(nextMonthBtn);
+                contact(leanToolsView);
             }
             contact(stationReport);
             contact(desk);
-            contact(leanToolsView);
+
 	    }
         
 	//finish all of the following through onclick and draw
 
         //contact(closeBtn);
-        contact(leanToolsBtn);
-        contact(leanToolsView);
         contact(reportView);
 
         contact(checkboxPosA);
@@ -4531,18 +4542,6 @@ var myTitleCounter = 0;
         }
 
 
-            for (var i = 0; i < 9; i++) {
-                for (var a = 0; a < 9; a++) {
-                    if (station[i].position == a) {
-                        station[i].x = position[a].x;
-                        station[i].y = position[a].y;
-                    }
-                }
-            }
-        
-        for (var i = 0; i < 9; i++) {
-            contact(station[i]);
-        }
     };
 
 
@@ -4744,13 +4743,8 @@ var myTitleCounter = 0;
                         ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                 }
-/*
 
-            if (subScreen == "calendar") {
-
-                draw(ctx, calendarView, 0, 0);
-
-                ctx.font = "80px Georgia";
+            if (subScreen == "leanTools") {
                 switch (monthCounter) {
                     case 0:
                         currentMonth = monthsArray.January;
@@ -4788,10 +4782,8 @@ var myTitleCounter = 0;
                     case 11:
                         currentMonth = monthsArray.December;
                 }
-                ctx.fillText(currentMonth, 900, 100);
-                ctx.font = "10px Georgia";
             }
-*/
+
 
         }
         if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar") {
@@ -4809,7 +4801,6 @@ var myTitleCounter = 0;
                 scaleDraw(ctx, officeWindow_Fall, 0, 0, 1);
             }
             drawBossCoffeeAnm();
-            drawBossWalkRightandMoveRight();
             draw(ctx, officeDesk, 0, 0);
             scaleDraw(ctx, leanToolsBtn, 0, 0, .75);
             scaleDraw(ctx,reportBtn,0,0,.80);
@@ -5068,14 +5059,18 @@ var myTitleCounter = 0;
 
             draw(ctx, leanToolsView, 0, 0);
             drawLeanTools();
-            scaleDraw(ctx,nextMonthBtn,0,0,.15);
+            scaleDraw(ctx,nextMonthBtn,0,0,1);
             ctx.fillText("Lean tool 1: " + currentLeanPurchase, 750, 50);
             ctx.fillText("Lean tool 2: " + currentLeanPurchaseSecond, 1150, 50);
-            if (toolTab == "confirm") {
+/*            if (toolTab == "confirm") {
                 draw(ctx, confirmScreen, 0, 0);
-                draw(ctx, buyBtn, 0, 0);
+
                 draw(ctx, closeBtn, 0, 0);
+            }*/
+            if(subScreen == "leanTools" && toolTab != "null"){
+                draw(ctx, buyBtn, 0, 0);
             }
+
             ctx.textAlign = "right";
             ctx.fillText("$" + leanToolAllowance, 1200, 650);
             if (tabCost != 0)
