@@ -78,7 +78,11 @@ bossCoffeeSipAnm.src = "Art_Assets/characters/boss/newAnims/bosscoffeemed.png";
 //Animation method for the sipping of coffee.
 var bossScaredAnm = new Image();
 bossScaredAnm.src = "Art_Assets/characters/boss/newAnims/bossscaredmed.png";
-function drawBossCoffeeAnm(){
+
+var bossWalkAnm = new Image();
+bossWalkAnm.src = "Art_Assets/characters/boss/newAnims/bosstwostepmed.png";
+
+var drawBossCoffeeAnm = function(){
 
     if(currentBossState == bossStateArray.stateCoffee) {
         BossCoffeeSpriteX = (bossSpriteFrameCoffee % 10) *324 ;
@@ -86,6 +90,18 @@ function drawBossCoffeeAnm(){
         ctx.drawImage(bossCoffeeSipAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 324, 804, 800, 100, (324 *.60505), (804 * .60505));
 
         if (bossSpriteFrameCoffee == 187) {
+            currentBossState = bossStateArray.stateWalkingRight;
+            bossSpriteFrameCoffee = 0;
+        }
+        else {
+            bossSpriteFrameCoffee++
+        }
+    }
+      if(currentBossState == bossStateArray.stateWalkingRight){
+        BossCoffeeSpriteX = (bossSpriteFrameCoffee % 10) * 458;
+        BossCoffeeSpriteY = Math.floor(bossSpriteFrameCoffee / 10) * 810;
+        ctx.drawImage(bossWalkAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 458, 810, 810+bossSpriteFrameCoffee*1.5, 100, (458 *.60505), (810 *.60505));
+        if (bossSpriteFrameCoffee == 112) {
             currentBossState = bossStateArray.stateScaredStand;
             bossSpriteFrameCoffee = 0;
         }
@@ -93,10 +109,10 @@ function drawBossCoffeeAnm(){
             bossSpriteFrameCoffee++
         }
     }
-    if(currentBossState == bossStateArray.stateScaredStand){
+      if(currentBossState == bossStateArray.stateScaredStand){
         BossCoffeeSpriteX = (bossSpriteFrameCoffee % 10) * 237;
         BossCoffeeSpriteY = Math.floor(bossSpriteFrameCoffee / 10) * 804;
-        ctx.drawImage(bossScaredAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 237, 804, 800, 100, (237 *.60505), (804 *.60505));
+        ctx.drawImage(bossScaredAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 237, 804, 810+168, 100, (237 *.60505), (804 *.60505));
         if (bossSpriteFrameCoffee == 187) {
             currentBossState = bossStateArray.stateCoffee;
             bossSpriteFrameCoffee = 0;
@@ -105,6 +121,7 @@ function drawBossCoffeeAnm(){
             bossSpriteFrameCoffee++
         }
     }
+    //requestAnimationFrame(drawBossCoffeeAnm);
 
 }
 
