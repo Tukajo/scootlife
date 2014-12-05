@@ -4479,7 +4479,7 @@ var myTitleCounter = 0;
 
             if(subScreen == "office") {
                 contact(reportBtn);
-                contact(closeBtn);
+                //contact(closeBtn);
                 contact(leanToolsBtn);
                 contact(calendarBtn);
             }
@@ -4493,8 +4493,7 @@ var myTitleCounter = 0;
         
 	//finish all of the following through onclick and draw
 
-        contact(reportBtn);
-        contact(closeBtn);
+        //contact(closeBtn);
         contact(leanToolsBtn);
         contact(leanToolsView);
         contact(reportView);
@@ -4508,9 +4507,9 @@ var myTitleCounter = 0;
         contact(checkboxPosG);
         contact(checkboxPosH);
         contact(checkboxPosI);
-//contact(purchaseBtn);
+        //contact(purchaseBtn);
                 contact(buyBtn);
-               
+
 
 
         // lean tool buttons
@@ -4745,6 +4744,7 @@ var myTitleCounter = 0;
                         ctx.fillText("Meets Production", posx - 250, posy + 130);
                     }
                 }
+/*
 
             if (subScreen == "calendar") {
 
@@ -4791,6 +4791,7 @@ var myTitleCounter = 0;
                 ctx.fillText(currentMonth, 900, 100);
                 ctx.font = "10px Georgia";
             }
+*/
 
         }
         if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar") {
@@ -5173,7 +5174,7 @@ var myTitleCounter = 0;
 
 
         }
-        if (subScreen == "calendar") {
+        /*if (subScreen == "calendar") {
             draw(ctx, calendarView, 0, 0);
             ctx.font = "80px Georgia";
             switch (monthCounter) {
@@ -5215,7 +5216,7 @@ var myTitleCounter = 0;
             }
             ctx.fillText(currentMonth, 900, 100);
             ctx.font = "10px Georgia";
-        }
+        }*/
         if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar") {
 
         }
@@ -6145,6 +6146,7 @@ function onClick(evt) {
                     0, 0, 0);
                 toolTab = "quality";
                 tabCost = 0;
+                console.log("quality button pressed");
                 if (leanToolButtonArray.qualityBtn[1] == 2) {
                     leanToolButtonArray.qualityBtn[1] = 0;
                     toolTab = "null";
@@ -6493,7 +6495,7 @@ function onClick(evt) {
             }
 
             if (posx < leanToolsView.x || posy < leanToolTab.y || posy > leanToolTab.y + leanToolTab.h) {
-                tooltab = "null";
+                toolTab = "null";
                 subScreen = "office";
             }
 
@@ -6511,16 +6513,16 @@ function onClick(evt) {
                 subScreen = "leanTools";
             }
             if (calendarBtn.hover) {
-                subScreen = "calendar";
+                subScreen = "leanTools";
             }
             if (reportBtn.hover) {
                 subScreen = "monthlyReport";
             }
         }
         if (subScreen == "calendar") {
-            if (calendarView.hover == false) {
-                subScreen = "office";
-            }
+        /*    if (calendarView.hover == false) {
+             subScreen = "office";
+             }*/
         }
         if (subScreen == "leanTools") {
             if (!leanToolsView.hover) {
