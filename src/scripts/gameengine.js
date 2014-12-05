@@ -177,13 +177,16 @@ function drawLeanTools(){
     }
 
 }
+
 var titleAnimImg = new Image();
-titleAnimImg.src = "Art_Assets/main_menu/finaltitle.png";
+titleAnimImg.src = "Art_Assets/main_menu/All World WheelChair Title Screen unofficial.png";
 function drawTitleAnim(myTitleCounterTracker){
     var spriteX = 987;
     var spriteY = 586;
-        ctx.drawImage(titleAnimImg, spriteX * (myTitleCounterTracker % 8), spriteY * (myTitleCounterTracker % 8), 987, 586, 15, -30, 1500, 750);
-
+        ctx.drawImage(titleAnimImg, 0, 0, canvas.width, canvas.height);
+    //spriteX * (myTitleCounterTracker % 8)
+    //spriteY * (myTitleCounterTracker % 8)
+    //987, 586, 15, -30, 1500, 750
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -1228,13 +1231,13 @@ function problemListUpdate() {
 
 
 
-    var menu = new gameObject(0, 0, 750, 1500, 'Art_Assets/main_menu/title2.png', 0);
+    var menu = new gameObject(0, 0, 750, 1500, 'Art_Assets/main_menu/All World WheelChair Title Screen unofficial.png', 0);
     loadImg(menu);
 
-    var startBtn = new gameObject(50, 50, 65, 160, 'Art_Assets/main_menu/btn_play.png', 'Art_Assets/main_menu/btn_playh.png');
+    var startBtn = new gameObject(canvas.width/2 - 100, 350, 65, 160, 'Art_Assets/main_menu/btn_play.png', 'Art_Assets/main_menu/btn_playh.png');
     loadImg(startBtn);
 
-    var creditBtn = new gameObject(50, 150, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
+    var creditBtn = new gameObject(canvas.width/2 - 100, 450, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
     loadImg(creditBtn);
 
     var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.png', 0);
@@ -4501,7 +4504,6 @@ var myTitleCounter = 0;
         if(currentScreen == "mainMenu" && frameControl%6 == 0) {
             drawTitleAnim(myTitleCounter % 61);
             myTitleCounter++;
-            console.log("DRAWING THE TITLE");
 
         }
 
@@ -4902,16 +4904,12 @@ var myTitleCounter = 0;
                 ctx.textAlign="center";
                 //ctx.fillText(toolTab,leanToolTab.x+60,leanToolTab.y+40);
                 //draw(ctx,buyBtn,0,0);
-                ctx.fillText("Limit: 2 lean tools",leanToolTab.x+40,leanToolTab.y+380);
-
-                ctx.fillText("per month",leanToolTab.x+40,leanToolTab.y+400);
 
             }
             ctx.textAlign="left";
             ctx.fillStyle = "black";
             ctx.font = "20px Arial";
             if (toolTab == "kanban") {
-                ctx.fillText("Less WIP, less rework",leanToolTab.x+40,leanToolTab.y+320);
                 ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
 
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4921,7 +4919,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
                 ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
             } else if (toolTab == "superMarket") {
-                ctx.fillText("Less WIP",leanToolTab.x+40,leanToolTab.y+320);
                 ctx.fillText("Welding", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Assembly", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -4929,8 +4926,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
                 ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
             } else if (toolTab == "smallLot") {
-                ctx.fillText("Reduce production lot",leanToolTab.x+40,leanToolTab.y+320);
-                ctx.fillText("size by 1/2",leanToolTab.x+40,leanToolTab.y+340);
                 ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -4941,7 +4936,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
                 ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
             } else if (toolTab == "fiveS") {
-                ctx.fillText("Efficiency up to 96%",leanToolTab.x+40,leanToolTab.y+320);
 
                 ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
@@ -4973,9 +4967,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosH.y - cbOff);
                 ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosI.y - cbOff);
             } else if (toolTab == "smed") {
-
-                ctx.fillText("Reduce set up time",leanToolTab.x+40,leanToolTab.y+320);
-                ctx.fillText("to 80%",leanToolTab.x+40,leanToolTab.y+340);
                 ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -4996,9 +4987,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  300", checkboxPosB.x + cbPriceOff, checkboxPosE.y - cbOff);
                 ctx.fillText("$  300", checkboxPosC.x + cbPriceOff, checkboxPosF.y - cbOff);
             } else if (toolTab == "quality") {
-
-                ctx.fillText("Less rework, scrap by",leanToolTab.x+40,leanToolTab.y+320);
-                ctx.fillText("80%",leanToolTab.x+40,leanToolTab.y+340);
                 ctx.fillText("Drill", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Bender", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -5015,16 +5003,11 @@ var myTitleCounter = 0;
                 ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
                 ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
             } else if (toolTab == "cells") {
-
-                ctx.fillText("No travel time in cell",leanToolTab.x+40,leanToolTab.y+320);
-                ctx.fillText("overhead down $700",leanToolTab.x+40,leanToolTab.y+340);
                 ctx.fillText("Overall", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("$ 1000", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
 
             } else if (toolTab == "crossTrain") {
-
-                ctx.fillText("Fewer workers",leanToolTab.x+40,leanToolTab.y+320);
                 ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -5035,9 +5018,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
                 ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
             } else if (toolTab == "selfDirected") {
-
-                ctx.fillText("Overhead down $500,",leanToolTab.x+40,leanToolTab.y+320);
-                ctx.fillText("efficiency down 3%",leanToolTab.x+40,leanToolTab.y+340);
                 ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -5048,8 +5028,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
                 ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
             } else if (toolTab == "pM") {
-                ctx.fillText("Downtime down 80%",leanToolTab.x+40,leanToolTab.y+320);
-
                 ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -5070,11 +5048,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
                 ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosF.y - cbOff);
             } else if (toolTab == "vendor") {
-                ctx.fillText("Reduce order cost to",leanToolTab.x+40,leanToolTab.y+320);
-                ctx.fillText("$50, reliabiliy up",leanToolTab.x+40,leanToolTab.y+340);
-
-                ctx.fillText("to 98-99%",leanToolTab.x+40,leanToolTab.y+360);
-
                 ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Nylon", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -5088,8 +5061,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
                 ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
             } else if (toolTab == "smallPurchase") {
-                ctx.fillText("Reduce purchase lot",leanToolTab.x+40,leanToolTab.y+320);
-                ctx.fillText("size to 1/4",leanToolTab.x+40,leanToolTab.y+340);
                 ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Nylon", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -5103,8 +5074,6 @@ var myTitleCounter = 0;
                 ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
                 ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
             } else if (toolTab == "new") {
-                ctx.fillText("Additional capacity, ",leanToolTab.x+40,leanToolTab.y+320);
-                ctx.fillText("overhead up $300",leanToolTab.x+40,leanToolTab.y+340);
                 ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
                 checkboxDraw(ctx, checkboxPosA, 0, 0);
                 ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
@@ -5141,8 +5110,8 @@ var myTitleCounter = 0;
             draw(ctx, leanToolsView, 0, 0);
             drawLeanTools();
             scaleDraw(ctx,nextMonthBtn,0,0,1);
-            //ctx.fillText("Lean tool 1: " + currentLeanPurchase, 750, 50);
-            //ctx.fillText("Lean tool 2: " + currentLeanPurchaseSecond, 1150, 50);
+            ctx.fillText("Lean tool 1: " + currentLeanPurchase, 750, 50);
+            ctx.fillText("Lean tool 2: " + currentLeanPurchaseSecond, 1150, 50);
 /*            if (toolTab == "confirm") {
                 draw(ctx, confirmScreen, 0, 0);
 
@@ -5374,8 +5343,8 @@ var myTitleCounter = 0;
             draw(ctx, Report, 0, 0);
             sewingReport();
         }
-        //ctx.fillText("x: " + posx, 100, 400);
-        //ctx.fillText("y: " + posy, 100, 415);
+        ctx.fillText("x: " + posx, 100, 400);
+        ctx.fillText("y: " + posy, 100, 415);
             draw(ctx, gameBorder, 0, 0);
         }
 
@@ -6123,7 +6092,6 @@ var currentLeanPurchase="null";
 var currentLeanPurchaseSecond="null";
 createConsoleTable();
 function onClick(evt) {
-    click.load();
     if (subScreen == "leanTools") {
 
         if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
