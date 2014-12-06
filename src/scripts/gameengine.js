@@ -5262,6 +5262,7 @@ var myTitleCounter = 0;
             ctx.font = "10px Arial";
 
             if(monthCounter>6&&monthCounter!=12) {
+                
                 scaleDraw(ctx, nextMonthBtn, 0, 0, 1);
             }
 
@@ -6870,6 +6871,12 @@ function onClick(evt) {
                     noise.play();
                 }
             }
+            if (!reportView.hover) {
+                subScreen = "office";
+            }
+            
+        }
+        if (subScreen =="problemList") {
             if (!reportView.hover) {
                 subScreen = "office";
             }
