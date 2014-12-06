@@ -33,7 +33,8 @@ var bgLeftDrawn=false;
 var bgRightDrawn=false;
 var midRightDrawn=false;
 
-
+var blue = true;
+var purple = false;
 
 
 var shadowForFactoryIcons = new Image();
@@ -1375,8 +1376,20 @@ var leanToolButtonArray = {
 //Office screen views
 
 
-    var reportView = new gameObject(850, 20, 710, 550, "Art_Assets/game_screen/report_view.png", 0);
+    var reportView = new gameObject(850, 20, 710, 550, "Art_Assets/game_screen/monthlyReport.png", 0);
     loadImg(reportView);
+    
+    var blueTab = new gameObject(1350, 85, 620, 43, "Art_Assets/game_screen/blue.png", "Art_Assets/game_screen/blueH.png");
+    loadImg(blueTab);
+    
+    var invBlueTab = new gameObject(1350, 85, 180, 45, "Art_Assets/game_screen/orange.png", 0);
+    loadImg(invBlueTab);
+    
+    var purpleTab = new gameObject(1350, 85, 620, 43, "Art_Assets/game_screen/purple.png", "Art_Assets/game_screen/purpleH.png");
+    loadImg(purpleTab);
+    
+    var invPurpleTab = new gameObject(1350, 280, 190, 45, "Art_Assets/game_screen/orange.png", 0);
+    loadImg(invPurpleTab);
 
     var calendarView = new gameObject(770, 20, 710, 710, "Art_Assets/game_screen/Calendar.png", 0);
     loadImg(calendarView);
@@ -1467,11 +1480,11 @@ var leanToolButtonArray = {
 
     var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
     loadImg(note);
-    var stationReport = new gameObject( 800, 450, 150, 100, "Art_Assets/game_screen/menu_MonthlyReport.png", 0);
-    loadImg(stationReport);
+    var stationReportbtn = new gameObject( 800, 450, 150, 100, "Art_Assets/game_screen/menu_MonthlyReport.png", 0);
+    loadImg(stationReportbtn);
 
-    var Report = new gameObject(800, 10, 750, 550, "Art_Assets/game_screen/StationReport.png", 0);
-    loadImg(Report);
+    var stationReport = new gameObject(800, 10, 750, 550, "Art_Assets/game_screen/StationReport.png", 0);
+    loadImg(stationReport);
 
     var bigDialog = new gameObject(750+136, 275, 200, 477, "Art_Assets/game_screen/dialogLarge.png", 0);
     loadImg(bigDialog);//left is (137,
@@ -2501,10 +2514,10 @@ function mitreSaw_Handling(){
     else
         return 2;
 }
-//Duplicate Function
-//function mitreSaw_NeededMachines(){
-  //  return (mitreSaw_NeededMin()/(24 * MinPerDay * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
-//}
+
+function mitreSaw_ProcessNeededMachines(){
+    return (mitreSaw_NeededMin()/(24 * MinPerDay * mitreSaw_Efficiency() * mitreSaw_Reliability() * mitreSaw_Quality()));
+}
 
 
 //Drill functions
@@ -2561,9 +2574,9 @@ function drillPress_Handling(){
         return 2;
 }
 //Duplicate Function
-//function drillPress_NeededMachines(){
-  //  return (drillPress_NeededMin()/(24 * MinPerDay * drillPress_Efficiency() * drillPress_Reliability() * drillPress_Quality()));
-//}
+function drillPress_ProcessNeededMachines(){
+    return (drillPress_NeededMin()/(24 * MinPerDay * drillPress_Efficiency() * drillPress_Reliability() * drillPress_Quality()));
+}
 
 //Bender functions
 function tubeBender_CurrentQuantity(){
@@ -2616,9 +2629,9 @@ function tubeBender_CurrentQuantity(){
     return 2;
  }
 //Duplicate Function
- //function tubeBender_NeededMachines(){
-   // return (tubeBender_NeededMin()/(24 * MinPerDay * tubeBender_Efficiency() * tubeBender_Reliability() * tubeBender_Quality()));
- //}
+ function tubeBender_ProcessNeededMachines(){
+    return (tubeBender_NeededMin()/(24 * MinPerDay * tubeBender_Efficiency() * tubeBender_Reliability() * tubeBender_Quality()));
+ }
 
 //welding functions
 function welding_CurrentQuantity(){
@@ -2675,9 +2688,9 @@ function welding_Handling(){
         return 2;
 }
 //Duplicate Function
-//function welding_NeededMachines(){
-  //  return (welding_NeededMin()/(24 * MinPerDay * welding_Efficiency() * welding_Reliability() * welding_Quality()));
-//}
+function welding_ProcessNeededMachines(){
+    return (welding_NeededMin()/(24 * MinPerDay * welding_Efficiency() * welding_Reliability() * welding_Quality()));
+}
 
 //Grinder functions
 function grinder_CurrentQuantity(){
@@ -2725,9 +2738,9 @@ function grinder_Handling(){
         return 2;
 }
 //Duplicate function
-//function grinder_NeededMachines(){
-  //  return (grinder_NeededMin()/(24 * MinPerDay * grinder_Efficiency() * grinder_Reliability() * grinder_Quality()));
-//}
+function grinder_ProcessNeededMachines(){
+    return (grinder_NeededMin()/(24 * MinPerDay * grinder_Efficiency() * grinder_Reliability() * grinder_Quality()));
+}
 
 //Paint functions
 function paintBooth_CurrentQuantity(){
@@ -2778,9 +2791,9 @@ function paintBooth_Handling(){
     return 2;
 }
 //Duplicate Function
-//function paintBooth_NeededMachines(){
-  //  return (paintBooth_NeededMin()/(24 * MinPerDay * paintBooth_Efficiency() * paintBooth_Reliability() * paintBooth_Quality()));
-//}
+function paintBooth_ProcessNeededMachines(){
+    return (paintBooth_NeededMin()/(24 * MinPerDay * paintBooth_Efficiency() * paintBooth_Reliability() * paintBooth_Quality()));
+}
 
 // fabric functions
 function fabricCutter_CurrentQuantity(){
@@ -2828,9 +2841,9 @@ function fabricCutter_Handling(){
         return 2;
 }
 //Duplicate Function
-//function fabricCut_NeededMachines(){
-  //  return (fabricCut_NeededMin()/(24 * MinPerDay * fabricCutter_Efficiency() * fabricCutter_Reliability() * fabricCutter_Quality()));
-//}
+function fabricCut_ProcessNeededMachines(){
+    return (fabricCut_NeededMin()/(24 * MinPerDay * fabricCutter_Efficiency() * fabricCutter_Reliability() * fabricCutter_Quality()));
+}
 
 // Sewing functions
 function sewing_CurrentQuantity(){
@@ -2884,9 +2897,9 @@ function sewing_Handling(){
     return 2;
 }
 //Duplicate Function
-//function sewing_NeededMachines(){
-  //  return (sewing_NeededMin()/(24 * MinPerDay() * sewing_Efficiency() * sewing_Reliability() * sewing_Quality()));
-//}
+function sewing_ProcessNeededMachines(){
+    return (sewing_NeededMin()/(24 * MinPerDay * sewing_Efficiency() * sewing_Reliability() * sewing_Quality()));
+}
 
 //Assembly functions
 function assembly_CurrentQuantity(){
@@ -2929,9 +2942,9 @@ function assembly_Handling(){
     return 0;
 }
 //Duplicate Function
-//function assembly_NeededMachines(){
-  //  return (assembly_NeededMin()/(24 * MinPerDay() * assembly_Efficiency() * assembly_Reliability() * assembly_Quality()));
-//}
+function assembly_ProcessNeededMachines(){
+    return (assembly_NeededMin()/(24 * MinPerDay * assembly_Efficiency() * assembly_Reliability() * assembly_Quality()));
+}
 
 
 
@@ -4562,6 +4575,7 @@ var myTitleCounter = 0;
             if(subScreen =="monthlyReport"){
                 contact(nextMonthBtn);
             }
+            contact(stationReportbtn);
             contact(stationReport);
             contact(desk);
 
@@ -4571,6 +4585,11 @@ var myTitleCounter = 0;
 
         //contact(closeBtn);
         contact(reportView);
+        
+        contact(invBlueTab);
+        blueTab.hover=invBlueTab.hover;
+        contact(invPurpleTab);
+        purpleTab.hover=invPurpleTab.hover;
 
         contact(checkboxPosA);
         contact(checkboxPosB);
@@ -5161,7 +5180,15 @@ var myTitleCounter = 0;
 
         //report screen is background of
         if (subScreen == "monthlyReport") {
-            draw(ctx, reportView, 0, 0);
+                draw(ctx, reportView, 0, 0);
+                if (blue == true) {
+                    draw(ctx, purpleTab, 0, 0);
+                    draw(ctx, blueTab, 0, 0);
+                }
+                else if (purple == true) {
+                    draw(ctx, blueTab, 0, 0);
+                    draw(ctx, purpleTab, 0, 0);
+                }
             ctx.font = "60px Georgia";
             ctx.fillStyle = "black";
             ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
@@ -5240,6 +5267,48 @@ var myTitleCounter = 0;
             }
 
         }
+        
+            if (subScreen == "problemList") {
+                draw(ctx, office, 0, 0);
+                if(currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March){
+                    scaleDraw(ctx,officeWindow_Winter,0,0,1);
+                }else if(currentMonth == monthsArray.April || currentMonth == monthsArray.May){
+                    scaleDraw(ctx,officeWindow_Spring,0,0,1);
+                }else if(currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August){
+                    scaleDraw(ctx,officeWindow_Summer,0,0,1);
+                }else{
+                    scaleDraw(ctx,officeWindow_Fall,0,0,1);
+                }
+                draw(ctx, reportView, 0, 0);
+                if (blue == true) {
+                    draw(ctx, purpleTab, 0, 0);
+                    draw(ctx, blueTab, 0, 0);
+                }
+                else if (purple == true) {
+                    draw(ctx, blueTab, 0, 0);
+                    draw(ctx, purpleTab, 0, 0);
+                }
+
+                ctx.font = "60px Georgia";
+                ctx.fillStyle = "black";
+                ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
+                
+                ctx.font = "30px Georgia";
+                ctx.fillText("Problem List", reportView.x + 40, reportView. y + 160);
+
+                var row = [];
+                row[0] = reportView.y + 200;
+                for (var i = 1; i < 20; i++) {
+                    row[i] = row[i - 1] + 20;
+                }
+                console.log(i);
+                ctx.font = "14px Georgia";
+
+                //headings
+                for(var i = 0; i < numProbs; i++){
+                    ctx.fillText(problemList[i], reportView.x + 30, row[i]);
+                }
+            }         
         /*if (subScreen == "calendar") {
             draw(ctx, calendarView, 0, 0);
             ctx.font = "80px Georgia";
@@ -5297,68 +5366,68 @@ var myTitleCounter = 0;
 
 
         if (subScreen == "sawView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
         if (subScreen == "drillView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
         if (subScreen == "bendView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
         if (subScreen == "weldView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
         if (subScreen == "grindView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
         if (subScreen == "paintView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
         if (subScreen == "assemblyView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
         if (subScreen == "fabricView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
         if (subScreen == "sewingView") {
-            draw(ctx, stationReport, 0, 0);
+            draw(ctx, stationReportbtn, 0, 0);
         }
 
 
         if (subScreen == "sawReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             sawReport();
         }
         if (subScreen == "drillReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             drillReport();
         }
         if (subScreen == "bendReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             bendReport();
         }
         if (subScreen == "weldReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             weldReport();
         }
         if (subScreen == "grindReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             grindReport();
         }
         if (subScreen == "paintReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             paintReport();
         }
         if (subScreen == "assemblyReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             assemblyReport();
         }
         if (subScreen == "fabricReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             fabricReport();
         }
         if (subScreen == "sewingReport") {
-            draw(ctx, Report, 0, 0);
+            draw(ctx, stationReport, 0, 0);
             sewingReport();
         }
         ctx.fillText("x: " + posx, 100, 400);
@@ -5710,11 +5779,6 @@ function sawReport(){
             }
 
         }
-
-
-
-
-
 
     canvas.addEventListener('click', onClick, false);
 
@@ -6111,7 +6175,7 @@ var currentLeanPurchaseSecond="null";
 createConsoleTable();
 function onClick(evt) {
     click.load();
-    noise.load();
+    //noise.load();
     if (subScreen == "monthlyReport") {
         if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
             click.play();
@@ -6264,6 +6328,8 @@ function onClick(evt) {
                 }
                 draw(ctx, office, 0, 0);
                 subScreen = "monthlyReport";
+                blue = true;
+                purple = false;
                 noise.play();
             }
         }
@@ -6802,6 +6868,8 @@ function onClick(evt) {
             }
             if (reportBtn.hover) {
                 click.play();
+                blue = true;
+                purple = false;
                 subScreen = "monthlyReport";
             }
         }
@@ -6816,7 +6884,73 @@ function onClick(evt) {
             }
         }
 
-
+        if (subScreen=="sawView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "sawReport";
+            }
+        }
+        if (subScreen=="drillView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "drillReport";
+            }
+        }
+        if (subScreen=="bendView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "bendReport";
+            }
+        }
+        if (subScreen=="weldView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "weldReport";
+            }
+        }
+        if (subScreen=="grindView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "grindReport";
+            }
+        }
+        if (subScreen=="paintView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "paintReport";
+            }
+        }
+        if (subScreen=="assemblyView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "assemblyReport";
+            }
+        }
+        if (subScreen=="fabricView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "fabricReport";
+            }
+        }
+        if (subScreen=="sewingView") {
+            if (stationReportbtn.hover) {
+                click.play();
+                subScreen = "sewingReport";
+            }
+        }
+        
+        if (blueTab.hover) {
+            click.play();
+            blue = true;
+            purple = false;
+            subScreen = "monthlyReport";
+        }
+        if (purpleTab.hover) {
+            click.play();
+            purple = true;
+            blue = false;
+            subScreen = "problemList";
+        }
 
     }
 
