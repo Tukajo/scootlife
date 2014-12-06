@@ -5263,6 +5263,7 @@ var myTitleCounter = 0;
             ctx.font = "10px Arial";
 
             if(monthCounter>6&&monthCounter!=12) {
+                
                 scaleDraw(ctx, nextMonthBtn, 0, 0, 1);
             }
 
@@ -6883,7 +6884,6 @@ function onClick(evt) {
                 //subScreen = "office";
             }
         }
-
         if (subScreen=="sawView") {
             if (stationReportbtn.hover) {
                 click.play();
