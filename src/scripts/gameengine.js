@@ -32,7 +32,8 @@ var bgLeftDrawn=false;
 var bgRightDrawn=false;
 var midRightDrawn=false;
 
-
+var blue = true;
+var purple = false;
 
 
 var shadowForFactoryIcons = new Image();
@@ -1374,8 +1375,20 @@ var leanToolButtonArray = {
 //Office screen views
 
 
-    var reportView = new gameObject(850, 20, 710, 550, "Art_Assets/game_screen/report_view.png", 0);
+    var reportView = new gameObject(850, 20, 710, 550, "Art_Assets/game_screen/monthlyReport.png", 0);
     loadImg(reportView);
+    
+    var blueTab = new gameObject(1350, 85, 620, 43, "Art_Assets/game_screen/blue.png", "Art_Assets/game_screen/blueH.png");
+    loadImg(blueTab);
+    
+    var invBlueTab = new gameObject(1350, 85, 180, 45, "Art_Assets/game_screen/orange.png", 0);
+    loadImg(invBlueTab);
+    
+    var purpleTab = new gameObject(1350, 85, 620, 43, "Art_Assets/game_screen/purple.png", "Art_Assets/game_screen/purpleH.png");
+    loadImg(purpleTab);
+    
+    var invPurpleTab = new gameObject(1350, 280, 190, 45, "Art_Assets/game_screen/orange.png", 0);
+    loadImg(invPurpleTab);
 
     var calendarView = new gameObject(770, 20, 710, 710, "Art_Assets/game_screen/Calendar.png", 0);
     loadImg(calendarView);
@@ -4571,6 +4584,11 @@ var myTitleCounter = 0;
 
         //contact(closeBtn);
         contact(reportView);
+        
+        contact(invBlueTab);
+        blueTab.hover=invBlueTab.hover;
+        contact(invPurpleTab);
+        purpleTab.hover=invPurpleTab.hover;
 
         contact(checkboxPosA);
         contact(checkboxPosB);
@@ -5161,7 +5179,15 @@ var myTitleCounter = 0;
 
         //report screen is background of
         if (subScreen == "monthlyReport") {
-            draw(ctx, reportView, 0, 0);
+                draw(ctx, reportView, 0, 0);
+                if (blue == true) {
+                    draw(ctx, purpleTab, 0, 0);
+                    draw(ctx, blueTab, 0, 0);
+                }
+                else if (purple == true) {
+                    draw(ctx, blueTab, 0, 0);
+                    draw(ctx, purpleTab, 0, 0);
+                }
             ctx.font = "60px Georgia";
             ctx.fillStyle = "black";
             ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
@@ -5240,6 +5266,48 @@ var myTitleCounter = 0;
             }
 
         }
+        
+            if (subScreen == "problemList") {
+                draw(ctx, office, 0, 0);
+                if(currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March){
+                    scaleDraw(ctx,officeWindow_Winter,0,0,1);
+                }else if(currentMonth == monthsArray.April || currentMonth == monthsArray.May){
+                    scaleDraw(ctx,officeWindow_Spring,0,0,1);
+                }else if(currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August){
+                    scaleDraw(ctx,officeWindow_Summer,0,0,1);
+                }else{
+                    scaleDraw(ctx,officeWindow_Fall,0,0,1);
+                }
+                draw(ctx, reportView, 0, 0);
+                if (blue == true) {
+                    draw(ctx, purpleTab, 0, 0);
+                    draw(ctx, blueTab, 0, 0);
+                }
+                else if (purple == true) {
+                    draw(ctx, blueTab, 0, 0);
+                    draw(ctx, purpleTab, 0, 0);
+                }
+
+                ctx.font = "60px Georgia";
+                ctx.fillStyle = "black";
+                ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
+                
+                ctx.font = "30px Georgia";
+                ctx.fillText("Problem List", reportView.x + 40, reportView. y + 160);
+
+                var row = [];
+                row[0] = reportView.y + 200;
+                for (var i = 1; i < 20; i++) {
+                    row[i] = row[i - 1] + 20;
+                }
+                console.log(i);
+                ctx.font = "14px Georgia";
+
+                //headings
+                for(var i = 0; i < numProbs; i++){
+                    ctx.fillText(problemList[i], reportView.x + 30, row[i]);
+                }
+            }         
         /*if (subScreen == "calendar") {
             draw(ctx, calendarView, 0, 0);
             ctx.font = "80px Georgia";
@@ -5711,11 +5779,6 @@ function sawReport(){
 
         }
 
-
-
-
-
-
     canvas.addEventListener('click', onClick, false);
 
 
@@ -6180,6 +6243,8 @@ function onClick(evt) {
                 }
                 draw(ctx, office, 0, 0);
                 subScreen = "monthlyReport";
+                blue = true;
+                purple = false;
                 noise.play();
             }
         }
@@ -6718,6 +6783,8 @@ function onClick(evt) {
             }
             if (reportBtn.hover) {
                 click.play();
+                blue = true;
+                purple = false;
                 subScreen = "monthlyReport";
             }
         }
@@ -6862,6 +6929,19 @@ function onClick(evt) {
                 click.play();
                 subScreen = "sewingReport";
             }
+        }
+        
+        if (blueTab.hover) {
+            click.play();
+            blue = true;
+            purple = false;
+            subScreen = "monthlyReport";
+        }
+        if (purpleTab.hover) {
+            click.play();
+            purple = true;
+            blue = false;
+            subScreen = "problemList";
         }
 
 
