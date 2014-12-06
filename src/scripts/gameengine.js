@@ -28,6 +28,7 @@ document.body.appendChild(canvas);
 canvas.zIndex=1;
 
 
+
 var bgLeftDrawn=false;
 var bgRightDrawn=false;
 var midRightDrawn=false;
@@ -6109,8 +6110,9 @@ var currentLeanPurchase="null";
 var currentLeanPurchaseSecond="null";
 createConsoleTable();
 function onClick(evt) {
-    if (subScreen == "leanTools") {
-
+    click.load();
+    noise.load();
+    if (subScreen == "monthlyReport") {
         if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
             click.play();
             noise.pause();
@@ -6166,6 +6168,89 @@ function onClick(evt) {
             //console.log("paint previous 2nd month"+prevInventory_Paint);
 
             if(monthCounter<11) {
+
+                monthCounter++;
+                problemListUpdate();
+                updateMonth(monthData[monthCounter]);
+                createConsoleTable();
+                leanToolAllowance = 1000;
+                currentLeanPurchase = "null";
+                currentLeanPurchaseSecond = "null";
+                if(monthCounter>6){
+                    currentLeanPurchase = "unavailable";
+                    currentLeanPurchaseSecond = "unavailable";
+                }
+                draw(ctx, office, 0, 0);
+                subScreen = "monthlyReport";
+                noise.play();
+            }
+        }
+        if (!reportView.hover) {
+            subScreen = "office";
+        }
+    }
+    if (subScreen == "leanTools") {
+
+        if (nextMonthBtn.hover) {
+            click.play();
+            noise.pause();
+            noise.currentTime = 0;
+
+
+            //click of next month button will change month, update month stats, and show the new report
+
+            var sawTemp = mitreSaw_FinalInventory();
+            var drillTemp = drillPress_FinalInventory();
+            var bendTemp = tubeBender_FinalInventory();
+            var weldTemp = welding_FinalInventory();
+            var grindTemp = grinder_FinalInventory();
+            var paintTemp = paintBooth_FinalInventory();
+            var fabricTemp = fabricCut_FinalInventory();
+            var sewingTemp = sewing_FinalInventory();
+            var assemblyTemp = assembly_FinalInventory() - monthChairsSold();
+
+            //Inventory temp
+            var tempNineteenbyoneTube = nineteenbyoneTube_ChairQuantity();
+            var tempTwentyfivebyoneTube = twentyfivebyoneTube_ChairQuantity();
+            var tempThirtyfivebytwoTube = thirtyfivebytwoTube_ChairQuantity();
+            var tempNylonFabric_PrevChair = nylonFabric_ChairQuantity();
+            var tempCasterWheel_PrevChair = casterWheel_ChairQuantity();
+            var tempRearBikeWheel_PrevChair = rearBikeWheel_ChairQuantity();
+            var tempHandle_prevChair = handle_ChairQuantity();
+            var tempFender_PrevChair = fender_ChairQuantity();
+            var tempFootrestPlate_PrevChair = footrestPlate_ChairQuantity();
+            var tempBrakeLever_PrevChair = brakeLever_ChairQuantity();
+
+            //inventory update
+            nineteenbyoneTube_PrevChair = tempNineteenbyoneTube;
+            twentyfivebyoneTube_PrevChair = tempTwentyfivebyoneTube;
+            thirtyfivebytwoTube_PrevChair = tempThirtyfivebytwoTube;
+            nylonFabric_PrevChair = tempNylonFabric_PrevChair;
+            casterWheel_PrevChair = tempCasterWheel_PrevChair;
+            rearBikeWheel_PrevChair = tempRearBikeWheel_PrevChair;
+            handle_PrevChair = tempHandle_prevChair;
+            fender_PrevChair = tempFender_PrevChair;
+            footrestPlate_PrevChair = tempFootrestPlate_PrevChair;
+            brakeLever_PrevChair = tempBrakeLever_PrevChair;
+
+
+            //prev inventory update
+            prevInventory_Saw = sawTemp;
+            prevInventory_Drill = drillTemp;
+            prevInventory_Bender = bendTemp;
+            prevInventory_Weld = weldTemp;
+            prevInventory_Grind = grindTemp;
+            prevInventory_Paint = paintTemp;
+            prevInventory_Fabric = fabricTemp;
+            prevInventory_Sewing = sewingTemp;
+            prevInventory_Assembly = assemblyTemp;
+
+
+            //console.log("paint previous"+prevInventory_Paint);
+            //console.log("paint previous 2nd month"+prevInventory_Paint);
+
+            if(monthCounter<11) {
+
                 monthCounter++;
                 problemListUpdate();
                 updateMonth(monthData[monthCounter]);
@@ -6730,87 +6815,13 @@ function onClick(evt) {
                 //subScreen = "office";
             }
         }
-        if (subScreen == "monthlyReport") {
-            if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
-                click.play();
-                noise.pause();
-                noise.currentTime = 0;
-                var sawTemp = mitreSaw_FinalInventory();
-                var drillTemp = drillPress_FinalInventory();
-                var bendTemp = tubeBender_FinalInventory();
-                var weldTemp = welding_FinalInventory();
-                var grindTemp = grinder_FinalInventory();
-                var paintTemp = paintBooth_FinalInventory();
-                var fabricTemp = fabricCut_FinalInventory();
-                var sewingTemp = sewing_FinalInventory();
-                var assemblyTemp = assembly_FinalInventory() - monthChairsSold();
 
-                //Inventory temp
-                var tempNineteenbyoneTube = nineteenbyoneTube_ChairQuantity();
-                var tempTwentyfivebyoneTube = twentyfivebyoneTube_ChairQuantity();
-                var tempThirtyfivebytwoTube = thirtyfivebytwoTube_ChairQuantity();
-                var tempNylonFabric_PrevChair = nylonFabric_ChairQuantity();
-                var tempCasterWheel_PrevChair = casterWheel_ChairQuantity();
-                var tempRearBikeWheel_PrevChair = rearBikeWheel_ChairQuantity();
-                var tempHandle_prevChair = handle_ChairQuantity();
-                var tempFender_PrevChair = fender_ChairQuantity();
-                var tempFootrestPlate_PrevChair = footrestPlate_ChairQuantity();
-                var tempBrakeLever_PrevChair = brakeLever_ChairQuantity();
-
-                //inventory update
-                nineteenbyoneTube_PrevChair = tempNineteenbyoneTube;
-                twentyfivebyoneTube_PrevChair = tempTwentyfivebyoneTube;
-                thirtyfivebytwoTube_PrevChair = tempThirtyfivebytwoTube;
-                nylonFabric_PrevChair = tempNylonFabric_PrevChair;
-                casterWheel_PrevChair = tempCasterWheel_PrevChair;
-                rearBikeWheel_PrevChair = tempRearBikeWheel_PrevChair;
-                handle_PrevChair = tempHandle_prevChair;
-                fender_PrevChair = tempFender_PrevChair;
-                footrestPlate_PrevChair = tempFootrestPlate_PrevChair;
-                brakeLever_PrevChair = tempBrakeLever_PrevChair;
-
-
-                //prev inventory update
-                prevInventory_Saw = sawTemp;
-                prevInventory_Drill = drillTemp;
-                prevInventory_Bender = bendTemp;
-                prevInventory_Weld = weldTemp;
-                prevInventory_Grind = grindTemp;
-                prevInventory_Paint = paintTemp;
-                prevInventory_Fabric = fabricTemp;
-                prevInventory_Sewing = sewingTemp;
-                prevInventory_Assembly = assemblyTemp;
-
-
-                //console.log("paint previous"+prevInventory_Paint);
-                //console.log("paint previous 2nd month"+prevInventory_Paint);
-
-                if(monthCounter<11) {
-                    monthCounter++;
-                    problemListUpdate();
-                    updateMonth(monthData[monthCounter]);
-                    createConsoleTable();
-                    leanToolAllowance = 1000;
-                    currentLeanPurchase = "null";
-                    currentLeanPurchaseSecond = "null";
-                    if(monthCounter>6){
-                        currentLeanPurchase = "unavailable";
-                        currentLeanPurchaseSecond = "unavailable";
-                    }
-                    draw(ctx, office, 0, 0);
-                    subScreen = "monthlyReport";
-                    noise.play();
-                }
-            }
-            if (!reportView.hover) {
-                subScreen = "office";
-            }
-        }
 
 
     }
 
 }
+
 
 //ctxBack.drawImage(menu.image, 0, 0, 1500, 750);
     var main = function () {
