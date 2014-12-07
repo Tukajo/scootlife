@@ -92,46 +92,63 @@ bossScaredAnm.src = "Art_Assets/characters/boss/newAnims/bossscaredmed.png";
 
 var bossWalkAnm = new Image();
 bossWalkAnm.src = "Art_Assets/characters/boss/newAnims/bosstwostepmed.png";
-
+var bossAnms = {
+    bossWalkAnim: [bossWalkAnm,458,810,10,12,112],
+    bossScaredAnim: [bossScaredAnm,237,804,10,19,187],
+    bossCoffeeAnim: [bossCoffeeSipAnm,324,804,10,19,187]
+};
+var bossObject = function(bossSpriteFrame,bossSpriteX, bossSpriteY, bossAnms){
+    this.bossSpriteFrame = bossSpriteFrame;
+    this.bossSpriteX = bossSpriteX;
+    this.bossSpriteY = bossSpriteY;
+    this.bossAnms = bossAnms;
+};
+var tempStore;
+var myBoss = new bossObject(bossSpriteFrameCoffee, BossCoffeeSpriteX, BossCoffeeSpriteY, bossAnms);
 var drawBossCoffeeAnm = function(){
 
     if(currentBossState == bossStateArray.stateCoffee) {
-        BossCoffeeSpriteX = (bossSpriteFrameCoffee % 10) *324 ;
-        BossCoffeeSpriteY = Math.floor(bossSpriteFrameCoffee / 10) * 804;
-        ctx.drawImage(bossCoffeeSipAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 324, 804, 800, 100, (324 *.60505), (804 * .60505));
+       console.log(myBoss.bossSpriteFrame);
+       myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossCoffeeAnim[3])*myBoss.bossAnms.bossCoffeeAnim[1] ;
+       myBoss.bossSpriteY = Math.floor(myBoss.bossSpriteFrame / myBoss.bossAnms.bossCoffeeAnim[3]) * myBoss.bossAnms.bossCoffeeAnim[2];
+       ctx.drawImage(myBoss.bossAnms.bossCoffeeAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossCoffeeAnim[1], myBoss.bossAnms.bossCoffeeAnim[2], 800, 100, (myBoss.bossAnms.bossCoffeeAnim[1]*.60505), (myBoss.bossAnms.bossCoffeeAnim[2] * .60505));
 
-        if (bossSpriteFrameCoffee == 187) {
+        if (myBoss.bossSpriteFrame == myBoss.bossAnms.bossCoffeeAnim[5]) {
             currentBossState = bossStateArray.stateWalkingRight;
-            bossSpriteFrameCoffee = 0;
+            myBoss.bossSpriteFrame  = 0;
         }
         else {
-            bossSpriteFrameCoffee++
+            myBoss.bossSpriteFrame++;
         }
-    }
+   }
       if(currentBossState == bossStateArray.stateWalkingRight){
-        BossCoffeeSpriteX = (bossSpriteFrameCoffee % 10) * 458;
-        BossCoffeeSpriteY = Math.floor(bossSpriteFrameCoffee / 10) * 810;
-        ctx.drawImage(bossWalkAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 458, 810, 810+bossSpriteFrameCoffee*1.5, 100, (458 *.60505), (810 *.60505));
-        if (bossSpriteFrameCoffee == 112) {
-            currentBossState = bossStateArray.stateScaredStand;
-            bossSpriteFrameCoffee = 0;
-        }
-        else {
-            bossSpriteFrameCoffee++
-        }
+          myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossWalkAnim[3])*myBoss.bossAnms.bossWalkAnim[1] ;
+          myBoss.bossSpriteY = Math.floor(myBoss.bossSpriteFrame / myBoss.bossAnms.bossWalkAnim[3]) * myBoss.bossAnms.bossWalkAnim[2];
+          ctx.drawImage(myBoss.bossAnms.bossWalkAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossWalkAnim[1], myBoss.bossAnms.bossWalkAnim[2], 800+myBoss.bossSpriteFrame*2, 100, (myBoss.bossAnms.bossWalkAnim[1]*.60505), (myBoss.bossAnms.bossWalkAnim[2] * .60505));
+
+          if (myBoss.bossSpriteFrame == myBoss.bossAnms.bossWalkAnim[5]) {
+              currentBossState = bossStateArray.stateScaredStand;
+              tempStore = myBoss.bossSpriteFrame*2;
+                  myBoss.bossSpriteFrame  = 0;
+
+          }
+          else {
+              myBoss.bossSpriteFrame++;
+          }
     }
-      if(currentBossState == bossStateArray.stateScaredStand){
-        BossCoffeeSpriteX = (bossSpriteFrameCoffee % 10) * 237;
-        BossCoffeeSpriteY = Math.floor(bossSpriteFrameCoffee / 10) * 804;
-        ctx.drawImage(bossScaredAnm, BossCoffeeSpriteX, BossCoffeeSpriteY, 237, 804, 810+168, 100, (237 *.60505), (804 *.60505));
-        if (bossSpriteFrameCoffee == 187) {
-            currentBossState = bossStateArray.stateCoffee;
-            bossSpriteFrameCoffee = 0;
-        }
-        else {
-            bossSpriteFrameCoffee++
-        }
-    }
+      if(currentBossState == bossStateArray.stateScaredStand) {
+          myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossScaredAnim[3]) * myBoss.bossAnms.bossScaredAnim[1];
+          myBoss.bossSpriteY = Math.floor(myBoss.bossSpriteFrame / myBoss.bossAnms.bossScaredAnim[3]) * myBoss.bossAnms.bossScaredAnim[2];
+          ctx.drawImage(myBoss.bossAnms.bossScaredAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossScaredAnim[1], myBoss.bossAnms.bossScaredAnim[2], 800 + tempStore + 20, 100, (myBoss.bossAnms.bossScaredAnim[1] * .60505), (myBoss.bossAnms.bossScaredAnim[2] * .60505));
+
+          if (myBoss.bossSpriteFrame == myBoss.bossAnms.bossScaredAnim[5]) {
+              currentBossState = bossStateArray.stateScaredStand;
+              myBoss.bossSpriteFrame = 0;
+          }
+          else {
+              myBoss.bossSpriteFrame++;
+          }
+      }
     //requestAnimationFrame(drawBossCoffeeAnm);
 
 }
@@ -4646,7 +4663,7 @@ var myTitleCounter = 0;
     var tutorial=true;
 
     var render = function () {
-        //ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.clearRect(0,0,canvas.width,canvas.height);
         if (currentScreen == "mainMenu") {
 
         /*    if (menu.ready && bgLeftDrawn != true) {
