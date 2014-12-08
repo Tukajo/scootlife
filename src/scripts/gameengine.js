@@ -52,9 +52,14 @@ var buying = new Audio("Art_Assets/Sounds/buying.wav");
 var drill = new Audio("Art_Assets/Sounds/drill.mp3");
 
 
+/*
+bckSong.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
 
-
-
+bckSong.play();
+*/
 
 //////////
 var monthsArray = {
@@ -1049,7 +1054,7 @@ function problemListUpdate() {
 
     //Saw problems
     if (mitreSaw_LateParts(monthCounter) > 0) {
-        problemList[numProbs] = ("Saw down " + mitreSaw_LateParts(monthCounter) + "days due to late tubes");
+        problemList[numProbs] = ("Saw down " + mitreSaw_LateParts(monthCounter) + " days due to late tubes");
         if(factoryFloorIconsArray.Saw<2)
             factoryFloorIconsArray.Saw+=1;
         numProbs++;
@@ -1059,7 +1064,7 @@ function problemListUpdate() {
         numProbs++;
     }
     if (mitreSaw_Downtime(monthCounter) > 0) {
-        problemList[numProbs] = "Saw down" + mitreSaw_Downtime(monthCounter) + "days due to machine breakdown";
+        problemList[numProbs] = "Saw down " + mitreSaw_Downtime(monthCounter) + " days due to machine breakdown";
         if(factoryFloorIconsArray.Saw<2)
             factoryFloorIconsArray.Saw+=1;
 
@@ -1072,14 +1077,14 @@ function problemListUpdate() {
 
     //Drill problems
     if (drillPress_LateWIP() > 0) {
-        problemList[numProbs] = "Drill press down " + drillPress_LateWIP() + "days due to late parts from saw";
+        problemList[numProbs] = "Drill press down " + drillPress_LateWIP() + " days due to late parts from saw";
         if(factoryFloorIconsArray.Drill<2)
             factoryFloorIconsArray.Drill+=1;
 
         numProbs++;
     }
     if (drillPress_Downtime(monthCounter) > 0) {
-        problemList[numProbs] = "Drill press down " + drillPress_Downtime(monthCounter) + "days due to machine breakdown";
+        problemList[numProbs] = "Drill press down " + drillPress_Downtime(monthCounter) + " days due to machine breakdown";
         if(factoryFloorIconsArray.Drill<2)
             factoryFloorIconsArray.Drill+=1;
         numProbs++;
@@ -5433,7 +5438,7 @@ var render = function () {
 
             //headings
             for (var i = 0; i < numProbs; i++) {
-                ctx.fillText(problemList[i], reportView.x + 30, row[i]);
+                ctx.fillText(problemList[i], reportView.x + 30, row[i]+5);
             }
         }
         /*if (subScreen == "calendar") {
@@ -5823,7 +5828,7 @@ function sawReport(){
             
             ctx.font = "13pt Georgia";
             if (drillPress_LateWIP() > 0) {
-                ctx.fillText("Drill press down" + drillPress_LateWIP() + "days due to late parts from saw", 850, 450);
+                ctx.fillText("Drill press down " + drillPress_LateWIP() + " days due to late parts from saw", 850, 450);
             }
             if (drillPress_Downtime(monthCounter) > 0) {
                 ctx.fillText("Drill press down " + drillPress_Downtime(monthCounter) + " days due to machine breakdown", 850, 475);
