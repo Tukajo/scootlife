@@ -5574,8 +5574,8 @@ var render = function () {
 
         }
         if(currentScreen===100){
-            ctx.fillText("End of game, please turn in final report.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("Click Anywhere to Close",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("End of game, please turn in final report.", bigDialog.x + 20, bigDialog.y + 40)
+            ctx.fillText("Click Anywhere to Close",bigDialog.x+20,bigDialog.y+40+40);
 
         }
 
@@ -6556,12 +6556,6 @@ function onClick(evt) {
 
             if(monthCounter<11) {
                 monthCounter++;
-                problemListUpdate();
-                updateMonth(monthData[monthCounter]);
-                createConsoleTable();
-                leanToolAllowance = 1000;
-                currentLeanPurchase = "null";
-                currentLeanPurchaseSecond = "null";
                 if(monthCounter>6){
                     currentLeanPurchase = "unavailable";
                     currentLeanPurchaseSecond = "unavailable";
@@ -6570,6 +6564,13 @@ function onClick(evt) {
                         currentScreen=100;
                     }
                 }
+                problemListUpdate();
+                updateMonth(monthData[monthCounter]);
+                createConsoleTable();
+                leanToolAllowance = 1000;
+                currentLeanPurchase = "null";
+                currentLeanPurchaseSecond = "null";
+
                 draw(ctx, office, 0, 0);
                 subScreen = "monthlyReport";
                 noise.play();
@@ -6639,12 +6640,6 @@ function onClick(evt) {
 
             if(monthCounter<11) {
                 monthCounter++;
-                problemListUpdate();
-                updateMonth(monthData[monthCounter]);
-                createConsoleTable();
-                leanToolAllowance = 1000;
-                currentLeanPurchase = "null";
-                currentLeanPurchaseSecond = "null";
                 if(monthCounter>6){
                     currentLeanPurchase = "unavailable";
                     currentLeanPurchaseSecond = "unavailable";
@@ -6653,6 +6648,13 @@ function onClick(evt) {
                         currentScreen=100;
                     }
                 }
+                problemListUpdate();
+                updateMonth(monthData[monthCounter]);
+                createConsoleTable();
+                leanToolAllowance = 1000;
+                currentLeanPurchase = "null";
+                currentLeanPurchaseSecond = "null";
+
                 draw(ctx, office, 0, 0);
                 subScreen = "monthlyReport";
                 blue = true;
