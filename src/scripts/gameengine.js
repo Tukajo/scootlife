@@ -5660,29 +5660,29 @@ var render = function () {
         } else if (currentScreen === 1) {
             ctx.fillText("Welcome to “All World Wheelchairs!”", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("I'm James Johnson and I was recently hired as a LEAN ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
-            ctx.fillText("representative to make this sub optimal factory a ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
-            ctx.fillText("little more… optimal.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
+            ctx.fillText("representative to make this sub-optimal factory a ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+            ctx.fillText("bit more… optimal!", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
 
-            ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+            ctx.fillText("Click Any Where to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
             //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         } else if (currentScreen === 2) {
-            ctx.fillText("I just got here and currently everything is in shambles,", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("let's get started on what we need to do in order to make ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
-            ctx.fillText("a profit and save the company from going under. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
-            ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+            ctx.fillText("I just got here and currently everything is in shambles.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("Let's get started and look what we need to do in order to", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("make a profit and save the company from going under. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+            ctx.fillText("Click Any Where to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
         } else if (currentScreen === 3) {
             ctx.fillText("This is the factory floor. Here you can view and access", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("the nine workstations and the office.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
             //ctx.fillText("Color indicates the last months.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+40);
             //ctx.fillText("a profit and save the company from going under. ",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
-            ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+            ctx.fillText("Click Any Where to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
 
         } else if (currentScreen === 4) {
             ctx.fillText("The color of each workstation relates to its ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("performance during the previous month.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
             //ctx.fillText("LEAN tools will be our weapons against the constant",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
             //ctx.fillText("degradation of our work stations.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
-            ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+            ctx.fillText("Click Any Where to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
 
         } else if (currentScreen === 6) {
 
@@ -5697,7 +5697,7 @@ var render = function () {
             ctx.fillText("Red", bigDialog.x + textBoarderX + 298, bigDialog.y + textBoarderY);
             ctx.fillText("Red", bigDialog.x + textBoarderX + 298, bigDialog.y + textBoarderY);
             ctx.fillStyle = "white";
-            ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+            ctx.fillText("Click Any Where to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
 
         } else if (currentScreen === 7) {
             ctx.fillText("The welding workstation is red, mouse over it to", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
@@ -5707,41 +5707,41 @@ var render = function () {
                 ctx.fillText("the welding workstation screen.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 80);
             }
         }else if(currentScreen===8){
-            ctx.fillText("This is the Welding workstation screen, the bar to the", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("This is the Welding workstation screen. The bar to the", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("right indicates percentage of the current inventory.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
-            ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
 
         }else if(currentScreen===9){
-            ctx.fillText("Clicking on the button near the left of the table", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("Clicking on the clipboard near the left of the table", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("will open a station report.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
         }else if(currentScreen===10){
             ctx.fillText("This station report gives you feedback specific", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("to the welding station.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
-            ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("to the current station.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===11){
             ctx.fillText("Clicking on the desk icon will open the office screen. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("This can be done from any screen.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
         }else if(currentScreen===12){
-            ctx.fillText("This office is where you can access monthly reports ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("The office is where you can access monthly reports ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("and purchase LEAN TOOLS.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
-            ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===13){
-            ctx.fillText("Clicking on the papers will open the monthly reports", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("Clicking on the papers will open the monthly report", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("for the factory.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
 
         }else if(currentScreen===14) {
             ctx.fillText("This is the Monthly Report for the factory. It displays", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("the factory's income and expenses.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
-            ctx.fillText("Clicking the purple tab will open the Monthly Problem",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+60);
-            ctx.fillText("List.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
+            ctx.fillText("the factory's income, expenses, and problems.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("Clicking on the purple tab will open the Monthly ",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+60);
+            ctx.fillText("Problem List.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
         }else if(currentScreen===15) {
             ctx.fillText("This is the Monthly Problem List. It displays problems ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("for each machine and their direct causes. This list will", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
             ctx.fillText("be very helpful when deciding which LEAN TOOLS will ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
             ctx.fillText("be the most beneficial.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
-            ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===16){
-            ctx.fillText("Clicking on anything other than the Monthly Report will", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("Clicking outside of the Monthly Report will", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("return you to the office screen.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
 
         }else if(currentScreen===17){
@@ -5752,57 +5752,61 @@ var render = function () {
             ctx.fillText("Our LEAN TOOLS represent methods of eliminating ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("waste, including waste caused by both overburden and", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
             ctx.fillText("uneven workloads.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
-            ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===19){
             ctx.fillText("Let's try to improve the welding workstation. On the ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("problem list the weld station was broken down.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("problem list the welding station was broken down.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
             ctx.fillText("Equipment PM may be the right choice.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
             ctx.fillText("Click on Equipment PM to view options and details.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
         }else if(currentScreen===20){
             ctx.fillText("This LEAN TOOL Tab for Equipment PM gives a short ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("description of what Equipment PM will do for each ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
             ctx.fillText("station it is purchased for.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
-            ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===21){
             ctx.fillText("The LEAN TOOL Tab displays how much money you ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("are able to spend on LEAN TOOLS each month. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
 
-            ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===22){
-            ctx.fillText("Multiple LEAN TOOLS can be purchased from up to two ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("different categories of LEAN TOOLS each month.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("Multiple LEAN TOOLS can be purchased from up to ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("two different categories of LEAN TOOLS each month.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
 
 
-            ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===23){
             ctx.fillText("Clicking on a checkbox will select the LEAN TOOL ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("it corresponds to.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
 
-            ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===24){
             ctx.fillText("Clicking the Buy button after making a selection", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("will Purchase it.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("will purchase it permanently.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
 
-            ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===25){
             ctx.fillText("Clicking the Next Month button will run the factory", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("for one month with all previously purchased LEAN ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
             ctx.fillText("TOOLS and open the Monthly Report Screen.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
 
-            ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===26){
-            ctx.fillText("LEAN TOOLS are only available for purchase during the", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("first six months of the year.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("LEAN TOOLS are only available for purchase during ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("the first six months of the year. After", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("July, you won't be able to implement more LEAN", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+            ctx.fillText("TOOLS.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
 
-            ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }else if(currentScreen===27){
-            ctx.fillText("End of Tutorial. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("Now that you understand the interface, try  ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("finishing your first month by checking the", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            ctx.fillText("Problems List and implementing LEAN TOOLS.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
 
-            ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            ctx.fillText("Click Any Where to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
         }
         else if(subScreen=="monthlyReport"||subScreen=="monthlyreport2ndscreen"){//Change this name hobo
-            ctx.fillText("Click on the Purple Tab to open the problems List", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("Click on the Blue Tab to open the Monthly Reportt", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 30);
+            ctx.fillText("Click on the Purple Tab to open the Problem List", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+            ctx.fillText("Click on the Blue Tab to open the Monthly Report", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 30);
 
             ctx.fillText("The Monthly Report displays income and expenses", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
             ctx.fillText("The Problems List displays current issues", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 90);
