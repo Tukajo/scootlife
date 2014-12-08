@@ -112,7 +112,6 @@ var drawBossCoffeeAnm = function(){
     }
 
     if(currentBossState == bossStateArray.stateCoffee) {
-        console.log(myBoss.bossSpriteFrame);
         myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossCoffeeAnim[3])*myBoss.bossAnms.bossCoffeeAnim[1] ;
         myBoss.bossSpriteY = Math.floor(myBoss.bossSpriteFrame / myBoss.bossAnms.bossCoffeeAnim[3]) * myBoss.bossAnms.bossCoffeeAnim[2];
         ctx.drawImage(myBoss.bossAnms.bossCoffeeAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossCoffeeAnim[1], myBoss.bossAnms.bossCoffeeAnim[2], 800, 100, (myBoss.bossAnms.bossCoffeeAnim[1]*.60505), (myBoss.bossAnms.bossCoffeeAnim[2] * .60505));
@@ -932,7 +931,6 @@ function drawSprtSht() {
 
     }
 
-    //console.log("TEST1234");
     if(bossworker.currentY <= station[0].y){
         walkDirectionBool = false;
     }else if(bossworker.currentY >= station[8].y){
@@ -1874,37 +1872,12 @@ function updateMonth(month) {
     month.baselineCost = monthBaseline(monthCounter);
     month.overheadCost = Math.round(month.baselineCost + (month.inventory * baselineInventoryPercentFee));
     month.indirectCost = Math.round((month.inventory * inventoryPercentFee) + month.orderingCost + month.leanIdeasCost + (month.baselineCost + (month.inventory * baselineInventoryPercentFee)));
-    //console.log("indirect cost= inventory: "+month.inventoryCost+" +  ordering:"+month.orderingCost+" +  lean tools: "+month.leanIdeasCost+" + overhead: "+month.overheadCost);
     month.totalExpenses = Math.round(month.directCost + month.indirectCost);
     month.totalProfit = Math.round(month.sales - month.totalExpenses);
 
 
     var mCSTemp=monthChairsSold(monthCounter);
-    /*console.log(mCSTemp);
-     console.log("sales for "+monthCounter+" is "+(monthChairsSold(monthCounter)* chairPrice));
-     console.log("laborRegular for "+monthCounter+" is "+(Math.round(monthWorkers(monthCounter)) * workerHours * laborRate));
-     console.log("laborOvertime for "+monthCounter+" is "+(total_WorkersOver(monthCounter) * workerHoursOvertime * laborRateOvertime));
-     console.log("total material cost for "+monthCounter+" is "+(monthScrap(monthCounter) + total_MaterialCost()));
-     console.log("inventory cost for "+monthCounter+" is "+(total_Value() * inventoryPercentFee));
-     console.log("direct cost for "+monthCounter+" is "+((Math.round(monthWorkers(monthCounter)) * workerHours * laborRate) + (total_WorkersOver(monthCounter) * workerHoursOvertime * laborRateOvertime) + (monthScrap(monthCounter) + total_MaterialCost())));
-     console.log("overhead cost for "+monthCounter+" is "+(monthBaseline(monthCounter) + (total_Value() * baselineInventoryPercentFee)));
-     console.log("indirect cost for "+monthCounter+" is "+((total_Value() * inventoryPercentFee) + total_OrderCost() + total_OrderCost() + (monthBaseline(monthCounter) + (total_Value() * baselineInventoryPercentFee))));
-     console.log("total expenses for "+monthCounter+" is "+(((Math.round(monthWorkers(monthCounter)) * workerHours * laborRate) + (total_WorkersOver(monthCounter) * workerHoursOvertime * laborRateOvertime) + (monthScrap(monthCounter) + total_MaterialCost())) + ((total_Value() * inventoryPercentFee) + total_OrderCost() + total_OrderCost() + (monthBaseline(monthCounter) + (total_Value() * baselineInventoryPercentFee)))));
-     console.log("total profit for "+monthCounter+" is "+((monthChairsSold(monthCounter) * chairPrice)-(monthChairsSold(monthCounter) * chairPrice) - (((Math.round(monthWorkers(monthCounter)) * workerHours * laborRate) + (total_WorkersOver(monthCounter) * workerHoursOvertime * laborRateOvertime) + (monthScrap(monthCounter) + total_MaterialCost())))));
-     console.log("lean tool cost for "+monthCounter+" is "+( 1000 - leanToolAllowance));
-     */
-
-
-
-
-
-
-
-
-
-
-
-
+    
 }
 
 function monthScrap(month) {
@@ -1913,9 +1886,6 @@ function monthScrap(month) {
     return (100 * (drillPress_BadQuality(month) + tubeBender_BadQuality(month) + welding_BadQuality(month) + sewing_BadQuality(month) + assemblyBench_BadQuality(month)));
 }
 function monthChairsSold(month){
-    /*console.log("month chairs sold return value= MIN((final inventory),(chairs)):"+ Math.min(assembly_FinalInventory(), chairs));
-     console.log("month chairs sold assembly final inventory value:"+ assembly_FinalInventory());
-     console.log("month chairs  value:"+ chairs);*/
     return (Math.min(assembly_FinalInventory(), chairs));
 }
 function monthWorkers(month){
@@ -3315,8 +3285,6 @@ function tubeBender_DaysLateOut(){
     else{temp3 = 0;}
 
     temp1= Math.max(tubeBender_DaysDownQuality() - temp1,0);
-    //console.log("Temp1 (0) ="+temp1+" Temp2 (0) ="+temp2+" Temp3 (0) ="+temp3);
-
     return ( temp1+ temp2 + temp3);
 
 
@@ -3531,21 +3499,17 @@ function paintBooth_DaysLateOut(){
         temp = 2;
     }
     else{temp = 4;}
-    //console.log("temp 1 "+temp);
 
     if (sewing_MaxCapacity() < chairs) {
         temp2 = ((chairs - sewing_MaxCapacity()) / 10);
     }
     else{temp2 = 0;}
-    //console.log("temp 2 "+temp2);
 
     if (paintBooth_PrevInventory() < paintBooth_BatchSizes()) {
-        //console.log("paint batch "+paintBooth_BatchSizes());
         temp3 = ((paintBooth_BatchSizes() - paintBooth_PrevInventory()) / 10);
     }
     else{temp3 = 0;}
-    //console.log("temp 3 "+temp3);
-
+ 
     return (Math.max((paintBooth_DaysDownQuality() - temp), 0) + temp2 + temp3);
 }
 
@@ -6416,8 +6380,7 @@ function getMousePos(canvas, evt) {
 function clickToolSelector(checkbox,leanTool,toolCost,currentToolName) {
 
     /*if (checkbox.hover && leanTool == false && checkbox.selected) {
-     checkbox.selected = false;
-     console.log("selected "+checkbox+"asd;jlkfasdfjasd;klfjklasdjf;klasdjl");
+     checkbox.selected = false
      tabCost -= toolCost;
      }*/
 
@@ -6425,9 +6388,8 @@ function clickToolSelector(checkbox,leanTool,toolCost,currentToolName) {
         checkbox.selected=true;
     if (checkbox.leantool == false && checkbox.selected&&checkbox.hover) {
         checkbox.selected = false;
-        //console.log("selected "+checkbox+"asd;jlkfasdfjasd;klfjklasdjf;klasdjl");
         tabCost -= toolCost;
-        //console.log(tabCost);
+
     }
     else if (checkbox.leantool== false && checkbox.selected == false&&checkbox.hover&&leanToolAllowance-toolCost-tabCost>=0&&
         (currentLeanPurchase == "null" || currentLeanPurchaseSecond == "null" || currentLeanPurchase == currentToolName ||
@@ -6632,9 +6594,6 @@ function onClick(evt) {
             prevInventory_Assembly = assemblyTemp;
 
 
-            //console.log("paint previous"+prevInventory_Paint);
-            //console.log("paint previous 2nd month"+prevInventory_Paint);
-
             if(monthCounter<11) {
                 monthCounter++;
                 if(monthCounter>6){
@@ -6716,8 +6675,6 @@ function onClick(evt) {
             prevInventory_Assembly = assemblyTemp;
 
 
-            //console.log("paint previous"+prevInventory_Paint);
-            //console.log("paint previous 2nd month"+prevInventory_Paint);
 
             if(monthCounter<11) {
                 monthCounter++;
@@ -6902,13 +6859,10 @@ function onClick(evt) {
                 toolTab = "kanban";
                 tabCost = 0;
                 if (leanToolButtonArray.kanbanBtn[1] == 2) {
-                    //console.log("Test click for kanban");
                     leanToolButtonArray.kanbanBtn[1] = 0;
 
                     toolTab = "null";
                 } else {
-                    //console.log("Test click for kanban 2");
-                    //console.log(leanToolButtonArray.kanbanBtn[1]);
                     leanToolButtonArray.kanbanBtn[1] = 2;
                 }
             }
