@@ -43,7 +43,7 @@ shadowForFactoryIcons.src = "Art_Assets/workshop_icons/iconDropShadow.png";
 
 //Sound
 var click = new Audio("Art_Assets/Sounds/click.wav");
-var bckSong = new Audio("Art_Assets/Sounds/Main Background Sound.mp3");
+var bckSong = new Audio("Art_Assets/Sounds/Wallpaper.mp3");
 var altSong = new Audio("Art_Assets/Sounds/AllWorldWheelchair_BackgroundSound(Alternate).mp3");
 var noise = new Audio("Art_Assets/Sounds/factory noise.wav");
 var dawn = new Audio("Art_Assets/Sounds/Dawn the next day.wav");
@@ -52,14 +52,6 @@ var buying = new Audio("Art_Assets/Sounds/buying.wav");
 var drill = new Audio("Art_Assets/Sounds/drill.mp3");
 
 
-/*
-bckSong.addEventListener('ended', function() {
-    this.currentTime = 0;
-    this.play();
-}, false);
-
-bckSong.play();
-*/
 
 //////////
 var monthsArray = {
