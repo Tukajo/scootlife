@@ -1409,10 +1409,10 @@ loadImg(buyBtn);
 var closeBtn = new gameObject(820, 300, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
 loadImg(closeBtn);
 
-var tutorialEndBtn = new gameObject(920, 450, 50, 50, 'Art_Assets/game_screen/close.png', 'Art_Assets/game_screen/closeH.png');
+var tutorialEndBtn = new gameObject(610, 350, 50, 100, 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0001_NO_up.png', 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0001_NO_down.png');
 loadImg(tutorialEndBtn);
 
-var tutorialStartBtn = new gameObject(tutorialEndBtn.x+100, tutorialEndBtn.y, 50, 50, "Art_Assets/game_screen/gui/checkBoxPurchased-04.png", 0);
+var tutorialStartBtn = new gameObject(tutorialEndBtn.x+175, tutorialEndBtn.y, 50, 100, 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0002_YES_up.png', 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0002_YES_down.png');
 loadImg(tutorialStartBtn);
 
 var leanToolButtonArray = {
@@ -1545,6 +1545,9 @@ loadImg(stationReport);
 
 var bigDialog = new gameObject(750-237, 750-200-16, 200, 477, "Art_Assets/game_screen/dialogLarge.png", 0);
 loadImg(bigDialog);//left is (137,
+
+var tutorialPrompt = new gameObject(750-182, 750-600, 432, 365, "Art_Assets/main_menu/Tutorial prompts/Tutorial_0004_Layer-2.png", 0);
+loadImg(tutorialPrompt);//left is (137,
 
 
 var posx;
@@ -5594,21 +5597,23 @@ var render = function () {
     if (currentScreen != "mainMenu" && tutorialLinear == true && currentScreen != "credits") {
         ctx.font = "18px Arial";
         ctx.fillStyle = "white";
-        draw(ctx, bigDialog, 0, 0);
+        if(currentScreen=="factory") {
+            draw(ctx, tutorialPrompt, 0, 0);
+        }else{
+            draw(ctx, bigDialog, 0, 0);
+        }
         if (subScreen == "office" && currentScreen == "factory") {
             draw(ctx, tutorialEndBtn, 0, 0);
-            draw(ctx, tutorialStartBtn, -3, 3);
+            draw(ctx, tutorialStartBtn, 0, 0);
         }
         var textBoarderX = 20;
         var textBoarderY = 45;
         if (subScreen == "office" && currentScreen == "factory") {
-            ctx.fillText("Play the tutorial?", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
-            ctx.fillText("Click on the Green check to start the tutorial", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
-
-            //ctx.fillText("Click on the Phone Icon to open the Lean Tools Menu",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+50);
-            //ctx.fillText("Click on the Papers Icon to open the Lean Tools Menu",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
-
-            ctx.fillText("Click on the Red X to close the tutorial", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 80);
+            ctx.font = "40px Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText("Play the tutorial?", tutorialPrompt.x + textBoarderX+10, tutorialPrompt.y + textBoarderY+60);
+            ctx.font = "18px Arial";
+            ctx.fillStyle = "white";
         } else if (currentScreen === 1) {
             ctx.fillText("Welcome to “All World Wheelchairs!”", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
             ctx.fillText("I'm James Johnson and I was recently hired as a LEAN ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
