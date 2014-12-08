@@ -97,8 +97,8 @@ bossNormalAnm.src = "Art_Assets/characters/boss/newAnims/bossnormalmed.png";
 var bossAnms = {
     bossWalkAnim: [bossWalkAnm,458,810,10,12,112],
     bossScaredAnim: [bossScaredAnm,237,804,10,19,183],
-    bossCoffeeAnim: [bossCoffeeSipAnm,324,804,10,19,187],
-    bossNormalAnim:[bossNormalAnm,236,798,10,19,187]
+    bossCoffeeAnim: [bossCoffeeSipAnm,324,804,10,19,183],
+    bossNormalAnim:[bossNormalAnm,236,798,10,19,183]
 };
 var bossObject = function(bossSpriteFrame,bossSpriteX, bossSpriteY, bossAnms){
     this.bossSpriteFrame = bossSpriteFrame;
@@ -109,7 +109,11 @@ var bossObject = function(bossSpriteFrame,bossSpriteX, bossSpriteY, bossAnms){
 var tempStore;
 var myBoss = new bossObject(bossSpriteFrameCoffee, BossCoffeeSpriteX, BossCoffeeSpriteY, bossAnms);
 var drawBossCoffeeAnm = function(){
-
+    if(monthData[monthCounter].totalProfit<0 && currentBossState !== bossStateArray.stateCoffee) {
+        currentBossState = bossStateArray.stateScaredStand;
+    }else if(monthData[monthCounter].totalProfit>=0 && currentBossState !== bossStateArray.stateCoffee){
+        currentBossState = bossStateArray.stateNormalStand;
+    }
     if(currentBossState == bossStateArray.stateCoffee) {
        console.log(myBoss.bossSpriteFrame);
        myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossCoffeeAnim[3])*myBoss.bossAnms.bossCoffeeAnim[1] ;
