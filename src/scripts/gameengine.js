@@ -1270,6 +1270,12 @@ function problemListUpdate() {
     var menu = new gameObject(0, 0, 750, 1500, 'Art_Assets/main_menu/All World WheelChair Title Screen unofficial.png', 0);
     loadImg(menu);
 
+    var blackLeft = new gameObject(0, 0, 750, 750, 'Art_Assets/game_screen/backgrounds/blackout.png', 0);
+    loadImg(blackLeft);
+
+    var blackRight = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/backgrounds/blackout.png', 0);
+    loadImg(blackRight);
+
     var startBtn = new gameObject(canvas.width/2 - 100, 350, 65, 160, 'Art_Assets/main_menu/btn_play.png', 'Art_Assets/main_menu/btn_playh.png');
     loadImg(startBtn);
 
@@ -1371,9 +1377,11 @@ function problemListUpdate() {
     var closeBtn = new gameObject(820, 300, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
     loadImg(closeBtn);
 
-    var tutorialEndBtn = new gameObject(1440, 10, 50, 50, 'Art_Assets/game_screen/close.png', 'Art_Assets/game_screen/closeH.png');
+    var tutorialEndBtn = new gameObject(920, 450, 50, 50, 'Art_Assets/game_screen/close.png', 'Art_Assets/game_screen/closeH.png');
     loadImg(tutorialEndBtn);
 
+    var tutorialStartBtn = new gameObject(tutorialEndBtn.x+100, tutorialEndBtn.y, 50, 50, "Art_Assets/game_screen/gui/checkBoxPurchased-04.png", 0);
+    loadImg(tutorialStartBtn);
 
 var leanToolButtonArray = {
         cellsBtn:[leanToolsBtnCells,0,1,0],
@@ -1503,7 +1511,7 @@ var leanToolButtonArray = {
     var stationReport = new gameObject(800, 10, 750, 550, "Art_Assets/game_screen/StationReport.png", 0);
     loadImg(stationReport);
 
-    var bigDialog = new gameObject(750+136, 275, 200, 477, "Art_Assets/game_screen/dialogLarge.png", 0);
+    var bigDialog = new gameObject(750-237, 750-200-16, 200, 477, "Art_Assets/game_screen/dialogLarge.png", 0);
     loadImg(bigDialog);//left is (137,
 
 
@@ -4542,10 +4550,9 @@ var myTitleCounter = 0;
 
     var update = function (modifier) {
         contact(tutorialEndBtn);
-        if(posx>=800) {
-            bigDialog.x = 137;
-        } else if (posx<700){
-            bigDialog.x = 886;
+        if (subScreen == "office" && currentScreen == "factory" && tutorialLinear == true) {
+            contact(tutorialEndBtn);
+            contact(tutorialStartBtn);
         }
 
         frameControl++;
@@ -4563,7 +4570,7 @@ var myTitleCounter = 0;
             contact(startBtn);
             contact(creditBtn);
         }
-        if(currentScreen=="factory") {
+        if (currentScreen == "factory" || (currentScreen >= 1)) {
 
             for (var i = 0; i < 9; i++) {
                 for (var a = 0; a < 9; a++) {
@@ -4574,40 +4581,54 @@ var myTitleCounter = 0;
                 }
             }
 
-            for (var i = 0; i < 9; i++) {
-                contact(station[i]);
+            if (tutorialLinear == false) {
+                for (var i = 0; i < 9; i++) {
+                    contact(station[i]);
+                }
+            }
+            if (currentScreen === 7) {
+                contact(station[3]);
             }
             //finish all of the following through onclick and draw
 
-            if(subScreen == "office") {
-                contact(reportBtn);
-                //contact(closeBtn);
-                contact(leanToolsBtn);
-                //contact(calendarBtn);
+            if (subScreen == "office" || currentScreen === 13 || currentScreen === 9) {
+                if (tutorialLinear == false || currentScreen === 13) {
+                    contact(reportBtn);
+                    console.log("inside  subScreen == office||currentScreen===13||currentScreen===9 ");
+                }
+                if (tutorialLinear == false || currentScreen === 17) {
+                    contact(leanToolsBtn);
+                    //contact(calendarBtn);
+                }
             }
-            if(subScreen == "leanTools"){
+            if (subScreen == "leanTools" && tutorialLinear == false) {
                 contact(nextMonthBtn);
                 contact(leanToolsView);
             }
-            if(subScreen =="monthlyReport"){
+            if ((subScreen == "monthlyReport" || subScreen == "problemList") && tutorialLinear == false) {
                 contact(nextMonthBtn);
+                contact(invBlueTab);
+                blueTab.hover = invBlueTab.hover;
+                contact(invPurpleTab);
+                purpleTab.hover = invPurpleTab.hover;
             }
             contact(stationReportbtn);
             contact(stationReport);
-            contact(desk);
+            if (tutorialLinear == false || currentScreen === 11) {
+                contact(desk);
+            }
 
-	    }
+        }
         
 	//finish all of the following through onclick and draw
 
         //contact(closeBtn);
         contact(reportView);
-        
-        contact(invBlueTab);
-        blueTab.hover=invBlueTab.hover;
-        contact(invPurpleTab);
-        purpleTab.hover=invPurpleTab.hover;
 
+        if (currentScreen ===14) {
+            contact(invPurpleTab);
+            purpleTab.hover = invPurpleTab.hover;
+        }
         contact(checkboxPosA);
         contact(checkboxPosB);
         contact(checkboxPosC);
@@ -4618,7 +4639,9 @@ var myTitleCounter = 0;
         contact(checkboxPosH);
         contact(checkboxPosI);
         //contact(purchaseBtn);
-                contact(buyBtn);
+        if(tutorialLinear==false) {
+            contact(buyBtn);
+        }
 
 
 
@@ -4637,6 +4660,15 @@ var myTitleCounter = 0;
                 }
             }else if(!leanToolButtonArray[object][0].hover && leanToolButtonArray[object][1] == 1){
                 leanToolButtonArray[object][1] = 0;
+            }
+        }
+        if(currentScreen>=18) {
+            leanToolButtonArray.smallLotBtn[1] = 2;
+            leanToolButtonArray.selfDirectedBtn[1] = 2;
+            leanToolButtonArray.crossTrainBtn[1] = 2;
+            leanToolButtonArray.kanbanBtn[1] = 2;
+            if(currentScreen>=20){
+                leanToolButtonArray.PMBtn[1] = 2;
             }
         }
 
@@ -4660,19 +4692,20 @@ var myTitleCounter = 0;
 
     }
 
-    var tutorial=true;
+    var tutorial=false;
+    var tutorialLinear=true;
 
     var render = function () {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (currentScreen == "mainMenu") {
 
-        /*    if (menu.ready && bgLeftDrawn != true) {
-                draw(ctxBack, menu, 0, 0);
-                bgLeftDrawn = true;
-            }
+            /*    if (menu.ready && bgLeftDrawn != true) {
+             draw(ctxBack, menu, 0, 0);
+             bgLeftDrawn = true;
+             }
+*/
 
-
-            draw(ctxBack, menu, 0, 0);*/
+             draw(ctx, menu, 0, 0);
 
             draw(ctx, startBtn, 0, 0);
             draw(ctx, creditBtn, 0, 0);
@@ -4680,7 +4713,7 @@ var myTitleCounter = 0;
         }
         if (currentScreen == "credits")
             ctx.drawImage(credits.image, 0, 0);
-        if (currentScreen == "factory") {
+        if (currentScreen == "factory" || (currentScreen >= 1)) {
 
             //if (gameScreen.ready) //half of sceen
             //  ctx.drawImage(gameScreen.image,0,0,960,1080, 0, 0, 750, 750);
@@ -4843,360 +4876,363 @@ var myTitleCounter = 0;
                     }
                 }
 
-            if (subScreen == "leanTools") {
-                switch (monthCounter) {
-                    case 0:
-                        currentMonth = monthsArray.January;
-                        break;
-                    case 1:
-                        currentMonth = monthsArray.February;
-                        break;
-                    case 2:
-                        currentMonth = monthsArray.March;
-                        break;
-                    case 3:
-                        currentMonth = monthsArray.April;
-                        break;
-                    case 4:
-                        currentMonth = monthsArray.May;
-                        break;
-                    case 5:
-                        currentMonth = monthsArray.June;
-                        break;
-                    case 6:
-                        currentMonth = monthsArray.July;
-                        break;
-                    case 7:
-                        currentMonth = monthsArray.August;
-                        break;
-                    case 8:
-                        currentMonth = monthsArray.September;
-                        break;
-                    case 9:
-                        currentMonth = monthsArray.October;
-                        break;
-                    case 10:
-                        currentMonth = monthsArray.November;
-                        break;
-                    case 11:
-                        currentMonth = monthsArray.December;
+                if (subScreen == "leanTools") {
+                    switch (monthCounter) {
+                        case 0:
+                            currentMonth = monthsArray.January;
+                            break;
+                        case 1:
+                            currentMonth = monthsArray.February;
+                            break;
+                        case 2:
+                            currentMonth = monthsArray.March;
+                            break;
+                        case 3:
+                            currentMonth = monthsArray.April;
+                            break;
+                        case 4:
+                            currentMonth = monthsArray.May;
+                            break;
+                        case 5:
+                            currentMonth = monthsArray.June;
+                            break;
+                        case 6:
+                            currentMonth = monthsArray.July;
+                            break;
+                        case 7:
+                            currentMonth = monthsArray.August;
+                            break;
+                        case 8:
+                            currentMonth = monthsArray.September;
+                            break;
+                        case 9:
+                            currentMonth = monthsArray.October;
+                            break;
+                        case 10:
+                            currentMonth = monthsArray.November;
+                            break;
+                        case 11:
+                            currentMonth = monthsArray.December;
+                    }
                 }
+
+
+            }
+            if (currentScreen===1||(currentScreen>1&&currentScreen<=7)||subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar") {
+                draw(ctx, office, 0, 0);
+            }
+            if (subScreen == "office") {
+
+                if (currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March) {
+                    scaleDraw(ctx, officeWindow_Winter, 0, 0, 1);
+                } else if (currentMonth == monthsArray.April || currentMonth == monthsArray.May) {
+                    scaleDraw(ctx, officeWindow_Spring, 0, 0, 1);
+                } else if (currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August) {
+                    scaleDraw(ctx, officeWindow_Summer, 0, 0, 1);
+                } else {
+                    scaleDraw(ctx, officeWindow_Fall, 0, 0, 1);
+                }
+                drawBossCoffeeAnm();
+                draw(ctx, officeDesk, 0, 0);
+                scaleDraw(ctx, leanToolsBtn, 0, 0, .75);
+                scaleDraw(ctx, reportBtn, 0, 0, .80);
+                //draw(ctx,reportBtn,0,0);
+                //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
+                //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
+                //draw(ctx,advMonthBtn,0,0);///////////////////////// temp invisible hitbox
+
+            }
+            if ((subScreen == sawStation.subScreen || subScreen == drillStation.subScreen || subScreen == bendStation.subScreen ||
+                subScreen == weldStation.subScreen || subScreen == grindStation.subScreen || subScreen == paintStation.subScreen ||
+                subScreen == assemblyStation.subScreen || subScreen == fabricStation.subScreen || subScreen == sewingStation.subScreen) || currentScreen === 8) {
+
+                draw(ctx, stationView, 0, 0);
+            }
+            //Determine which station to draw using this switch.
+            switch (subScreen) {
+                case sawStation.subScreen:
+                    draw(ctx, sawView, 0, 0);
+                    break;
+                case drillStation.subScreen:
+                    draw(ctx, drillView, 0, 0);
+                    break;
+                case bendStation.subScreen:
+                    draw(ctx, bendView, 0, 0);
+                    break;
+                case weldStation.subScreen:
+                    draw(ctx, weldView, 0, 0);
+                    break;
+                case grindStation.subScreen:
+                    draw(ctx, grindView, 0, 0);
+                    break;
+                case paintStation.subScreen:
+                    draw(ctx, paintView, 0, 0);
+                    break;
+                case assemblyStation.subScreen:
+                    draw(ctx, assemblyView, 0, 0);
+                    break;
+                case fabricStation.subScreen:
+                    draw(ctx, fabricView, 0, 0);
+                    break;
+                case sewingStation.subScreen:
+                    draw(ctx, sewingView, 0, 0);
+                    break;
             }
 
 
-        }
-        if (subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar") {
-            draw(ctx, office, 0, 0);
-        }
-        if (subScreen == "office") {
+            /*var cbOff=16;
+             var cbLeft=6;*/
+            var cbOff = -16;
+            var cbLeft = 100;
+            var cbPriceOff = 42;
 
-            if (currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March) {
-                scaleDraw(ctx, officeWindow_Winter, 0, 0, 1);
-            } else if (currentMonth == monthsArray.April || currentMonth == monthsArray.May) {
-                scaleDraw(ctx, officeWindow_Spring, 0, 0, 1);
-            } else if (currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August) {
-                scaleDraw(ctx, officeWindow_Summer, 0, 0, 1);
-            } else {
-                scaleDraw(ctx, officeWindow_Fall, 0, 0, 1);
-            }
-            drawBossCoffeeAnm();
-            draw(ctx, officeDesk, 0, 0);
-            scaleDraw(ctx, leanToolsBtn, 0, 0, .75);
-            scaleDraw(ctx,reportBtn,0,0,.80);
-            //draw(ctx,reportBtn,0,0);
-            //draw(ctx,leanToolsBtn,0,0);//////////////////////// temp invisible hitbox
-            //draw(ctx,reportBtn,0,0);/////////////////////////// temp invisible hitbox
-            //draw(ctx,advMonthBtn,0,0);///////////////////////// temp invisible hitbox
+            if (subScreen == "leanTools") {
+                if (toolTab != "null" && toolTab != "confirm") {
+                    draw(ctx, leanToolTab, 0, 0);
+                    ctx.fillStyle = "black";
+                    ctx.font = "20px Arial";
+                    ctx.textAlign = "center";
+                    //ctx.fillText(toolTab,leanToolTab.x+60,leanToolTab.y+40);
+                    //draw(ctx,buyBtn,0,0);
 
-        }
-        if (subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
-            draw(ctx, stationView, 0, 0);
-        }
-        //Determine which station to draw using this switch.
-        switch (subScreen) {
-            case sawStation.subScreen:
-                draw(ctx, sawView, 0, 0);
-                break;
-            case drillStation.subScreen:
-                draw(ctx, drillView, 0, 0);
-                break;
-            case bendStation.subScreen:
-                draw(ctx, bendView, 0, 0);
-                break;
-            case weldStation.subScreen:
-                draw(ctx, weldView, 0, 0);
-                break;
-            case grindStation.subScreen:
-                draw(ctx, grindView, 0, 0);
-                break;
-            case paintStation.subScreen:
-                draw(ctx, paintView, 0, 0);
-                break;
-            case assemblyStation.subScreen:
-                draw(ctx, assemblyView, 0, 0);
-                break;
-            case fabricStation.subScreen:
-                draw(ctx, fabricView, 0, 0);
-                break;
-            case sewingStation.subScreen:
-                draw(ctx, sewingView, 0, 0);
-                break;
-        }
-
-
-        /*var cbOff=16;
-         var cbLeft=6;*/
-        var cbOff = -16;
-        var cbLeft = 100;
-        var cbPriceOff = 42;
-
-        if (subScreen == "leanTools") {
-            if (toolTab != "null" && toolTab != "confirm") {
-                draw(ctx, leanToolTab, 0, 0);
+                }
+                ctx.textAlign = "left";
                 ctx.fillStyle = "black";
                 ctx.font = "20px Arial";
-                ctx.textAlign="center";
-                //ctx.fillText(toolTab,leanToolTab.x+60,leanToolTab.y+40);
-                //draw(ctx,buyBtn,0,0);
+                if (toolTab == "kanban") {
+                    ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                } else if (toolTab == "superMarket") {
+                    ctx.fillText("Welding", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Assembly", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                } else if (toolTab == "smallLot") {
+                    ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                } else if (toolTab == "fiveS") {
+
+                    ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+
+                    ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Grind", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("Paint", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosF, 0, 0);
+
+                    ctx.fillText("Fabric", checkboxPosG.x - cbLeft, checkboxPosG.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosG, 0, 0);
+                    ctx.fillText("Sew", checkboxPosH.x - cbLeft, checkboxPosH.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosH, 0, 0);
+                    ctx.fillText("Assembly", checkboxPosI.x - cbLeft, checkboxPosI.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosI, 0, 0);
+                    ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosE.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosF.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosG.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosH.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosI.y - cbOff);
+                } else if (toolTab == "smed") {
+                    ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+
+                    ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Paint", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("Sew", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosF, 0, 0);
+                    ctx.fillText("$  300", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  300", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  300", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                    ctx.fillText("$  300", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                    ctx.fillText("$  300", checkboxPosB.x + cbPriceOff, checkboxPosE.y - cbOff);
+                    ctx.fillText("$  300", checkboxPosC.x + cbPriceOff, checkboxPosF.y - cbOff);
+                } else if (toolTab == "quality") {
+                    ctx.fillText("Drill", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Bender", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Weld", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("Sew", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Assembly", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
+                } else if (toolTab == "cells") {
+                    ctx.fillText("Overall", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("$ 1000", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+
+                } else if (toolTab == "crossTrain") {
+                    ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                } else if (toolTab == "selfDirected") {
+                    ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                } else if (toolTab == "pM") {
+                    ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+
+                    ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Paint", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("Sew", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosF, 0, 0);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosF.y - cbOff);
+                } else if (toolTab == "vendor") {
+                    ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Nylon", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bike", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("Metal Cut", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                    ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                } else if (toolTab == "smallPurchase") {
+                    ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Nylon", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bike", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+                    ctx.fillText("Metal Cut", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                    ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                } else if (toolTab == "new") {
+                    ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosA, 0, 0);
+                    ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosB, 0, 0);
+                    ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosC, 0, 0);
+
+                    ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosD, 0, 0);
+                    ctx.fillText("Grind", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosE, 0, 0);
+                    ctx.fillText("Paint", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosF, 0, 0);
+
+                    ctx.fillText("Fabric", checkboxPosG.x - cbLeft, checkboxPosG.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosG, 0, 0);
+                    ctx.fillText("Sew", checkboxPosH.x - cbLeft, checkboxPosH.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosH, 0, 0);
+                    ctx.fillText("Assembly", checkboxPosI.x - cbLeft, checkboxPosI.y - cbOff);
+                    checkboxDraw(ctx, checkboxPosI, 0, 0);
+                    ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
+                    ctx.fillText("$  700", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
+                    ctx.fillText("$  700", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
+                    ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
+                    ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
+                    ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosF.y - cbOff);
+                    ctx.fillText("$  700", checkboxPosB.x + cbPriceOff, checkboxPosG.y - cbOff);
+                    ctx.fillText("$  700", checkboxPosC.x + cbPriceOff, checkboxPosH.y - cbOff);
+                    ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosI.y - cbOff);
+
+
+                }
+
+                draw(ctx, leanToolsView, 0, 0);
+                drawLeanTools();
+                scaleDraw(ctx, nextMonthBtn, 0, 0, 1);
+                ctx.fillText("Lean tool 1: " + currentLeanPurchase, 750, 50);
+                ctx.fillText("Lean tool 2: " + currentLeanPurchaseSecond, 1150, 50);
+                /*            if (toolTab == "confirm") {
+                 draw(ctx, confirmScreen, 0, 0);
+
+                 draw(ctx, closeBtn, 0, 0);
+                 }*/
+                if (subScreen == "leanTools" && toolTab != "null") {
+                    draw(ctx, buyBtn, 0, 0);
+                }
+
+                ctx.textAlign = "right";
+                ctx.fillText("$" + leanToolAllowance, 1200, 650);
+                if (tabCost != 0)
+                    ctx.fillText("- $" + tabCost, 1200, 590);
+                if (leanTool_Cells == false) {
+                    ctx.textAlign = "center";
+                    ctx.fillStyle = "white";
+                    ctx.font = "bold 24px Arial";
+                    ctx.fillText("Cells Required", 888, 268);
+                    ctx.fillText("Cells Required", 888, 330);
+                    ctx.fillText("Cells Required", 888, 456);
+                    ctx.fillText("Cells Required", 1090, 392);
+                    ctx.fillStyle = "black";
+
+                }
+                ctx.textAlign = "left";
+
 
             }
-            ctx.textAlign="left";
-            ctx.fillStyle = "black";
-            ctx.font = "20px Arial";
-            if (toolTab == "kanban") {
-                ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
 
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-            } else if (toolTab == "superMarket") {
-                ctx.fillText("Welding", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Assembly", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-            } else if (toolTab == "smallLot") {
-                ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-            } else if (toolTab == "fiveS") {
-
-                ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-
-                ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
-                checkboxDraw(ctx, checkboxPosD, 0, 0);
-                ctx.fillText("Grind", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
-                checkboxDraw(ctx, checkboxPosE, 0, 0);
-                ctx.fillText("Paint", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
-                checkboxDraw(ctx, checkboxPosF, 0, 0);
-
-                ctx.fillText("Fabric", checkboxPosG.x - cbLeft, checkboxPosG.y - cbOff);
-                checkboxDraw(ctx, checkboxPosG, 0, 0);
-                ctx.fillText("Sew", checkboxPosH.x - cbLeft, checkboxPosH.y - cbOff);
-                checkboxDraw(ctx, checkboxPosH, 0, 0);
-                ctx.fillText("Assembly", checkboxPosI.x - cbLeft, checkboxPosI.y - cbOff);
-                checkboxDraw(ctx, checkboxPosI, 0, 0);
-                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
-                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosE.y - cbOff);
-                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosF.y - cbOff);
-                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosG.y - cbOff);
-                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosH.y - cbOff);
-                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosI.y - cbOff);
-            } else if (toolTab == "smed") {
-                ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-
-                ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
-                checkboxDraw(ctx, checkboxPosD, 0, 0);
-                ctx.fillText("Paint", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
-                checkboxDraw(ctx, checkboxPosE, 0, 0);
-                ctx.fillText("Sew", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
-                checkboxDraw(ctx, checkboxPosF, 0, 0);
-                ctx.fillText("$  300", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  300", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  300", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-                ctx.fillText("$  300", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
-                ctx.fillText("$  300", checkboxPosB.x + cbPriceOff, checkboxPosE.y - cbOff);
-                ctx.fillText("$  300", checkboxPosC.x + cbPriceOff, checkboxPosF.y - cbOff);
-            } else if (toolTab == "quality") {
-                ctx.fillText("Drill", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Bender", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Weld", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-                ctx.fillText("Sew", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
-                checkboxDraw(ctx, checkboxPosD, 0, 0);
-                ctx.fillText("Assembly", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
-                checkboxDraw(ctx, checkboxPosE, 0, 0);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
-            } else if (toolTab == "cells") {
-                ctx.fillText("Overall", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("$ 1000", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-
-            } else if (toolTab == "crossTrain") {
-                ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-            } else if (toolTab == "selfDirected") {
-                ctx.fillText("Metal", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Weld", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Fabric", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-            } else if (toolTab == "pM") {
-                ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-
-                ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
-                checkboxDraw(ctx, checkboxPosD, 0, 0);
-                ctx.fillText("Paint", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
-                checkboxDraw(ctx, checkboxPosE, 0, 0);
-                ctx.fillText("Sew", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
-                checkboxDraw(ctx, checkboxPosF, 0, 0);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosF.y - cbOff);
-            } else if (toolTab == "vendor") {
-                ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Nylon", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Bike", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-                ctx.fillText("Metal Cut", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
-                checkboxDraw(ctx, checkboxPosD, 0, 0);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  200", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  200", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-                ctx.fillText("$  200", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
-            } else if (toolTab == "smallPurchase") {
-                ctx.fillText("Steel", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Nylon", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Bike", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-                ctx.fillText("Metal Cut", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
-                checkboxDraw(ctx, checkboxPosD, 0, 0);
-                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  100", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  100", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-                ctx.fillText("$  100", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
-            } else if (toolTab == "new") {
-                ctx.fillText("Saw", checkboxPosA.x - cbLeft, checkboxPosA.y - cbOff);
-                checkboxDraw(ctx, checkboxPosA, 0, 0);
-                ctx.fillText("Drill", checkboxPosB.x - cbLeft, checkboxPosB.y - cbOff);
-                checkboxDraw(ctx, checkboxPosB, 0, 0);
-                ctx.fillText("Bender", checkboxPosC.x - cbLeft, checkboxPosC.y - cbOff);
-                checkboxDraw(ctx, checkboxPosC, 0, 0);
-
-                ctx.fillText("Weld", checkboxPosD.x - cbLeft, checkboxPosD.y - cbOff);
-                checkboxDraw(ctx, checkboxPosD, 0, 0);
-                ctx.fillText("Grind", checkboxPosE.x - cbLeft, checkboxPosE.y - cbOff);
-                checkboxDraw(ctx, checkboxPosE, 0, 0);
-                ctx.fillText("Paint", checkboxPosF.x - cbLeft, checkboxPosF.y - cbOff);
-                checkboxDraw(ctx, checkboxPosF, 0, 0);
-
-                ctx.fillText("Fabric", checkboxPosG.x - cbLeft, checkboxPosG.y - cbOff);
-                checkboxDraw(ctx, checkboxPosG, 0, 0);
-                ctx.fillText("Sew", checkboxPosH.x - cbLeft, checkboxPosH.y - cbOff);
-                checkboxDraw(ctx, checkboxPosH, 0, 0);
-                ctx.fillText("Assembly", checkboxPosI.x - cbLeft, checkboxPosI.y - cbOff);
-                checkboxDraw(ctx, checkboxPosI, 0, 0);
-                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosA.y - cbOff);
-                ctx.fillText("$  700", checkboxPosB.x + cbPriceOff, checkboxPosB.y - cbOff);
-                ctx.fillText("$  700", checkboxPosC.x + cbPriceOff, checkboxPosC.y - cbOff);
-                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosD.y - cbOff);
-                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosE.y - cbOff);
-                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosF.y - cbOff);
-                ctx.fillText("$  700", checkboxPosB.x + cbPriceOff, checkboxPosG.y - cbOff);
-                ctx.fillText("$  700", checkboxPosC.x + cbPriceOff, checkboxPosH.y - cbOff);
-                ctx.fillText("$  700", checkboxPosA.x + cbPriceOff, checkboxPosI.y - cbOff);
-
-
-            }
-
-            draw(ctx, leanToolsView, 0, 0);
-            drawLeanTools();
-            scaleDraw(ctx,nextMonthBtn,0,0,1);
-            ctx.fillText("Lean tool 1: " + currentLeanPurchase, 750, 50);
-            ctx.fillText("Lean tool 2: " + currentLeanPurchaseSecond, 1150, 50);
-/*            if (toolTab == "confirm") {
-                draw(ctx, confirmScreen, 0, 0);
-
-                draw(ctx, closeBtn, 0, 0);
-            }*/
-            if(subScreen == "leanTools" && toolTab != "null"){
-                draw(ctx, buyBtn, 0, 0);
-            }
-
-            ctx.textAlign = "right";
-            ctx.fillText("$" + leanToolAllowance, 1200, 650);
-            if (tabCost != 0)
-                ctx.fillText("- $" + tabCost, 1200, 590);
-            if (leanTool_Cells == false) {
-                ctx.textAlign = "center";
-                ctx.fillStyle = "white";
-                ctx.font = "bold 24px Arial";
-                ctx.fillText("Cells Required", 888, 268);
-                ctx.fillText("Cells Required", 888, 330);
-                ctx.fillText("Cells Required", 888, 456);
-                ctx.fillText("Cells Required", 1090, 392);
-                ctx.fillStyle = "black";
-
-            }
-            ctx.textAlign = "left";
-
-
-        }
-
-        //report screen is background of
-        if (subScreen == "monthlyReport") {
+            //report screen is background of
+            if (subScreen == "monthlyReport") {
                 draw(ctx, reportView, 0, 0);
                 if (blue == true) {
                     draw(ctx, purpleTab, 0, 0);
@@ -5206,96 +5242,96 @@ var myTitleCounter = 0;
                     draw(ctx, blueTab, 0, 0);
                     draw(ctx, purpleTab, 0, 0);
                 }
-            ctx.font = "60px Georgia";
-            ctx.fillStyle = "black";
-            ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
-            ctx.font = "10px Georgia";
+                ctx.font = "60px Georgia";
+                ctx.fillStyle = "black";
+                ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
+                ctx.font = "10px Georgia";
 
-            var column = [];
-            column[0] = reportView.x + 30;
-            for (var i = 1; i < 8; i++) {
+                var column = [];
+                column[0] = reportView.x + 30;
+                for (var i = 1; i < 8; i++) {
 
-                column[i] = column[i - 1] + 80;
+                    column[i] = column[i - 1] + 80;
+
+                }
+
+                column[1] = column[0] + 150;
+                column[2] = column[1] + 60;
+                column[3] = column[2] + 100;
+                var row = [];
+                row[0] = reportView.y + 150;
+                for (var i = 1; i < 20; i++) {
+                    row[i] = row[i - 1] + 15;
+                }
+                ctx.font = "14px Georgia";
+
+                //headings
+                ctx.fillText("Sales: ", column[0], row[2]);
+                ctx.fillText("Total Income: ", column[0], row[3]);
+
+                ctx.fillText("Labor-regular:", column[0], row[6]);
+                ctx.fillText("Labor-overtime:", column[0], row[7]);
+                ctx.fillText("Purchased materials:", column[0], row[8]);
+                ctx.fillText("Direct cost:", column[0], row[9]);
+
+                ctx.fillText("Inventory cost:", column[0], row[11]);
+                ctx.fillText("Ordering cost:", column[0], row[12]);
+                ctx.fillText("Lean improvements:", column[0], row[13]);
+                ctx.fillText("Overhead:", column[0], row[14]);
+                ctx.fillText("Indirect cost:", column[0], row[15]);
+
+                ctx.fillText("Total expenses:", column[0], row[17]);
+
+                //right alligned values
+                ctx.textAlign = "right";
+                ctx.fillText("$", column[1], row[2]), ctx.fillText(monthData[monthCounter].sales, column[2], row[2]);
+
+
+                ctx.fillText("$", column[1], row[6]), ctx.fillText(monthData[monthCounter].laborRegular, column[2], row[6]);
+                ctx.fillText("$", column[1], row[7]), ctx.fillText(monthData[monthCounter].laborOvertime, column[2], row[7]);
+                ctx.fillText("$", column[1], row[8]), ctx.fillText(monthData[monthCounter].totalMaterialsCost, column[2], row[8]);
+                ctx.fillText("$", column[1], row[9]), ctx.fillText(monthData[monthCounter].directCost, column[2], row[9]);
+
+                ctx.fillText("$", column[1], row[11]), ctx.fillText(monthData[monthCounter].inventoryCost, column[2], row[11]);
+                ctx.fillText("$", column[1], row[12]), ctx.fillText(monthData[monthCounter].orderingCost, column[2], row[12]);
+                ctx.fillText("$", column[1], row[13]), ctx.fillText(monthData[monthCounter].leanIdeasCost, column[2], row[13]);
+                ctx.fillText("$", column[1], row[14]), ctx.fillText(monthData[monthCounter].overheadCost, column[2], row[14]);
+                ctx.fillText("$", column[1], row[15]), ctx.fillText(monthData[monthCounter].indirectCost, column[2], row[15]);
+
+                ctx.fillText("$", column[1], row[17]), ctx.fillText(monthData[monthCounter].totalExpenses, column[2], row[17]);
+
+
+                ctx.font = "bold 14px Georgia";
+                ctx.fillText("$", column[1], row[3]), ctx.fillText(monthData[monthCounter].sales, column[2], row[3]);
+                ctx.fillText("$", column[1], row[19]), ctx.fillText(monthData[monthCounter].totalProfit, column[2], row[19]);
+                ctx.font = "normal 14px Georgia"
+
+                ctx.textAlign = "left";
+
+                ctx.font = "bold 16px Arial";
+                ctx.fillText("Income", column[0], row[1]);
+                ctx.fillText("Expenses", column[0], row[5]);
+                ctx.fillText("Total profit:", column[0], row[19]);
+                ctx.font = "normal 14px Arial";
+                ctx.font = "10px Arial";
+
+                if (monthCounter > 6 && monthCounter != 12) {
+
+                    scaleDraw(ctx, nextMonthBtn, 0, 0, 1);
+                }
 
             }
 
-            column[1] = column[0] + 150;
-            column[2] = column[1] + 60;
-            column[3] = column[2] + 100;
-            var row = [];
-            row[0] = reportView.y + 150;
-            for (var i = 1; i < 20; i++) {
-                row[i] = row[i - 1] + 15;
-            }
-            ctx.font = "14px Georgia";
-
-            //headings
-            ctx.fillText("Sales: ", column[0], row[2]);
-            ctx.fillText("Total Income: ", column[0], row[3]);
-
-            ctx.fillText("Labor-regular:", column[0], row[6]);
-            ctx.fillText("Labor-overtime:", column[0], row[7]);
-            ctx.fillText("Purchased materials:", column[0], row[8]);
-            ctx.fillText("Direct cost:", column[0], row[9]);
-
-            ctx.fillText("Inventory cost:", column[0], row[11]);
-            ctx.fillText("Ordering cost:", column[0], row[12]);
-            ctx.fillText("Lean improvements:", column[0], row[13]);
-            ctx.fillText("Overhead:", column[0], row[14]);
-            ctx.fillText("Indirect cost:", column[0], row[15]);
-
-            ctx.fillText("Total expenses:", column[0], row[17]);
-
-            //right alligned values
-            ctx.textAlign = "right";
-            ctx.fillText("$", column[1], row[2]), ctx.fillText(monthData[monthCounter].sales, column[2], row[2]);
-
-
-            ctx.fillText("$", column[1], row[6]), ctx.fillText(monthData[monthCounter].laborRegular, column[2], row[6]);
-            ctx.fillText("$", column[1], row[7]), ctx.fillText(monthData[monthCounter].laborOvertime, column[2], row[7]);
-            ctx.fillText("$", column[1], row[8]), ctx.fillText(monthData[monthCounter].totalMaterialsCost, column[2], row[8]);
-            ctx.fillText("$", column[1], row[9]), ctx.fillText(monthData[monthCounter].directCost, column[2], row[9]);
-
-            ctx.fillText("$", column[1], row[11]), ctx.fillText(monthData[monthCounter].inventoryCost, column[2], row[11]);
-            ctx.fillText("$", column[1], row[12]), ctx.fillText(monthData[monthCounter].orderingCost, column[2], row[12]);
-            ctx.fillText("$", column[1], row[13]), ctx.fillText(monthData[monthCounter].leanIdeasCost, column[2], row[13]);
-            ctx.fillText("$", column[1], row[14]), ctx.fillText(monthData[monthCounter].overheadCost, column[2], row[14]);
-            ctx.fillText("$", column[1], row[15]), ctx.fillText(monthData[monthCounter].indirectCost, column[2], row[15]);
-
-            ctx.fillText("$", column[1], row[17]), ctx.fillText(monthData[monthCounter].totalExpenses, column[2], row[17]);
-
-
-            ctx.font = "bold 14px Georgia";
-            ctx.fillText("$", column[1], row[3]), ctx.fillText(monthData[monthCounter].sales, column[2], row[3]);
-            ctx.fillText("$", column[1], row[19]), ctx.fillText(monthData[monthCounter].totalProfit, column[2], row[19]);
-            ctx.font = "normal 14px Georgia"
-
-            ctx.textAlign = "left";
-
-            ctx.font = "bold 16px Arial";
-            ctx.fillText("Income", column[0], row[1]);
-            ctx.fillText("Expenses", column[0], row[5]);
-            ctx.fillText("Total profit:", column[0], row[19]);
-            ctx.font = "normal 14px Arial";
-            ctx.font = "10px Arial";
-
-            if(monthCounter>6&&monthCounter!=12) {
-                
-                scaleDraw(ctx, nextMonthBtn, 0, 0, 1);
-            }
-
-        }
-        
             if (subScreen == "problemList") {
                 draw(ctx, office, 0, 0);
-                if(currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March){
-                    scaleDraw(ctx,officeWindow_Winter,0,0,1);
-                }else if(currentMonth == monthsArray.April || currentMonth == monthsArray.May){
-                    scaleDraw(ctx,officeWindow_Spring,0,0,1);
-                }else if(currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August){
-                    scaleDraw(ctx,officeWindow_Summer,0,0,1);
-                }else{
-                    scaleDraw(ctx,officeWindow_Fall,0,0,1);
+                if (currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March) {
+                    scaleDraw(ctx, officeWindow_Winter, 0, 0, 1);
+                } else if (currentMonth == monthsArray.April || currentMonth == monthsArray.May) {
+                    scaleDraw(ctx, officeWindow_Spring, 0, 0, 1);
+                } else if (currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August) {
+                    scaleDraw(ctx, officeWindow_Summer, 0, 0, 1);
+                } else {
+                    scaleDraw(ctx, officeWindow_Fall, 0, 0, 1);
                 }
                 draw(ctx, reportView, 0, 0);
                 if (blue == true) {
@@ -5310,9 +5346,9 @@ var myTitleCounter = 0;
                 ctx.font = "60px Georgia";
                 ctx.fillStyle = "black";
                 ctx.fillText(monthData[monthCounter].name, reportView.x + 30, reportView.y + 120);
-                
+
                 ctx.font = "30px Georgia";
-                ctx.fillText("Problem List", reportView.x + 40, reportView. y + 160);
+                ctx.fillText("Problem List", reportView.x + 40, reportView.y + 160);
 
                 var row = [];
                 row[0] = reportView.y + 200;
@@ -5323,177 +5359,319 @@ var myTitleCounter = 0;
                 ctx.font = "14px Georgia";
 
                 //headings
-                for(var i = 0; i < numProbs; i++){
+                for (var i = 0; i < numProbs; i++) {
                     ctx.fillText(problemList[i], reportView.x + 30, row[i]);
                 }
-            }         
-        /*if (subScreen == "calendar") {
-            draw(ctx, calendarView, 0, 0);
-            ctx.font = "80px Georgia";
-            switch (monthCounter) {
-                case 0:
-                    currentMonth = monthsArray.January;
-                    break;
-                case 1:
-                    currentMonth = monthsArray.February;
-                    break;
-                case 2:
-                    currentMonth = monthsArray.March;
-                    break;
-                case 3:
-                    currentMonth = monthsArray.April;
-                    break;
-                case 4:
-                    currentMonth = monthsArray.May;
-                    break;
-                case 5:
-                    currentMonth = monthsArray.June;
-                    break;
-                case 6:
-                    currentMonth = monthsArray.July;
-                    break;
-                case 7:
-                    currentMonth = monthsArray.August;
-                    break;
-                case 8:
-                    currentMonth = monthsArray.September;
-                    break;
-                case 9:
-                    currentMonth = monthsArray.October;
-                    break;
-                case 10:
-                    currentMonth = monthsArray.November;
-                    break;
-                case 11:
-                    currentMonth = monthsArray.December;
             }
-            ctx.fillText(currentMonth, 900, 100);
-            ctx.font = "10px Georgia";
-        }*/
-        if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar") {
+            /*if (subScreen == "calendar") {
+             draw(ctx, calendarView, 0, 0);
+             ctx.font = "80px Georgia";
+             switch (monthCounter) {
+             case 0:
+             currentMonth = monthsArray.January;
+             break;
+             case 1:
+             currentMonth = monthsArray.February;
+             break;
+             case 2:
+             currentMonth = monthsArray.March;
+             break;
+             case 3:
+             currentMonth = monthsArray.April;
+             break;
+             case 4:
+             currentMonth = monthsArray.May;
+             break;
+             case 5:
+             currentMonth = monthsArray.June;
+             break;
+             case 6:
+             currentMonth = monthsArray.July;
+             break;
+             case 7:
+             currentMonth = monthsArray.August;
+             break;
+             case 8:
+             currentMonth = monthsArray.September;
+             break;
+             case 9:
+             currentMonth = monthsArray.October;
+             break;
+             case 10:
+             currentMonth = monthsArray.November;
+             break;
+             case 11:
+             currentMonth = monthsArray.December;
+             }
+             ctx.fillText(currentMonth, 900, 100);
+             ctx.font = "10px Georgia";
+             }*/
+            if (subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "calendar") {
 
-        }
-        //draw(ctx,closeBtn,0,0);
-        //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
-        //  draw(ctx,)
-        if (subScreen != "sawView" && subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
-            ctx.font = "80px Georgia";
-            //ctx.fillText(subScreen, 900, 500);
-            ctx.font = "10px Georgia";
-        }
+            }
+            //draw(ctx,closeBtn,0,0);
+            //if(subScreen=="leanTools"||subScreen=="monthlyReport"&&subScreen=="calendar")
+            //  draw(ctx,)
+            if (subScreen != "sawView" && subScreen != "office" && subScreen != "leanTools" && subScreen != "monthlyReport" && subScreen != "calendar") {
+                ctx.font = "80px Georgia";
+                //ctx.fillText(subScreen, 900, 500);
+                ctx.font = "10px Georgia";
+            }
 
 
-        if (subScreen == "sawView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
-        if (subScreen == "drillView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
-        if (subScreen == "bendView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
-        if (subScreen == "weldView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
-        if (subScreen == "grindView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
-        if (subScreen == "paintView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
-        if (subScreen == "assemblyView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
-        if (subScreen == "fabricView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
-        if (subScreen == "sewingView") {
-            draw(ctx, stationReportbtn, 0, 0);
-        }
+            if (subScreen == "sawView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
+            if (subScreen == "drillView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
+            if (subScreen == "bendView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
+            if (subScreen == "weldView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
+            if (subScreen == "grindView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
+            if (subScreen == "paintView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
+            if (subScreen == "assemblyView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
+            if (subScreen == "fabricView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
+            if (subScreen == "sewingView") {
+                draw(ctx, stationReportbtn, 0, 0);
+            }
 
 
-        if (subScreen == "sawReport") {
-            draw(ctx, stationReport, 0, 0);
-            sawReport();
-        }
-        if (subScreen == "drillReport") {
-            draw(ctx, stationReport, 0, 0);
-            drillReport();
-        }
-        if (subScreen == "bendReport") {
-            draw(ctx, stationReport, 0, 0);
-            bendReport();
-        }
-        if (subScreen == "weldReport") {
-            draw(ctx, stationReport, 0, 0);
-            weldReport();
-        }
-        if (subScreen == "grindReport") {
-            draw(ctx, stationReport, 0, 0);
-            grindReport();
-        }
-        if (subScreen == "paintReport") {
-            draw(ctx, stationReport, 0, 0);
-            paintReport();
-        }
-        if (subScreen == "assemblyReport") {
-            draw(ctx, stationReport, 0, 0);
-            assemblyReport();
-        }
-        if (subScreen == "fabricReport") {
-            draw(ctx, stationReport, 0, 0);
-            fabricReport();
-        }
-        if (subScreen == "sewingReport") {
-            draw(ctx, stationReport, 0, 0);
-            sewingReport();
-        }
-        ctx.fillText("x: " + posx, 100, 400);
-        ctx.fillText("y: " + posy, 100, 415);
+            if (subScreen == "sawReport") {
+                draw(ctx, stationReport, 0, 0);
+                sawReport();
+            }
+            if (subScreen == "drillReport") {
+                draw(ctx, stationReport, 0, 0);
+                drillReport();
+            }
+            if (subScreen == "bendReport") {
+                draw(ctx, stationReport, 0, 0);
+                bendReport();
+            }
+            if (subScreen == "weldReport") {
+                draw(ctx, stationReport, 0, 0);
+                weldReport();
+            }
+            if (subScreen == "grindReport") {
+                draw(ctx, stationReport, 0, 0);
+                grindReport();
+            }
+            if (subScreen == "paintReport") {
+                draw(ctx, stationReport, 0, 0);
+                paintReport();
+            }
+            if (subScreen == "assemblyReport") {
+                draw(ctx, stationReport, 0, 0);
+                assemblyReport();
+            }
+            if (subScreen == "fabricReport") {
+                draw(ctx, stationReport, 0, 0);
+                fabricReport();
+            }
+            if (subScreen == "sewingReport") {
+                draw(ctx, stationReport, 0, 0);
+                sewingReport();
+            }
+            ctx.fillText("x: " + posx, 100, 400);
+            ctx.fillText("y: " + posy, 100, 415);
             draw(ctx, gameBorder, 0, 0);
         }
 
-        if(currentScreen!="mainMenu"&&tutorial==true&&currentScreen!="credits"){
-            ctx.font = "18px Arial";
-            ctx.fillStyle="white";
-            draw(ctx, bigDialog,0,0);
-            draw(ctx, tutorialEndBtn,0,0);
-            var textBoarderX=20;
-            var textBoarderY=45;
-            if(subScreen=="office"){
-                ctx.fillText("Click on a workstation Icon to the left to open a  ",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
-                ctx.fillText("workstation on the right.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
-
-                ctx.fillText("Click on the Phone Icon to open the Lean Tools Menu",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+50);
-                ctx.fillText("Click on the Papers Icon to open the Lean Tools Menu",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
-
-                ctx.fillText("Click on the Red X to close the Tutorial",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
-            }else if(subScreen=="sawView"||subScreen=="weldView"||subScreen=="drillView"||subScreen=="bendView"||subScreen=="grindView"||subScreen=="paintView"||subScreen=="fabricView"||subScreen=="sewingView"||subScreen=="assemblyView"){
-                ctx.fillText("Click on the Clipboard Icon to open a Station Report",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
-                //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
-            }else if(subScreen=="sawReport"||subScreen=="weldReport"||subScreen=="drillReport"||subScreen=="bendReport"||subScreen=="grindReport"||subScreen=="paintReport"||subScreen=="fabricReport"||subScreen=="sewingReport"||subScreen=="assemblyView"){
-                ctx.fillText("Click on the Desk Icon to return to the office",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
-                //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
-            }else if(subScreen=="leanTools"){
-                ctx.fillText("Click on a Lean Tool to open a Lean Tool Tab",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
-                // ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
-                if(toolTab!="null"){
-                    //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
-                    ctx.fillText("Spend up to $1000 on up to 2 different Lean Tool types",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+30);
-                    ctx.fillText("Choose wisely, lean tool purchases are unavailable",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+60);
-                    ctx.fillText("after the sixth month",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
+        if (currentScreen >= 1) {
+            if (currentScreen <= 2 || (currentScreen >= 8 && currentScreen != 11)) {
+                draw(ctx, blackLeft, 0, 0);
+            }
+            if (currentScreen < 8 || currentScreen === 11) {
+                draw(ctx, blackRight, 0, 0);
+                if (currentScreen != 11) {
+                    drawBossCoffeeAnm();
                 }
-            }else if(subScreen=="monthlyReport"||subScreen=="monthlyreport2ndscreen"){//Change this name hobo
-                ctx.fillText("Click on the Purple Tab to open the problems List",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
-                ctx.fillText("Click on the Blue Tab to open the Monthly Reportt",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+30);
-
-                ctx.fillText("The Monthly Report displays income and expenses",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+60);
-                ctx.fillText("The Problems List displays current issues",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+90);
-
-                ctx.fillText("with workstations",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
             }
         }
 
+        if (currentScreen != "mainMenu" && tutorialLinear == true && currentScreen != "credits") {
+            ctx.font = "18px Arial";
+            ctx.fillStyle = "white";
+            draw(ctx, bigDialog, 0, 0);
+            if (subScreen == "office" && currentScreen == "factory") {
+                draw(ctx, tutorialEndBtn, 0, 0);
+                draw(ctx, tutorialStartBtn, -3, 3);
+            }
+            var textBoarderX = 20;
+            var textBoarderY = 45;
+            if (subScreen == "office" && currentScreen == "factory") {
+                ctx.fillText("Play the tutorial?", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("Click on the Green check to start the tutorial", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+
+                //ctx.fillText("Click on the Phone Icon to open the Lean Tools Menu",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+50);
+                //ctx.fillText("Click on the Papers Icon to open the Lean Tools Menu",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
+
+                ctx.fillText("Click on the Red X to close the tutorial", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 80);
+            } else if (currentScreen === 1) {
+                ctx.fillText("Welcome to “All World Wheelchairs!”", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("I'm James Johnson and I was recently hired as a LEAN ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("representative to make this sub optimal factory a ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+                ctx.fillText("little more… optimal.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
+
+                ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+                //ctx.fillText("Test Test Test Test Test Test Test Test Test Test Test",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            } else if (currentScreen === 2) {
+                ctx.fillText("I just got here and currently everything is in shambles,", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("let's get started on what we need to do in order to make ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("a profit and save the company from going under. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+                ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+            } else if (currentScreen === 3) {
+                ctx.fillText("This is the factory floor. Here you can view and access", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("the nine workstations and the office.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                //ctx.fillText("Color indicates the last months.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+40);
+                //ctx.fillText("a profit and save the company from going under. ",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
+                ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+
+            } else if (currentScreen === 4) {
+                ctx.fillText("The color of each workstation relates to its ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("performance during the previous month.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                //ctx.fillText("LEAN tools will be our weapons against the constant",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY);
+                //ctx.fillText("degradation of our work stations.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+20);
+                ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+
+            } else if (currentScreen === 6) {
+
+
+                ctx.fillText("           = Good,             = Acceptable,        = Bad", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillStyle = "#8CC63F";
+                ctx.fillText("Green", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillStyle = "#FECA49";
+                ctx.fillText("Yellow", bigDialog.x + textBoarderX + 125, bigDialog.y + textBoarderY);
+                ctx.fillText("Yellow", bigDialog.x + textBoarderX + 125, bigDialog.y + textBoarderY);
+                ctx.fillStyle = "#D23E43";
+                ctx.fillText("Red", bigDialog.x + textBoarderX + 298, bigDialog.y + textBoarderY);
+                ctx.fillText("Red", bigDialog.x + textBoarderX + 298, bigDialog.y + textBoarderY);
+                ctx.fillStyle = "white";
+                ctx.fillText("Click Anywhere to Continue", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+
+            } else if (currentScreen === 7) {
+                ctx.fillText("The welding workstation is red, mouse over it to", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("see important information about it.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                if (station[3].hover == true) {
+                    ctx.fillText("Clicking on the welding workstation will open", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
+                    ctx.fillText("the welding workstation screen.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 80);
+                }
+            }else if(currentScreen===8){
+                ctx.fillText("This is the Welding workstation screen, the bar to the", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("right indicates percentage of the current inventory.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+
+            }else if(currentScreen===9){
+                ctx.fillText("Clicking on the button near the left of the table", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("will open a station report.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            }else if(currentScreen===10){
+                ctx.fillText("This station report gives you feedback specific", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("to the welding station.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===11){
+                ctx.fillText("Clicking on the desk icon will open the office screen. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("This can be done from any screen.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+            }else if(currentScreen===12){
+                ctx.fillText("This office is where you can access monthly reports ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("and purchase LEAN TOOLS.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===13){
+                ctx.fillText("Clicking on the papers will open the monthly reports", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("for the factory.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+
+            }else if(currentScreen===14) {
+                ctx.fillText("This is the Monthly Report for the factory. It displays", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("the factory's income and expenses.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("Clicking the purple tab will open the Monthly Problem",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+60);
+                ctx.fillText("List.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
+            }else if(currentScreen===15) {
+                ctx.fillText("This is the Monthly Problem List. It displays problems ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("for each machine and their direct causes. This list will", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("be very helpful when deciding which LEAN TOOLS will ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+                ctx.fillText("be the most beneficial.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
+                ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===16){
+                ctx.fillText("Clicking on anything other than the Monthly Report will", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("return you to the office screen.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+
+            }else if(currentScreen===17){
+                ctx.fillText("Clicking on the phone will open the LEAN TOOLS", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("menu.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY+20);
+
+            }else if(currentScreen===18){
+                ctx.fillText("Our LEAN TOOLS represent methods of eliminating ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("waste, including waste caused by both overburden and", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("uneven workloads.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+                ctx.fillText("Click Anywhere to Continue",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===19){
+                ctx.fillText("Let's try to improve the welding workstation. On the ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("problem list the weld station was broken down.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("Equipment PM may be the right choice.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+                ctx.fillText("Click on Equipment PM to view options and details.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+80);
+            }else if(currentScreen===20){
+                ctx.fillText("This LEAN TOOL Tab for Equipment PM gives a short ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("description of what Equipment PM will do for each ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("station it is purchased for.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+                ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===21){
+                ctx.fillText("The LEAN TOOL Tab displays how much money you ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("are able to spend on LEAN TOOLS each month. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+
+                ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===22){
+                ctx.fillText("Multiple LEAN TOOLS can be purchased from up to two ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("different categories of LEAN TOOLS each month.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+
+
+                ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===23){
+                ctx.fillText("Clicking on a checkbox will select the LEAN TOOL ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("it corresponds to.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+
+                ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===24){
+                ctx.fillText("Clicking the Buy button after making a selection", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("will Purchase it.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+
+                ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===25){
+                ctx.fillText("Clicking the Next Month button will run the factory", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("for one month with all previously purchased LEAN ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+                ctx.fillText("TOOLS and open the Monthly Report Screen.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 40);
+
+                ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===26){
+                ctx.fillText("LEAN TOOLS are only available for purchase during the", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("first six months of the year.", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 20);
+
+                ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }else if(currentScreen===27){
+                ctx.fillText("End of Tutorial. ", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+
+                ctx.fillText("Click Anywhere to Continue.",bigDialog.x+textBoarderX,bigDialog.y+textBoarderY+110);
+            }
+            else if(subScreen=="monthlyReport"||subScreen=="monthlyreport2ndscreen"){//Change this name hobo
+                ctx.fillText("Click on the Purple Tab to open the problems List", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY);
+                ctx.fillText("Click on the Blue Tab to open the Monthly Reportt", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 30);
+
+                ctx.fillText("The Monthly Report displays income and expenses", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 60);
+                ctx.fillText("The Problems List displays current issues", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 90);
+
+                ctx.fillText("with workstations", bigDialog.x + textBoarderX, bigDialog.y + textBoarderY + 110);
+            }
+        }
 
     }
         
@@ -6192,8 +6370,750 @@ var currentLeanPurchase="null";
 var currentLeanPurchaseSecond="null";
 createConsoleTable();
 function onClick(evt) {
-    click.load();
-    //noise.load();
+    if (subScreen == "leanTools") {
+
+        if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
+            click.play();
+            noise.pause();
+            noise.currentTime = 0;
+            var sawTemp = mitreSaw_FinalInventory();
+            var drillTemp = drillPress_FinalInventory();
+            var bendTemp = tubeBender_FinalInventory();
+            var weldTemp = welding_FinalInventory();
+            var grindTemp = grinder_FinalInventory();
+            var paintTemp = paintBooth_FinalInventory();
+            var fabricTemp = fabricCut_FinalInventory();
+            var sewingTemp = sewing_FinalInventory();
+            var assemblyTemp = assembly_FinalInventory() - monthChairsSold();
+
+            //Inventory temp
+            var tempNineteenbyoneTube = nineteenbyoneTube_ChairQuantity();
+            var tempTwentyfivebyoneTube = twentyfivebyoneTube_ChairQuantity();
+            var tempThirtyfivebytwoTube = thirtyfivebytwoTube_ChairQuantity();
+            var tempNylonFabric_PrevChair = nylonFabric_ChairQuantity();
+            var tempCasterWheel_PrevChair = casterWheel_ChairQuantity();
+            var tempRearBikeWheel_PrevChair = rearBikeWheel_ChairQuantity();
+            var tempHandle_prevChair = handle_ChairQuantity();
+            var tempFender_PrevChair = fender_ChairQuantity();
+            var tempFootrestPlate_PrevChair = footrestPlate_ChairQuantity();
+            var tempBrakeLever_PrevChair = brakeLever_ChairQuantity();
+
+            //inventory update
+            nineteenbyoneTube_PrevChair = tempNineteenbyoneTube;
+            twentyfivebyoneTube_PrevChair = tempTwentyfivebyoneTube;
+            thirtyfivebytwoTube_PrevChair = tempThirtyfivebytwoTube;
+            nylonFabric_PrevChair = tempNylonFabric_PrevChair;
+            casterWheel_PrevChair = tempCasterWheel_PrevChair;
+            rearBikeWheel_PrevChair = tempRearBikeWheel_PrevChair;
+            handle_PrevChair = tempHandle_prevChair;
+            fender_PrevChair = tempFender_PrevChair;
+            footrestPlate_PrevChair = tempFootrestPlate_PrevChair;
+            brakeLever_PrevChair = tempBrakeLever_PrevChair;
+
+
+            //prev inventory update
+            prevInventory_Saw = sawTemp;
+            prevInventory_Drill = drillTemp;
+            prevInventory_Bender = bendTemp;
+            prevInventory_Weld = weldTemp;
+            prevInventory_Grind = grindTemp;
+            prevInventory_Paint = paintTemp;
+            prevInventory_Fabric = fabricTemp;
+            prevInventory_Sewing = sewingTemp;
+            prevInventory_Assembly = assemblyTemp;
+
+
+            //console.log("paint previous"+prevInventory_Paint);
+            //console.log("paint previous 2nd month"+prevInventory_Paint);
+
+            if(monthCounter<11) {
+                monthCounter++;
+                problemListUpdate();
+                updateMonth(monthData[monthCounter]);
+                createConsoleTable();
+                leanToolAllowance = 1000;
+                currentLeanPurchase = "null";
+                currentLeanPurchaseSecond = "null";
+                if(monthCounter>6){
+                    currentLeanPurchase = "unavailable";
+                    currentLeanPurchaseSecond = "unavailable";
+                }
+                draw(ctx, office, 0, 0);
+                subScreen = "monthlyReport";
+                blue = true;
+                purple = false;
+                noise.play();
+            }
+        }
+        if (closeBtn.hover) {
+            subScreen = "office";
+        }
+    }
+    else if (currentScreen == "credits") {
+        currentScreen = "mainMenu";
+        subScreen = "null"
+    }
+    else if (currentScreen == "mainMenu") {
+        if (creditBtn.hover){
+            click.play();
+            currentScreen = "credits";
+        }
+        else if (startBtn.hover) {
+            noise.play();
+            currentScreen = "factory";
+            subScreen = "office";
+        }
+    }
+    //tutorial
+    if(currentScreen=="factory"){
+        if(tutorialEndBtn.hover){
+            tutorialEndBtn.hover=false;
+            tutorial=false;
+            tutorialLinear=false;
+            click.play();
+        }else if(tutorialStartBtn.hover){
+            tutorialStartBtn.hover=false;
+            currentScreen=1;
+            subScreen="office";
+            click.play();
+        }
+    } else if(currentScreen===1){
+        currentScreen=2;
+        click.play();
+    } else if(currentScreen===2){
+        currentScreen=3;
+        click.play();
+    }else if(currentScreen===3){
+        currentScreen=4;
+        click.play();
+    }else if(currentScreen===4){
+        currentScreen=6;
+        click.play();
+    }else if(currentScreen===6){
+        currentScreen=7;
+        click.play();
+    }else if(currentScreen===7&&station[3].hover){
+        currentScreen=8;
+        subScreen="weldView";
+        station[3].hover=false;
+        bigDialog.x=320;
+        click.play();
+    }else if(currentScreen===8){
+        currentScreen=9;
+        click.play();
+    }else if(currentScreen===9&&stationReportbtn.hover){
+        stationReportbtn.hover=false;
+        currentScreen=10;
+        subScreen="weldReport";
+        click.play();
+    }else if(currentScreen===10){
+        currentScreen=11;
+        bigDialog.x=750-237;
+        click.play();
+    }else if(currentScreen===11&&desk.hover){
+        desk.hover=false;
+        currentScreen=12;
+        subScreen="office";
+        click.play();
+    }else if(currentScreen===12){
+        currentScreen=13;
+        click.play();
+    }else if(currentScreen===13&&reportBtn.hover){
+        reportBtn.hover=false;
+        currentScreen=14;
+        subScreen="monthlyReport";
+        click.play();
+    }else if(currentScreen===14&&purpleTab.hover){
+        purpleTab.hover=false;
+        currentScreen=15;
+        subScreen="problemList";
+        click.play();
+    }else if(currentScreen===15){
+        currentScreen=16;
+        click.play();
+    }else if(currentScreen===16&&reportView.hover==false){
+        currentScreen=17;
+        subScreen="office";
+        click.play();
+    }else if(currentScreen===17&&leanToolsBtn.hover){
+        leanToolsBtn.hover=false;
+        currentScreen=18;
+        bigDialog.x=320;
+        subScreen="leanTools";
+        click.play();
+    }else if(currentScreen===18){
+        currentScreen=19;
+        click.play();
+    }else if(currentScreen===19&&leanToolButtonArray.PMBtn[0].hover){
+        leanToolButtonArray.PMBtn[0].hover=false;
+        currentScreen=20;
+        toolTab = "pM";
+        click.play();
+    }else if(currentScreen===20){
+        currentScreen=21;
+        click.play();
+    }else if(currentScreen===21){
+        currentScreen=22;
+        click.play();
+    }else if(currentScreen===22){
+        currentScreen=23;
+        click.play();
+    }else if(currentScreen===23){
+        currentScreen=24;
+        click.play();
+    }else if(currentScreen===24){
+        currentScreen=25;
+        click.play();
+    }else if(currentScreen===25){
+        currentScreen=26;
+        click.play();
+    }else if(currentScreen===26){
+        currentScreen=27;
+        click.play();
+    }else if(currentScreen===27){
+        tutorialEndBtn.hover=false;
+        tutorial=false;
+        tutorialLinear=false;
+        subScreen="office";
+        currentScreen="factory";
+        click.play();
+    }
+    if (currentScreen == "factory"||currentScreen===18) {
+
+        if (currentScreen!=18&&currentScreen!=19){
+            for (var i = 0; i < 9; i++) {
+                if (station[i].hover) {
+                    click.play();
+                    subScreen = station[i].subScreen;
+                }
+            }
+            if (desk.hover){
+                click.play();
+                currentScreen = "factory";
+                subScreen = "office";
+            }
+    }/////////////////////////////////////////////////////////////////////////////////
+    if (subScreen == "leanTools"&&(tutorialLinear==false||currentScreen>=17)) {
+
+        //Selection of subscreens from the lean tools page tooltabs
+        if (leanToolButtonArray.kanbanBtn[0].hover && leanTool_Cells) {//Button for Kanban (kaban in our code)
+            resetCheckbox(leanTool_Kaban_Metal, leanTool_Kaban_Weld, 0, 0, 0, 0, 0, 0, 0);
+            toolTab = "kanban";
+            tabCost = 0;
+            if (leanToolButtonArray.kanbanBtn[1] == 2) {
+                //console.log("Test click for kanban");
+                leanToolButtonArray.kanbanBtn[1] = 0;
+                console.log("THIS SHOULD NOT BE called");
+                toolTab = "null";
+            } else {
+                //console.log("Test click for kanban 2");
+                //console.log(leanToolButtonArray.kanbanBtn[1]);
+                leanToolButtonArray.kanbanBtn[1] = 2;
+            }
+        }
+        else if (leanToolButtonArray.marketBtn[0].hover&&(tutorialLinear==false)) {// Button for supermarket
+            resetCheckbox(leanTool_Market_Welding, leanTool_Market_Assembly, 0, 0, 0, 0, 0, 0, 0);
+            toolTab = "superMarket";
+            tabCost = 0;
+            if (leanToolButtonArray.marketBtn[1] == 2) {
+                leanToolButtonArray.marketBtn[1] = 0;
+                toolTab = "null";
+            } else {
+                leanToolButtonArray.marketBtn[1] = 2;
+
+            }
+        }
+        else if (leanToolButtonArray.smallLotBtn[0].hover&&(tutorialLinear==false)) {//Button for smallLot
+            resetCheckbox(leanTool_SmallLot_Metal, leanTool_SmallLot_Weld, leanTool_SmallLot_Fabric, 0, 0, 0, 0, 0, 0);
+            toolTab = "smallLot";
+            tabCost = 0;
+            if (leanToolButtonArray.smallLotBtn[1] == 2) {
+                leanToolButtonArray.smallLotBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.smallLotBtn[1] = 2;
+            }
+        }
+        else if (leanToolButtonArray.fiveSBtn[0].hover&&(tutorialLinear==false)) {//Button for fiveS 5S
+            resetCheckbox(leanTool_fiveS_Saw, leanTool_fiveS_Drill, leanTool_fiveS_Bender,
+                leanTool_fiveS_Welding, leanTool_fiveS_Grind, leanTool_fiveS_Paint,
+                leanTool_fiveS_Fabric, leanTool_fiveS_Sewing, leanTool_fiveS_Assembly);
+            toolTab = "fiveS";
+            tabCost = 0;
+            if (leanToolButtonArray.fiveSBtn[1] == 2) {
+                leanToolButtonArray.fiveSBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.fiveSBtn[1] = 2;
+
+            }
+        }
+        else if (leanToolButtonArray.smedBtn[0].hover&&(tutorialLinear==false)) {//click on smed button
+            resetCheckbox(leanTool_Smed_Saw, leanTool_Smed_Drill, leanTool_Smed_Bender,
+                leanTool_Smed_Welding, leanTool_Smed_Paint, leanTool_Smed_Sewing, 0, 0, 0);
+            toolTab = "smed";
+            tabCost = 0;
+            if (leanToolButtonArray.smedBtn[1] == 2) {
+                leanToolButtonArray.smedBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.smedBtn[1] = 2;
+
+            }
+
+        }
+        else if (leanToolButtonArray.qualityBtn[0].hover&&(tutorialLinear==false)) {//click on quality button
+            resetCheckbox(leanTool_Quality_Drill, leanTool_Quality_Bender, leanTool_Quality_Welding,
+                leanTool_Quality_Sewing, leanTool_Quality_Assembly, 0,
+                0, 0, 0);
+            toolTab = "quality";
+            tabCost = 0;
+            console.log("quality button pressed");
+            if (leanToolButtonArray.qualityBtn[1] == 2) {
+                leanToolButtonArray.qualityBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.qualityBtn[1] = 2;
+            }
+        }
+        else if (leanToolButtonArray.cellsBtn[0].hover&&(tutorialLinear==false)) {//click on cells button
+            resetCheckbox(leanTool_Cells, 0, 0, 0, 0, 0, 0, 0, 0);
+            toolTab = "cells";
+            tabCost = 0;
+            if (leanToolButtonArray.cellsBtn[1] == 2) {
+                leanToolButtonArray.cellsBtn[1] = 0;
+                toolTab = "null";
+            } else {
+                leanToolButtonArray.cellsBtn[1] = 2;
+
+            }
+        }
+        else if (leanToolButtonArray.crossTrainBtn[0].hover&&(tutorialLinear==false)) {//click on crossTrain button
+            resetCheckbox(leanTool_CrossTrain_Metal, leanTool_CrossTrain_Weld, leanTool_CrossTrain_Fabric, 0, 0, 0, 0, 0, 0);
+            toolTab = "crossTrain";
+            tabCost = 0;
+            if (leanToolButtonArray.crossTrainBtn[1] == 2) {
+                leanToolButtonArray.crossTrainBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.crossTrainBtn[1] = 2;
+            }
+        }
+        else if (leanToolButtonArray.selfDirectedBtn[0].hover&&(tutorialLinear==false)) {//click on selfDirected button
+            resetCheckbox(leanTool_SelfDirected_Metal, leanTool_SelfDirected_Weld, leanTool_SelfDirected_Fabric, 0, 0, 0, 0, 0, 0);
+            toolTab = "selfDirected";
+            tabCost = 0;
+            if (leanToolButtonArray.selfDirectedBtn[1] == 2) {
+                leanToolButtonArray.selfDirectedBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.selfDirectedBtn[1] = 2;
+            }
+        }
+        else if (leanToolButtonArray.PMBtn[0].hover&&(tutorialLinear==false)) {//click on PM button
+            resetCheckbox(leanTool_PM_Saw, leanTool_PM_Drill, leanTool_PM_Bender,
+                leanTool_PM_Welding, leanTool_PM_Paint, leanTool_PM_Sewing,
+                0, 0, 0);
+            toolTab = "pM";
+            tabCost = 0;
+            if (leanToolButtonArray.PMBtn[1] == 2) {
+                leanToolButtonArray.PMBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.PMBtn[1] = 2;
+            }
+        }
+        else if (leanToolButtonArray.vendorBtn[0].hover&&(tutorialLinear==false)) {//click on vendor button
+            resetCheckbox(leanTool_Vendor_Steel, leanTool_Vendor_Nylon, leanTool_Vendor_Bike,
+                leanTool_Vendor_Metal, 0, 0,
+                0, 0, 0);
+            toolTab = "vendor";
+            tabCost = 0;
+            if (leanToolButtonArray.vendorBtn[1] == 2) {
+                leanToolButtonArray.vendorBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.vendorBtn[1] = 2;
+            }
+        }
+        else if (leanToolButtonArray.smallPurchaseBtn[0].hover&&(tutorialLinear==false)) {//click on smallPurchase button
+            resetCheckbox(leanTool_SmallPurchase_Steel, leanTool_SmallPurchase_Nylon, leanTool_SmallPurchase_Bike,
+                leanTool_SmallPurchase_Metal, 0, 0,
+                0, 0, 0);
+            toolTab = "smallPurchase";
+            tabCost = 0;
+            if (leanToolButtonArray.smallPurchaseBtn[1] == 2) {
+                leanToolButtonArray.smallPurchaseBtn[1] = 0;
+                toolTab = "null";
+
+            } else {
+                leanToolButtonArray.smallPurchaseBtn[1] = 2;
+            }
+        }
+        else if (leanToolButtonArray.newBtn[0].hover) {//click on new button
+            resetCheckbox(leanTool_New_Saw, leanTool_New_Drill, leanTool_New_Bender,
+                leanTool_New_Welding, leanTool_New_Grind, leanTool_New_Paint,
+                leanTool_New_Fabric, leanTool_New_Sewing, leanTool_New_Assembly);
+            toolTab = "new";
+            tabCost = 0;
+            if (leanToolButtonArray.newBtn[1] == 2) {
+                leanToolButtonArray.newBtn[1] = 0;
+                toolTab = "null";
+            } else {
+                leanToolButtonArray.newBtn[1] = 2;
+
+            }
+        }
+
+
+        /*if(checkboxPosA.hover&&checkboxPosA.selected==false)
+         checkboxPosA.selected=true;
+         else if(checkboxPosA.hover&&checkboxPosA.selected==true)
+         checkboxPosA.selected=false;
+
+         if(checkboxPosB.hover&&checkboxPosB.selected==false)
+         checkboxPosB.selected=true;
+         else if(checkboxPosB.hover&&checkboxPosB.selected==true)
+         checkboxPosB.selected=false;
+
+         if(checkboxPosC.hover&&checkboxPosC.selected==false)
+         checkboxPosC.selected=true;
+         else if(checkboxPosC.hover&&checkboxPosC.selected==true)
+         checkboxPosC.selected=false;
+
+         if(checkboxPosD.hover&&checkboxPosD.selected==false)
+         checkboxPosD.selected=true;
+         else if(checkboxPosD.hover&&checkboxPosD.selected==true)
+         checkboxPosD.selected=false;
+
+         if(checkboxPosE.hover&&checkboxPosE.selected==false)
+         checkboxPosE.selected=true;
+         else if(checkboxPosE.hover&&checkboxPosE.selected==true)
+         checkboxPosE.selected=false;
+
+         if(checkboxPosF.hover&&checkboxPosF.selected==false)
+         checkboxPosF.selected=true;
+         else if(checkboxPosF.hover&&checkboxPosF.selected==true)
+         checkboxPosF.selected=false;
+
+         if(checkboxPosG.hover&&checkboxPosG.selected==false)
+         checkboxPosG.selected=true;
+         else if(checkboxPosG.hover&&checkboxPosG.selected==true)
+         checkboxPosG.selected=fGlse;
+
+         if(checkboxPosH.hover&&checkboxPosH.selected==false)
+         checkboxPosH.selected=true;
+         else if(checkboxPosH.hover&&checkboxPosH.selected==true)
+         checkboxPosH.selected=false;
+
+         if(checkboxPosI.hover&&checkboxPosI.selected==false)
+         checkboxPosI.selected=true;
+         else if(checkboxPosI.hover&&checkboxPosI.selected==true)
+         checkboxPosI.selected=false;*/
+
+
+        if (leanTool_Cells == false && toolTab != "kanban")
+            leanToolButtonArray.kanbanBtn[1] = 2;
+        if (leanTool_Cells == true && toolTab != "kanban") {
+            leanToolButtonArray.kanbanBtn[1] = 0;
+            console.log("THIS SHOULD NOT BE called");
+        }
+        if (toolTab != "superMarket")
+            leanToolButtonArray.marketBtn[1] = 0;
+        if (leanTool_Cells == false && toolTab != "smallLot")
+            leanToolButtonArray.smallLotBtn[1] = 2;
+        if (leanTool_Cells == true && toolTab != "smallLot")
+            leanToolButtonArray.smallLotBtn[1] = 0;
+        if (toolTab != "fiveS")
+            leanToolButtonArray.fiveSBtn[1] = 0;
+        if (toolTab != "smed")
+            leanToolButtonArray.smedBtn[1] = 0;
+        if (toolTab != "quality")
+            leanToolButtonArray.qualityBtn[1] = 0;
+        if (toolTab != "cells")
+            leanToolButtonArray.cellsBtn[1] = 0;
+        if (leanTool_Cells == false && toolTab != "crossTrain")
+            leanToolButtonArray.crossTrainBtn[1] = 2;
+        if (leanTool_Cells == true && toolTab != "crossTrain")
+            leanToolButtonArray.crossTrainBtn[1] = 0;
+        if (leanTool_Cells == false && toolTab != "selfDirected")
+            leanToolButtonArray.selfDirectedBtn[1] = 2;
+        if (leanTool_Cells == true && toolTab != "selfDirected")
+            leanToolButtonArray.selfDirectedBtn[1] = 0;
+        if (toolTab != "pM")
+            leanToolButtonArray.PMBtn[1] = 0;
+        if (toolTab != "vendor")
+            leanToolButtonArray.vendorBtn[1] = 0;
+        if (toolTab != "smallPurchase")
+            leanToolButtonArray.smallPurchaseBtn[1] = 0;
+        if (toolTab != "new")
+            leanToolButtonArray.newBtn[1] = 0;
+
+        if (toolTab == "kanban"&&(tutorialLinear==false)) {
+
+            clickToolSelectorAll(100, "Kanban", leanTool_Kaban_Metal, leanTool_Kaban_Weld, 0,
+                0, 0, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_Kaban_Metal = checkboxPosA.leantool;
+                leanTool_Kaban_Weld = checkboxPosB.leantool;
+                resetCheckbox(leanTool_Kaban_Metal, leanTool_Kaban_Weld, 0, 0, 0, 0, 0, 0, 0);
+            }
+        }
+        else if (toolTab == "superMarket"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(200, "SuperMarket", leanTool_Market_Welding, leanTool_Market_Assembly, 0,
+                0, 0, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_Market_Welding = checkboxPosA.leantool;////// THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                leanTool_Market_Assembly = checkboxPosB.leantool;
+                resetCheckbox(leanTool_Market_Welding, leanTool_Market_Assembly, 0, 0, 0, 0, 0, 0, 0);
+            }
+        }
+        else if (toolTab == "smallLot"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(100, "Small Lot Size", leanTool_SmallLot_Metal, leanTool_SmallLot_Weld, leanTool_SmallLot_Fabric,
+                0, 0, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_SmallLot_Metal = checkboxPosA.leantool;
+                leanTool_SmallLot_Weld = checkboxPosB.leantool;
+                leanTool_SmallLot_Fabric = checkboxPosC.leantool;
+                resetCheckbox(leanTool_SmallLot_Metal, leanTool_SmallLot_Weld, leanTool_SmallLot_Fabric,
+                    0, 0, 0,
+                    0, 0, 0);
+            }
+        }
+        else if (toolTab == "fiveS"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(100, "5-S", leanTool_fiveS_Saw, leanTool_fiveS_Drill, leanTool_fiveS_Bender,
+                leanTool_fiveS_Welding, leanTool_fiveS_Grind, leanTool_fiveS_Paint,
+                leanTool_fiveS_Fabric, leanTool_fiveS_Sewing, leanTool_fiveS_Assembly);
+
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_fiveS_Saw = checkboxPosA.leantool;
+                leanTool_fiveS_Drill = checkboxPosB.leantool;
+                leanTool_fiveS_Bender = checkboxPosC.leantool;
+
+                leanTool_fiveS_Welding = checkboxPosD.leantool;
+                leanTool_fiveS_Grind = checkboxPosE.leantool;
+                leanTool_fiveS_Paint = checkboxPosF.leantool;
+
+                leanTool_fiveS_Fabric = checkboxPosG.leantool;
+                leanTool_fiveS_Sewing = checkboxPosH.leantool;
+                leanTool_fiveS_Assembly = checkboxPosI.leantool;
+                resetCheckbox(leanTool_fiveS_Saw, leanTool_fiveS_Drill, leanTool_fiveS_Bender,
+                    leanTool_fiveS_Welding, leanTool_fiveS_Grind, leanTool_fiveS_Paint,
+                    leanTool_fiveS_Fabric, leanTool_fiveS_Sewing, leanTool_fiveS_Assembly);
+            }
+        }
+        else if (toolTab == "smed"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(300, "SMED", leanTool_Smed_Saw, leanTool_Smed_Drill, leanTool_Smed_Bender,
+                leanTool_Smed_Welding, leanTool_Smed_Paint, leanTool_Smed_Sewing,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_Smed_Saw = checkboxPosA.leantool;
+                leanTool_Smed_Drill = checkboxPosB.leantool;
+                leanTool_Smed_Bender = checkboxPosC.leantool;
+                leanTool_Smed_Welding = checkboxPosD.leantool;
+                leanTool_Smed_Paint = checkboxPosE.leantool;
+                leanTool_Smed_Sewing = checkboxPosF.leantool;
+                resetCheckbox(leanTool_Smed_Saw, leanTool_Smed_Drill, leanTool_Smed_Bender,
+                    leanTool_Smed_Welding, leanTool_Smed_Paint, leanTool_Smed_Sewing,
+                    0, 0, 0);
+            }
+        }
+        else if (toolTab == "quality"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(200, "Source Quality", leanTool_Quality_Drill, leanTool_Quality_Bender, leanTool_Quality_Welding,
+                leanTool_Quality_Sewing, leanTool_Quality_Assembly, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_Quality_Drill = checkboxPosA.leantool;
+                leanTool_Quality_Bender = checkboxPosB.leantool;
+                leanTool_Quality_Welding = checkboxPosC.leantool;
+                leanTool_Quality_Sewing = checkboxPosD.leantool;
+                leanTool_Quality_Assembly = checkboxPosE.leantool;
+                resetCheckbox(leanTool_Quality_Drill, leanTool_Quality_Bender, leanTool_Quality_Welding,
+                    leanTool_Quality_Sewing, leanTool_Quality_Assembly, 0,
+                    0, 0, 0);
+            }
+        }
+        else if (toolTab == "cells"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(1000, "Cells", leanTool_Cells, 0, 0,
+                0, 0, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_Cells = checkboxPosA.leantool;
+                resetCheckbox(leanTool_Cells, 0, 0,
+                    0, 0, 0,
+                    0, 0, 0);
+                if (leanTool_Cells) {
+                    leanToolButtonArray.smallLotBtn[1] = 0;
+                    leanToolButtonArray.selfDirectedBtn[1] = 0;
+                    leanToolButtonArray.crossTrainBtn[1] = 0;
+                    leanToolButtonArray.kanbanBtn[1] = 0;
+                    console.log("THIS SHOULD NOT BE called");
+                }
+            }
+
+        }
+        else if (toolTab == "crossTrain"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(200, "Cross Training", leanTool_CrossTrain_Metal, leanTool_CrossTrain_Weld, leanTool_CrossTrain_Fabric,
+                0, 0, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_CrossTrain_Metal = checkboxPosA.leantool;
+                leanTool_CrossTrain_Weld = checkboxPosB.leantool;
+                leanTool_CrossTrain_Fabric = checkboxPosC.leantool;
+                resetCheckbox(leanTool_CrossTrain_Metal, leanTool_CrossTrain_Weld, leanTool_CrossTrain_Fabric,
+                    0, 0, 0,
+                    0, 0, 0);
+
+            }
+        }
+        else if (toolTab == "selfDirected"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(200, "Self-Directed Teams", leanTool_SelfDirected_Metal, leanTool_SelfDirected_Weld, leanTool_SelfDirected_Fabric,
+                0, 0, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_SelfDirected_Metal = checkboxPosA.leantool;
+                leanTool_SelfDirected_Weld = checkboxPosB.leantool;
+                leanTool_SelfDirected_Fabric = checkboxPosC.leantool;
+                resetCheckbox(leanTool_SelfDirected_Metal, leanTool_SelfDirected_Weld, leanTool_SelfDirected_Fabric,
+                    0, 0, 0,
+                    0, 0, 0);
+            }
+        }
+        else if (toolTab == "pM"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(200, "Equipment PM", leanTool_PM_Saw, leanTool_PM_Drill, leanTool_PM_Bender,
+                leanTool_PM_Welding, leanTool_PM_Paint, leanTool_PM_Sewing,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_PM_Saw = checkboxPosA.leantool;
+                leanTool_PM_Drill = checkboxPosB.leantool;
+                leanTool_PM_Bender = checkboxPosC.leantool;
+                leanTool_PM_Welding = checkboxPosD.leantool;
+                leanTool_PM_Paint = checkboxPosE.leantool;
+                leanTool_PM_Sewing = checkboxPosF.leantool;
+
+                resetCheckbox(leanTool_PM_Saw, leanTool_PM_Drill, leanTool_PM_Bender,
+                    leanTool_PM_Welding, leanTool_PM_Paint, leanTool_PM_Sewing,
+                    0, 0, 0);
+            }
+        }
+        else if (toolTab == "vendor"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(200, "Vendor Certification", leanTool_Vendor_Steel, leanTool_Vendor_Nylon, leanTool_Vendor_Bike,
+                leanTool_Vendor_Metal, 0, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_Vendor_Steel = checkboxPosA.leantool;
+                leanTool_Vendor_Nylon = checkboxPosB.leantool;
+                leanTool_Vendor_Bike = checkboxPosC.leantool;
+                leanTool_Vendor_Metal = checkboxPosD.leantool;
+                resetCheckbox(leanTool_Vendor_Steel, leanTool_Vendor_Nylon, leanTool_Vendor_Bike,
+                    leanTool_Vendor_Metal, 0, 0,
+                    0, 0, 0);
+            }
+        }
+        else if (toolTab == "smallPurchase"&&(tutorialLinear==false)) {
+            clickToolSelectorAll(100, "Small Purchase Lot Size", leanTool_SmallPurchase_Steel, leanTool_SmallPurchase_Nylon, leanTool_SmallPurchase_Bike,
+                leanTool_SmallPurchase_Metal, 0, 0,
+                0, 0, 0);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_SmallPurchase_Steel = checkboxPosA.leantool;
+                leanTool_SmallPurchase_Nylon = checkboxPosB.leantool;
+                leanTool_SmallPurchase_Bike = checkboxPosC.leantool;
+                leanTool_SmallPurchase_Metal = checkboxPosD.leantool;
+                resetCheckbox(leanTool_SmallPurchase_Steel, leanTool_SmallPurchase_Nylon, leanTool_SmallPurchase_Bike,
+                    leanTool_SmallPurchase_Metal, 0, 0,
+                    0, 0, 0);
+            }
+        }
+        else if (toolTab == "new") {
+            clickToolSelectorAll(700, "New Equipment", leanTool_New_Saw, leanTool_New_Drill, leanTool_New_Bender,
+                leanTool_New_Welding, leanTool_New_Grind, leanTool_New_Paint,
+                leanTool_New_Fabric, leanTool_New_Sewing, leanTool_New_Assembly);
+            if (buyBtn.hover) {
+                click.play();
+                leanTool_New_Saw = checkboxPosA.leantool;
+                leanTool_New_Drill = checkboxPosB.leantool;
+                leanTool_New_Bender = checkboxPosC.leantool;
+
+                leanTool_New_Welding = checkboxPosD.leantool;
+                leanTool_New_Grind = checkboxPosE.leantool;
+                leanTool_New_Paint = checkboxPosF.leantool;
+
+                leanTool_New_Fabric = checkboxPosG.leantool;
+                leanTool_New_Sewing = checkboxPosH.leantool;
+                leanTool_New_Assembly = checkboxPosI.leantool;
+                resetCheckbox(leanTool_New_Drill, leanTool_New_Bender,
+                    leanTool_New_Welding, leanTool_New_Grind, leanTool_New_Paint,
+                    leanTool_New_Fabric, leanTool_New_Sewing, leanTool_New_Assembly);
+            }
+
+
+        }
+
+        if ((posx < leanToolsView.x || posy < leanToolTab.y || posy > leanToolTab.y + leanToolTab.h)&&(tutorialLinear==false)) {
+            toolTab = "null";
+            subScreen = "office";
+        }
+
+
+    }
+////////////////////////////////////////////////////////////
+    else if ((currentScreen=="factory"&&subScreen == "office")||currentScreen>=17) {
+        if (leanToolsBtn.hover) {
+            click.play();
+            if (leanTool_Cells == false||currentScreen>=17) {
+                leanToolButtonArray.smallLotBtn[1] = 2;
+                leanToolButtonArray.selfDirectedBtn[1] = 2;
+                leanToolButtonArray.crossTrainBtn[1] = 2;
+                leanToolButtonArray.kanbanBtn[1] = 2;
+            }
+            if(currentScreen=="factory")
+                subScreen = "leanTools";
+        }
+        if (calendarBtn.hover) {
+            click.play();
+            subScreen = "leanTools";
+        }
+        console.log("here");
+        if (reportBtn.hover) {
+            click.play();
+            blue = true;
+            purple = false;
+            subScreen = "monthlyReport";
+        }
+    }
+    if (subScreen == "calendar") {
+        /*    if (calendarView.hover == false) {
+         subScreen = "office";
+         }*/
+    }
+    if (subScreen == "leanTools"&&(tutorialLinear==false)) {
+        if (!leanToolsView.hover) {
+            //subScreen = "office";
+        }
+    }
     if (subScreen == "monthlyReport") {
         if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
             click.play();
@@ -6250,7 +7170,6 @@ function onClick(evt) {
             //console.log("paint previous 2nd month"+prevInventory_Paint);
 
             if(monthCounter<11) {
-
                 monthCounter++;
                 problemListUpdate();
                 updateMonth(monthData[monthCounter]);
@@ -6271,705 +7190,82 @@ function onClick(evt) {
             subScreen = "office";
         }
     }
-    if (subScreen == "leanTools") {
+    //same2
+    if ((!reportView.hover) && subScreen=="problemList") {
+        subScreen = "office";
+    }
 
-        if (nextMonthBtn.hover) {
+    //Station Report Click
+    if (subScreen=="sawView") {
+        if (stationReportbtn.hover) {
             click.play();
-            noise.pause();
-            noise.currentTime = 0;
-
-
-            //click of next month button will change month, update month stats, and show the new report
-
-            var sawTemp = mitreSaw_FinalInventory();
-            var drillTemp = drillPress_FinalInventory();
-            var bendTemp = tubeBender_FinalInventory();
-            var weldTemp = welding_FinalInventory();
-            var grindTemp = grinder_FinalInventory();
-            var paintTemp = paintBooth_FinalInventory();
-            var fabricTemp = fabricCut_FinalInventory();
-            var sewingTemp = sewing_FinalInventory();
-            var assemblyTemp = assembly_FinalInventory() - monthChairsSold();
-
-            //Inventory temp
-            var tempNineteenbyoneTube = nineteenbyoneTube_ChairQuantity();
-            var tempTwentyfivebyoneTube = twentyfivebyoneTube_ChairQuantity();
-            var tempThirtyfivebytwoTube = thirtyfivebytwoTube_ChairQuantity();
-            var tempNylonFabric_PrevChair = nylonFabric_ChairQuantity();
-            var tempCasterWheel_PrevChair = casterWheel_ChairQuantity();
-            var tempRearBikeWheel_PrevChair = rearBikeWheel_ChairQuantity();
-            var tempHandle_prevChair = handle_ChairQuantity();
-            var tempFender_PrevChair = fender_ChairQuantity();
-            var tempFootrestPlate_PrevChair = footrestPlate_ChairQuantity();
-            var tempBrakeLever_PrevChair = brakeLever_ChairQuantity();
-
-            //inventory update
-            nineteenbyoneTube_PrevChair = tempNineteenbyoneTube;
-            twentyfivebyoneTube_PrevChair = tempTwentyfivebyoneTube;
-            thirtyfivebytwoTube_PrevChair = tempThirtyfivebytwoTube;
-            nylonFabric_PrevChair = tempNylonFabric_PrevChair;
-            casterWheel_PrevChair = tempCasterWheel_PrevChair;
-            rearBikeWheel_PrevChair = tempRearBikeWheel_PrevChair;
-            handle_PrevChair = tempHandle_prevChair;
-            fender_PrevChair = tempFender_PrevChair;
-            footrestPlate_PrevChair = tempFootrestPlate_PrevChair;
-            brakeLever_PrevChair = tempBrakeLever_PrevChair;
-
-
-            //prev inventory update
-            prevInventory_Saw = sawTemp;
-            prevInventory_Drill = drillTemp;
-            prevInventory_Bender = bendTemp;
-            prevInventory_Weld = weldTemp;
-            prevInventory_Grind = grindTemp;
-            prevInventory_Paint = paintTemp;
-            prevInventory_Fabric = fabricTemp;
-            prevInventory_Sewing = sewingTemp;
-            prevInventory_Assembly = assemblyTemp;
-
-
-            //console.log("paint previous"+prevInventory_Paint);
-            //console.log("paint previous 2nd month"+prevInventory_Paint);
-
-            if(monthCounter<11) {
-
-                monthCounter++;
-                problemListUpdate();
-                updateMonth(monthData[monthCounter]);
-                createConsoleTable();
-                leanToolAllowance = 1000;
-                currentLeanPurchase = "null";
-                currentLeanPurchaseSecond = "null";
-                if(monthCounter>6){
-                    currentLeanPurchase = "unavailable";
-                    currentLeanPurchaseSecond = "unavailable";
-                }
-                draw(ctx, office, 0, 0);
-                subScreen = "monthlyReport";
-                blue = true;
-                purple = false;
-                noise.play();
-            }
-        }
-        if (closeBtn.hover) {
-            subScreen = "office";
+            subScreen = "sawReport";
         }
     }
-    else if (currentScreen == "credits") {
-        currentScreen = "mainMenu";
-        subScreen = "null"
-    }
-    else if (currentScreen == "mainMenu") {
-        if (creditBtn.hover){
+    if (subScreen=="drillView") {
+        if (stationReportbtn.hover) {
             click.play();
-            currentScreen = "credits";
-        }
-        else if (startBtn.hover) {
-            noise.play();
-            currentScreen = "factory";
-            subScreen = "office";
+            subScreen = "drillReport";
         }
     }
-    if (currentScreen == "factory") {
-        if(tutorialEndBtn.hover){
-            tutorial=false;
-        }
-
-        for (var i = 0; i < 9; i++) {
-            if (station[i].hover) {
-                click.play();
-                subScreen = station[i].subScreen;
-            }
-        }
-        if (desk.hover) {
+    if (subScreen=="bendView") {
+        if (stationReportbtn.hover) {
             click.play();
-            currentScreen = "factory";
-            subScreen = "office";
-        }/////////////////////////////////////////////////////////////////////////////////
-        else if (subScreen == "leanTools") {
-
-            //Selection of subscreens from the lean tools page tooltabs
-            if (leanToolButtonArray.kanbanBtn[0].hover && leanTool_Cells) {//Button for Kanban (kaban in our code)
-                resetCheckbox(leanTool_Kaban_Metal, leanTool_Kaban_Weld, 0, 0, 0, 0, 0, 0, 0);
-                toolTab = "kanban";
-                tabCost = 0;
-                if (leanToolButtonArray.kanbanBtn[1] == 2) {
-                    //console.log("Test click for kanban");
-                    leanToolButtonArray.kanbanBtn[1] = 0;
-                    toolTab = "null";
-                } else {
-                    //console.log("Test click for kanban 2");
-                    //console.log(leanToolButtonArray.kanbanBtn[1]);
-                    leanToolButtonArray.kanbanBtn[1] = 2;
-                }
-            }
-            else if (leanToolButtonArray.marketBtn[0].hover) {// Button for supermarket
-                resetCheckbox(leanTool_Market_Welding, leanTool_Market_Assembly, 0, 0, 0, 0, 0, 0, 0);
-                toolTab = "superMarket";
-                tabCost = 0;
-                if (leanToolButtonArray.marketBtn[1] == 2) {
-                    leanToolButtonArray.marketBtn[1] = 0;
-                    toolTab = "null";
-                } else {
-                    leanToolButtonArray.marketBtn[1] = 2;
-
-                }
-            }
-            else if (leanToolButtonArray.smallLotBtn[0].hover) {//Button for smallLot
-                resetCheckbox(leanTool_SmallLot_Metal, leanTool_SmallLot_Weld, leanTool_SmallLot_Fabric, 0, 0, 0, 0, 0, 0);
-                toolTab = "smallLot";
-                tabCost = 0;
-                if (leanToolButtonArray.smallLotBtn[1] == 2) {
-                    leanToolButtonArray.smallLotBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.smallLotBtn[1] = 2;
-                }
-            }
-            else if (leanToolButtonArray.fiveSBtn[0].hover) {//Button for fiveS 5S
-                resetCheckbox(leanTool_fiveS_Saw, leanTool_fiveS_Drill, leanTool_fiveS_Bender,
-                    leanTool_fiveS_Welding, leanTool_fiveS_Grind, leanTool_fiveS_Paint,
-                    leanTool_fiveS_Fabric, leanTool_fiveS_Sewing, leanTool_fiveS_Assembly);
-                toolTab = "fiveS";
-                tabCost = 0;
-                if (leanToolButtonArray.fiveSBtn[1] == 2) {
-                    leanToolButtonArray.fiveSBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.fiveSBtn[1] = 2;
-
-                }
-            }
-            else if (leanToolButtonArray.smedBtn[0].hover) {//click on smed button
-                resetCheckbox(leanTool_Smed_Saw, leanTool_Smed_Drill, leanTool_Smed_Bender,
-                    leanTool_Smed_Welding, leanTool_Smed_Paint, leanTool_Smed_Sewing, 0, 0, 0);
-                toolTab = "smed";
-                tabCost = 0;
-                if (leanToolButtonArray.smedBtn[1] == 2) {
-                    leanToolButtonArray.smedBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.smedBtn[1] = 2;
-
-                }
-
-            }
-            else if (leanToolButtonArray.qualityBtn[0].hover) {//click on quality button
-                resetCheckbox(leanTool_Quality_Drill, leanTool_Quality_Bender, leanTool_Quality_Welding,
-                    leanTool_Quality_Sewing, leanTool_Quality_Assembly, 0,
-                    0, 0, 0);
-                toolTab = "quality";
-                tabCost = 0;
-                console.log("quality button pressed");
-                if (leanToolButtonArray.qualityBtn[1] == 2) {
-                    leanToolButtonArray.qualityBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.qualityBtn[1] = 2;
-                }
-            }
-            else if (leanToolButtonArray.cellsBtn[0].hover) {//click on cells button
-                resetCheckbox(leanTool_Cells, 0, 0, 0, 0, 0, 0, 0, 0);
-                toolTab = "cells";
-                tabCost = 0;
-                if (leanToolButtonArray.cellsBtn[1] == 2) {
-                    leanToolButtonArray.cellsBtn[1] = 0;
-                    toolTab = "null";
-                } else {
-                    leanToolButtonArray.cellsBtn[1] = 2;
-
-                }
-            }
-            else if (leanToolButtonArray.crossTrainBtn[0].hover) {//click on crossTrain button
-                resetCheckbox(leanTool_CrossTrain_Metal, leanTool_CrossTrain_Weld, leanTool_CrossTrain_Fabric, 0, 0, 0, 0, 0, 0);
-                toolTab = "crossTrain";
-                tabCost = 0;
-                if (leanToolButtonArray.crossTrainBtn[1] == 2) {
-                    leanToolButtonArray.crossTrainBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.crossTrainBtn[1] = 2;
-                }
-            }
-            else if (leanToolButtonArray.selfDirectedBtn[0].hover) {//click on selfDirected button
-                resetCheckbox(leanTool_SelfDirected_Metal, leanTool_SelfDirected_Weld, leanTool_SelfDirected_Fabric, 0, 0, 0, 0, 0, 0);
-                toolTab = "selfDirected";
-                tabCost = 0;
-                if (leanToolButtonArray.selfDirectedBtn[1] == 2) {
-                    leanToolButtonArray.selfDirectedBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.selfDirectedBtn[1] = 2;
-                }
-            }
-            else if (leanToolButtonArray.PMBtn[0].hover) {//click on PM button
-                resetCheckbox(leanTool_PM_Saw, leanTool_PM_Drill, leanTool_PM_Bender,
-                    leanTool_PM_Welding, leanTool_PM_Paint, leanTool_PM_Sewing,
-                    0, 0, 0);
-                toolTab = "pM";
-                tabCost = 0;
-                if (leanToolButtonArray.PMBtn[1] == 2) {
-                    leanToolButtonArray.PMBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.PMBtn[1] = 2;
-                }
-            }
-            else if (leanToolButtonArray.vendorBtn[0].hover) {//click on vendor button
-                resetCheckbox(leanTool_Vendor_Steel, leanTool_Vendor_Nylon, leanTool_Vendor_Bike,
-                    leanTool_Vendor_Metal, 0, 0,
-                    0, 0, 0);
-                toolTab = "vendor";
-                tabCost = 0;
-                if (leanToolButtonArray.vendorBtn[1] == 2) {
-                    leanToolButtonArray.vendorBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.vendorBtn[1] = 2;
-                }
-            }
-            else if (leanToolButtonArray.smallPurchaseBtn[0].hover) {//click on smallPurchase button
-                resetCheckbox(leanTool_SmallPurchase_Steel, leanTool_SmallPurchase_Nylon, leanTool_SmallPurchase_Bike,
-                    leanTool_SmallPurchase_Metal, 0, 0,
-                    0, 0, 0);
-                toolTab = "smallPurchase";
-                tabCost = 0;
-                if (leanToolButtonArray.smallPurchaseBtn[1] == 2) {
-                    leanToolButtonArray.smallPurchaseBtn[1] = 0;
-                    toolTab = "null";
-
-                } else {
-                    leanToolButtonArray.smallPurchaseBtn[1] = 2;
-                }
-            }
-            else if (leanToolButtonArray.newBtn[0].hover) {//click on new button
-                resetCheckbox(leanTool_New_Saw, leanTool_New_Drill, leanTool_New_Bender,
-                    leanTool_New_Welding, leanTool_New_Grind, leanTool_New_Paint,
-                    leanTool_New_Fabric, leanTool_New_Sewing, leanTool_New_Assembly);
-                toolTab = "new";
-                tabCost = 0;
-                if (leanToolButtonArray.newBtn[1] == 2) {
-                    leanToolButtonArray.newBtn[1] = 0;
-                    toolTab = "null";
-                } else {
-                    leanToolButtonArray.newBtn[1] = 2;
-
-                }
-            }
-
-
-            /*if(checkboxPosA.hover&&checkboxPosA.selected==false)
-             checkboxPosA.selected=true;
-             else if(checkboxPosA.hover&&checkboxPosA.selected==true)
-             checkboxPosA.selected=false;
-
-             if(checkboxPosB.hover&&checkboxPosB.selected==false)
-             checkboxPosB.selected=true;
-             else if(checkboxPosB.hover&&checkboxPosB.selected==true)
-             checkboxPosB.selected=false;
-
-             if(checkboxPosC.hover&&checkboxPosC.selected==false)
-             checkboxPosC.selected=true;
-             else if(checkboxPosC.hover&&checkboxPosC.selected==true)
-             checkboxPosC.selected=false;
-
-             if(checkboxPosD.hover&&checkboxPosD.selected==false)
-             checkboxPosD.selected=true;
-             else if(checkboxPosD.hover&&checkboxPosD.selected==true)
-             checkboxPosD.selected=false;
-
-             if(checkboxPosE.hover&&checkboxPosE.selected==false)
-             checkboxPosE.selected=true;
-             else if(checkboxPosE.hover&&checkboxPosE.selected==true)
-             checkboxPosE.selected=false;
-
-             if(checkboxPosF.hover&&checkboxPosF.selected==false)
-             checkboxPosF.selected=true;
-             else if(checkboxPosF.hover&&checkboxPosF.selected==true)
-             checkboxPosF.selected=false;
-
-             if(checkboxPosG.hover&&checkboxPosG.selected==false)
-             checkboxPosG.selected=true;
-             else if(checkboxPosG.hover&&checkboxPosG.selected==true)
-             checkboxPosG.selected=fGlse;
-
-             if(checkboxPosH.hover&&checkboxPosH.selected==false)
-             checkboxPosH.selected=true;
-             else if(checkboxPosH.hover&&checkboxPosH.selected==true)
-             checkboxPosH.selected=false;
-
-             if(checkboxPosI.hover&&checkboxPosI.selected==false)
-             checkboxPosI.selected=true;
-             else if(checkboxPosI.hover&&checkboxPosI.selected==true)
-             checkboxPosI.selected=false;*/
-
-
-            if (leanTool_Cells == false && toolTab != "kanban")
-                leanToolButtonArray.kanbanBtn[1] = 2;
-            if (leanTool_Cells == true && toolTab != "kanban")
-                leanToolButtonArray.kanbanBtn[1] = 0;
-            if (toolTab != "superMarket")
-                leanToolButtonArray.marketBtn[1] = 0;
-            if (leanTool_Cells == false && toolTab != "smallLot")
-                leanToolButtonArray.smallLotBtn[1] = 2;
-            if (leanTool_Cells == true && toolTab != "smallLot")
-                leanToolButtonArray.smallLotBtn[1] = 0;
-            if (toolTab != "fiveS")
-                leanToolButtonArray.fiveSBtn[1] = 0;
-            if (toolTab != "smed")
-                leanToolButtonArray.smedBtn[1] = 0;
-            if (toolTab != "quality")
-                leanToolButtonArray.qualityBtn[1] = 0;
-            if (toolTab != "cells")
-                leanToolButtonArray.cellsBtn[1] = 0;
-            if (leanTool_Cells == false && toolTab != "crossTrain")
-                leanToolButtonArray.crossTrainBtn[1] = 2;
-            if (leanTool_Cells == true && toolTab != "crossTrain")
-                leanToolButtonArray.crossTrainBtn[1] = 0;
-            if (leanTool_Cells == false && toolTab != "selfDirected")
-                leanToolButtonArray.selfDirectedBtn[1] = 2;
-            if (leanTool_Cells == true && toolTab != "selfDirected")
-                leanToolButtonArray.selfDirectedBtn[1] = 0;
-            if (toolTab != "pM")
-                leanToolButtonArray.PMBtn[1] = 0;
-            if (toolTab != "vendor")
-                leanToolButtonArray.vendorBtn[1] = 0;
-            if (toolTab != "smallPurchase")
-                leanToolButtonArray.smallPurchaseBtn[1] = 0;
-            if (toolTab != "new")
-                leanToolButtonArray.newBtn[1] = 0;
-
-            if (toolTab == "kanban") {
-
-                clickToolSelectorAll(100, "Kanban", leanTool_Kaban_Metal, leanTool_Kaban_Weld, 0,
-                    0, 0, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_Kaban_Metal = checkboxPosA.leantool;
-                    leanTool_Kaban_Weld = checkboxPosB.leantool;
-                    resetCheckbox(leanTool_Kaban_Metal, leanTool_Kaban_Weld, 0, 0, 0, 0, 0, 0, 0);
-                }
-            }
-            else if (toolTab == "superMarket") {
-                clickToolSelectorAll(200, "SuperMarket", leanTool_Market_Welding, leanTool_Market_Assembly, 0,
-                    0, 0, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_Market_Welding = checkboxPosA.leantool;////// THIS WORKS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    leanTool_Market_Assembly = checkboxPosB.leantool;
-                    resetCheckbox(leanTool_Market_Welding, leanTool_Market_Assembly, 0, 0, 0, 0, 0, 0, 0);
-                }
-            }
-            else if (toolTab == "smallLot") {
-                clickToolSelectorAll(100, "Small Lot Size", leanTool_SmallLot_Metal, leanTool_SmallLot_Weld, leanTool_SmallLot_Fabric,
-                    0, 0, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_SmallLot_Metal = checkboxPosA.leantool;
-                    leanTool_SmallLot_Weld = checkboxPosB.leantool;
-                    leanTool_SmallLot_Fabric = checkboxPosC.leantool;
-                    resetCheckbox(leanTool_SmallLot_Metal, leanTool_SmallLot_Weld, leanTool_SmallLot_Fabric,
-                        0, 0, 0,
-                        0, 0, 0);
-                }
-            }
-            else if (toolTab == "fiveS") {
-                clickToolSelectorAll(100, "5-S", leanTool_fiveS_Saw, leanTool_fiveS_Drill, leanTool_fiveS_Bender,
-                    leanTool_fiveS_Welding, leanTool_fiveS_Grind, leanTool_fiveS_Paint,
-                    leanTool_fiveS_Fabric, leanTool_fiveS_Sewing, leanTool_fiveS_Assembly);
-
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_fiveS_Saw = checkboxPosA.leantool;
-                    leanTool_fiveS_Drill = checkboxPosB.leantool;
-                    leanTool_fiveS_Bender = checkboxPosC.leantool;
-
-                    leanTool_fiveS_Welding = checkboxPosD.leantool;
-                    leanTool_fiveS_Grind = checkboxPosE.leantool;
-                    leanTool_fiveS_Paint = checkboxPosF.leantool;
-
-                    leanTool_fiveS_Fabric = checkboxPosG.leantool;
-                    leanTool_fiveS_Sewing = checkboxPosH.leantool;
-                    leanTool_fiveS_Assembly = checkboxPosI.leantool;
-                    resetCheckbox(leanTool_fiveS_Saw, leanTool_fiveS_Drill, leanTool_fiveS_Bender,
-                        leanTool_fiveS_Welding, leanTool_fiveS_Grind, leanTool_fiveS_Paint,
-                        leanTool_fiveS_Fabric, leanTool_fiveS_Sewing, leanTool_fiveS_Assembly);
-                }
-            }
-            else if (toolTab == "smed") {
-                clickToolSelectorAll(300, "SMED", leanTool_Smed_Saw, leanTool_Smed_Drill, leanTool_Smed_Bender,
-                    leanTool_Smed_Welding, leanTool_Smed_Paint, leanTool_Smed_Sewing,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_Smed_Saw = checkboxPosA.leantool;
-                    leanTool_Smed_Drill = checkboxPosB.leantool;
-                    leanTool_Smed_Bender = checkboxPosC.leantool;
-                    leanTool_Smed_Welding = checkboxPosD.leantool;
-                    leanTool_Smed_Paint = checkboxPosE.leantool;
-                    leanTool_Smed_Sewing = checkboxPosF.leantool;
-                    resetCheckbox(leanTool_Smed_Saw, leanTool_Smed_Drill, leanTool_Smed_Bender,
-                        leanTool_Smed_Welding, leanTool_Smed_Paint, leanTool_Smed_Sewing,
-                        0, 0, 0);
-                }
-            }
-            else if (toolTab == "quality") {
-                clickToolSelectorAll(200, "Source Quality", leanTool_Quality_Drill, leanTool_Quality_Bender, leanTool_Quality_Welding,
-                    leanTool_Quality_Sewing, leanTool_Quality_Assembly, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_Quality_Drill = checkboxPosA.leantool;
-                    leanTool_Quality_Bender = checkboxPosB.leantool;
-                    leanTool_Quality_Welding = checkboxPosC.leantool;
-                    leanTool_Quality_Sewing = checkboxPosD.leantool;
-                    leanTool_Quality_Assembly = checkboxPosE.leantool;
-                    resetCheckbox(leanTool_Quality_Drill, leanTool_Quality_Bender, leanTool_Quality_Welding,
-                        leanTool_Quality_Sewing, leanTool_Quality_Assembly, 0,
-                        0, 0, 0);
-                }
-            }
-            else if (toolTab == "cells") {
-                clickToolSelectorAll(1000, "Cells", leanTool_Cells, 0, 0,
-                    0, 0, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_Cells = checkboxPosA.leantool;
-                    resetCheckbox(leanTool_Cells, 0, 0,
-                        0, 0, 0,
-                        0, 0, 0);
-                    if (leanTool_Cells) {
-                        leanToolButtonArray.smallLotBtn[1] = 0;
-                        leanToolButtonArray.selfDirectedBtn[1] = 0;
-                        leanToolButtonArray.crossTrainBtn[1] = 0;
-                        leanToolButtonArray.kanbanBtn[1] = 0;
-                    }
-                }
-
-            }
-            else if (toolTab == "crossTrain") {
-                clickToolSelectorAll(200, "Cross Training", leanTool_CrossTrain_Metal, leanTool_CrossTrain_Weld, leanTool_CrossTrain_Fabric,
-                    0, 0, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_CrossTrain_Metal = checkboxPosA.leantool;
-                    leanTool_CrossTrain_Weld = checkboxPosB.leantool;
-                    leanTool_CrossTrain_Fabric = checkboxPosC.leantool;
-                    resetCheckbox(leanTool_CrossTrain_Metal, leanTool_CrossTrain_Weld, leanTool_CrossTrain_Fabric,
-                        0, 0, 0,
-                        0, 0, 0);
-
-                }
-            }
-            else if (toolTab == "selfDirected") {
-                clickToolSelectorAll(200, "Self-Directed Teams", leanTool_SelfDirected_Metal, leanTool_SelfDirected_Weld, leanTool_SelfDirected_Fabric,
-                    0, 0, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_SelfDirected_Metal = checkboxPosA.leantool;
-                    leanTool_SelfDirected_Weld = checkboxPosB.leantool;
-                    leanTool_SelfDirected_Fabric = checkboxPosC.leantool;
-                    resetCheckbox(leanTool_SelfDirected_Metal, leanTool_SelfDirected_Weld, leanTool_SelfDirected_Fabric,
-                        0, 0, 0,
-                        0, 0, 0);
-                }
-            }
-            else if (toolTab == "pM") {
-                clickToolSelectorAll(200, "Equipment PM", leanTool_PM_Saw, leanTool_PM_Drill, leanTool_PM_Bender,
-                    leanTool_PM_Welding, leanTool_PM_Paint, leanTool_PM_Sewing,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_PM_Saw = checkboxPosA.leantool;
-                    leanTool_PM_Drill = checkboxPosB.leantool;
-                    leanTool_PM_Bender = checkboxPosC.leantool;
-                    leanTool_PM_Welding = checkboxPosD.leantool;
-                    leanTool_PM_Paint = checkboxPosE.leantool;
-                    leanTool_PM_Sewing = checkboxPosF.leantool;
-
-                    resetCheckbox(leanTool_PM_Saw, leanTool_PM_Drill, leanTool_PM_Bender,
-                        leanTool_PM_Welding, leanTool_PM_Paint, leanTool_PM_Sewing,
-                        0, 0, 0);
-                }
-            }
-            else if (toolTab == "vendor") {
-                clickToolSelectorAll(200, "Vendor Certification", leanTool_Vendor_Steel, leanTool_Vendor_Nylon, leanTool_Vendor_Bike,
-                    leanTool_Vendor_Metal, 0, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_Vendor_Steel = checkboxPosA.leantool;
-                    leanTool_Vendor_Nylon = checkboxPosB.leantool;
-                    leanTool_Vendor_Bike = checkboxPosC.leantool;
-                    leanTool_Vendor_Metal = checkboxPosD.leantool;
-                    resetCheckbox(leanTool_Vendor_Steel, leanTool_Vendor_Nylon, leanTool_Vendor_Bike,
-                        leanTool_Vendor_Metal, 0, 0,
-                        0, 0, 0);
-                }
-            }
-            else if (toolTab == "smallPurchase") {
-                clickToolSelectorAll(100, "Small Purchase Lot Size", leanTool_SmallPurchase_Steel, leanTool_SmallPurchase_Nylon, leanTool_SmallPurchase_Bike,
-                    leanTool_SmallPurchase_Metal, 0, 0,
-                    0, 0, 0);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_SmallPurchase_Steel = checkboxPosA.leantool;
-                    leanTool_SmallPurchase_Nylon = checkboxPosB.leantool;
-                    leanTool_SmallPurchase_Bike = checkboxPosC.leantool;
-                    leanTool_SmallPurchase_Metal = checkboxPosD.leantool;
-                    resetCheckbox(leanTool_SmallPurchase_Steel, leanTool_SmallPurchase_Nylon, leanTool_SmallPurchase_Bike,
-                        leanTool_SmallPurchase_Metal, 0, 0,
-                        0, 0, 0);
-                }
-            }
-            else if (toolTab == "new") {
-                clickToolSelectorAll(700, "New Equipment", leanTool_New_Saw, leanTool_New_Drill, leanTool_New_Bender,
-                    leanTool_New_Welding, leanTool_New_Grind, leanTool_New_Paint,
-                    leanTool_New_Fabric, leanTool_New_Sewing, leanTool_New_Assembly);
-                if (buyBtn.hover) {
-                    click.play();
-                    leanTool_New_Saw = checkboxPosA.leantool;
-                    leanTool_New_Drill = checkboxPosB.leantool;
-                    leanTool_New_Bender = checkboxPosC.leantool;
-
-                    leanTool_New_Welding = checkboxPosD.leantool;
-                    leanTool_New_Grind = checkboxPosE.leantool;
-                    leanTool_New_Paint = checkboxPosF.leantool;
-
-                    leanTool_New_Fabric = checkboxPosG.leantool;
-                    leanTool_New_Sewing = checkboxPosH.leantool;
-                    leanTool_New_Assembly = checkboxPosI.leantool;
-                    resetCheckbox(leanTool_New_Drill, leanTool_New_Bender,
-                        leanTool_New_Welding, leanTool_New_Grind, leanTool_New_Paint,
-                        leanTool_New_Fabric, leanTool_New_Sewing, leanTool_New_Assembly);
-                }
-
-
-            }
-
-            if (posx < leanToolsView.x || posy < leanToolTab.y || posy > leanToolTab.y + leanToolTab.h) {
-                toolTab = "null";
-                subScreen = "office";
-            }
-
-
+            subScreen = "bendReport";
         }
-        ///////////////////////////////////////////////////////////
-        else if (subScreen == "office") {
-            if (leanToolsBtn.hover) {
-                click.play();
-                if (leanTool_Cells == false) {
-                    leanToolButtonArray.smallLotBtn[1] = 2;
-                    leanToolButtonArray.selfDirectedBtn[1] = 2;
-                    leanToolButtonArray.crossTrainBtn[1] = 2;
-                    leanToolButtonArray.kanbanBtn[1] = 2;
-                }
-                subScreen = "leanTools";
-            }
-            if (calendarBtn.hover) {
-                click.play();
-                subScreen = "leanTools";
-            }
-            if (reportBtn.hover) {
-                click.play();
-                blue = true;
-                purple = false;
-                subScreen = "monthlyReport";
-            }
-        }
-        if (subScreen == "calendar") {
-        /*    if (calendarView.hover == false) {
-             subScreen = "office";
-             }*/
-        }
-        if (subScreen == "leanTools") {
-            if (!leanToolsView.hover) {
-                //subScreen = "office";
-            }
-        }
-        if (subScreen=="sawView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "sawReport";
-            }
-        }
-        if (subScreen=="drillView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "drillReport";
-            }
-        }
-        if (subScreen=="bendView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "bendReport";
-            }
-        }
-        if (subScreen=="weldView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "weldReport";
-            }
-        }
-        if (subScreen=="grindView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "grindReport";
-            }
-        }
-        if (subScreen=="paintView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "paintReport";
-            }
-        }
-        if (subScreen=="assemblyView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "assemblyReport";
-            }
-        }
-        if (subScreen=="fabricView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "fabricReport";
-            }
-        }
-        if (subScreen=="sewingView") {
-            if (stationReportbtn.hover) {
-                click.play();
-                subScreen = "sewingReport";
-            }
-        }
-        
-        if (blueTab.hover) {
-            click.play();
-            blue = true;
-            purple = false;
-            subScreen = "monthlyReport";
-        }
-        if (purpleTab.hover) {
-            click.play();
-            purple = true;
-            blue = false;
-            subScreen = "problemList";
-        }
-
     }
+    if (subScreen=="weldView") {
+        if (stationReportbtn.hover) {
+            click.play();
+            subScreen = "weldReport";
+        }
+    }
+    if (subScreen=="grindView") {
+        if (stationReportbtn.hover) {
+            click.play();
+            subScreen = "grindReport";
+        }
+    }
+    if (subScreen=="paintView") {
+        if (stationReportbtn.hover) {
+            click.play();
+            subScreen = "paintReport";
+        }
+    }
+    if (subScreen=="assemblyView") {
+        if (stationReportbtn.hover) {
+            click.play();
+            subScreen = "assemblyReport";
+        }
+    }
+    if (subScreen=="fabricView") {
+        if (stationReportbtn.hover) {
+            click.play();
+            subScreen = "fabricReport";
+        }
+    }
+    if (subScreen=="sewingView") {
+        if (stationReportbtn.hover) {
+            click.play();
+            subScreen = "sewingReport";
+        }
+    }
+    //same
+    if (invBlueTab.hover&&(tutorialLinear==false)&&subScreen=="problemList") {
+        click.play();
+        blue = true;
+        purple = false;
+        subScreen = "monthlyReport";
+    }
+    if (invPurpleTab.hover&&(tutorialLinear==false)&&subScreen=="monthlyReport") {
+        click.play();
+        purple = true;
+        blue = false;
+        subScreen = "problemList";
+    }
+
+
+}
 
 }
 
