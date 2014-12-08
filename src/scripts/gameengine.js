@@ -992,12 +992,7 @@ loadImg(checkboxPosI);
 
 // Creating loading bar & length
 var startingX = 400;
-var loadingBar = [];
-for (var i = 0; i < 9; i++) {
-    var x = new loadingPeg(startingX + 50 * i);
-    loadImg(x);
-    loadingBar[i] = x;
-}
+
 
 /*
  //problem list function
@@ -1393,10 +1388,10 @@ loadImg(buyBtn);
 var closeBtn = new gameObject(820, 300, 100, 100, 'Art_Assets/game_screen/gui/img_checkBox.png', 0);
 loadImg(closeBtn);
 
-var tutorialEndBtn = new gameObject(610, 350, 50, 100, 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0001_NO_up.png', 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0001_NO_down.png');
+var tutorialEndBtn = new gameObject(610, 450, 50, 100, 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0001_NO_up.png', 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0001_NO_down.png');
 loadImg(tutorialEndBtn);
 
-var tutorialStartBtn = new gameObject(tutorialEndBtn.x+175, tutorialEndBtn.y, 50, 100, 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0002_YES_up.png', 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0002_YES_down.png');
+var tutorialStartBtn = new gameObject(tutorialEndBtn.x+175, tutorialEndBtn.y, 50, 100, 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0002_YES_down.png', 'Art_Assets/main_menu/Tutorial prompts/Tutorial_0002_YES_up.png');
 loadImg(tutorialStartBtn);
 
 var leanToolButtonArray = {
