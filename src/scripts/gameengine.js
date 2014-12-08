@@ -1605,7 +1605,7 @@ loadImg(officeDesk);
 
 var note = new gameObject(0, 0, 500, 500, 'Art_Assets/game_screen/toolTip.png', 0);
 loadImg(note);
-var stationReportbtn = new gameObject( 800, 450, 150, 100, "Art_Assets/game_screen/menu_MonthlyReport.png", 0);
+var stationReportbtn = new gameObject( 900, 525, 75, 50, "Art_Assets/game_screen/menu_MonthlyReport.png", 0);
 loadImg(stationReportbtn);
 
 var stationReport = new gameObject(800, 10, 750, 550, "Art_Assets/game_screen/StationReport.png", 0);
