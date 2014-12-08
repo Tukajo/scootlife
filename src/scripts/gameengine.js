@@ -92,10 +92,13 @@ bossScaredAnm.src = "Art_Assets/characters/boss/newAnims/bossscaredmed.png";
 
 var bossWalkAnm = new Image();
 bossWalkAnm.src = "Art_Assets/characters/boss/newAnims/bosstwostepmed.png";
+var bossNormalAnm = new Image();
+bossNormalAnm.src = "Art_Assets/characters/boss/newAnims/bossnormalmed.png";
 var bossAnms = {
     bossWalkAnim: [bossWalkAnm,458,810,10,12,112],
-    bossScaredAnim: [bossScaredAnm,237,804,10,19,187],
-    bossCoffeeAnim: [bossCoffeeSipAnm,324,804,10,19,187]
+    bossScaredAnim: [bossScaredAnm,237,804,10,19,183],
+    bossCoffeeAnim: [bossCoffeeSipAnm,324,804,10,19,187],
+    bossNormalAnim:[bossNormalAnm,236,798,10,19,187]
 };
 var bossObject = function(bossSpriteFrame,bossSpriteX, bossSpriteY, bossAnms){
     this.bossSpriteFrame = bossSpriteFrame;
@@ -114,14 +117,18 @@ var drawBossCoffeeAnm = function(){
        ctx.drawImage(myBoss.bossAnms.bossCoffeeAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossCoffeeAnim[1], myBoss.bossAnms.bossCoffeeAnim[2], 800, 100, (myBoss.bossAnms.bossCoffeeAnim[1]*.60505), (myBoss.bossAnms.bossCoffeeAnim[2] * .60505));
 
         if (myBoss.bossSpriteFrame == myBoss.bossAnms.bossCoffeeAnim[5]) {
-            currentBossState = bossStateArray.stateWalkingRight;
+            if(monthData[monthCounter].totalProfit<0) {
+                currentBossState = bossStateArray.stateScaredStand;
+            }else{
+                currentBossState = bossStateArray.stateNormalStand;
+            }
             myBoss.bossSpriteFrame  = 0;
         }
         else {
             myBoss.bossSpriteFrame++;
         }
    }
-      if(currentBossState == bossStateArray.stateWalkingRight){
+     /* if(currentBossState == bossStateArray.stateWalkingRight){
           myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossWalkAnim[3])*myBoss.bossAnms.bossWalkAnim[1] ;
           myBoss.bossSpriteY = Math.floor(myBoss.bossSpriteFrame / myBoss.bossAnms.bossWalkAnim[3]) * myBoss.bossAnms.bossWalkAnim[2];
           ctx.drawImage(myBoss.bossAnms.bossWalkAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossWalkAnim[1], myBoss.bossAnms.bossWalkAnim[2], 800+myBoss.bossSpriteFrame*2, 100, (myBoss.bossAnms.bossWalkAnim[1]*.60505), (myBoss.bossAnms.bossWalkAnim[2] * .60505));
@@ -135,22 +142,44 @@ var drawBossCoffeeAnm = function(){
           else {
               myBoss.bossSpriteFrame++;
           }
-    }
-      if(currentBossState == bossStateArray.stateScaredStand) {
-          myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossScaredAnim[3]) * myBoss.bossAnms.bossScaredAnim[1];
-          myBoss.bossSpriteY = Math.floor(myBoss.bossSpriteFrame / myBoss.bossAnms.bossScaredAnim[3]) * myBoss.bossAnms.bossScaredAnim[2];
-          ctx.drawImage(myBoss.bossAnms.bossScaredAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossScaredAnim[1], myBoss.bossAnms.bossScaredAnim[2], 800 + tempStore + 20, 100, (myBoss.bossAnms.bossScaredAnim[1] * .60505), (myBoss.bossAnms.bossScaredAnim[2] * .60505));
+    }*/
+        if (currentBossState == bossStateArray.stateScaredStand) {
+            myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossScaredAnim[3]) * myBoss.bossAnms.bossScaredAnim[1];
+            myBoss.bossSpriteY = Math.floor(myBoss.bossSpriteFrame / myBoss.bossAnms.bossScaredAnim[3]) * myBoss.bossAnms.bossScaredAnim[2];
+            ctx.drawImage(myBoss.bossAnms.bossScaredAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossScaredAnim[1], myBoss.bossAnms.bossScaredAnim[2], 800, 100, (myBoss.bossAnms.bossScaredAnim[1] * .60505), (myBoss.bossAnms.bossScaredAnim[2] * .60505));
 
-          if (myBoss.bossSpriteFrame == myBoss.bossAnms.bossScaredAnim[5]) {
-              currentBossState = bossStateArray.stateScaredStand;
-              myBoss.bossSpriteFrame = 0;
-          }
-          else {
-              myBoss.bossSpriteFrame++;
-          }
-      }
+            if (myBoss.bossSpriteFrame == myBoss.bossAnms.bossScaredAnim[5]) {
+                if(monthData[monthCounter].totalProfit<0) {
+                currentBossState = bossStateArray.stateScaredStand;
+                }else{
+                    currentBossState = bossStateArray.stateNormalStand;
+                }
+                myBoss.bossSpriteFrame = 0;
+            }
+            else {
+                myBoss.bossSpriteFrame++;
+            }
+        }
+        else if(currentBossState == bossStateArray.stateNormalStand){
+            myBoss.bossSpriteX = (myBoss.bossSpriteFrame % myBoss.bossAnms.bossNormalAnim[3]) * myBoss.bossAnms.bossNormalAnim[1];
+            myBoss.bossSpriteY = Math.floor(myBoss.bossSpriteFrame / myBoss.bossAnms.bossNormalAnim[3]) * myBoss.bossAnms.bossNormalAnim[2];
+            ctx.drawImage(myBoss.bossAnms.bossNormalAnim[0], myBoss.bossSpriteX, myBoss.bossSpriteY, myBoss.bossAnms.bossNormalAnim[1], myBoss.bossAnms.bossNormalAnim[2], 800, 100, (myBoss.bossAnms.bossNormalAnim[1] * .60505), (myBoss.bossAnms.bossNormalAnim[2] * .60505));
+
+            if (myBoss.bossSpriteFrame == myBoss.bossAnms.bossNormalAnim[5]) {
+                if(monthData[monthCounter].totalProfit<0) {
+                    currentBossState = bossStateArray.stateScaredStand;
+                }else{
+                    currentBossState = bossStateArray.stateNormalStand;
+                }
+                myBoss.bossSpriteFrame = 0;
+            }
+            else {
+                myBoss.bossSpriteFrame++;
+            }
+        }else{
+            currentBossState = bossStateArray.stateCoffee;
+        }
     //requestAnimationFrame(drawBossCoffeeAnm);
-
 }
 
 
