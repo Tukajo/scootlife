@@ -987,19 +987,7 @@ loadImg(checkboxPosH);
 var checkboxPosI = new checkBox(checkboxPosA.x, checkboxPosH.y+spaceH);
 loadImg(checkboxPosI);
 
-var loadingPeg = function (x) {
-    this.x = x;
-    this.y = 600;
-    this.h = 100;
-    this.w = 50;
-    this.hover = false;
-    this.ready = false;
-    this.readyAlt = false;
-    this.image = new Image();
-    this.image.src = "Art_Assets/game_screen/loading_peg.png";
-    this.imageAlt = this.image;
 
-}
 
 
 // Creating loading bar & length
@@ -1342,9 +1330,6 @@ loadImg(reportBtn);
 var leanToolsBtn = new gameObject(1240, 525, 120 , 171, 'Art_Assets/game_screen/office/obj_leanTools.png', 0);
 loadImg(leanToolsBtn);
 
-var calendarBtn = new gameObject(1300, 550, 100, 100, 'Art_Assets/game_screen/calendarBtn_temp.png', 0);
-loadImg(calendarBtn);
-
 var nextMonthBtn = new gameObject(850, 625, 38, 145, "Art_Assets/game_screen/buttons/nextMonth_norm.png", "Art_Assets/game_screen/buttons/nextMonth_click.png");
 loadImg(nextMonthBtn);
 
@@ -1357,51 +1342,50 @@ loadImg(nextMonthBtn);
 var leanToolStartingX=leanToolsView.x+25;
 var leanToolStartingY=leanToolsView.y+110;
 
-var leanToolsBtnCells = new gameObject(leanToolStartingX+leanToolXDif*1, leanToolStartingY+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+var leanToolsBtnCells = new gameObject(leanToolStartingX+leanToolXDif*1, leanToolStartingY+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/toolTip.png', 0)
 loadImg(leanToolsBtnCells);
 
-var leanToolsBtnSmed = new gameObject(leanToolStartingX+leanToolXDif*0, leanToolStartingY+leanToolYDif*5, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+var leanToolsBtnSmed = new gameObject(leanToolStartingX+leanToolXDif*0, leanToolStartingY+leanToolYDif*5, 60, 180, 'Art_Assets/game_screen/toolTip.png', 0)
 loadImg(leanToolsBtnSmed);
 
-var leanToolsBtnFiveS = new gameObject(leanToolStartingX+leanToolXDif*0, leanToolStartingY+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/lean_toolsBtn_temp.png', 0)
+var leanToolsBtnFiveS = new gameObject(leanToolStartingX+leanToolXDif*0, leanToolStartingY+leanToolYDif*0, 60, 180, 'Art_Assets/game_screen/toolTip.png', 0)
 loadImg(leanToolsBtnFiveS);
 
-var leanToolsBtnKanban = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*2,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnKanban = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*2,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnKanban);
 
-var leanToolsBtnCrossTrain = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*1,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnCrossTrain = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*1,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnCrossTrain);
 
-var leanToolsBtnNew = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*2,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnNew = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*2,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnNew);
 
-var leanToolsBtnPM = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*1,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnPM = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*1,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnPM);
 
-var leanToolsBtnMarket = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*5,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnMarket = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*5,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnMarket);
 
-var leanToolsBtnSmallLot = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*4,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnSmallLot = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*4,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnSmallLot);
 
-var leanToolsBtnQuality = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnQuality = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*3,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnQuality);
 
-var leanToolsBtnSmallPurchase = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*4,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnSmallPurchase = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*4,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnSmallPurchase);
 
-var leanToolsBtnVendor = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*6,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnVendor = new gameObject(leanToolStartingX+leanToolXDif*0,leanToolStartingY+leanToolYDif*6,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnVendor);
 
-var leanToolsBtnSelfDirected = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*3,60,180,"Art_Assets/game_screen/lean_toolsBtn_temp.png",0);
+var leanToolsBtnSelfDirected = new gameObject(leanToolStartingX+leanToolXDif*1,leanToolStartingY+leanToolYDif*3,60,180,"Art_Assets/game_screen/toolTip.png",0);
 loadImg(leanToolsBtnVendor);
 
 //lean tool buy button
 //var purchaseBtn = new gameObject(1350, 600, 100, 100, 'Art_Assets/game_screen/calendarBtn_temp.png', 0);
 //loadImg(purchaseBtn);
 
-var confirmScreen = new gameObject(800, 20, 400, 600, 'Art_Assets/game_screen/report_view.png', 0);
-loadImg(confirmScreen);
+
 
 var buyBtn = new gameObject(1300, 600, 38, 92, 'Art_Assets/game_screen/buttons/buyTool_norm.png', 'Art_Assets/game_screen/buttons/buyTool_click.png');
 loadImg(buyBtn);
@@ -1439,17 +1423,16 @@ loadImg(reportView);
 var blueTab = new gameObject(1350, 85, 620, 43, "Art_Assets/game_screen/blue.png", "Art_Assets/game_screen/blueH.png");
 loadImg(blueTab);
 
-var invBlueTab = new gameObject(1350, 85, 180, 45, "Art_Assets/game_screen/orange.png", 0);
+var invBlueTab = new gameObject(1350, 85, 180, 45, "Art_Assets/game_screen/toolTip.png", 0);
 loadImg(invBlueTab);
 
 var purpleTab = new gameObject(1350, 85, 620, 43, "Art_Assets/game_screen/purple.png", "Art_Assets/game_screen/purpleH.png");
 loadImg(purpleTab);
 
-var invPurpleTab = new gameObject(1350, 280, 190, 45, "Art_Assets/game_screen/orange.png", 0);
+var invPurpleTab = new gameObject(1350, 280, 190, 45, "Art_Assets/game_screen/toolTip.png", 0);
 loadImg(invPurpleTab);
 
-var calendarView = new gameObject(770, 20, 710, 710, "Art_Assets/game_screen/Calendar.png", 0);
-loadImg(calendarView);
+
 
 
 ///////////////////////////////////////   v   Replace image for each workstation
@@ -1526,7 +1509,7 @@ loadImg(sewingView);
 var assemblyView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_assembly.png", 0);
 loadImg(assemblyView);
 
-var desk = new gameObject(250, 600, 128, 256, 'Art_Assets/game_screen/desk.png', 0);
+var desk = new gameObject(250, 600, 128, 256, 'Art_Assets/game_screen/toolTip.png', 0);
 loadImg(desk);
 
 var office = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/office.png', 0);
