@@ -6549,7 +6549,7 @@ function onClick(evt) {
 
             }
         }
-        if (!reportView.hover) {
+        if (!reportView.hover&&tutorialLinear==false) {
             subScreen = "office";
         }
     }
