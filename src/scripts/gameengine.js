@@ -485,7 +485,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerOne){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*0, spriteY*6,300,300,station[0].x+30,station[0].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*0, spriteY*7,300,300,station[0].x+30,station[0].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -498,7 +498,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerOne){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*0, spriteY*7,300,300,station[0].x+30,station[0].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*0, spriteY*6,300,300,station[0].x+30,station[0].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -526,7 +526,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerTwo){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[1].x+30,station[1].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[1].x+30,station[1].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -539,7 +539,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerTwo){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[1].x+30,station[1].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[1].x+30,station[1].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -567,7 +567,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerThree){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*6,300,300,station[2].x+30,station[2].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*7,300,300,station[2].x+30,station[2].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -580,7 +580,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerThree){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*7,300,300,station[2].x+30,station[2].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*6,300,300,station[2].x+30,station[2].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -608,7 +608,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerFour){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[3].x+30,station[3].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[3].x+30,station[3].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -621,7 +621,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerFour){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[3].x+30,station[3].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[3].x+30,station[3].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -650,7 +650,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerFive){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[4].x+30,station[4].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[4].x+30,station[4].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -663,7 +663,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerFive){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[4].x+30,station[4].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[4].x+30,station[4].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -692,7 +692,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerSix){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*6,300,300,station[5].x+30,station[5].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*7,300,300,station[5].x+30,station[5].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -705,7 +705,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerSix){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*7,300,300,station[5].x+30,station[5].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*2, spriteY*6,300,300,station[5].x+30,station[5].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -734,7 +734,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerSeven){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[6].x+30,station[6].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[6].x+30,station[6].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -747,7 +747,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerSeven){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[6].x+30,station[6].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[6].x+30,station[6].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -776,7 +776,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerEight){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[7].x+30,station[7].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[7].x+30,station[7].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -789,7 +789,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerEight){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*7,300,300,station[7].x+30,station[7].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*1, spriteY*6,300,300,station[7].x+30,station[7].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -818,7 +818,7 @@ function drawSprtSht() {
         case 1:
             switch(workerCrossTrainingList.workerNine){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[8].x+30,station[8].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[8].x+30,station[8].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
@@ -831,7 +831,7 @@ function drawSprtSht() {
         case 2:
             switch(workerCrossTrainingList.workerNine){
                 case 0:
-                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*7,300,300,station[8].x+30,station[8].y-60,60,60);
+                    ctx.drawImage(spriteSheetImg, spriteX*3, spriteY*6,300,300,station[8].x+30,station[8].y-60,60,60);
                     break;
                 case 1:
                     //TODO - logic for moving for crosstrained
