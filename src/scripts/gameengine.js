@@ -28,7 +28,6 @@ document.body.appendChild(canvas);
 canvas.zIndex=1;
 
 
-
 var bgLeftDrawn=false;
 var bgRightDrawn=false;
 var midRightDrawn=false;
@@ -103,7 +102,6 @@ var bossObject = function(bossSpriteFrame,bossSpriteX, bossSpriteY, bossAnms){
     this.bossSpriteY = bossSpriteY;
     this.bossAnms = bossAnms;
 };
-var tempStore;
 var myBoss = new bossObject(bossSpriteFrameCoffee, BossCoffeeSpriteX, BossCoffeeSpriteY, bossAnms);
 var drawBossCoffeeAnm = function(){
 
@@ -185,7 +183,100 @@ var drawBossCoffeeAnm = function(){
     //requestAnimationFrame(drawBossCoffeeAnm);
 }
 
+var workerSpriteX = 0;
+var workerSpriteY = 0;
+var workerAsianAnm = new Image();
+    workerAsianAnm.src = "Art_Assets/characters/workers/asiananimation.png";
+var workerBlackAnm = new Image();
+    workerBlackAnm.src = "Art_Assets/characters/workers/blackanimation.png";
+var workerWhiteAnm = new Image();
+    workerWhiteAnm.src = "Art_Assets/characters/workers/whiteanimation.png";
+var workerFemaleAnm = new Image();
+    workerFemaleAnm.src = "Art_Assets/characters/workers/femaleanimation.png";
+var workerWeldAnm = new Image();
+    workerWeldAnm.src = "Art_Assets/characters/workers/welderanimation.png";
 
+var workerAnimations = {
+    workerAsian: [workerAsianAnm,148.148,420.8,27,5,131],
+    workerBlack: [workerBlackAnm,160.04,400.2,25,5,125],
+    workerWhite: [workerWhiteAnm,160,451.6,25,5,125],
+    workerFemale:[workerFemaleAnm,142.857,360.4,28,5,137],
+    workerWeld:[workerWeldAnm,428,453,27,5,131]
+};
+var workerObject = function(workerSpriteFrame,workerSpriteX, workerSpriteY, workerAnm){
+    this.workerSpriteFrame = workerSpriteFrame;
+    this.workerSpriteX = workerSpriteX;
+    this.workerSpriteY = workerSpriteY;
+    this.workerAnm = workerAnm;
+};
+
+var workerWhiteObj = new workerObject(0,workerSpriteX, workerSpriteY,workerAnimations.workerWhite);
+var workerBlackObj = new workerObject(0,workerSpriteX, workerSpriteY,workerAnimations.workerBlack);
+var workerFemaleObj = new workerObject(0,workerSpriteX, workerSpriteY,workerAnimations.workerFemale);
+var workerWeldObj = new workerObject(0,workerSpriteX, workerSpriteY,workerAnimations.workerWeld);
+var workerAsianObj = new workerObject(0,workerSpriteX, workerSpriteY,workerAnimations.workerAsian);
+
+var drawWorkerObjectW = function(workerToDraw){
+    workerToDraw.workerSpriteX = (workerToDraw.workerSpriteFrame % workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[1];
+    myBoss.workerSpriteY = Math.floor(workerToDraw.workerSpriteFrame / workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[2];
+    ctx.drawImage(workerToDraw.workerAnm[0], workerToDraw.workerSpriteX, workerToDraw.workerSpriteY, workerToDraw.workerAnm[1], workerToDraw.workerAnm[2], 1150, 255, (workerToDraw.workerAnm[1] *1.1), (workerToDraw.workerAnm[2] * 1.1));
+
+    if (workerToDraw.workerSpriteFrame == workerToDraw.workerAnm[5]) {
+        workerToDraw.workerSpriteFrame = 0;
+    }
+    else {
+        workerToDraw.workerSpriteFrame++;
+    }
+}
+var drawWorkerObjectB = function(workerToDraw){
+    workerToDraw.workerSpriteX = (workerToDraw.workerSpriteFrame % workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[1];
+    myBoss.workerSpriteY = Math.floor(workerToDraw.workerSpriteFrame / workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[2];
+    ctx.drawImage(workerToDraw.workerAnm[0], workerToDraw.workerSpriteX, workerToDraw.workerSpriteY, workerToDraw.workerAnm[1], workerToDraw.workerAnm[2], 1150, 230, (workerToDraw.workerAnm[1] *1.3), (workerToDraw.workerAnm[2] * 1.3));
+
+    if (workerToDraw.workerSpriteFrame == workerToDraw.workerAnm[5]) {
+        workerToDraw.workerSpriteFrame = 0;
+    }
+    else {
+        workerToDraw.workerSpriteFrame++;
+    }
+}
+var drawWorkerObjectA = function(workerToDraw){
+    workerToDraw.workerSpriteX = (workerToDraw.workerSpriteFrame % workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[1];
+    myBoss.workerSpriteY = Math.floor(workerToDraw.workerSpriteFrame / workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[2];
+    ctx.drawImage(workerToDraw.workerAnm[0], workerToDraw.workerSpriteX, workerToDraw.workerSpriteY, workerToDraw.workerAnm[1], workerToDraw.workerAnm[2], 1150, 275, (workerToDraw.workerAnm[1] *1.2), (workerToDraw.workerAnm[2] * 1.2));
+
+    if (workerToDraw.workerSpriteFrame == workerToDraw.workerAnm[5]) {
+        workerToDraw.workerSpriteFrame = 0;
+    }
+    else {
+        workerToDraw.workerSpriteFrame++;
+    }
+}
+var drawWorkerObjectF = function(workerToDraw){
+    workerToDraw.workerSpriteX = (workerToDraw.workerSpriteFrame % workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[1];
+    myBoss.workerSpriteY = Math.floor(workerToDraw.workerSpriteFrame / workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[2];
+    ctx.drawImage(workerToDraw.workerAnm[0], workerToDraw.workerSpriteX, workerToDraw.workerSpriteY, workerToDraw.workerAnm[1], workerToDraw.workerAnm[2], 1150, 285, (workerToDraw.workerAnm[1] *1.45), (workerToDraw.workerAnm[2] * 1.45));
+
+    if (workerToDraw.workerSpriteFrame == workerToDraw.workerAnm[5]) {
+        workerToDraw.workerSpriteFrame = 0;
+    }
+    else {
+        workerToDraw.workerSpriteFrame++;
+    }
+}
+
+var drawWeldingStation = function(workerToDraw){
+    workerToDraw.workerSpriteX = (workerToDraw.workerSpriteFrame % workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[1];
+    myBoss.workerSpriteY = Math.floor(workerToDraw.workerSpriteFrame / workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[2];
+    ctx.drawImage(workerToDraw.workerAnm[0], workerToDraw.workerSpriteX, workerToDraw.workerSpriteY, workerToDraw.workerAnm[1], workerToDraw.workerAnm[2], 900, 100, (workerToDraw.workerAnm[1] *1.2), (workerToDraw.workerAnm[2] * 1.2));
+
+    if (workerToDraw.workerSpriteFrame == workerToDraw.workerAnm[5]) {
+        workerToDraw.workerSpriteFrame = 0;
+    }
+    else {
+        workerToDraw.workerSpriteFrame++;
+    }
+}
 //To change the status of the lean tools selected.
 //0 - unselected.
 //1 - highlighted (hover).
@@ -1473,35 +1564,36 @@ for (var i = 0; i < 9; i++) {
 
 
 // Workstation views
-
+var stationDrawX = 875;
+var stationDrawY = 220;
 var stationView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/backgrounds/bkg_Workstation.png", 0);
 loadImg(stationView);
 
-var sawView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_saw.png", 0);
+var sawView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_saw.png", 0);
 loadImg(sawView);
 
-var drillView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_drill.png", 0);
+var drillView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_drill.png", 0);
 loadImg(drillView);
 
-var bendView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_bend.png", 0);
+var bendView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_bend.png", 0);
 loadImg(bendView);
 
-var weldView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_welding.png", 0);
+var weldView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_welding.png", 0);
 loadImg(weldView);
 
-var grindView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_grinder.png", 0);
+var grindView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_grinder.png", 0);
 loadImg(grindView);
 
-var paintView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_paint.png", 0);
+var paintView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_paint.png", 0);
 loadImg(paintView);
 
-var fabricView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_fabric.png", 0);
+var fabricView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_fabric.png", 0);
 loadImg(fabricView);
 
-var sewingView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_sewing.png", 0);
+var sewingView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_sewing.png", 0);
 loadImg(sewingView);
 
-var assemblyView = new gameObject(750, 0, 750, 750, "Art_Assets/game_screen/workstations/table_assembly.png", 0);
+var assemblyView = new gameObject(stationDrawX, stationDrawY, 750, 750, "Art_Assets/game_screen/workstations/table_assembly.png", 0);
 loadImg(assemblyView);
 
 var desk = new gameObject(250, 600, 128, 256, 'Art_Assets/game_screen/toolTip.png', 0);
@@ -4968,31 +5060,40 @@ var render = function () {
         //Determine which station to draw using this switch.
         switch (subScreen) {
             case sawStation.subScreen:
-                draw(ctx, sawView, 0, 0);
+                scaleDraw(ctx, sawView, 0, 0,1.3);
+                drawWorkerObjectW(workerWhiteObj);
                 break;
             case drillStation.subScreen:
-                draw(ctx, drillView, 0, 0);
+                scaleDraw(ctx, drillView, 0, 0,1.3);
+                drawWorkerObjectA(workerAsianObj);
                 break;
             case bendStation.subScreen:
-                draw(ctx, bendView, 0, 0);
+                scaleDraw(ctx, bendView, 0, 0,1.3);
+                drawWorkerObjectW(workerWhiteObj);
                 break;
             case weldStation.subScreen:
-                draw(ctx, weldView, 0, 0);
+                //scaleDraw(ctx, weldView, 0, 0,1.3);
+                drawWeldingStation(workerWeldObj);
                 break;
             case grindStation.subScreen:
-                draw(ctx, grindView, 0, 0);
+                scaleDraw(ctx, grindView, 0, 0,1.3);
+                drawWorkerObjectB(workerBlackObj);
                 break;
             case paintStation.subScreen:
-                draw(ctx, paintView, 0, 0);
+                scaleDraw(ctx, paintView, 0, 0,1.3);
+                drawWorkerObjectF(workerFemaleObj);
                 break;
             case assemblyStation.subScreen:
-                draw(ctx, assemblyView, 0, 0);
+                scaleDraw(ctx, assemblyView, 0, 0,1.3);
+                drawWorkerObjectA(workerAsianObj);
                 break;
             case fabricStation.subScreen:
-                draw(ctx, fabricView, 0, 0);
+                scaleDraw(ctx, fabricView, 0, 0,1.3);
+                drawWorkerObjectW(workerWhiteObj);
                 break;
             case sewingStation.subScreen:
-                draw(ctx, sewingView, 0, 0);
+                scaleDraw(ctx, sewingView, 0, 0,1.3);
+                drawWorkerObjectB(workerBlackObj);
                 break;
         }
 
