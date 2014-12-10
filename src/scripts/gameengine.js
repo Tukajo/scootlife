@@ -1374,6 +1374,12 @@ function problemListUpdate() {
 var menu = new gameObject(0, 0, 750, 1500, 'Art_Assets/main_menu/All World WheelChair Title Screen unofficial.png', 0);
 loadImg(menu);
 
+var endScreen = new gameObject(750-375, 100, 550, 750, 'Art_Assets/game_screen/endScreen.png', 0);
+loadImg(endScreen);
+
+var endScreenBtn = new gameObject(1200, 630, 55, 75, 'Art_Assets/game_screen/endScreen.png', 0);
+loadImg(endScreenBtn);
+
 var blackLeft = new gameObject(0, 0, 750, 750, 'Art_Assets/game_screen/backgrounds/blackout.png', 0);
 loadImg(blackLeft);
 
@@ -4719,6 +4725,7 @@ var update = function (modifier) {
             nextMonthBtn.hover=false;
             if(monthCounter>=6) {
                 contact(nextMonthBtn);
+                contact(endScreenBtn);
             }
 
             contact(invBlueTab);
@@ -5034,7 +5041,7 @@ var render = function () {
 
 
         }
-        if (currentScreen===1||(currentScreen>1&&currentScreen<=7)||subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" && subScreen == "calendar") {
+        if (currentScreen===1||(currentScreen>1&&currentScreen<=7)||subScreen == "office" || subScreen == "leanTools" || subScreen == "monthlyReport" || subScreen == "problemList") {
             draw(ctx, office, 0, 0);
         }
         if (subScreen == "office") {
@@ -5112,7 +5119,20 @@ var render = function () {
         var cbPriceOff = 42;
 
         if (subScreen == "leanTools") {
+            if (currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March) {
+                scaleDraw(ctx, officeWindow_Winter, 0, 0, 1);
+            } else if (currentMonth == monthsArray.April || currentMonth == monthsArray.May) {
+                scaleDraw(ctx, officeWindow_Spring, 0, 0, 1);
+            } else if (currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August) {
+                scaleDraw(ctx, officeWindow_Summer, 0, 0, 1);
+            } else {
+                scaleDraw(ctx, officeWindow_Fall, 0, 0, 1);
+            }
+            draw(ctx, officeDesk, 0, 0);
+            scaleDraw(ctx, leanToolsBtn, 0, 0, .75);
+            scaleDraw(ctx, reportBtn, 0, 0, .80);
             if (toolTab != "null" && toolTab != "confirm") {
+
                 draw(ctx, leanToolTab, 0, 0);
                 ctx.fillStyle = "black";
                 ctx.font = "20px Arial";
@@ -5392,6 +5412,19 @@ var render = function () {
 
         //report screen is background of
         if (subScreen == "monthlyReport") {
+            if (currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March) {
+                scaleDraw(ctx, officeWindow_Winter, 0, 0, 1);
+            } else if (currentMonth == monthsArray.April || currentMonth == monthsArray.May) {
+                scaleDraw(ctx, officeWindow_Spring, 0, 0, 1);
+            } else if (currentMonth == monthsArray.June || currentMonth == monthsArray.July || currentMonth == monthsArray.August) {
+                scaleDraw(ctx, officeWindow_Summer, 0, 0, 1);
+            } else {
+                scaleDraw(ctx, officeWindow_Fall, 0, 0, 1);
+            }
+            drawBossCoffeeAnm();
+            draw(ctx, officeDesk, 0, 0);
+            scaleDraw(ctx, leanToolsBtn, 0, 0, .75);
+            scaleDraw(ctx, reportBtn, 0, 0, .80);
             draw(ctx, reportView, 0, 0);
             if (blue == true) {
                 draw(ctx, purpleTab, 0, 0);
@@ -5478,15 +5511,17 @@ var render = function () {
             ctx.font = "10px Arial";
             
 
-            if (monthCounter >= 6 && monthCounter != 12) {
+            if (monthCounter >= 6 && monthCounter != 11) {
 
                 scaleDraw(ctx, nextMonthBtn, 0, 0, 1);
+            }
+            if(monthCounter===11){
+                draw(ctx,endScreenBtn,0,0);
             }
 
         }
 
         if (subScreen == "problemList") {
-            draw(ctx, office, 0, 0);
             if (currentMonth == monthsArray.January || currentMonth == monthsArray.December || currentMonth == monthsArray.February || currentMonth == monthsArray.March) {
                 scaleDraw(ctx, officeWindow_Winter, 0, 0, 1);
             } else if (currentMonth == monthsArray.April || currentMonth == monthsArray.May) {
@@ -5496,6 +5531,8 @@ var render = function () {
             } else {
                 scaleDraw(ctx, officeWindow_Fall, 0, 0, 1);
             }
+            drawBossCoffeeAnm();
+            draw(ctx, officeDesk, 0, 0);
             draw(ctx, reportView, 0, 0);
             if (blue == true) {
                 draw(ctx, purpleTab, 0, 0);
@@ -5655,18 +5692,19 @@ var render = function () {
         ctx.font = "18px Arial";
         ctx.fillStyle = "white";
         bigDialog.x=280;
-        draw(ctx, bigDialog, 0, 0);
+
 
         if(currentScreen===50){
-
+            draw(ctx, bigDialog, 0, 0);
             ctx.fillText("No LEAN TOOLS can be purchased this month", bigDialog.x + 20, bigDialog.y + 40);
             ctx.fillText("Click Anywhere to Close",bigDialog.x+20,bigDialog.y+40+40);
 
         }
         if(currentScreen===100){
             ctx.fillText("End of game, please turn in final report.", bigDialog.x + 20, bigDialog.y + 40)
-            ctx.fillText("Click Anywhere to Close",bigDialog.x+20,bigDialog.y+40+40);
-
+            ctx.fillStyle = "black";
+            draw(ctx, endScreen,0,0);
+            ctx.fillText("Click Anywhere to Close",endScreen.x +.5*endScreen.w-40,endScreen.y +.8*endScreen.h);
         }
 
     }
@@ -6591,9 +6629,12 @@ function onClick(evt) {
     if(currentScreen===100){
         currentScreen="factory";
         subScreen="monthlyReport";
-    }
-    if (subScreen == "monthlyReport") {
-        if (nextMonthBtn.hover&&monthCounter>=6) {//click of next month button will change month, update month stats, and show the new report
+    }else if (subScreen == "monthlyReport") {
+        if(monthCounter===11&&endScreenBtn.hover){
+            endScreenBtn.hover=false;
+            currentScreen=100;
+        }
+        if (nextMonthBtn.hover&&monthCounter>=6&&monthCounter!=11) {//click of next month button will change month, update month stats, and show the new report
             nextMonthBtn.hover=false;
             nextMonthBtn.x=1196;
             nextMonthBtn.y=664;
@@ -6676,7 +6717,7 @@ function onClick(evt) {
     }
     if (subScreen == "leanTools") {
 
-        if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
+        if (nextMonthBtn.hover&&monthCounter!=11) {//click of next month button will change month, update month stats, and show the new report
             nextMonthBtn.hover=false;
             nextMonthBtn.x=1196;
             nextMonthBtn.y=664;
