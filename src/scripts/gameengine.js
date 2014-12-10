@@ -267,7 +267,7 @@ var drawWorkerObjectF = function(workerToDraw){
 var drawWeldingStation = function(workerToDraw){
     workerToDraw.workerSpriteX = (workerToDraw.workerSpriteFrame % workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[1];
     myBoss.workerSpriteY = Math.floor(workerToDraw.workerSpriteFrame / workerToDraw.workerAnm[3]) * workerToDraw.workerAnm[2];
-    ctx.drawImage(workerToDraw.workerAnm[0], workerToDraw.workerSpriteX, workerToDraw.workerSpriteY, workerToDraw.workerAnm[1], workerToDraw.workerAnm[2], 900, 100, (workerToDraw.workerAnm[1] *1.2), (workerToDraw.workerAnm[2] * 1.2));
+    ctx.drawImage(workerToDraw.workerAnm[0], workerToDraw.workerSpriteX, workerToDraw.workerSpriteY, workerToDraw.workerAnm[1], workerToDraw.workerAnm[2], 900, 150, (workerToDraw.workerAnm[1] *1.2), (workerToDraw.workerAnm[2] * 1.2));
 
     if (workerToDraw.workerSpriteFrame == workerToDraw.workerAnm[5]) {
         workerToDraw.workerSpriteFrame = 0;
@@ -1119,89 +1119,72 @@ function problemListUpdate() {
     //Saw problems
     if (mitreSaw_LateParts(monthCounter) > 0) {
         problemList[numProbs] = ("Saw down " + mitreSaw_LateParts(monthCounter) + " days due to late tubes");
-        if(factoryFloorIconsArray.Saw<2)
-            factoryFloorIconsArray.Saw+=1;
         numProbs++;
     }
     if (mitreSaw_WorkersOver() > 0) {
         problemList[numProbs] = ("Saw works overtime to try and meet production");
+        factoryFloorIconsArray.Saw=1;
         numProbs++;
     }
     if (mitreSaw_Downtime(monthCounter) > 0) {
         problemList[numProbs] = "Saw down " + mitreSaw_Downtime(monthCounter) + " days due to machine breakdown";
-        if(factoryFloorIconsArray.Saw<2)
-            factoryFloorIconsArray.Saw+=1;
-
         numProbs++;
     }
     if (mitreSaw_MaxCapacity() < 200) {
         problemList[numProbs] = "Saw cannot meet production due to capacity constraint";
+        factoryFloorIconsArray.Saw=2;
         numProbs++;
     }
 
     //Drill problems
     if (drillPress_LateWIP() > 0) {
         problemList[numProbs] = "Drill press down " + drillPress_LateWIP() + " days due to late parts from saw";
-        if(factoryFloorIconsArray.Drill<2)
-            factoryFloorIconsArray.Drill+=1;
-
         numProbs++;
     }
     if (drillPress_Downtime(monthCounter) > 0) {
         problemList[numProbs] = "Drill press down " + drillPress_Downtime(monthCounter) + " days due to machine breakdown";
-        if(factoryFloorIconsArray.Drill<2)
-            factoryFloorIconsArray.Drill+=1;
         numProbs++;
     }
     if (drillPress_WorkersOver() > 0) {
         problemList[numProbs] = "Drill press works overtime to try and meet production";
+        factoryFloorIconsArray.Drill=1;
         numProbs++;
     }
     if(drillPress_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Drill press down " + drillPress_BadQuality(monthCounter) + " days due to quality problem";
-        if(factoryFloorIconsArray.Drill<2)
-            factoryFloorIconsArray.Drill+=1;
         numProbs++;
     }
     if(drillPress_MaxCapacity() < 200){
         problemList[numProbs] = "Drill press cannot meet production due to capacity constraint";
-        numProbs++;
+        factoryFloorIconsArray.Drill=2;
     }
 
     //Bender problems
     if(tubeBender_LateWIP() > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_LateWIP() + " days due to late parts from drill";
-        if(factoryFloorIconsArray.Bend<2)
-            factoryFloorIconsArray.Bend+=1;
-
         numProbs++;
     }
     if(tubeBender_Downtime(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_Downtime(monthCounter) + " days due to machine breakdown";
-        if(factoryFloorIconsArray.Bend<2)
-            factoryFloorIconsArray.Bend+=1;
-
         numProbs++;
     }
     if(tubeBender_WorkersOver() > 0){
         problemList[numProbs] = "Tube bender works overtime to try and meet production";
+        factoryFloorIconsArray.Bend=1;
         numProbs++;
     }
     if(tubeBender_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_BadQuality(monthCounter) + " days due to quality problem";
-        if(factoryFloorIconsArray.Bend<2)
-            factoryFloorIconsArray.Bend+=1;
 
         numProbs++;
     }
     if(tubeBender_MaxCapacity() < 200){
         problemList[numProbs] = "Tube bender cannot meet production due to capacity constraint";
+        factoryFloorIconsArray.Bend=2;
         numProbs++;
     }
     if(tubeBender_DelayQuality(monthCounter) > 0){
         problemList[numProbs] = "Tube bender down " + tubeBender_DelayQuality(monthCounter) + " days due to bad parts from drill";
-        if(factoryFloorIconsArray.Bend<2)
-            factoryFloorIconsArray.Bend+=1
 
         numProbs++;
     }
@@ -1209,150 +1192,136 @@ function problemListUpdate() {
     //Welding problems
     if(welding_LateWIP() > 0){
         problemList[numProbs] = "Welding down " + welding_LateWIP() + " days due to late parts from metal cell";
-        if(factoryFloorIconsArray.Weld<2)
-            factoryFloorIconsArray.Weld+=1;
         numProbs++;
     }
     if(welding_WorkersOver() > 0){
         problemList[numProbs] = "Welding works overtime to try and meet production";
+        factoryFloorIconsArray.Weld=1;
         numProbs++;
     }
     if(welding_Downtime(monthCounter) > 0){
         problemList[numProbs] = "Welding down " + welding_Downtime(monthCounter) + " days due to machine breakdown";
-        if(factoryFloorIconsArray.Weld<2)
-            factoryFloorIconsArray.Weld+=1;
+
         numProbs++;
     }
     if(welding_MaxCapacity() < 200){
         problemList[numProbs] = "Welding cannot meet production due to capacity constraint";
+        factoryFloorIconsArray.Weld=2;
         numProbs++;
     }
     if(welding_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Welding down " + welding_BadQuality(monthCounter) + " days due to quality problem";
-        if(factoryFloorIconsArray.Weld<2)
-            factoryFloorIconsArray.Weld+=1;
         numProbs++;
     }
 
     //Grinder problems
     if(grinder_LateWIP() > 0){
         problemList[numProbs] = "Grinder down " + grinder_LateWIP() + " days due to late parts from welding";
-        if(factoryFloorIconsArray.Grind<2)
-            factoryFloorIconsArray.Grind+=1;
         numProbs++;
     }
     if(grinder_WorkersOver() > 0){
         problemList[numProbs] = "Grinder works overtime to try and meet production";
+        factoryFloorIconsArray.Grind=1;
         numProbs++;
     }
     if(grinder_DelayQuality(monthCounter) > 0){
         problemList[numProbs] = "Grinder down " + grinder_DelayQuality(monthCounter) + " days due to bad parts from welding";
-        if(factoryFloorIconsArray.Grind<2)
-            factoryFloorIconsArray.Grind+=1;
+
         numProbs++;
     }
     if(grinder_MaxCapacity() < 200){
         problemList[numProbs] = "Grinder cannot meet production due to capacity constraint";
+        factoryFloorIconsArray.Grind=2;
         numProbs++;
     }
 
     //Paint problems
     if(paintBooth_LateWIP() > 0){
         problemList[numProbs] = "Paint booth down " + paintBooth_LateWIP() + " days due to late parts from grinder";
-        if(factoryFloorIconsArray.Paint<2)
-            factoryFloorIconsArray.Paint+=1;
         numProbs++;
     }
     if(paintBooth_Downtime(monthCounter) > 0){
         problemList[numProbs] = "Paint booth down " + paintBooth_Downtime(monthCounter) + " days due to machine breakdown";
-        if(factoryFloorIconsArray.Paint<2)
-            factoryFloorIconsArray.Paint+=1;
         numProbs++;
     }
     if(paintBooth_WorkersOver() > 0){
         problemList[numProbs] = "Paint booth works overtime to try and meet production";
+        factoryFloorIconsArray.Paint=1;
         numProbs++;
     }
     if(paintBooth_DelayQuality(monthCounter) > 0){
         problemList[numProbs] = "Paint booth down " + paintBooth_DelayQuality(monthCounter) + " days due to bad parts from welding";
-        if(factoryFloorIconsArray.Paint<2)
-            factoryFloorIconsArray.Paint+=1;
+
         numProbs++;
     }
     if(paintBooth_MaxCapacity() < 200){
         problemList[numProbs] = "Paint booth cannot meet production due to capacity constraint";
+        factoryFloorIconsArray.Paint=2;
         numProbs++;
     }
 
     //Fabric problems
     if(fabricCutter_LateParts(monthCounter) > 0){
         problemList[numProbs] = "Fabric cutter down " + fabricCutter_LateParts(monthCounter) + " days due to late nylon";
-        if(factoryFloorIconsArray.Cut<2)
-            factoryFloorIconsArray.Cut+=1;
         numProbs++;
     }
     if(fabricCut_WorkersOver() > 0){
         problemList[numProbs] = "Fabric cut works overtime to try and meet production";
+        factoryFloorIconsArray.Fabric=1;
         numProbs++;
     }
     if(fabricCut_MaxCapacity() < 200){
         problemList[numProbs] = "Fabric cutter cannot meet production due to capacity constraint";
+        factoryFloorIconsArray.Fabric=2;
         numProbs++;
     }
 
     //Sewing problems
     if(sewing_LateWIP() > 0){
         problemList[numProbs] = "Sewing down " + sewing_LateWIP() + " days due to late parts from fabric cutter";
-        if(factoryFloorIconsArray.Sew<2)
-            factoryFloorIconsArray.Sew+=1;
         numProbs++;
     }
     if(sewing_Downtime(monthCounter) > 0){
         problemList[numProbs] =  "Sewing down " + sewing_Downtime(monthCounter) + " days due to machine breakdown";
-        if(factoryFloorIconsArray.Sew<2)
-            factoryFloorIconsArray.Sew+=1;
         numProbs++;
     }
     if(sewing_WorkersOver() > 0){
         problemList[numProbs] =  "Sewing works overtime to try and meet production";
+        factoryFloorIconsArray.Sew=1;
         numProbs++;
     }
     if(sewing_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Sewing down " + sewing_BadQuality(monthCounter) + " days due to quality problem";
-        if(factoryFloorIconsArray.Sew<2)
-            factoryFloorIconsArray.Sew+=1;
+
         numProbs++;
     }
     if(sewing_MaxCapacity() < 200){
         problemList[numProbs] = "Sewing cannot meet production due to capacity constraint";
+        factoryFloorIconsArray.Sew=2;
         numProbs++;
     }
 
     //Assembly problems
     if(assemblyBench_LateParts(monthCounter) > 0){
         problemList[numProbs] = "Assembly down " + assemblyBench_LateParts(monthCounter) + " days due to late " + assemblyBench_LateParts();
-        if(factoryFloorIconsArray.Assembly<2)
-            factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
     if(assembly_WorkersOver() > 0){
         problemList[numProbs] = "Assembly works overtime to try and meet production";
+        factoryFloorIconsArray.Assembly=1;
         numProbs++;
     }
     if(assemblyBench_LateWIP() > 0){
         problemList[numProbs] = "Assembly down " + assemblyBench_LateWIP() + " days due to late parts from paint booth";
-        if(factoryFloorIconsArray.Assembly<2)
-            factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
     if(assembly_MaxCapacity() < 200){
         problemList[numProbs] = "Assembly cannot meet production due to capacity constraint";
+        factoryFloorIconsArray.Assembly=2;
         numProbs++;
     }
     if(assemblyBench_BadQuality(monthCounter) > 0){
         problemList[numProbs] = "Assembly down " + assemblyBench_BadQuality(monthCounter) + " days due to quality problem";
-        if(factoryFloorIconsArray.Assembly<2)
-            factoryFloorIconsArray.Assembly+=1;
         numProbs++;
     }
 
@@ -4948,7 +4917,7 @@ var render = function () {
                 ctx.font = "15pt Arial";
                 ctx.fillText("Days Down: " + grinderDaysDown, posx - 250, posy + 70);
                 ctx.fillText("Workers Overtime: " + grinder_WorkersOver(), posx - 250, posy + 100);
-                if (grinder_MaxCapacity() < 200) {
+                if (paintBooth_MaxCapacity() < 200) {
                     ctx.fillText("Does Not Meet Production", posx - 250, posy + 130);
                 }
 
@@ -5501,7 +5470,6 @@ var render = function () {
             ctx.font = "normal 22px Arial";
 
             ctx.textAlign = "left";
-
             ctx.font = "bold 24px Arial";
             ctx.fillText("Income", column[0], row[1]);
             ctx.fillText("Expenses", column[0], row[5]);
@@ -5701,11 +5669,16 @@ var render = function () {
 
         }
         if(currentScreen===100){
-            ctx.fillText("End of game, please turn in final report.", bigDialog.x + 20, bigDialog.y + 40)
+            //ctx.fillText("End of game, please turn in final report.", bigDialog.x + 20, bigDialog.y + 40)
             ctx.fillStyle = "black";
-            draw(ctx, endScreen,0,0);
-            ctx.fillText("Click Anywhere to Close",endScreen.x +.5*endScreen.w-40,endScreen.y +.8*endScreen.h);
+            draw(ctx, endScreen,0,0)
+            ctx.textAlign = "center";
+            ctx.fillText("Click Anywhere to Close",endScreen.x +.5*endScreen.w, endScreen.y +.82*endScreen.h);
+            ctx.textAlign = "center";
+            ctx.font = "bold 24px Arial";
+            ctx.fillText("Final Profit: $"+cumulativeProfit(), endScreen.x +.5*endScreen.w, endScreen.y +.6*endScreen.h);
         }
+        ctx.textAlign = "left";
 
     }
 
@@ -5920,6 +5893,7 @@ function sawReport(){
     ctx.fillText("Handling Minutes:              " + mitreSaw_Handling(), 850, 375);
     var neededMachines = mitreSaw_ProcessNeededMachines().toFixed(3);
     ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+    ctx.fillText("Inventory:                              " + mitreSaw_FinalInventory(), 850, 425);
 
     ctx.font = "13pt Georgia";
     if (mitreSaw_LateParts(monthCounter) > 0) {
@@ -5954,6 +5928,7 @@ function sawReport(){
             ctx.fillText("Handling Minutes:              " + drillPress_Handling(), 850, 375);
             var neededMachines = drillPress_ProcessNeededMachines().toFixed(3);
             ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+            ctx.fillText("Inventory:                              " + drillPress_FinalInventory(), 850, 425);
             
             ctx.font = "13pt Georgia";
             if (drillPress_LateWIP() > 0) {
@@ -5991,6 +5966,8 @@ function sawReport(){
             ctx.fillText("Handling Minutes:              " + tubeBender_Handling(), 850, 375);
             var neededMachines = tubeBender_ProcessNeededMachines().toFixed(3);
             ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+            ctx.fillText("Inventory:                              " + tubeBender_FinalInventory(), 850, 425);
+
             
             ctx.font = "13pt Georgia";
             if (tubeBender_LateWIP() > 0) {
@@ -6031,6 +6008,7 @@ function sawReport(){
             ctx.fillText("Handling Minutes:              " + welding_Handling(), 850, 375);
             var neededMachines = welding_ProcessNeededMachines().toFixed(3);
             ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+            ctx.fillText("Inventory:                              " + welding_FinalInventory(), 850, 425);
             
             ctx.font = "13pt Georgia";
             if (welding_LateWIP() > 0) {
@@ -6068,6 +6046,7 @@ function sawReport(){
             ctx.fillText("Handling Minutes:              " + grinder_Handling(), 850, 375);
             var neededMachines = grinder_ProcessNeededMachines().toFixed(3);
             ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+            ctx.fillText("Inventory:                              " + grinder_FinalInventory(), 850, 425);
             
             ctx.font = "13pt Georgia";
             if (grinder_LateWIP()>0) {
@@ -6102,6 +6081,7 @@ function sawReport(){
             ctx.fillText("Handling Minutes:              " + paintBooth_Handling(), 850, 375);
             var neededMachines = paintBooth_ProcessNeededMachines().toFixed(3);
             ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+            ctx.fillText("Inventory:                              " + paintBooth_FinalInventory(), 850, 425);
             
             ctx.font = "13pt Georgia";
             if (paintBooth_LateWIP() > 0) {
@@ -6140,6 +6120,7 @@ function sawReport(){
             ctx.fillText("Handling Minutes:              " + assembly_Handling(), 850, 375);
             var neededMachines = assembly_ProcessNeededMachines().toFixed(3);
             ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+            ctx.fillText("Inventory:                              " + assembly_FinalInventory(), 850, 425);
             
             ctx.font = "13pt Georgia";
             if (assemblyBench_LateParts(monthCounter) > 0) {
@@ -6177,6 +6158,7 @@ function sawReport(){
             ctx.fillText("Handling Minutes:              " + fabricCutter_Handling(), 850, 375);
             var neededMachines = fabricCut_ProcessNeededMachines().toFixed(3);
             ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+            ctx.fillText("Inventory:                              " +fabricCut_FinalInventory() , 850, 425);
             
             ctx.font = "13pt Georgia";
             if (fabricCutter_LateParts(monthCounter) > 0) {
@@ -6209,6 +6191,7 @@ function sawReport(){
             ctx.fillText("Handling Minutes:              " + sewing_Handling(), 850, 375);
             var neededMachines = sewing_ProcessNeededMachines().toFixed(3);
             ctx.fillText("Needed Machines:               " + neededMachines, 850, 400);
+            ctx.fillText("Inventory:                              " +sewing_FinalInventory() , 850, 425);
             
             ctx.font = "13pt Georgia";
             if (sewing_LateWIP() > 0) {
@@ -7570,6 +7553,6 @@ var main = function () {
 
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
-
+problemListUpdate();
 var then = Date.now();
 main();
