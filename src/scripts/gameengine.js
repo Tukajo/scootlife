@@ -1380,10 +1380,10 @@ loadImg(blackLeft);
 var blackRight = new gameObject(750, 0, 750, 750, 'Art_Assets/game_screen/backgrounds/blackout.png', 0);
 loadImg(blackRight);
 
-var startBtn = new gameObject(canvas.width/2 - 100, 350, 65, 160, 'Art_Assets/main_menu/btn_play.png', 'Art_Assets/main_menu/btn_playh.png');
+var startBtn = new gameObject(canvas.width/2 - 80, 350, 65, 160, 'Art_Assets/main_menu/btn_play.png', 'Art_Assets/main_menu/btn_playh.png');
 loadImg(startBtn);
 
-var creditBtn = new gameObject(canvas.width/2 - 100, 450, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
+var creditBtn = new gameObject(canvas.width/2 - 80, 450, 65, 160, 'Art_Assets/main_menu/btn_help.png', 'Art_Assets/main_menu/btn_helph.png');
 loadImg(creditBtn);
 
 var credits = new gameObject(0, 0, 750, 750, 'Art_Assets/credits.png', 0);
@@ -4717,7 +4717,7 @@ var update = function (modifier) {
         }
         else if ((subScreen == "monthlyReport" || subScreen == "problemList") && tutorialLinear == false) {
             nextMonthBtn.hover=false;
-            if(monthCounter>6) {
+            if(monthCounter>=6) {
                 contact(nextMonthBtn);
             }
 
@@ -4743,15 +4743,17 @@ var update = function (modifier) {
         contact(invPurpleTab);
         purpleTab.hover = invPurpleTab.hover;
     }
-    contact(checkboxPosA);
-    contact(checkboxPosB);
-    contact(checkboxPosC);
-    contact(checkboxPosD);
-    contact(checkboxPosE);
-    contact(checkboxPosF);
-    contact(checkboxPosG);
-    contact(checkboxPosH);
-    contact(checkboxPosI);
+    if(monthCounter<6) {
+        contact(checkboxPosA);
+        contact(checkboxPosB);
+        contact(checkboxPosC);
+        contact(checkboxPosD);
+        contact(checkboxPosE);
+        contact(checkboxPosF);
+        contact(checkboxPosG);
+        contact(checkboxPosH);
+        contact(checkboxPosI);
+    }
     //contact(purchaseBtn);
     if(tutorialLinear==false) {
         contact(buyBtn);
@@ -4776,7 +4778,7 @@ var update = function (modifier) {
             leanToolButtonArray[object][1] = 0;
         }
     }
-    if(currentScreen>=18) {
+    if(currentScreen>=18&&currentScreen<50) {
         leanToolButtonArray.smallLotBtn[1] = 2;
         leanToolButtonArray.selfDirectedBtn[1] = 2;
         leanToolButtonArray.crossTrainBtn[1] = 2;
@@ -5412,15 +5414,15 @@ var render = function () {
 
             }
 
-            column[1] = column[0] + 150;
-            column[2] = column[1] + 60;
-            column[3] = column[2] + 100;
+            column[1] = column[0] + 280;
+            column[2] = column[1] + 90;
+            column[3] = column[2] + 140;
             var row = [];
             row[0] = reportView.y + 150;
             for (var i = 1; i < 23; i++) {
-                row[i] = row[i - 1] + 15;
+                row[i] = row[i - 1] + 20;
             }
-            ctx.font = "14px Georgia";
+            ctx.font = "22px Arial";//was 14
 
             //headings
             ctx.fillText("Sales: ", column[0], row[2]);
@@ -5455,29 +5457,28 @@ var render = function () {
             ctx.fillText("$", column[1], row[14]), ctx.fillText(monthData[monthCounter].overheadCost, column[2], row[14]);
             ctx.fillText("$", column[1], row[15]), ctx.fillText(monthData[monthCounter].indirectCost, column[2], row[15]);
 
+
+
+            ctx.font = "bold 22px Arial";
             ctx.fillText("$", column[1], row[17]), ctx.fillText(monthData[monthCounter].totalExpenses, column[2], row[17]);
 
-
-            ctx.font = "bold 14px Georgia";
             ctx.fillText("$", column[1], row[3]), ctx.fillText(monthData[monthCounter].sales, column[2], row[3]);
             ctx.fillText("$", column[1], row[19]), ctx.fillText(monthData[monthCounter].totalProfit, column[2], row[19]);
-            ctx.font = "bold 17px Arial";
             ctx.fillText("$", column[1], row[22]), ctx.fillText(cumulativeProfit(), column[2], row[22]);
-            ctx.font = "normal 14px Georgia"
+            ctx.font = "normal 22px Arial";
 
             ctx.textAlign = "left";
 
-            ctx.font = "bold 16px Arial";
+            ctx.font = "bold 24px Arial";
             ctx.fillText("Income", column[0], row[1]);
             ctx.fillText("Expenses", column[0], row[5]);
             ctx.fillText("Monthly profit:", column[0], row[19]);
-            ctx.font = "bold 17px Arial";
             ctx.fillText("Cumulative profit:", column[0], row[22]);
-            ctx.font = "normal 14px Arial";
+            ctx.font = "normal 22px Arial";
             ctx.font = "10px Arial";
             
 
-            if (monthCounter > 6 && monthCounter != 12) {
+            if (monthCounter >= 6 && monthCounter != 12) {
 
                 scaleDraw(ctx, nextMonthBtn, 0, 0, 1);
             }
@@ -6592,8 +6593,10 @@ function onClick(evt) {
         subScreen="monthlyReport";
     }
     if (subScreen == "monthlyReport") {
-        if (nextMonthBtn.hover&&monthCounter>6) {//click of next month button will change month, update month stats, and show the new report
+        if (nextMonthBtn.hover&&monthCounter>=6) {//click of next month button will change month, update month stats, and show the new report
             nextMonthBtn.hover=false;
+            nextMonthBtn.x=1196;
+            nextMonthBtn.y=664;
             click.play();
             noise.pause();
             noise.currentTime = 0;
@@ -6646,7 +6649,7 @@ function onClick(evt) {
 
             if(monthCounter<11) {
                 monthCounter++;
-                if(monthCounter>6){
+                if(monthCounter>=6){
                     currentLeanPurchase = "unavailable";
                     currentLeanPurchaseSecond = "unavailable";
                     currentScreen=50;
@@ -6675,6 +6678,8 @@ function onClick(evt) {
 
         if (nextMonthBtn.hover) {//click of next month button will change month, update month stats, and show the new report
             nextMonthBtn.hover=false;
+            nextMonthBtn.x=1196;
+            nextMonthBtn.y=664;
             click.play();
             noise.pause();
             noise.currentTime = 0;
@@ -6728,7 +6733,7 @@ function onClick(evt) {
 
             if(monthCounter<11) {
                 monthCounter++;
-                if(monthCounter>6){
+                if(monthCounter>=6){
                     currentLeanPurchase = "unavailable";
                     currentLeanPurchaseSecond = "unavailable";
                     currentScreen=50;
@@ -6826,6 +6831,8 @@ function onClick(evt) {
         click.play();
     }else if(currentScreen===13&&reportBtn.hover){
         reportBtn.hover=false;
+        nextMonthBtn.x=1196;
+        nextMonthBtn.y=664;
         currentScreen=14;
         subScreen="monthlyReport";
         click.play();
@@ -6845,6 +6852,8 @@ function onClick(evt) {
         click.play();
     }else if(currentScreen===17&&leanToolsBtn.hover){
         leanToolsBtn.hover=false;
+        nextMonthBtn.x=800;
+        nextMonthBtn.y=625;
         currentScreen=18;
         bigDialog.x=320;
         subScreen="leanTools";
@@ -7388,6 +7397,7 @@ function onClick(evt) {
         else if ((currentScreen=="factory"&&subScreen == "office")||currentScreen>=17) {
             if (leanToolsBtn.hover) {
                 leanToolsBtn.hover=false;
+
                 click.play();
                 if (leanTool_Cells == false||currentScreen>=17) {
                     leanToolButtonArray.smallLotBtn[1] = 2;
@@ -7397,10 +7407,15 @@ function onClick(evt) {
                 }
                 if(currentScreen=="factory")
                     subScreen = "leanTools";
+                nextMonthBtn.x=800;
+                nextMonthBtn.y=625;
             }
 
             if (reportBtn.hover) {
                 reportBtn.hover=false;
+                nextMonthBtn.x=1196;
+                nextMonthBtn.y=664;
+
                 click.play();
                 blue = true;
                 purple = false;
