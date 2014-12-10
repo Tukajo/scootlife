@@ -4576,6 +4576,47 @@ function totalPricePerChair(){
 }
 
 
+
+function cumulativeProfit() {
+    if (monthCounter == 0) {
+        return monthData[0].totalProfit;
+    }
+    if (monthCounter == 1) {
+        return monthData[0].totalProfit + monthData[1].totalProfit;
+    }
+    if (monthCounter == 2) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit;
+    }
+    if (monthCounter == 3) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit;
+    }
+    if (monthCounter == 4) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit + monthData[4].totalProfit;
+    }
+    if (monthCounter == 5) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit + monthData[4].totalProfit + monthData[5].totalProfit;
+    }
+    if (monthCounter == 6) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit + monthData[4].totalProfit + monthData[5].totalProfit + monthData[6].totalProfit;
+    }
+    if (monthCounter == 7) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit + monthData[4].totalProfit + monthData[5].totalProfit + monthData[6].totalProfit + monthData[7].totalProfit;
+    }
+    if (monthCounter == 8) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit + monthData[4].totalProfit + monthData[5].totalProfit + monthData[6].totalProfit + monthData[7].totalProfit + monthData[8].totalProfit;
+    }
+    if (monthCounter == 9) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit + monthData[4].totalProfit + monthData[5].totalProfit + monthData[6].totalProfit + monthData[7].totalProfit + monthData[8].totalProfit + monthData[9].totalProfit;
+    }
+    if (monthCounter == 10) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit + monthData[4].totalProfit + monthData[5].totalProfit + monthData[6].totalProfit + monthData[7].totalProfit + monthData[8].totalProfit + monthData[9].totalProfit + monthData[10].totalProfit;
+    }
+    if (monthCounter == 11) {
+        return monthData[0].totalProfit + monthData[1].totalProfit + monthData[2].totalProfit + monthData[3].totalProfit + monthData[4].totalProfit + monthData[5].totalProfit + monthData[6].totalProfit + monthData[7].totalProfit + monthData[8].totalProfit + monthData[9].totalProfit + monthData[10].totalProfit + monthData[11].totalProfit;
+    }
+}
+
+
 var monthData = [new monthFunc("January", 1), new monthFunc("February", 2), new monthFunc("March", 3),
     new monthFunc("April", 4), new monthFunc("May", 5), new monthFunc("June", 6),
     new monthFunc("July", 7), new monthFunc("August", 8), new monthFunc("September", 9),
@@ -5376,7 +5417,7 @@ var render = function () {
             column[3] = column[2] + 100;
             var row = [];
             row[0] = reportView.y + 150;
-            for (var i = 1; i < 20; i++) {
+            for (var i = 1; i < 23; i++) {
                 row[i] = row[i - 1] + 15;
             }
             ctx.font = "14px Georgia";
@@ -5420,6 +5461,8 @@ var render = function () {
             ctx.font = "bold 14px Georgia";
             ctx.fillText("$", column[1], row[3]), ctx.fillText(monthData[monthCounter].sales, column[2], row[3]);
             ctx.fillText("$", column[1], row[19]), ctx.fillText(monthData[monthCounter].totalProfit, column[2], row[19]);
+            ctx.font = "bold 17px Arial";
+            ctx.fillText("$", column[1], row[22]), ctx.fillText(cumulativeProfit(), column[2], row[22]);
             ctx.font = "normal 14px Georgia"
 
             ctx.textAlign = "left";
@@ -5427,9 +5470,12 @@ var render = function () {
             ctx.font = "bold 16px Arial";
             ctx.fillText("Income", column[0], row[1]);
             ctx.fillText("Expenses", column[0], row[5]);
-            ctx.fillText("Total profit:", column[0], row[19]);
+            ctx.fillText("Monthly profit:", column[0], row[19]);
+            ctx.font = "bold 17px Arial";
+            ctx.fillText("Cumulative profit:", column[0], row[22]);
             ctx.font = "normal 14px Arial";
             ctx.font = "10px Arial";
+            
 
             if (monthCounter > 6 && monthCounter != 12) {
 
